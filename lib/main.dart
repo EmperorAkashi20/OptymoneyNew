@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:optymoney/OnboardingScreen/onBoarding.dart';
 import 'package:optymoney/routes.dart';
 import 'package:optymoney/size_config.dart';
 
@@ -61,7 +62,7 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return MaterialApp(
       //builder: EasyLoading.init(),
-      home: Scaffold(),
+      home: OnboardingScreen(),
       debugShowCheckedModeBanner: false,
       title: 'Optymoney',
       theme: theme(),

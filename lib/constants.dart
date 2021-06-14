@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:optymoney/size_config.dart';
 
-const kPrimaryColor = Color(0xFFF33633);
-const kPrimaryLightColor = Color(0xFFFFECDF);
+// const kPrimaryColor = Color(0xFFF33633);
+// const kPrimaryLightColor = Color(0xFFFFECDF);
+const kPrimaryColor = Color(0xFF6F35A5);
+const kPrimaryLightColor = Color(0xFFF1E6FF);
 const kPrimaryGradientColor = LinearGradient(
   begin: Alignment.topLeft,
   end: Alignment.bottomRight,
