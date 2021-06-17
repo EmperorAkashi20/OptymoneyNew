@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:optymoney/SignUp/Components/body.dart';
 
 class SignUpScreen extends StatelessWidget {
   static String routeName = '/SignUpScreen';
@@ -6,6 +7,8 @@ class SignUpScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold();
+    return Scaffold(
+      body: Body(),
+    );
   }
 }

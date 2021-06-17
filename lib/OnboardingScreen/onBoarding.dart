@@ -60,7 +60,8 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                 Container(
                   alignment: Alignment.centerRight,
                   child: TextButton(
-                    onPressed: () => print('Skip'),
+                    onPressed: () =>
+                        Navigator.pushNamed(context, WelcomeScreen.routeName),
                     child: Text(
                       'Skip',
                       style: TextStyle(
