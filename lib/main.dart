@@ -1,73 +1,21 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:optymoney/OnboardingScreen/onBoarding.dart';
 import 'package:optymoney/routes.dart';
-import 'package:optymoney/size_config.dart';
 
-import 'app_theme.dart';
-
-void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-  WidgetsFlutterBinding.ensureInitialized();
-  SizeConfig();
-  // MyApp.prefs = await SharedPreferences.getInstance();
-  // MyApp.user = MyApp.prefs.getString('userId') ?? '0';
-  // MyApp.email = MyApp.prefs.getString('emailId') ?? '0';
-  // MyApp.name = MyApp.prefs.getString('name') ?? '0';
-  // MyApp.pan = MyApp.prefs.getString('pan') ?? '0';
-  // MyApp.hash = MyApp.prefs.getString('hash') ?? '0';
-  // print(MyApp.user);
-  // print(MyApp.email);
-  // print(MyApp.name);
-  // print(MyApp.pan);
-  // print(MyApp.hash);
-  SystemChrome.setPreferredOrientations(
-      [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]).then((_) {
-    runApp(MyApp());
-    //configLoading();
-  });
+void main() {
+  runApp(MyApp());
 }
 
-// void configLoading() {
-//   EasyLoading.instance
-//     ..displayDuration = const Duration(milliseconds: 2000)
-//     ..indicatorType = EasyLoadingIndicatorType.fadingCircle
-//     ..loadingStyle = EasyLoadingStyle.dark
-//     ..indicatorSize = 45.0
-//     ..radius = 10.0
-//     ..progressColor = Colors.yellow
-//     ..backgroundColor = Colors.green
-//     ..indicatorColor = Colors.yellow
-//     ..textColor = Colors.yellow
-//     ..maskColor = Colors.blue.withOpacity(0.5)
-//     ..userInteractions = true
-//     ..dismissOnTap = false;
-//   //..customAnimation = CustomAnimation();
-// }
-
-class MyApp extends StatefulWidget {
-  // static var prefs;
-  // static var user;
-  // static var email;
-  // static var name;
-  // static var pan;
-  // static var hash;
-  // static var newSignUp;
-  @override
-  _MyAppState createState() => _MyAppState();
-}
-
-class _MyAppState extends State<MyApp> {
+class MyApp extends StatelessWidget {
+  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      //builder: EasyLoading.init(),
-      home: OnboardingScreen(),
+      theme: ThemeData(fontFamily: "Nunito"),
       debugShowCheckedModeBanner: false,
-      title: 'Optymoney',
-      theme: theme(),
+      home: OnboardingScreen(),
       routes: routes,
-      //initialRoute: OnboardingScreenOne.routeName,
     );
   }
 }
