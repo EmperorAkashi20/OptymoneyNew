@@ -30,6 +30,8 @@ dependencies:
   flutter_svg: ^0.22.0
   #This is for the onBoarding Screen
   onboarding: ^1.1.0
+  fluttertoast: ^8.0.7
+  pinput: ^1.2.0
 
 dev_dependencies:
   flutter_test:

@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:optymoney/OnboardingScreen/onBoarding.dart';
 import 'package:optymoney/routes.dart';
 
+GlobalKey globalKey = GlobalKey();
+
 void main() {
   runApp(MyApp());
 }
