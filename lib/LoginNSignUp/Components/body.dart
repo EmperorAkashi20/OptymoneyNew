@@ -170,18 +170,18 @@ class _BodyState extends State<Body> {
 
         _headingTop = 70;
 
-        _loginYOffset = _keyboardVisible ? 50 : 250;
+        _loginYOffset = _keyboardVisible ? 50 : 230;
         _loginOpacity = 0.5;
 
-        _registerYOffset = _keyboardVisible ? 40 : 270;
+        _registerYOffset = _keyboardVisible ? 40 : 250;
         _registerHeight = _keyboardVisible ? 20 : 350;
         _registerXOffset = 10;
         _registerWidth = windowWidth - 20;
         _registerOpacity = 0.7;
 
         _otpWidth = windowWidth;
-        _otpYOffset = _keyboardVisible ? 40 : 290;
-        _otpHeight = _keyboardVisible ? 600 : 640;
+        _otpYOffset = _keyboardVisible ? 40 : 270;
+        _otpHeight = _keyboardVisible ? 600 : 655;
         _otpXOffset = 0;
         _otpOpacity = 1;
 
@@ -197,19 +197,21 @@ class _BodyState extends State<Body> {
 
         _headingTop = 60;
 
-        _otpWidth = windowWidth - 20;
+        _loginYOffset = 210;
+        _loginOpacity = 0.3;
+
         _registerXOffset = 15;
         _registerWidth = windowWidth - 30;
-
-        _loginYOffset = 210;
         _registerYOffset = 230;
+        _registerOpacity = 0.5;
+
+        _otpWidth = windowWidth - 20;
         _otpYOffset = 250;
         _otpXOffset = 10;
-        _mpinYOffset = 270;
-
-        _loginOpacity = 0.3;
-        _registerOpacity = 0.5;
         _otpOpacity = 0.7;
+
+        _mpinYOffset = _keyboardVisible ? 40 : 270;
+        _mpinHeight = _keyboardVisible ? 600 : 655;
 
         break;
     }
@@ -523,9 +525,24 @@ class _BodyState extends State<Body> {
                   style: TextStyle(fontSize: 20),
                 ),
               ),
-              Form(
-                key: _formKey,
-                child: animatingBorders(),
+              Column(
+                children: [
+                  Form(
+                    key: _formKey,
+                    child: animatingBorders(),
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      TextButton(
+                        onPressed: () {
+                          _showSnackBar('Sent');
+                        },
+                        child: Text('Resend OTP'),
+                      ),
+                    ],
+                  ),
+                ],
               ),
               Column(
                 children: [
@@ -533,7 +550,6 @@ class _BodyState extends State<Body> {
                     onTap: () {
                       setState(() {
                         print(_pinPutController.text);
-                        _showSnackBar('done');
                         _pageState = 4;
                       });
                     },
