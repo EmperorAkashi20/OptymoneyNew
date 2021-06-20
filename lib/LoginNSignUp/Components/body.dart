@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:optymoney/Components/inputwithicon.dart';
 import 'package:optymoney/Components/outlinebtn.dart';
@@ -33,9 +34,9 @@ class _BodyState extends State<Body> {
   double _loginWidth = 0;
   double _loginHeight = 0;
   double _loginOpacity = 1;
-
   double _loginYOffset = 0;
   double _loginXOffset = 0;
+
   double _registerYOffset = 0;
   double _registerHeight = 0;
   double _registerWidth = 0;
@@ -62,6 +63,12 @@ class _BodyState extends State<Body> {
   @override
   void initState() {
     super.initState();
+    var keyboardVisibilityController = KeyboardVisibilityController();
+    keyboardVisibilityController.onChange.listen((bool visible) {
+      setState(() {
+        _keyboardVisible = visible;
+      });
+    });
   }
 
   @override
@@ -72,6 +79,7 @@ class _BodyState extends State<Body> {
     _loginHeight = windowHeight - 270;
     _registerHeight = windowHeight - 270;
     _otpHeight = windowHeight - 270;
+    _mpinHeight = windowHeight - 270;
 
     switch (_pageState) {
       case 0:
@@ -81,22 +89,26 @@ class _BodyState extends State<Body> {
         _headingTop = 100;
 
         _loginWidth = windowWidth;
-        _registerWidth = windowWidth;
-        _otpWidth = windowWidth;
-        _mpinWidth = windowWidth;
-
+        _loginHeight = _keyboardVisible ? windowHeight : windowHeight - 270;
+        _loginYOffset = _keyboardVisible ? 20 : 270;
         _loginYOffset = windowHeight;
         _loginXOffset = 0;
-        _registerYOffset = windowHeight;
-        _registerXOffset = 0;
-        _otpYOffset = windowHeight;
-        _otpXOffset = 0;
-        _mpinYOffset = windowHeight;
-        _mpinXOffset = 0;
-
         _loginOpacity = 1;
 
+        _registerWidth = windowWidth;
+        _registerYOffset = windowHeight;
+        _registerXOffset = 0;
+
+        _otpWidth = windowWidth;
+        _otpYOffset = windowHeight;
+        _otpXOffset = 0;
+
+        _mpinYOffset = windowHeight;
+        _mpinXOffset = 0;
+        _mpinWidth = windowWidth;
+
         break;
+
       case 1:
         _backgroundColor = Color(0xFF4563DB);
         _headingColor = Colors.white;
@@ -104,22 +116,25 @@ class _BodyState extends State<Body> {
         _headingTop = 90;
 
         _loginWidth = windowWidth;
-        _registerWidth = windowWidth;
-        _otpWidth = windowWidth;
-        _mpinWidth = windowWidth;
-
-        _loginYOffset = 270;
+        _loginYOffset = _keyboardVisible ? 20 : 270;
+        _loginHeight = _keyboardVisible ? windowHeight : windowHeight - 270;
         _loginXOffset = 0;
+        _loginOpacity = 1;
+
+        _registerWidth = windowWidth;
         _registerXOffset = 0;
         _registerYOffset = windowHeight;
+
+        _otpWidth = windowWidth;
         _otpYOffset = windowHeight;
         _otpXOffset = 0;
+
+        _mpinWidth = windowWidth;
         _mpinYOffset = windowHeight;
         _mpinXOffset = 0;
 
-        _loginOpacity = 1;
-
         break;
+
       case 2:
         _backgroundColor = Color(0xFF4563DB);
         _headingColor = Colors.white;
@@ -127,44 +142,52 @@ class _BodyState extends State<Body> {
         _headingTop = 80;
 
         _loginWidth = windowWidth - 40;
-        _registerXOffset = 0;
-        _registerWidth = windowWidth;
-        _otpWidth = windowWidth;
-        _mpinWidth = windowWidth;
-
+        _loginYOffset = _keyboardVisible ? 20 : 270;
+        _loginHeight = _keyboardVisible ? windowHeight : windowHeight - 270;
         _loginYOffset = 250;
         _loginXOffset = 20;
-        _registerYOffset = 270;
+        _loginOpacity = 0.7;
+
+        _registerXOffset = 0;
+        _registerWidth = windowWidth;
+        _registerYOffset = _keyboardVisible ? 20 : 270;
+        _registerHeight = _keyboardVisible ? windowHeight : windowHeight - 270;
+        _registerOpacity = 1;
+
+        _otpWidth = windowWidth;
         _otpYOffset = windowHeight;
         _otpXOffset = 0;
+
+        _mpinWidth = windowWidth;
         _mpinYOffset = windowHeight;
         _mpinXOffset = 0;
 
-        _loginOpacity = 0.7;
-        _registerOpacity = 1;
-
         break;
+
       case 3:
         _backgroundColor = Color(0xFF4563DB);
         _headingColor = Colors.white;
 
         _headingTop = 70;
 
-        _otpWidth = windowWidth;
-        _mpinWidth = windowWidth;
+        _loginYOffset = _keyboardVisible ? 50 : 250;
+        _loginOpacity = 0.5;
 
-        _loginYOffset = 230;
-        _registerYOffset = 250;
+        _registerYOffset = _keyboardVisible ? 40 : 270;
+        _registerHeight = _keyboardVisible ? 20 : 350;
         _registerXOffset = 10;
         _registerWidth = windowWidth - 20;
-        _otpYOffset = 270;
+        _registerOpacity = 0.7;
+
+        _otpWidth = windowWidth;
+        _otpYOffset = _keyboardVisible ? 40 : 290;
+        _otpHeight = _keyboardVisible ? 600 : 640;
         _otpXOffset = 0;
+        _otpOpacity = 1;
+
+        _mpinWidth = windowWidth;
         _mpinYOffset = windowHeight;
         _mpinXOffset = 0;
-
-        _loginOpacity = 0.5;
-        _registerOpacity = 0.7;
-        _otpOpacity = 1;
 
         break;
 
@@ -519,21 +542,22 @@ class _BodyState extends State<Body> {
                   SizedBox(
                     height: 20,
                   ),
-                  GestureDetector(
-                    onTap: () {
-                      setState(() {
-                        _showSnackBar('Sent');
-                        print('sent');
-                      });
-                    },
-                    child: OutlineBtn(btnText: 'Resend OTP'),
-                  ),
+                  // GestureDetector(
+                  //   onTap: () {
+                  //     setState(() {
+                  //       _showSnackBar('Sent');
+                  //       print('sent');
+                  //     });
+                  //   },
+                  //   child: OutlineBtn(btnText: 'Resend OTP'),
+                  // ),
                 ],
               ),
             ],
           ),
         ),
         AnimatedContainer(
+          height: _mpinHeight,
           padding: EdgeInsets.all(32),
           curve: Curves.fastLinearToSlowEaseIn,
           duration: Duration(milliseconds: 1000),
@@ -546,6 +570,7 @@ class _BodyState extends State<Body> {
             ),
           ),
           child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Container(
                 margin: EdgeInsets.only(bottom: 20),
@@ -553,6 +578,9 @@ class _BodyState extends State<Body> {
                   'Set your 4 digit MPIN',
                   style: TextStyle(fontSize: 20),
                 ),
+              ),
+              Form(
+                child: animatingBordersForMpin(),
               ),
               GestureDetector(
                 onTap: () {
@@ -578,6 +606,36 @@ class _BodyState extends State<Body> {
     return PinPut(
       obscureText: '*',
       fieldsCount: 6,
+      eachFieldHeight: 50.0,
+      eachFieldWidth: 50,
+      withCursor: false,
+      //onSubmit: (String pin) => _showSnackBar(pin),
+      focusNode: _pinPutFocusNode,
+      controller: _pinPutController,
+      submittedFieldDecoration: pinPutDecoration.copyWith(
+        borderRadius: BorderRadius.circular(20.0),
+      ),
+      selectedFieldDecoration: pinPutDecoration,
+      followingFieldDecoration: pinPutDecoration.copyWith(
+        borderRadius: BorderRadius.circular(5.0),
+        border: Border.all(
+          color: Color(0xFFBB9B9B9).withOpacity(0.5),
+        ),
+      ),
+    );
+  }
+
+  Widget animatingBordersForMpin() {
+    final BoxDecoration pinPutDecoration = BoxDecoration(
+      border: Border.all(
+        color: Color(0xFFBB9B9B9).withOpacity(0.5),
+      ),
+      borderRadius: BorderRadius.circular(15.0),
+      color: Color(0xFFBB9B9B9).withOpacity(0.5),
+    );
+    return PinPut(
+      obscureText: '*',
+      fieldsCount: 4,
       eachFieldHeight: 50.0,
       eachFieldWidth: 50,
       withCursor: false,

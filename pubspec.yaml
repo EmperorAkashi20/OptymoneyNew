@@ -32,6 +32,7 @@ dependencies:
   onboarding: ^1.1.0
   fluttertoast: ^8.0.7
   pinput: ^1.2.0
+  flutter_keyboard_visibility: ^5.0.2
 
 dev_dependencies:
   flutter_test:
