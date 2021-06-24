@@ -30,9 +30,20 @@ dependencies:
   flutter_svg: ^0.22.0
   #This is for the onBoarding Screen
   onboarding: ^1.1.0
+  #this is for showing error messages in form of toasts
   fluttertoast: ^8.0.7
+  #used for inputing pins/otp
   pinput: ^1.2.0
+  #checks if keyboard is being used or not
   flutter_keyboard_visibility: ^5.0.2
+  #bottom nav bar throughout the app
+  google_nav_bar: ^5.0.5
+  #for api calls
+  http: ^0.13.3
+  #for loading animations when the api is fetching data
+  loading_animations: ^2.2.0
+  #animating numbers
+  number_slide_animation: ^0.2.1
 
 dev_dependencies:
   flutter_test:

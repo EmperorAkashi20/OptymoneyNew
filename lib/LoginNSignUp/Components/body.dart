@@ -4,6 +4,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:optymoney/Components/inputwithicon.dart';
 import 'package:optymoney/Components/outlinebtn.dart';
 import 'package:optymoney/Components/primarybtn.dart';
+import 'package:optymoney/Dashboard/dashboard.dart';
 import 'package:optymoney/main.dart';
 import 'package:pinput/pin_put/pin_put.dart';
 
@@ -142,9 +143,8 @@ class _BodyState extends State<Body> {
         _headingTop = 80;
 
         _loginWidth = windowWidth - 40;
-        _loginYOffset = _keyboardVisible ? 20 : 270;
+        _loginYOffset = _keyboardVisible ? 20 : 240;
         _loginHeight = _keyboardVisible ? windowHeight : windowHeight - 270;
-        _loginYOffset = 250;
         _loginXOffset = 20;
         _loginOpacity = 0.7;
 
@@ -170,18 +170,18 @@ class _BodyState extends State<Body> {
 
         _headingTop = 70;
 
-        _loginYOffset = _keyboardVisible ? 50 : 230;
+        _loginYOffset = _keyboardVisible ? 50 : 240;
         _loginOpacity = 0.5;
 
-        _registerYOffset = _keyboardVisible ? 40 : 250;
-        _registerHeight = _keyboardVisible ? 20 : 350;
+        _registerYOffset = _keyboardVisible ? 40 : 260;
+        _registerHeight = _keyboardVisible ? windowHeight : windowHeight - 270;
         _registerXOffset = 10;
         _registerWidth = windowWidth - 20;
         _registerOpacity = 0.7;
 
         _otpWidth = windowWidth;
-        _otpYOffset = _keyboardVisible ? 40 : 270;
-        _otpHeight = _keyboardVisible ? 600 : 655;
+        _otpYOffset = _keyboardVisible ? 20 : 275;
+        _otpHeight = _keyboardVisible ? windowHeight : windowHeight - 270;
         _otpXOffset = 0;
         _otpOpacity = 1;
 
@@ -209,9 +209,10 @@ class _BodyState extends State<Body> {
         _otpYOffset = 250;
         _otpXOffset = 10;
         _otpOpacity = 0.7;
+        _otpYOffset = _keyboardVisible ? 10 : 250;
 
-        _mpinYOffset = _keyboardVisible ? 40 : 270;
-        _mpinHeight = _keyboardVisible ? 600 : 655;
+        _mpinYOffset = _keyboardVisible ? 20 : 270;
+        _mpinHeight = _keyboardVisible ? windowHeight : windowHeight - 270;
 
         break;
     }
@@ -382,7 +383,12 @@ class _BodyState extends State<Body> {
                         }
                       }
                     },
-                    child: PrimaryButton(btnText: 'Login'),
+                    child: GestureDetector(
+                      onTap: () {
+                        Navigator.pushNamed(context, Dashboard.routeName);
+                      },
+                      child: PrimaryButton(btnText: 'Login'),
+                    ),
                   ),
                   SizedBox(
                     height: 20,
@@ -553,7 +559,10 @@ class _BodyState extends State<Body> {
                         _pageState = 4;
                       });
                     },
-                    child: PrimaryButton(btnText: 'Continue'),
+                    child: Padding(
+                      padding: const EdgeInsets.only(bottom: 40.0),
+                      child: PrimaryButton(btnText: 'Continue'),
+                    ),
                   ),
                   SizedBox(
                     height: 20,
@@ -600,7 +609,7 @@ class _BodyState extends State<Body> {
               ),
               GestureDetector(
                 onTap: () {
-                  print('done');
+                  Navigator.pushNamed(context, Dashboard.routeName);
                 },
                 child: PrimaryButton(btnText: 'I am ready!'),
               ),
