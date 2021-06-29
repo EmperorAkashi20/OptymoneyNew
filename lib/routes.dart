@@ -1,4 +1,5 @@
 import 'package:flutter/widgets.dart';
+import 'package:optymoney/Dashboard/Components/DetailsPage.dart';
 import 'package:optymoney/Dashboard/dashboard.dart';
 import 'package:optymoney/ITR/incometax.dart';
 import 'package:optymoney/Investments/investments.dart';
@@ -13,4 +14,5 @@ final Map<String, WidgetBuilder> routes = {
   IncomeTax.routeName: (context) => IncomeTax(),
   Settings.routeName: (context) => Settings(),
   Investments.routeName: (context) => Investments(),
+  DetailsPage.routeName: (context) => DetailsPage(),
 };
