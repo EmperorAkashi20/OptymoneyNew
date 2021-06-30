@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:http/http.dart';
 import 'package:loading_animations/loading_animations.dart';
 import 'package:optymoney/Components/outlinebtn.dart';
@@ -378,6 +379,129 @@ class _DetailsPageState extends State<DetailsPage> {
                             height: 20,
                           ),
                           GestureDetector(
+                            onTap: () {
+                              showModalBottomSheet(
+                                backgroundColor: Colors.transparent,
+                                context: context,
+                                builder: (BuildContext context) {
+                                  return AnimatedContainer(
+                                    duration: Duration(milliseconds: 10000),
+                                    curve: Curves.easeIn,
+                                    height: windowHeight * 0.2,
+                                    decoration: BoxDecoration(
+                                      color: Colors.white,
+                                      borderRadius: BorderRadius.only(
+                                        topLeft: Radius.circular(20),
+                                        topRight: Radius.circular(20),
+                                      ),
+                                    ),
+                                    child: Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                          horizontal: 10.0),
+                                      child: Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: [
+                                          GestureDetector(
+                                            onTap: () => print('Buy'),
+                                            child: Row(
+                                              children: [
+                                                FaIcon(
+                                                    FontAwesomeIcons.syncAlt),
+                                                SizedBox(
+                                                  width: 20,
+                                                ),
+                                                Column(
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.start,
+                                                  children: [
+                                                    Text(
+                                                      'Buy More',
+                                                      style: TextStyle(
+                                                        fontSize: 18,
+                                                        fontWeight:
+                                                            FontWeight.bold,
+                                                      ),
+                                                    ),
+                                                    Text(
+                                                      'You will be taken to the scheme page',
+                                                      style: TextStyle(
+                                                        fontSize: 15,
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                          SizedBox(
+                                            height: 20,
+                                          ),
+                                          GestureDetector(
+                                            onTap: () {
+                                              Navigator.pop(context);
+                                              showModalBottomSheet(
+                                                backgroundColor:
+                                                    Colors.transparent,
+                                                context: context,
+                                                builder:
+                                                    (BuildContext context) {
+                                                  return Container(
+                                                    height: windowHeight * 0.3,
+                                                    decoration: BoxDecoration(
+                                                      color: Colors.white,
+                                                      borderRadius:
+                                                          BorderRadius.only(
+                                                        topLeft:
+                                                            Radius.circular(20),
+                                                        topRight:
+                                                            Radius.circular(20),
+                                                      ),
+                                                    ),
+                                                  );
+                                                },
+                                              );
+                                            },
+                                            child: Row(
+                                              children: [
+                                                FaIcon(FontAwesomeIcons
+                                                    .exchangeAlt),
+                                                SizedBox(
+                                                  width: 20,
+                                                ),
+                                                Column(
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.start,
+                                                  children: [
+                                                    Text(
+                                                      'Redeem',
+                                                      style: TextStyle(
+                                                        fontSize: 18,
+                                                        fontWeight:
+                                                            FontWeight.bold,
+                                                      ),
+                                                    ),
+                                                    Text(
+                                                      'The max redeemable amount is ₹' +
+                                                          DashboardData
+                                                              .currentValue
+                                                              .toString(),
+                                                      style: TextStyle(
+                                                        fontSize: 15,
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  );
+                                },
+                              );
+                            },
                             child: OutlineBtn(
                               btnText: 'Transact',
                             ),

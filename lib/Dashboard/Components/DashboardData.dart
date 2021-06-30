@@ -111,6 +111,7 @@ class _DashboardDataState extends State<DashboardData> {
     double windowHeight = MediaQuery.of(context).size.height;
     double windowWidth = MediaQuery.of(context).size.width;
     return Scaffold(
+      //backgroundColor: Color(0XFFE3D3FF).withOpacity(0.5),
       appBar: AppBar(
         automaticallyImplyLeading: false,
         elevation: 0,
@@ -357,6 +358,11 @@ class _DashboardDataState extends State<DashboardData> {
                               ),
                             ],
                           ),
+                          // Expanded(
+                          //   child: Divider(
+                          //     thickness: 2,
+                          //   ),
+                          // ),
                         ],
                       ),
                     ),
@@ -364,6 +370,7 @@ class _DashboardDataState extends State<DashboardData> {
                   Expanded(
                     flex: 6,
                     child: Card(
+                      // color: Color(0XFFF2EBFF).withOpacity(0.5),
                       elevation: 0,
                       child: ListView.builder(
                         itemCount: snapshot.data.length,
@@ -393,137 +400,146 @@ class _DashboardDataState extends State<DashboardData> {
                                 Navigator.pushNamed(
                                     context, DetailsPage.routeName);
                               },
-                              child: Card(
-                                elevation: 5,
-                                child: Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Text(
-                                        snapshot.data[index].fr_scheme_name,
-                                        style: TextStyle(
-                                            fontWeight: FontWeight.bold),
-                                      ),
-                                      SizedBox(
-                                        height: 8,
-                                      ),
-                                      Row(
-                                        children: [
-                                          Text(
-                                            'Folio ',
-                                            style: TextStyle(
-                                              color: Colors.green,
-                                              fontWeight: FontWeight.bold,
+                              child: Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(vertical: 3.0),
+                                child: Card(
+                                  elevation: 1,
+                                  color: Colors.white,
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(10.0),
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          snapshot.data[index].fr_scheme_name,
+                                          style: TextStyle(
+                                              fontWeight: FontWeight.bold),
+                                        ),
+                                        SizedBox(
+                                          height: 8,
+                                        ),
+                                        Row(
+                                          children: [
+                                            Text(
+                                              'Folio ',
+                                              style: TextStyle(
+                                                color: Colors.green,
+                                                fontWeight: FontWeight.bold,
+                                              ),
                                             ),
-                                          ),
-                                          Text(
-                                            snapshot.data[index].folio,
-                                            style: TextStyle(
-                                              fontWeight: FontWeight.bold,
+                                            Text(
+                                              snapshot.data[index].folio,
+                                              style: TextStyle(
+                                                fontWeight: FontWeight.bold,
+                                              ),
                                             ),
-                                          ),
-                                        ],
-                                      ),
-                                      SizedBox(
-                                        height: 8,
-                                      ),
-                                      Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          Expanded(
-                                            child: Column(
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.center,
-                                              children: [
-                                                Text(
-                                                  snapshot.data[index].all_units
-                                                      .toStringAsFixed(2),
-                                                  style: TextStyle(
-                                                      fontWeight:
-                                                          FontWeight.w600),
-                                                ),
-                                                Text('All Units'),
-                                              ],
-                                            ),
-                                          ),
-                                          Expanded(
-                                            child: Column(
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.center,
-                                              children: [
-                                                Text(
-                                                  snapshot
-                                                      .data[index].sch_amount
-                                                      .toStringAsFixed(2),
-                                                  style: TextStyle(
-                                                    fontWeight: FontWeight.w600,
+                                          ],
+                                        ),
+                                        SizedBox(
+                                          height: 8,
+                                        ),
+                                        Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            Expanded(
+                                              child: Column(
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.center,
+                                                children: [
+                                                  Text(
+                                                    snapshot
+                                                        .data[index].all_units
+                                                        .toStringAsFixed(2),
+                                                    style: TextStyle(
+                                                        fontWeight:
+                                                            FontWeight.w600),
                                                   ),
-                                                ),
-                                                Text('Purchase Price'),
-                                              ],
+                                                  Text('All Units'),
+                                                ],
+                                              ),
                                             ),
-                                          ),
-                                          Expanded(
-                                            child: Column(
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.center,
-                                              children: [
-                                                Row(
-                                                  crossAxisAlignment:
-                                                      CrossAxisAlignment.end,
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment.center,
-                                                  children: [
-                                                    if (snapshot.data[index]
-                                                            .sch_amount <
-                                                        snapshot.data[index]
-                                                            .presentVal)
-                                                      FaIcon(
-                                                        FontAwesomeIcons.sortUp,
-                                                        color: Colors.green,
-                                                        size: 18,
-                                                      ),
-                                                    if (snapshot.data[index]
-                                                            .sch_amount >
-                                                        snapshot.data[index]
-                                                            .presentVal)
-                                                      FaIcon(
-                                                        FontAwesomeIcons
-                                                            .sortDown,
-                                                        color: Colors.red,
-                                                        size: 18,
-                                                      ),
-                                                    Text(
-                                                      snapshot.data[index]
-                                                          .presentVal
-                                                          .toStringAsFixed(2),
-                                                      style: TextStyle(
-                                                          fontWeight:
-                                                              FontWeight.w600,
-                                                          color: snapshot
-                                                                      .data[
-                                                                          index]
-                                                                      .sch_amount <
-                                                                  snapshot
-                                                                      .data[
-                                                                          index]
-                                                                      .presentVal
-                                                              ? Colors.green
-                                                                  .shade700
-                                                              : Colors.red),
+                                            Expanded(
+                                              child: Column(
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.center,
+                                                children: [
+                                                  Text(
+                                                    snapshot
+                                                        .data[index].sch_amount
+                                                        .toStringAsFixed(2),
+                                                    style: TextStyle(
+                                                      fontWeight:
+                                                          FontWeight.w600,
                                                     ),
-                                                  ],
-                                                ),
-                                                Text('Current Value'),
-                                              ],
+                                                  ),
+                                                  Text('Purchase Price'),
+                                                ],
+                                              ),
                                             ),
-                                          ),
-                                        ],
-                                      ),
-                                    ],
+                                            Expanded(
+                                              child: Column(
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.center,
+                                                children: [
+                                                  Row(
+                                                    crossAxisAlignment:
+                                                        CrossAxisAlignment.end,
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .center,
+                                                    children: [
+                                                      if (snapshot.data[index]
+                                                              .sch_amount <
+                                                          snapshot.data[index]
+                                                              .presentVal)
+                                                        FaIcon(
+                                                          FontAwesomeIcons
+                                                              .sortUp,
+                                                          color: Colors.green,
+                                                          size: 18,
+                                                        ),
+                                                      if (snapshot.data[index]
+                                                              .sch_amount >
+                                                          snapshot.data[index]
+                                                              .presentVal)
+                                                        FaIcon(
+                                                          FontAwesomeIcons
+                                                              .sortDown,
+                                                          color: Colors.red,
+                                                          size: 18,
+                                                        ),
+                                                      Text(
+                                                        snapshot.data[index]
+                                                            .presentVal
+                                                            .toStringAsFixed(2),
+                                                        style: TextStyle(
+                                                            fontWeight:
+                                                                FontWeight.w600,
+                                                            color: snapshot
+                                                                        .data[
+                                                                            index]
+                                                                        .sch_amount <
+                                                                    snapshot
+                                                                        .data[
+                                                                            index]
+                                                                        .presentVal
+                                                                ? Colors.green
+                                                                    .shade700
+                                                                : Colors.red),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                  Text('Current Value'),
+                                                ],
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ],
+                                    ),
                                   ),
                                 ),
                               ),
