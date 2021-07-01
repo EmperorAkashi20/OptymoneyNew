@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:optymoney/Settings/Components/body.dart';
 
 class Settings extends StatelessWidget {
   static String routeName = '/Settings';
@@ -6,6 +7,8 @@ class Settings extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold();
+    return Scaffold(
+      body: Body(),
+    );
   }
 }
