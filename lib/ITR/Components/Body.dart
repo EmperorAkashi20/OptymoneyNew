@@ -2,6 +2,8 @@ import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:optymoney/Components/inputwithicon.dart';
+import 'package:optymoney/Components/outlinebtn.dart';
+import 'package:optymoney/Dashboard/dashboard.dart';
 
 class Body extends StatefulWidget {
   const Body({Key? key}) : super(key: key);
@@ -52,6 +54,7 @@ class _BodyState extends State<Body> {
   int _itemcountOtherAttachments = 0;
   int _itemcount = 0;
   int _itemcount1 = 0;
+  bool _showButtonStatus = false;
 
   var a = "null";
 
@@ -384,6 +387,7 @@ class _BodyState extends State<Body> {
                                                                   .length
                                                               : 1;
                                                       print(_itemcount);
+
                                                       final bool isMultiPath =
                                                           _pathsform16 !=
                                                                   null &&
@@ -897,28 +901,15 @@ class _BodyState extends State<Body> {
             SizedBox(
               height: 10,
             ),
-            if (_itemcount > 0)
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 15.0),
-                child: Align(
-                  alignment: Alignment.centerLeft,
-                  child: Container(
-                    decoration: BoxDecoration(
-                      color: Color(0xFF3594DD),
-                      borderRadius: BorderRadius.circular(20),
-                    ),
-                    child: TextButton(
-                      onPressed: () {
-                        _clearCachedFiles();
-                      },
-                      child: Text(
-                        "Clear Cached Files",
-                        style: TextStyle(color: Colors.black),
-                      ),
-                    ),
-                  ),
-                ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 15.0),
+              child: GestureDetector(
+                onTap: () {
+                  print('object');
+                },
+                child: OutlineBtn(btnText: "Proceed"),
               ),
+            ),
           ],
         ),
       ),
