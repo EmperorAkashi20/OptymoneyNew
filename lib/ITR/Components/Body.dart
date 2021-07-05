@@ -15,19 +15,45 @@ class _BodyState extends State<Body> {
   bool _ebill = false;
   bool _deposit = false;
   bool _foreignTravel = false;
-  String? _fileName;
-  List<PlatformFile>? _paths;
-  String? _directoryPath;
+
+  String? _fileNameform16;
+  String? _fileNameother;
+  String? _fileNamenotice;
+  String? _fileNamelastitr;
+  String? _fileNameeother;
+
+  List<PlatformFile>? _pathsform16;
+  List<PlatformFile>? _pathsother;
+  List<PlatformFile>? _pathsnotice;
+  List<PlatformFile>? _pathslastitr;
+  List<PlatformFile>? _pathseother;
+
+  String? _directoryPathform16;
+  String? _directoryPathother;
+  String? _directoryPathnotice;
+  String? _directoryPathlastitr;
+  String? _directoryPatheother;
+
+  bool _loadingPathform16 = false;
+  bool _loadingPathother = false;
+  bool _loadingPathnotice = false;
+  bool _loadingPathlastitr = false;
+  bool _loadingPatheother = false;
+
   String? _extension;
-  bool _loadingPath = false;
+
   FileType _pickingType = FileType.any;
   bool _multiPick = true;
   TextEditingController _controller = TextEditingController();
+
   int _itemcountItr = 0;
   int _itemcountNoticeCopy = 0;
   int _itemcountLastItr = 0;
   int _itemcountOtherAttachments = 0;
   int _itemcount = 0;
+  int _itemcount1 = 0;
+
+  var a = "null";
 
   @override
   void initState() {
@@ -36,10 +62,10 @@ class _BodyState extends State<Body> {
   }
 
   void _openFileExplorer() async {
-    setState(() => _loadingPath = true);
+    setState(() => _loadingPathform16 = true);
     try {
-      _directoryPath = null;
-      _paths = (await FilePicker.platform.pickFiles(
+      _directoryPathform16 = null;
+      _pathsform16 = (await FilePicker.platform.pickFiles(
         type: _pickingType,
         allowMultiple: _multiPick,
         allowedExtensions: (_extension?.isNotEmpty ?? false)
@@ -54,10 +80,119 @@ class _BodyState extends State<Body> {
     }
     if (!mounted) return;
     setState(() {
-      _loadingPath = false;
-      print(_paths!.first.extension);
-      _fileName =
-          _paths != null ? _paths!.map((e) => e.name).toString() : '...';
+      _loadingPathform16 = false;
+      print(_pathsform16!.first.extension);
+      _fileNameform16 = _pathsform16 != null
+          ? _pathsform16!.map((e) => e.name).toString()
+          : '...';
+    });
+  }
+
+  void _openFileExplorerItrOther() async {
+    setState(() => _loadingPathother = true);
+    try {
+      _directoryPathother = null;
+      _pathsother = (await FilePicker.platform.pickFiles(
+        type: _pickingType,
+        allowMultiple: _multiPick,
+        allowedExtensions: (_extension?.isNotEmpty ?? false)
+            ? _extension?.replaceAll(' ', '').split(',')
+            : null,
+      ))
+          ?.files;
+    } on PlatformException catch (e) {
+      print("Unsupported operation" + e.toString());
+    } catch (ex) {
+      print(ex);
+    }
+    if (!mounted) return;
+    setState(() {
+      _loadingPathother = false;
+      print(_pathsother!.first.extension);
+      _fileNameother = _pathsother != null
+          ? _pathsother!.map((e) => e.name).toString()
+          : '...';
+    });
+  }
+
+  void _openFileExplorerEnotice() async {
+    setState(() => _loadingPathnotice = true);
+    try {
+      _directoryPathnotice = null;
+      _pathsnotice = (await FilePicker.platform.pickFiles(
+        type: _pickingType,
+        allowMultiple: _multiPick,
+        allowedExtensions: (_extension?.isNotEmpty ?? false)
+            ? _extension?.replaceAll(' ', '').split(',')
+            : null,
+      ))
+          ?.files;
+    } on PlatformException catch (e) {
+      print("Unsupported operation" + e.toString());
+    } catch (ex) {
+      print(ex);
+    }
+    if (!mounted) return;
+    setState(() {
+      _loadingPathnotice = false;
+      print(_pathsnotice!.first.extension);
+      _fileNamenotice = _pathsnotice != null
+          ? _pathsnotice!.map((e) => e.name).toString()
+          : '...';
+    });
+  }
+
+  void _openFileExplorerLastItr() async {
+    setState(() => _loadingPathlastitr = true);
+    try {
+      _directoryPathlastitr = null;
+      _pathslastitr = (await FilePicker.platform.pickFiles(
+        type: _pickingType,
+        allowMultiple: _multiPick,
+        allowedExtensions: (_extension?.isNotEmpty ?? false)
+            ? _extension?.replaceAll(' ', '').split(',')
+            : null,
+      ))
+          ?.files;
+    } on PlatformException catch (e) {
+      print("Unsupported operation" + e.toString());
+    } catch (ex) {
+      print(ex);
+    }
+    if (!mounted) return;
+    setState(() {
+      _loadingPathlastitr = false;
+      print(_pathslastitr!.first.extension);
+      _fileNamelastitr = _pathslastitr != null
+          ? _pathslastitr!.map((e) => e.name).toString()
+          : '...';
+    });
+  }
+
+  void _openFileExplorerEOther() async {
+    setState(() => _loadingPatheother = true);
+    try {
+      _directoryPatheother = null;
+      _pathseother = (await FilePicker.platform.pickFiles(
+        type: _pickingType,
+        allowMultiple: _multiPick,
+        allowedExtensions: (_extension?.isNotEmpty ?? false)
+            ? _extension?.replaceAll(' ', '').split(',')
+            : null,
+      ))
+          ?.files;
+    } on PlatformException catch (e) {
+      print("Unsupported operation" + e.toString());
+    } catch (ex) {
+      print(ex);
+    }
+    if (!mounted) return;
+    setState(() {
+      _loadingPatheother = false;
+      print(_pathseother!.first.extension);
+      _fileNameeother = _pathseother != null
+          ? _pathseother!.map((e) => e.name).toString()
+          : '...';
     });
   }
 
@@ -76,6 +211,7 @@ class _BodyState extends State<Body> {
 
   @override
   Widget build(BuildContext context) {
+    double windowWidth = MediaQuery.of(context).size.width;
     return SingleChildScrollView(
       child: Container(
         child: Column(
@@ -182,12 +318,13 @@ class _BodyState extends State<Body> {
                       Align(
                         alignment: Alignment.centerLeft,
                         child: Container(
+                          width: windowWidth * 0.4,
                           decoration: BoxDecoration(
                             color: Color(0xFF3594DD),
                             borderRadius: BorderRadius.circular(20),
                           ),
                           child: TextButton(
-                            onPressed: () {
+                            onPressed: () async {
                               _openFileExplorer();
                             },
                             child: Text(
@@ -200,18 +337,87 @@ class _BodyState extends State<Body> {
                       SizedBox(
                         height: 10,
                       ),
-                      Container(
-                        decoration: BoxDecoration(
-                            border: Border.all(
-                                color: Colors.grey.shade400, width: 2),
-                            borderRadius: BorderRadius.circular(50)),
-                        padding: EdgeInsets.all(20),
-                        child: Center(
-                          child: Text(
-                            "Number Of Files Selected: " +
-                                _itemcount.toString(),
-                            style: TextStyle(
-                                color: Color(0xFFB40284A), fontSize: 16),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 2.0),
+                        child: Card(
+                          elevation: 1,
+                          child: Builder(
+                            builder: (BuildContext context) =>
+                                _loadingPathform16
+                                    ? Padding(
+                                        padding:
+                                            const EdgeInsets.only(bottom: 10.0),
+                                        child:
+                                            const CircularProgressIndicator(),
+                                      )
+                                    : _directoryPathform16 != null
+                                        ? ListTile(
+                                            title: const Text('Directory path'),
+                                            subtitle:
+                                                Text(_directoryPathform16!),
+                                          )
+                                        : _pathsform16 != null
+                                            ? Container(
+                                                padding: const EdgeInsets.only(
+                                                    bottom: 30.0),
+                                                height: MediaQuery.of(context)
+                                                        .size
+                                                        .height *
+                                                    0.20,
+                                                child: Scrollbar(
+                                                  child: ListView.separated(
+                                                    itemCount: _pathsform16 !=
+                                                                null &&
+                                                            _pathsform16!
+                                                                .isNotEmpty
+                                                        ? _pathsform16!.length
+                                                        : 1,
+                                                    itemBuilder:
+                                                        (BuildContext context,
+                                                            int index) {
+                                                      _itemcount =
+                                                          _pathsform16 !=
+                                                                      null &&
+                                                                  _pathsform16!
+                                                                      .isNotEmpty
+                                                              ? _pathsform16!
+                                                                  .length
+                                                              : 1;
+                                                      print(_itemcount);
+                                                      final bool isMultiPath =
+                                                          _pathsform16 !=
+                                                                  null &&
+                                                              _pathsform16!
+                                                                  .isNotEmpty;
+                                                      final String name = 'File $index: ' +
+                                                          (isMultiPath
+                                                              ? _pathsform16!
+                                                                      .map((e) =>
+                                                                          e.name)
+                                                                      .toList()[
+                                                                  index]
+                                                              : _fileNameform16 ??
+                                                                  '...');
+                                                      final path = _pathsform16!
+                                                          .map((e) => e.path)
+                                                          .toList()[index]
+                                                          .toString();
+
+                                                      return ListTile(
+                                                        title: Text(
+                                                          name,
+                                                        ),
+                                                        subtitle: Text(path),
+                                                      );
+                                                    },
+                                                    separatorBuilder:
+                                                        (BuildContext context,
+                                                                int index) =>
+                                                            const Divider(),
+                                                  ),
+                                                ),
+                                              )
+                                            : const SizedBox(),
                           ),
                         ),
                       ),
@@ -221,13 +427,14 @@ class _BodyState extends State<Body> {
                       Align(
                         alignment: Alignment.centerLeft,
                         child: Container(
+                          width: windowWidth * 0.4,
                           decoration: BoxDecoration(
                             color: Color(0xFF3594DD),
                             borderRadius: BorderRadius.circular(20),
                           ),
                           child: TextButton(
                             onPressed: () {
-                              _openFileExplorer();
+                              _openFileExplorerItrOther();
                             },
                             child: Text(
                               "Other Attachments",
@@ -239,18 +446,81 @@ class _BodyState extends State<Body> {
                       SizedBox(
                         height: 10,
                       ),
-                      Container(
-                        decoration: BoxDecoration(
-                            border: Border.all(
-                                color: Colors.grey.shade400, width: 2),
-                            borderRadius: BorderRadius.circular(50)),
-                        padding: EdgeInsets.all(20),
-                        child: Center(
-                          child: Text(
-                            "Number Of Files Selected: " +
-                                _itemcount.toString(),
-                            style: TextStyle(
-                                color: Color(0xFFB40284A), fontSize: 16),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 2.0),
+                        child: Card(
+                          elevation: 1,
+                          child: Builder(
+                            builder: (BuildContext context) => _loadingPathother
+                                ? Padding(
+                                    padding:
+                                        const EdgeInsets.only(bottom: 10.0),
+                                    child: const CircularProgressIndicator(),
+                                  )
+                                : _directoryPathother != null
+                                    ? ListTile(
+                                        title: const Text('Directory path'),
+                                        subtitle: Text(_directoryPathother!),
+                                      )
+                                    : _pathsother != null
+                                        ? Container(
+                                            padding: const EdgeInsets.only(
+                                                bottom: 30.0),
+                                            height: MediaQuery.of(context)
+                                                    .size
+                                                    .height *
+                                                0.20,
+                                            child: Scrollbar(
+                                              child: ListView.separated(
+                                                itemCount: _pathsother !=
+                                                            null &&
+                                                        _pathsother!.isNotEmpty
+                                                    ? _pathsother!.length
+                                                    : 1,
+                                                itemBuilder:
+                                                    (BuildContext context,
+                                                        int index) {
+                                                  _itemcount1 =
+                                                      _pathsother != null &&
+                                                              _pathsother!
+                                                                  .isNotEmpty
+                                                          ? _pathsother!.length
+                                                          : 1;
+                                                  print(_itemcount1);
+                                                  final bool isMultiPath =
+                                                      _pathsother != null &&
+                                                          _pathsother!
+                                                              .isNotEmpty;
+                                                  final String name =
+                                                      'File $index: ' +
+                                                          (isMultiPath
+                                                              ? _pathsother!
+                                                                      .map((e) =>
+                                                                          e.name)
+                                                                      .toList()[
+                                                                  index]
+                                                              : _fileNameother ??
+                                                                  '...');
+                                                  final path = _pathsother!
+                                                      .map((e) => e.path)
+                                                      .toList()[index]
+                                                      .toString();
+
+                                                  return ListTile(
+                                                    title: Text(
+                                                      name,
+                                                    ),
+                                                    subtitle: Text(path),
+                                                  );
+                                                },
+                                                separatorBuilder:
+                                                    (BuildContext context,
+                                                            int index) =>
+                                                        const Divider(),
+                                              ),
+                                            ),
+                                          )
+                                        : const SizedBox(),
                           ),
                         ),
                       ),
@@ -268,13 +538,14 @@ class _BodyState extends State<Body> {
                       Align(
                         alignment: Alignment.centerLeft,
                         child: Container(
+                          width: windowWidth * 0.4,
                           decoration: BoxDecoration(
                             color: Color(0xFF3594DD),
                             borderRadius: BorderRadius.circular(20),
                           ),
                           child: TextButton(
                             onPressed: () {
-                              _openFileExplorer();
+                              _openFileExplorerEnotice();
                             },
                             child: Text(
                               "Notice Copy",
@@ -286,18 +557,87 @@ class _BodyState extends State<Body> {
                       SizedBox(
                         height: 10,
                       ),
-                      Container(
-                        decoration: BoxDecoration(
-                            border: Border.all(
-                                color: Colors.grey.shade400, width: 2),
-                            borderRadius: BorderRadius.circular(50)),
-                        padding: EdgeInsets.all(20),
-                        child: Center(
-                          child: Text(
-                            "Number Of Files Selected: " +
-                                _itemcount.toString(),
-                            style: TextStyle(
-                                color: Color(0xFFB40284A), fontSize: 16),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 2.0),
+                        child: Card(
+                          elevation: 1,
+                          child: Builder(
+                            builder: (BuildContext context) =>
+                                _loadingPathnotice
+                                    ? Padding(
+                                        padding:
+                                            const EdgeInsets.only(bottom: 10.0),
+                                        child:
+                                            const CircularProgressIndicator(),
+                                      )
+                                    : _directoryPathnotice != null
+                                        ? ListTile(
+                                            title: const Text('Directory path'),
+                                            subtitle:
+                                                Text(_directoryPathnotice!),
+                                          )
+                                        : _pathsnotice != null
+                                            ? Container(
+                                                padding: const EdgeInsets.only(
+                                                    bottom: 30.0),
+                                                height: MediaQuery.of(context)
+                                                        .size
+                                                        .height *
+                                                    0.20,
+                                                child: Scrollbar(
+                                                  child: ListView.separated(
+                                                    itemCount: _pathsnotice !=
+                                                                null &&
+                                                            _pathsnotice!
+                                                                .isNotEmpty
+                                                        ? _pathsnotice!.length
+                                                        : 1,
+                                                    itemBuilder:
+                                                        (BuildContext context,
+                                                            int index) {
+                                                      _itemcount1 =
+                                                          _pathsnotice !=
+                                                                      null &&
+                                                                  _pathsnotice!
+                                                                      .isNotEmpty
+                                                              ? _pathsnotice!
+                                                                  .length
+                                                              : 1;
+                                                      print(_itemcount1);
+                                                      final bool isMultiPath =
+                                                          _pathsnotice !=
+                                                                  null &&
+                                                              _pathsnotice!
+                                                                  .isNotEmpty;
+                                                      final String name = 'File $index: ' +
+                                                          (isMultiPath
+                                                              ? _pathsnotice!
+                                                                      .map((e) =>
+                                                                          e.name)
+                                                                      .toList()[
+                                                                  index]
+                                                              : _fileNamenotice ??
+                                                                  '...');
+                                                      final path = _pathsnotice!
+                                                          .map((e) => e.path)
+                                                          .toList()[index]
+                                                          .toString();
+
+                                                      return ListTile(
+                                                        title: Text(
+                                                          name,
+                                                        ),
+                                                        subtitle: Text(path),
+                                                      );
+                                                    },
+                                                    separatorBuilder:
+                                                        (BuildContext context,
+                                                                int index) =>
+                                                            const Divider(),
+                                                  ),
+                                                ),
+                                              )
+                                            : const SizedBox(),
                           ),
                         ),
                       ),
@@ -307,13 +647,14 @@ class _BodyState extends State<Body> {
                       Align(
                         alignment: Alignment.centerLeft,
                         child: Container(
+                          width: windowWidth * 0.4,
                           decoration: BoxDecoration(
                             color: Color(0xFF3594DD),
                             borderRadius: BorderRadius.circular(20),
                           ),
                           child: TextButton(
                             onPressed: () {
-                              _openFileExplorer();
+                              _openFileExplorerLastItr();
                             },
                             child: Text(
                               "Last ITR Filed",
@@ -325,18 +666,89 @@ class _BodyState extends State<Body> {
                       SizedBox(
                         height: 10,
                       ),
-                      Container(
-                        decoration: BoxDecoration(
-                            border: Border.all(
-                                color: Colors.grey.shade400, width: 2),
-                            borderRadius: BorderRadius.circular(50)),
-                        padding: EdgeInsets.all(20),
-                        child: Center(
-                          child: Text(
-                            "Number Of Files Selected: " +
-                                _itemcount.toString(),
-                            style: TextStyle(
-                                color: Color(0xFFB40284A), fontSize: 16),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 2.0),
+                        child: Card(
+                          elevation: 1,
+                          child: Builder(
+                            builder: (BuildContext context) =>
+                                _loadingPathlastitr
+                                    ? Padding(
+                                        padding:
+                                            const EdgeInsets.only(bottom: 10.0),
+                                        child:
+                                            const CircularProgressIndicator(),
+                                      )
+                                    : _directoryPathlastitr != null
+                                        ? ListTile(
+                                            title: const Text('Directory path'),
+                                            subtitle:
+                                                Text(_directoryPathlastitr!),
+                                          )
+                                        : _pathslastitr != null
+                                            ? Container(
+                                                padding: const EdgeInsets.only(
+                                                    bottom: 30.0),
+                                                height: MediaQuery.of(context)
+                                                        .size
+                                                        .height *
+                                                    0.20,
+                                                child: Scrollbar(
+                                                  child: ListView.separated(
+                                                    itemCount: _pathslastitr !=
+                                                                null &&
+                                                            _pathslastitr!
+                                                                .isNotEmpty
+                                                        ? _pathslastitr!.length
+                                                        : 1,
+                                                    itemBuilder:
+                                                        (BuildContext context,
+                                                            int index) {
+                                                      _itemcount1 =
+                                                          _pathslastitr !=
+                                                                      null &&
+                                                                  _pathslastitr!
+                                                                      .isNotEmpty
+                                                              ? _pathslastitr!
+                                                                  .length
+                                                              : 1;
+                                                      print(_itemcount1);
+                                                      final bool isMultiPath =
+                                                          _pathslastitr !=
+                                                                  null &&
+                                                              _pathslastitr!
+                                                                  .isNotEmpty;
+                                                      final String name = 'File $index: ' +
+                                                          (isMultiPath
+                                                              ? _pathslastitr!
+                                                                      .map((e) =>
+                                                                          e.name)
+                                                                      .toList()[
+                                                                  index]
+                                                              : _fileNamelastitr ??
+                                                                  '...');
+                                                      final path =
+                                                          _pathslastitr!
+                                                              .map(
+                                                                  (e) => e.path)
+                                                              .toList()[index]
+                                                              .toString();
+
+                                                      return ListTile(
+                                                        title: Text(
+                                                          name,
+                                                        ),
+                                                        subtitle: Text(path),
+                                                      );
+                                                    },
+                                                    separatorBuilder:
+                                                        (BuildContext context,
+                                                                int index) =>
+                                                            const Divider(),
+                                                  ),
+                                                ),
+                                              )
+                                            : const SizedBox(),
                           ),
                         ),
                       ),
@@ -346,13 +758,14 @@ class _BodyState extends State<Body> {
                       Align(
                         alignment: Alignment.centerLeft,
                         child: Container(
+                          width: windowWidth * 0.4,
                           decoration: BoxDecoration(
                             color: Color(0xFF3594DD),
                             borderRadius: BorderRadius.circular(20),
                           ),
                           child: TextButton(
                             onPressed: () {
-                              _openFileExplorer();
+                              _openFileExplorerEOther();
                             },
                             child: Text(
                               "Other Attachments",
@@ -364,18 +777,87 @@ class _BodyState extends State<Body> {
                       SizedBox(
                         height: 10,
                       ),
-                      Container(
-                        decoration: BoxDecoration(
-                            border: Border.all(
-                                color: Colors.grey.shade400, width: 2),
-                            borderRadius: BorderRadius.circular(50)),
-                        padding: EdgeInsets.all(20),
-                        child: Center(
-                          child: Text(
-                            "Number Of Files Selected: " +
-                                _itemcount.toString(),
-                            style: TextStyle(
-                                color: Color(0xFFB40284A), fontSize: 16),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 2.0),
+                        child: Card(
+                          elevation: 1,
+                          child: Builder(
+                            builder: (BuildContext context) =>
+                                _loadingPatheother
+                                    ? Padding(
+                                        padding:
+                                            const EdgeInsets.only(bottom: 10.0),
+                                        child:
+                                            const CircularProgressIndicator(),
+                                      )
+                                    : _directoryPatheother != null
+                                        ? ListTile(
+                                            title: const Text('Directory path'),
+                                            subtitle:
+                                                Text(_directoryPatheother!),
+                                          )
+                                        : _pathseother != null
+                                            ? Container(
+                                                padding: const EdgeInsets.only(
+                                                    bottom: 30.0),
+                                                height: MediaQuery.of(context)
+                                                        .size
+                                                        .height *
+                                                    0.20,
+                                                child: Scrollbar(
+                                                  child: ListView.separated(
+                                                    itemCount: _pathseother !=
+                                                                null &&
+                                                            _pathseother!
+                                                                .isNotEmpty
+                                                        ? _pathseother!.length
+                                                        : 1,
+                                                    itemBuilder:
+                                                        (BuildContext context,
+                                                            int index) {
+                                                      _itemcount =
+                                                          _pathseother !=
+                                                                      null &&
+                                                                  _pathseother!
+                                                                      .isNotEmpty
+                                                              ? _pathseother!
+                                                                  .length
+                                                              : 1;
+                                                      print(_itemcount);
+                                                      final bool isMultiPath =
+                                                          _pathseother !=
+                                                                  null &&
+                                                              _pathseother!
+                                                                  .isNotEmpty;
+                                                      final String name = 'File $index: ' +
+                                                          (isMultiPath
+                                                              ? _pathseother!
+                                                                      .map((e) =>
+                                                                          e.name)
+                                                                      .toList()[
+                                                                  index]
+                                                              : _fileNameeother ??
+                                                                  '...');
+                                                      final path = _pathseother!
+                                                          .map((e) => e.path)
+                                                          .toList()[index]
+                                                          .toString();
+
+                                                      return ListTile(
+                                                        title: Text(
+                                                          name,
+                                                        ),
+                                                        subtitle: Text(path),
+                                                      );
+                                                    },
+                                                    separatorBuilder:
+                                                        (BuildContext context,
+                                                                int index) =>
+                                                            const Divider(),
+                                                  ),
+                                                ),
+                                              )
+                                            : const SizedBox(),
                           ),
                         ),
                       ),
@@ -437,62 +919,6 @@ class _BodyState extends State<Body> {
                   ),
                 ),
               ),
-            Builder(
-              builder: (BuildContext context) => _loadingPath
-                  ? Padding(
-                      padding: const EdgeInsets.only(bottom: 10.0),
-                      child: const CircularProgressIndicator(),
-                    )
-                  : _directoryPath != null
-                      ? ListTile(
-                          title: const Text('Directory path'),
-                          subtitle: Text(_directoryPath!),
-                        )
-                      : _paths != null
-                          ? Container(
-                              padding: const EdgeInsets.only(bottom: 30.0),
-                              height: MediaQuery.of(context).size.height * 0.50,
-                              child: Scrollbar(
-                                child: ListView.separated(
-                                  itemCount:
-                                      _paths != null && _paths!.isNotEmpty
-                                          ? _paths!.length
-                                          : 1,
-                                  itemBuilder:
-                                      (BuildContext context, int index) {
-                                    _itemcount =
-                                        _paths != null && _paths!.isNotEmpty
-                                            ? _paths!.length
-                                            : 1;
-                                    print(_itemcount);
-                                    final bool isMultiPath =
-                                        _paths != null && _paths!.isNotEmpty;
-                                    final String name = 'File $index: ' +
-                                        (isMultiPath
-                                            ? _paths!
-                                                .map((e) => e.name)
-                                                .toList()[index]
-                                            : _fileName ?? '...');
-                                    final path = _paths!
-                                        .map((e) => e.path)
-                                        .toList()[index]
-                                        .toString();
-
-                                    return ListTile(
-                                      title: Text(
-                                        name,
-                                      ),
-                                      subtitle: Text(path),
-                                    );
-                                  },
-                                  separatorBuilder:
-                                      (BuildContext context, int index) =>
-                                          const Divider(),
-                                ),
-                              ),
-                            )
-                          : const SizedBox(),
-            ),
           ],
         ),
       ),
