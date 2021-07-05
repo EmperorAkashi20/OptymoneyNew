@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:optymoney/Investments/Components/body.dart';
 
 class Investments extends StatelessWidget {
   static String routeName = '/Investments';
@@ -6,6 +7,8 @@ class Investments extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold();
+    return Scaffold(
+      body: Body(),
+    );
   }
 }
