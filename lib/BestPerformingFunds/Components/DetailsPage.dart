@@ -1,32 +1,54 @@
 import 'dart:convert';
 
-import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:http/http.dart';
 import 'package:loading_animations/loading_animations.dart';
-import 'package:optymoney/Components/outlinebtn.dart';
-import 'package:optymoney/Components/primarybtn.dart';
-import 'package:optymoney/Dashboard/Components/DashboardData.dart';
-import 'package:syncfusion_flutter_charts/charts.dart';
+import 'package:optymoney/BestPerformingFunds/Components/Body.dart';
 
-class DetailsPage extends StatefulWidget {
-  static String routeName = '/DetailsPage';
-  const DetailsPage({
-    Key? key,
-  }) : super(key: key);
+addToCartRequest() async {
+  var url = Uri.parse(
+      'https://optymoney.com/__lib.ajax/mutual_fund.php?action=add_cart_api&subaction=submit');
+  final headers = {'Content-Type': 'application/x-www-form-urlencoded'};
+  var body = jsonEncode({
+    "sch_code": Body.encodedIndex,
+    "f_sip_amount": SingleProductDetailsPage.sipAmount,
+    "sip_date": SingleProductDetailsPage.date,
+    "sch_d": Body.idIndex,
+    "uid": 2052,
+  });
+  //String jsonBody = json.encode(body);
+  final encoding = Encoding.getByName('utf-8');
 
-  @override
-  _DetailsPageState createState() => _DetailsPageState();
+  Response response = await post(
+    url,
+    headers: headers,
+    body: body,
+    encoding: encoding,
+  );
+
+  print(response.body);
 }
 
-class _DetailsPageState extends State<DetailsPage> {
+class SingleProductDetailsPage extends StatefulWidget {
+  static var ignoreButton = false;
+  static var date;
+  static var sipAmount;
+  static String routeName = '/SingleProductPage';
+  const SingleProductDetailsPage({Key? key}) : super(key: key);
+
+  @override
+  _SingleProductDetailsPageState createState() =>
+      _SingleProductDetailsPageState();
+}
+
+class _SingleProductDetailsPageState extends State<SingleProductDetailsPage> {
+  double miniamt = Body.minAmt;
   Future<List<ChartData>> _getChartData() async {
     var url = Uri.parse('https://optymoney.com/__lib.ajax/ajax_response.php');
     final headers = {'Content-Type': 'application/x-www-form-urlencoded'};
     Map<String, dynamic> body = {
       'get_nav': 'yes',
-      'sch_code': DashboardData.encodedIsinForGraph,
+      'sch_code': Body.encodedIsinForGraph,
     };
     final encoding = Encoding.getByName('utf-8');
     Response response = await post(
@@ -66,7 +88,7 @@ class _DetailsPageState extends State<DetailsPage> {
                 Expanded(
                   flex: 6,
                   child: Text(
-                    DashboardData.schemeName,
+                    Body.schemeName,
                     style: TextStyle(color: Colors.black, fontSize: 17),
                   ),
                 ),
@@ -108,7 +130,7 @@ class _DetailsPageState extends State<DetailsPage> {
                 );
               } else {
                 return Padding(
-                  padding: const EdgeInsets.all(8.0),
+                  padding: EdgeInsets.all(8.0),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -119,53 +141,6 @@ class _DetailsPageState extends State<DetailsPage> {
                             width: double.infinity,
                             height: windowHeight * 0.3,
                             child: Placeholder(),
-                          ),
-                          SizedBox(
-                            height: 10,
-                          ),
-                          Card(
-                            child: Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Text(
-                                        'Current Holdings',
-                                        style: TextStyle(
-                                          fontSize: 15,
-                                          fontWeight: FontWeight.w600,
-                                        ),
-                                      ),
-                                      Column(
-                                        children: [
-                                          Text(
-                                            "₹" +
-                                                DashboardData.currentValue
-                                                    .toString(),
-                                            style: TextStyle(
-                                              fontSize: 15,
-                                              fontWeight: FontWeight.w600,
-                                            ),
-                                          ),
-                                          Text(
-                                            DashboardData.units.toString() +
-                                                ' Units',
-                                            style: TextStyle(
-                                              fontSize: 15,
-                                              fontWeight: FontWeight.w600,
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ],
-                                  ),
-                                ],
-                              ),
-                            ),
                           ),
                           SizedBox(
                             height: 10,
@@ -200,7 +175,7 @@ class _DetailsPageState extends State<DetailsPage> {
                                       ),
                                     ),
                                     Text(
-                                      '5.8%',
+                                      Body.return1,
                                       style: TextStyle(
                                         fontWeight: FontWeight.w600,
                                         fontSize: 14,
@@ -223,7 +198,7 @@ class _DetailsPageState extends State<DetailsPage> {
                                       ),
                                     ),
                                     Text(
-                                      '18.3%',
+                                      Body.return3,
                                       style: TextStyle(
                                         fontWeight: FontWeight.w600,
                                         fontSize: 14,
@@ -246,7 +221,7 @@ class _DetailsPageState extends State<DetailsPage> {
                                       ),
                                     ),
                                     Text(
-                                      '25.1%',
+                                      Body.return5,
                                       style: TextStyle(
                                         fontWeight: FontWeight.w600,
                                         fontSize: 14,
@@ -290,7 +265,7 @@ class _DetailsPageState extends State<DetailsPage> {
                                       ),
                                     ),
                                     Text(
-                                      DashboardData.isin,
+                                      Body.isin,
                                       style: TextStyle(
                                         fontWeight: FontWeight.w600,
                                         fontSize: 14,
@@ -313,7 +288,7 @@ class _DetailsPageState extends State<DetailsPage> {
                                       ),
                                     ),
                                     Text(
-                                      DashboardData.schemeCode,
+                                      Body.schemeCode,
                                       style: TextStyle(
                                         fontWeight: FontWeight.w600,
                                         fontSize: 14,
@@ -336,7 +311,7 @@ class _DetailsPageState extends State<DetailsPage> {
                                       ),
                                     ),
                                     Text(
-                                      DashboardData.schemeType,
+                                      Body.schemeType,
                                       style: TextStyle(
                                         fontWeight: FontWeight.w600,
                                         fontSize: 14,
@@ -352,14 +327,14 @@ class _DetailsPageState extends State<DetailsPage> {
                                       MainAxisAlignment.spaceBetween,
                                   children: [
                                     Text(
-                                      'Net Asset Value (NAV)',
+                                      'Scheme Plan',
                                       style: TextStyle(
                                         fontWeight: FontWeight.w600,
                                         fontSize: 14,
                                       ),
                                     ),
                                     Text(
-                                      DashboardData.nav,
+                                      Body.schemePlan,
                                       style: TextStyle(
                                         fontWeight: FontWeight.w600,
                                         fontSize: 14,
@@ -372,150 +347,73 @@ class _DetailsPageState extends State<DetailsPage> {
                           ),
                         ],
                       ),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 30.0, vertical: 20),
+                      Container(
                         child: Column(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            SizedBox(
-                              height: 20,
-                            ),
-                            GestureDetector(
-                              onTap: () {
-                                showModalBottomSheet(
-                                  backgroundColor: Colors.transparent,
-                                  context: context,
-                                  builder: (BuildContext context) {
-                                    return AnimatedContainer(
-                                      duration: Duration(milliseconds: 10000),
-                                      curve: Curves.easeIn,
-                                      height: windowHeight * 0.2,
-                                      decoration: BoxDecoration(
-                                        color: Colors.white,
-                                        borderRadius: BorderRadius.only(
-                                          topLeft: Radius.circular(20),
-                                          topRight: Radius.circular(20),
+                            crossAxisAlignment: CrossAxisAlignment.stretch,
+                            children: <Widget>[
+                              SizedBox(height: 20.0),
+                              Text('Select and Add to Cart',
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(fontSize: 22)),
+                              DefaultTabController(
+                                  length: 2, // length of tabs
+                                  initialIndex: 0,
+                                  child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.stretch,
+                                      children: <Widget>[
+                                        Container(
+                                          child: TabBar(
+                                            labelColor: Colors.green,
+                                            unselectedLabelColor: Colors.black,
+                                            tabs: [
+                                              Tab(text: 'SIP'),
+                                              Tab(text: 'One Time'),
+                                            ],
+                                          ),
                                         ),
-                                      ),
-                                      child: Padding(
-                                        padding: const EdgeInsets.symmetric(
-                                            horizontal: 10.0),
-                                        child: Column(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
-                                          children: [
-                                            GestureDetector(
-                                              onTap: () => print('Buy'),
-                                              child: Row(
-                                                children: [
-                                                  FaIcon(
-                                                      FontAwesomeIcons.syncAlt),
-                                                  SizedBox(
-                                                    width: 20,
-                                                  ),
-                                                  Column(
-                                                    crossAxisAlignment:
-                                                        CrossAxisAlignment
-                                                            .start,
-                                                    children: [
-                                                      Text(
-                                                        'Buy More',
-                                                        style: TextStyle(
-                                                          fontSize: 18,
-                                                          fontWeight:
-                                                              FontWeight.bold,
+                                        Container(
+                                            height: 400, //height of TabBarView
+                                            decoration: BoxDecoration(
+                                                border: Border(
+                                                    top: BorderSide(
+                                                        color: Colors.grey,
+                                                        width: 0.5))),
+                                            child:
+                                                TabBarView(children: <Widget>[
+                                              Container(
+                                                child: Center(
+                                                  child: Padding(
+                                                    padding: EdgeInsets.only(
+                                                      top: 10,
+                                                    ),
+                                                    child: Column(
+                                                      children: [
+                                                        Text(
+                                                          'Please Use the slider to adjust the installment amount',
+                                                          style: TextStyle(
+                                                              color:
+                                                                  Colors.black),
+                                                          textAlign:
+                                                              TextAlign.center,
                                                         ),
-                                                      ),
-                                                      Text(
-                                                        'You will be taken to the scheme page',
-                                                        style: TextStyle(
-                                                          fontSize: 15,
-                                                        ),
-                                                      ),
-                                                    ],
+                                                      ],
+                                                    ),
                                                   ),
-                                                ],
+                                                ),
                                               ),
-                                            ),
-                                            SizedBox(
-                                              height: 20,
-                                            ),
-                                            GestureDetector(
-                                              onTap: () {
-                                                Navigator.pop(context);
-                                                showModalBottomSheet(
-                                                  backgroundColor:
-                                                      Colors.transparent,
-                                                  context: context,
-                                                  builder:
-                                                      (BuildContext context) {
-                                                    return Container(
-                                                      height:
-                                                          windowHeight * 0.3,
-                                                      decoration: BoxDecoration(
-                                                        color: Colors.white,
-                                                        borderRadius:
-                                                            BorderRadius.only(
-                                                          topLeft:
-                                                              Radius.circular(
-                                                                  20),
-                                                          topRight:
-                                                              Radius.circular(
-                                                                  20),
-                                                        ),
-                                                      ),
-                                                    );
-                                                  },
-                                                );
-                                              },
-                                              child: Row(
-                                                children: [
-                                                  FaIcon(FontAwesomeIcons
-                                                      .exchangeAlt),
-                                                  SizedBox(
-                                                    width: 20,
-                                                  ),
-                                                  Column(
-                                                    crossAxisAlignment:
-                                                        CrossAxisAlignment
-                                                            .start,
-                                                    children: [
-                                                      Text(
-                                                        'Redeem',
-                                                        style: TextStyle(
-                                                          fontSize: 18,
+                                              Container(
+                                                child: Center(
+                                                  child: Text('Display Tab 2',
+                                                      style: TextStyle(
+                                                          fontSize: 22,
                                                           fontWeight:
-                                                              FontWeight.bold,
-                                                        ),
-                                                      ),
-                                                      Text(
-                                                        'The max redeemable amount is ₹' +
-                                                            DashboardData
-                                                                .currentValue
-                                                                .toString(),
-                                                        style: TextStyle(
-                                                          fontSize: 15,
-                                                        ),
-                                                      ),
-                                                    ],
-                                                  ),
-                                                ],
+                                                              FontWeight.bold)),
+                                                ),
                                               ),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                    );
-                                  },
-                                );
-                              },
-                              child: OutlineBtn(
-                                btnText: 'Transact',
-                              ),
-                            ),
-                          ],
-                        ),
+                                            ]))
+                                      ])),
+                            ]),
                       ),
                     ],
                   ),

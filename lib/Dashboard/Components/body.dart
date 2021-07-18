@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
+import 'package:optymoney/BestPerformingFunds/BestPerformingFunds.dart';
 import 'package:optymoney/Calculators/calculators.dart';
 import 'package:optymoney/Dashboard/Components/DashboardData.dart';
 import 'package:optymoney/ITR/incometax.dart';
@@ -18,7 +19,7 @@ class _BodyState extends State<Body> {
   int _selectedIndex = 0;
   List pageList = [
     DashboardData(),
-    Investments(),
+    BestPerformingFunds(),
     Calculators(),
     IncomeTax(),
     Settings(),
