@@ -44,12 +44,13 @@ dependencies:
   loading_animations: ^2.2.0
   #animating numbers
   number_slide_animation: ^0.2.1
-  syncfusion_flutter_charts: ^19.1.69+1
+  syncfusion_flutter_sliders: ^19.2.47
   font_awesome_flutter: ^9.1.0
   fl_chart: ^0.36.2
   file_picker: ^3.0.3
   path_provider: ^2.0.1
   local_auth: ^1.1.6
+  slide_to_confirm: ^1.0.2
 
 dev_dependencies:
   flutter_test:

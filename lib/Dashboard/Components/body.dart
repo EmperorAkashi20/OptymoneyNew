@@ -33,7 +33,7 @@ class _BodyState extends State<Body> {
           boxShadow: [
             BoxShadow(
               blurRadius: 20,
-              color: Colors.white.withOpacity(.1),
+              color: Colors.black.withOpacity(.3),
             ),
           ],
         ),

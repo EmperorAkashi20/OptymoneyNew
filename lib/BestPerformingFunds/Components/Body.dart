@@ -238,9 +238,9 @@ class _BodyState extends State<Body> {
                                     height: 4,
                                   ),
                                   Container(
-                                    width: windowWidth * 0.3,
+                                    width: windowWidth * 0.34,
                                     decoration: BoxDecoration(
-                                      color: Color(0xFF5B16D0).withOpacity(0.5),
+                                      color: Colors.lightBlueAccent,
                                       borderRadius: BorderRadius.circular(5),
                                     ),
                                     child: Padding(
@@ -252,8 +252,9 @@ class _BodyState extends State<Body> {
                                         children: [
                                           Text(
                                             snapshot.data[index].scheme_type,
-                                            style:
-                                                TextStyle(color: Colors.white),
+                                            style: TextStyle(
+                                                color: Colors.white,
+                                                fontWeight: FontWeight.w900),
                                           ),
                                           Icon(
                                             Icons.star,

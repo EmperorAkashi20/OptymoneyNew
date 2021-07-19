@@ -8,7 +8,6 @@ import 'package:loading_animations/loading_animations.dart';
 import 'package:optymoney/Components/outlinebtn.dart';
 import 'package:optymoney/Components/primarybtn.dart';
 import 'package:optymoney/Dashboard/Components/DashboardData.dart';
-import 'package:syncfusion_flutter_charts/charts.dart';
 
 class DetailsPage extends StatefulWidget {
   static String routeName = '/DetailsPage';
