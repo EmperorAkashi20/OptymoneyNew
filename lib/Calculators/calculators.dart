@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:optymoney/Calculators/Components/Body.dart';
 
 class Calculators extends StatelessWidget {
   static String routeName = '/calculators';
@@ -6,6 +7,8 @@ class Calculators extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return Scaffold(
+      body: Body(),
+    );
   }
 }

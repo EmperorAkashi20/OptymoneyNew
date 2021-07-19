@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart';
 import 'package:loading_animations/loading_animations.dart';
 import 'package:optymoney/BestPerformingFunds/Components/Body.dart';
-import 'package:slide_to_confirm/slide_to_confirm.dart';
+import 'package:optymoney/Components/outlinebtn.dart';
 import 'package:syncfusion_flutter_sliders/sliders.dart';
 
 addToCartRequest() async {
@@ -94,12 +94,10 @@ class _SingleProductDetailsPageState extends State<SingleProductDetailsPage> {
       'get_nav': 'yes',
       'sch_code': Body.encodedIsinForGraph,
     };
-    final encoding = Encoding.getByName('utf-8');
     Response response = await post(
       url,
       headers: headers,
       body: body,
-      encoding: encoding,
     );
     var responseBody = response.body;
     var jsonData = json.decode(responseBody);
@@ -487,12 +485,17 @@ class _SingleProductDetailsPageState extends State<SingleProductDetailsPage> {
                                                             BorderRadius
                                                                 .circular(20),
                                                         border: Border.all(
-                                                            color: Colors.grey),
+                                                            color:
+                                                                Colors.black54),
                                                       ),
                                                       child: Center(
-                                                        child: Text(miniamt
-                                                            .toStringAsFixed(
-                                                                2)),
+                                                        child: Text(
+                                                          miniamt
+                                                              .toStringAsFixed(
+                                                                  2),
+                                                          style: TextStyle(
+                                                              fontSize: 18),
+                                                        ),
                                                       ),
                                                     ),
                                                   ),
@@ -962,16 +965,30 @@ class _SingleProductDetailsPageState extends State<SingleProductDetailsPage> {
                                                             BorderRadius
                                                                 .circular(20),
                                                         border: Border.all(
-                                                            color: Colors.grey),
+                                                            color:
+                                                                Colors.black45,
+                                                            width: 1.5),
                                                       ),
                                                       child: Center(
                                                         child: selectedDate ==
                                                                 null
                                                             ? Text(
-                                                                'Select A Date from above')
-                                                            : Text(selectedDate
-                                                                    .toString() +
-                                                                " of every month"),
+                                                                'Select A Date from above',
+                                                                style:
+                                                                    TextStyle(
+                                                                  fontSize: 18,
+                                                                ),
+                                                              )
+                                                            : Text(
+                                                                'Day ' +
+                                                                    selectedDate
+                                                                        .toString() +
+                                                                    " of every month",
+                                                                style:
+                                                                    TextStyle(
+                                                                  fontSize: 18,
+                                                                ),
+                                                              ),
                                                       ),
                                                     ),
                                                   ),
@@ -981,16 +998,9 @@ class _SingleProductDetailsPageState extends State<SingleProductDetailsPage> {
                                                   Padding(
                                                     padding: const EdgeInsets
                                                             .symmetric(
-                                                        horizontal: 1.0),
-                                                    child: ConfirmationSlider(
-                                                      foregroundColor: Colors
-                                                          .green
-                                                          .withOpacity(0.7),
-                                                      textStyle: TextStyle(
-                                                          fontSize: 22),
-                                                      text: 'Add to cart',
-                                                      width: windowWidth,
-                                                      onConfirmation: () async {
+                                                        horizontal: 10.0),
+                                                    child: GestureDetector(
+                                                      onTap: () async {
                                                         SingleProductDetailsPage
                                                                 .sipAmount =
                                                             miniamt;
@@ -1008,6 +1018,9 @@ class _SingleProductDetailsPageState extends State<SingleProductDetailsPage> {
                                                                 SingleProductDetailsPage
                                                                     .message);
                                                       },
+                                                      child: OutlineBtn(
+                                                          btnText:
+                                                              'Add To Cart'),
                                                     ),
                                                   ),
                                                 ],
@@ -1073,12 +1086,18 @@ class _SingleProductDetailsPageState extends State<SingleProductDetailsPage> {
                                                             BorderRadius
                                                                 .circular(20),
                                                         border: Border.all(
-                                                            color: Colors.grey),
+                                                          color: Colors.black,
+                                                          width: 1.5,
+                                                        ),
                                                       ),
                                                       child: Center(
-                                                        child: Text(miniamt
-                                                            .toStringAsFixed(
-                                                                2)),
+                                                        child: Text(
+                                                          miniamt
+                                                              .toStringAsFixed(
+                                                                  2),
+                                                          style: TextStyle(
+                                                              fontSize: 18),
+                                                        ),
                                                       ),
                                                     ),
                                                   ),
@@ -1152,16 +1171,9 @@ class _SingleProductDetailsPageState extends State<SingleProductDetailsPage> {
                                                   Padding(
                                                     padding: const EdgeInsets
                                                             .symmetric(
-                                                        horizontal: 1.0),
-                                                    child: ConfirmationSlider(
-                                                      foregroundColor: Colors
-                                                          .green
-                                                          .withOpacity(0.7),
-                                                      textStyle: TextStyle(
-                                                          fontSize: 22),
-                                                      text: 'Add to cart',
-                                                      width: windowWidth,
-                                                      onConfirmation: () async {
+                                                        horizontal: 10.0),
+                                                    child: GestureDetector(
+                                                      onTap: () async {
                                                         SingleProductDetailsPage
                                                                 .lumpSumAmount =
                                                             miniamt;
@@ -1176,6 +1188,9 @@ class _SingleProductDetailsPageState extends State<SingleProductDetailsPage> {
                                                                 SingleProductDetailsPage
                                                                     .message);
                                                       },
+                                                      child: OutlineBtn(
+                                                          btnText:
+                                                              'Add To Cart'),
                                                     ),
                                                   ),
                                                 ],
@@ -1258,8 +1273,18 @@ class DateCard extends StatelessWidget {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Text(date + ' Of'),
-                Text('Every Month'),
+                Text(
+                  date + ' Of',
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                Text(
+                  'Every Month',
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
               ],
             ),
           ),
