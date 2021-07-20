@@ -173,61 +173,68 @@ class _BodyState extends State<Body> {
               ),
               width: windowWidth * 0.7,
               child: DropdownButtonHideUnderline(
-                child: DropdownButton<String>(
-                  icon: Icon(Icons.arrow_circle_down_rounded),
-                  dropdownColor:
-                      Colors.lightBlueAccent.shade200.withOpacity(0.9),
-                  isExpanded: true,
-                  iconSize: 35,
-                  //isDense: true,
-                  menuMaxHeight: windowHeight * 0.3,
-                  iconDisabledColor: Colors.blueGrey,
-                  items: _options.map((String dropDownStringItem) {
-                    return DropdownMenuItem<String>(
-                      value: dropDownStringItem,
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Padding(
-                            padding:
-                                const EdgeInsets.only(left: 8.0, right: 8.0),
-                            child: Text(
-                              dropDownStringItem,
-                              style: TextStyle(
-                                  color: Colors.black,
-                                  fontWeight: FontWeight.bold),
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                  child: DropdownButton<String>(
+                    icon: Icon(
+                      Icons.arrow_circle_down_rounded,
+                      color: Colors.white,
+                    ),
+                    dropdownColor: Color(0XFFF0092D6),
+                    isExpanded: true,
+                    iconSize: 35,
+                    //isDense: true,
+                    menuMaxHeight: windowHeight * 0.3,
+                    iconDisabledColor: Colors.white,
+                    items: _options.map((String dropDownStringItem) {
+                      return DropdownMenuItem<String>(
+                        value: dropDownStringItem,
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Padding(
+                              padding:
+                                  const EdgeInsets.only(left: 8.0, right: 8.0),
+                              child: Text(
+                                dropDownStringItem,
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold),
+                              ),
                             ),
-                          ),
-                        ],
-                      ),
-                    );
-                  }).toList(),
-                  onChanged: (String? newValueSelected) {
-                    _dropDownItemSelected(newValueSelected);
-                    if (_currentItemSelected ==
-                        'Best Performing Mutual Funds') {
-                      Body.offerId = 32;
-                    } else if (_currentItemSelected ==
-                        'Best Equity Mutual Funds') {
-                      Body.offerId = 33;
-                    } else if (_currentItemSelected == 'Best Liquid Funds') {
-                      Body.offerId = 34;
-                    } else if (_currentItemSelected == 'Top SIP Funds') {
-                      Body.offerId = 35;
-                    } else if (_currentItemSelected == 'Best ELSS Funds') {
-                      Body.offerId = 36;
-                    } else if (_currentItemSelected == 'Best Large Cap Funds') {
-                      Body.offerId = 37;
-                    } else if (_currentItemSelected == 'Explore Funds') {
-                      Body.offerId = 38;
-                    } else if (_currentItemSelected == 'Best Mid Cap Funds') {
-                      Body.offerId = 39;
-                    } else if (_currentItemSelected == 'New To Mutual Funds') {
-                      Body.offerId = 40;
-                    }
-                  },
-                  value: _currentItemSelected,
+                          ],
+                        ),
+                      );
+                    }).toList(),
+                    onChanged: (String? newValueSelected) {
+                      _dropDownItemSelected(newValueSelected);
+                      if (_currentItemSelected ==
+                          'Best Performing Mutual Funds') {
+                        Body.offerId = 32;
+                      } else if (_currentItemSelected ==
+                          'Best Equity Mutual Funds') {
+                        Body.offerId = 33;
+                      } else if (_currentItemSelected == 'Best Liquid Funds') {
+                        Body.offerId = 34;
+                      } else if (_currentItemSelected == 'Top SIP Funds') {
+                        Body.offerId = 35;
+                      } else if (_currentItemSelected == 'Best ELSS Funds') {
+                        Body.offerId = 36;
+                      } else if (_currentItemSelected ==
+                          'Best Large Cap Funds') {
+                        Body.offerId = 37;
+                      } else if (_currentItemSelected == 'Explore Funds') {
+                        Body.offerId = 38;
+                      } else if (_currentItemSelected == 'Best Mid Cap Funds') {
+                        Body.offerId = 39;
+                      } else if (_currentItemSelected ==
+                          'New To Mutual Funds') {
+                        Body.offerId = 40;
+                      }
+                    },
+                    value: _currentItemSelected,
+                  ),
                 ),
               ),
             ),
@@ -305,7 +312,7 @@ class _BodyState extends State<Body> {
                                   Container(
                                     width: windowWidth * 0.34,
                                     decoration: BoxDecoration(
-                                      color: Colors.lightBlueAccent,
+                                      color: Colors.lightBlueAccent.shade100,
                                       borderRadius: BorderRadius.circular(5),
                                     ),
                                     child: Padding(

@@ -1,6 +1,9 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:http/http.dart';
 import 'package:optymoney/Components/inputwithicon.dart';
 import 'package:optymoney/Components/outlinebtn.dart';
 import 'package:optymoney/Components/primarybtn.dart';
@@ -8,7 +11,35 @@ import 'package:optymoney/Dashboard/dashboard.dart';
 import 'package:optymoney/main.dart';
 import 'package:pinput/pin_put/pin_put.dart';
 
+makeLoginRequest() async {
+  var url = Uri.parse(
+      'https://optymoney.com/ajax-request/ajax_response.php?action=doLoginApp&subaction=loginSubmit');
+  final headers = {'Content-Type': 'application/json'};
+  var body = jsonEncode({'email': Body.email, 'passwd': Body.password});
+  //String jsonBody = json.encode(body);
+  final encoding = Encoding.getByName('utf-8');
+
+  Response response = await post(
+    url,
+    headers: headers,
+    body: body,
+    encoding: encoding,
+  );
+
+  var responseBody = response.body;
+  print(responseBody);
+  var jsonData = responseBody;
+
+  var parsedJson = json.decode(jsonData);
+  var status = parsedJson['status'].toString();
+  print(status);
+  var message = parsedJson['message'].toString();
+  print(message);
+}
+
 class Body extends StatefulWidget {
+  static String? email;
+  static String? password;
   @override
   _BodyState createState() => _BodyState();
 }
@@ -322,73 +353,52 @@ class _BodyState extends State<Body> {
                       style: TextStyle(fontSize: 20),
                     ),
                   ),
-                  Form(
-                    key: _formKey1,
-                    child: Column(
-                      children: [
-                        InputWithIcon(
-                          icon: Icons.person,
-                          hint: 'Email',
-                          dataController: _emailControllerSignIn,
-                          obscureText: false,
-                          onSaved: (newValue) => _emailControllerSignIn.text,
-                          validator: (value) =>
-                              value.isEmpty ? 'Email Cannot Be Blank' : null,
-                        ),
-                        SizedBox(
-                          height: 20,
-                        ),
-                        InputWithIcon(
-                          icon: Icons.vpn_key,
-                          hint: 'Password',
-                          dataController: _emailControllerSignUp,
-                          obscureText: true,
-                          onSaved: (newValue) => _passwordControllerSignIn.text,
-                          validator: (value) =>
-                              value.isEmpty ? 'Password Cannot Be Blank' : null,
-                        ),
-                        SizedBox(
-                          height: 20,
-                        ),
-                      ],
-                    ),
+                  Column(
+                    children: [
+                      InputWithIcon(
+                        icon: Icons.person,
+                        hint: 'Email',
+                        dataController: _emailControllerSignIn,
+                        obscureText: false,
+                        keyboardTypeGlobal: TextInputType.emailAddress,
+                      ),
+                      SizedBox(
+                        height: 20,
+                      ),
+                      InputWithIcon(
+                        icon: Icons.vpn_key,
+                        hint: 'Password',
+                        dataController: _passwordControllerSignIn,
+                        obscureText: true,
+                        keyboardTypeGlobal: TextInputType.text,
+                      ),
+                      SizedBox(
+                        height: 20,
+                      ),
+                    ],
                   ),
                 ],
               ),
               Column(
                 children: [
                   GestureDetector(
-                    onTap: () {
-                      if (_formKey1.currentState!.validate()) {
-                        _formKey1.currentState!.save();
-                        if (_emailControllerSignIn.text.isEmpty ||
-                            _passwordControllerSignIn.text.isEmpty) {
-                          setState(() {
-                            _showSnackBar(
-                                'Email or Password fields cannot be empty');
-                          });
-                        } else if (_emailControllerSignIn.text.isEmpty) {
-                          setState(() {
-                            _showSnackBar('Please Enter Your Email');
-                          });
-                        } else if (_passwordControllerSignIn.text.isEmpty) {
-                          setState(() {
-                            _showSnackBar('Please Enter Your Password');
-                          });
-                        } else {
-                          setState(() {
-                            _formKey1.currentState!.reset();
-                            _showSnackBar('Great');
-                          });
-                        }
+                    onTap: () async {
+                      if (_emailControllerSignIn.text.isEmpty &&
+                          _passwordControllerSignIn.text.isEmpty) {
+                        _showSnackBar('Fields cannot be empty');
+                      } else if (_emailControllerSignIn.text.isEmpty) {
+                        _showSnackBar('Please enter a valid email address');
+                      } else if (_passwordControllerSignIn.text.isEmpty) {
+                        _showSnackBar('Password cannot be empty');
+                      } else {
+                        Body.email = _emailControllerSignIn.text.toString();
+                        Body.password =
+                            _passwordControllerSignIn.text.toString();
+                        await makeLoginRequest();
+                        Navigator.pushNamed(context, Dashboard.routeName);
                       }
                     },
-                    child: GestureDetector(
-                      onTap: () {
-                        Navigator.pushNamed(context, Dashboard.routeName);
-                      },
-                      child: PrimaryButton(btnText: 'Login'),
-                    ),
+                    child: PrimaryButton(btnText: 'Login'),
                   ),
                   SizedBox(
                     height: 20,

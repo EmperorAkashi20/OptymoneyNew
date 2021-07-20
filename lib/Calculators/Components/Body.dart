@@ -15,8 +15,12 @@ class _BodyState extends State<Body> {
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
-        elevation: 0,
+        elevation: 3,
         backgroundColor: Colors.white,
+        title: Text(
+          'Manage Your Finances',
+          style: TextStyle(color: Colors.blue.shade700, fontSize: 25),
+        ),
       ),
       body: SingleChildScrollView(
         child: Container(
@@ -24,6 +28,9 @@ class _BodyState extends State<Body> {
             children: [
               Column(
                 children: [
+                  SizedBox(
+                    height: windowHeight * 0.03,
+                  ),
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 8.0),
                     child: Align(
@@ -31,7 +38,7 @@ class _BodyState extends State<Body> {
                       child: Text(
                         'Life Goals',
                         style: TextStyle(
-                          fontSize: 25,
+                          fontSize: 23,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
@@ -118,7 +125,7 @@ class _BodyState extends State<Body> {
                       child: Text(
                         'Financial Calculators',
                         style: TextStyle(
-                          fontSize: 25,
+                          fontSize: 23,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
@@ -140,7 +147,7 @@ class _BodyState extends State<Body> {
                         windowHeight: windowHeight,
                         windowWidth: windowWidth,
                         letter: 'S',
-                        name: 'SIP  Calculator',
+                        name: 'SIP   Calculator',
                         press: () {},
                       ),
                       FinancialCalculatorsTiles(
@@ -218,7 +225,7 @@ class _BodyState extends State<Body> {
                         windowHeight: windowHeight,
                         windowWidth: windowWidth,
                         letter: 'P',
-                        name: 'PPF Calculator',
+                        name: 'PPF  Calculator',
                         press: () {},
                       ),
                       FinancialCalculatorsTiles(
@@ -341,30 +348,33 @@ class LifeGoalsCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () => press as void Function(),
-      child: Card(
-        elevation: 2,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(20),
-        ),
-        child: SizedBox(
-          height: windowHeight * 0.07,
-          width: windowWidth * 0.4,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Image.asset(
-                image,
-                height: windowHeight * 0.08,
-                width: windowWidth * 0.5,
-              ),
-              Text(
-                title,
-                style: TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold,
+      child: Padding(
+        padding: const EdgeInsets.only(right: 0.0),
+        child: Card(
+          elevation: 2,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(20),
+          ),
+          child: SizedBox(
+            height: windowHeight * 0.07,
+            width: windowWidth * 0.4,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Image.asset(
+                  image,
+                  height: windowHeight * 0.13,
+                  width: windowWidth * 0.5,
                 ),
-              ),
-            ],
+                Text(
+                  title,
+                  style: TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
       ),
