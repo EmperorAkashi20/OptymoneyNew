@@ -56,7 +56,7 @@ class _DetailsPageState extends State<DetailsPage> {
         elevation: 0,
         backgroundColor: Colors.white,
         flexibleSpace: Container(
-          height: 80,
+          height: 110,
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 8.0),
             child: Row(

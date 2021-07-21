@@ -7,6 +7,8 @@ import 'package:optymoney/Dashboard/dashboard.dart';
 import 'package:optymoney/ITR/incometax.dart';
 import 'package:optymoney/Investments/investments.dart';
 import 'package:optymoney/LoginNSignUp/loginNsignup.dart';
+import 'package:optymoney/LoginWithMpin/LoginWithMPin.dart';
+import 'package:optymoney/PinSetupLogin/PinSetupLogin.dart';
 import 'package:optymoney/Settings/Settings.dart';
 
 // We use name route
@@ -21,4 +23,6 @@ final Map<String, WidgetBuilder> routes = {
   Calculators.routeName: (context) => Calculators(),
   BestPerformingFunds.routeName: (context) => BestPerformingFunds(),
   SingleProductDetailsPage.routeName: (context) => SingleProductDetailsPage(),
+  PinSetupLogin.routeName: (context) => PinSetupLogin(),
+  LoginWithMPin.routeName: (context) => LoginWithMPin(),
 };

@@ -8,7 +8,7 @@ class LoginAndSignUp extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      body: Body(),
+      body: LoginSignUp(),
     );
   }
 }

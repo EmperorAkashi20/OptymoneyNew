@@ -7,6 +7,7 @@ import 'package:http/http.dart';
 import 'package:loading_animations/loading_animations.dart';
 import 'package:number_slide_animation/number_slide_animation.dart';
 import 'package:optymoney/Dashboard/Components/DetailsPage.dart';
+import 'package:optymoney/LoginNSignUp/Components/body.dart';
 
 class DashboardData extends StatefulWidget {
   static var purPrice;
@@ -38,8 +39,8 @@ class _DashboardDataState extends State<DashboardData> {
         'https://optymoney.com/ajax-request/ajax_response.php?action=fetchPortfolioApp&subaction=submit');
     final headers = {'Content-Type': 'application/x-www-form-urlencoded'};
     Map<String, dynamic> body = {
-      'uid': '2052',
-      'pan': 'AXFPP0304C',
+      'uid': LoginSignUp.globalUserId,
+      'pan': LoginSignUp.globalPan,
     };
     //String jsonBody = json.encode(body);
     final encoding = Encoding.getByName('utf-8');

@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:crypto/crypto.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 import 'package:flutter_svg/svg.dart';
@@ -8,6 +9,7 @@ import 'package:optymoney/Components/inputwithicon.dart';
 import 'package:optymoney/Components/outlinebtn.dart';
 import 'package:optymoney/Components/primarybtn.dart';
 import 'package:optymoney/Dashboard/dashboard.dart';
+import 'package:optymoney/PinSetupLogin/PinSetupLogin.dart';
 import 'package:optymoney/main.dart';
 import 'package:pinput/pin_put/pin_put.dart';
 
@@ -15,7 +17,8 @@ makeLoginRequest() async {
   var url = Uri.parse(
       'https://optymoney.com/ajax-request/ajax_response.php?action=doLoginApp&subaction=loginSubmit');
   final headers = {'Content-Type': 'application/json'};
-  var body = jsonEncode({'email': Body.email, 'passwd': Body.password});
+  var body =
+      jsonEncode({'email': LoginSignUp.email, 'passwd': LoginSignUp.password});
   //String jsonBody = json.encode(body);
   final encoding = Encoding.getByName('utf-8');
 
@@ -27,24 +30,75 @@ makeLoginRequest() async {
   );
 
   var responseBody = response.body;
-  print(responseBody);
+  //print(responseBody);
   var jsonData = responseBody;
 
   var parsedJson = json.decode(jsonData);
+  //var satatuscode = response.statusCode;
   var status = parsedJson['status'].toString();
-  print(status);
   var message = parsedJson['message'].toString();
-  print(message);
+  if (status != '0') {
+    LoginSignUp.message = message;
+    var parsedToken = jsonDecode(parsedJson['token']);
+    var pan = parsedToken['caTAX_pan_number'].toString();
+    LoginSignUp.globalPan = pan;
+    var userId = parsedToken['caTAX_user_id'].toString();
+    LoginSignUp.globalUserId = userId;
+    var name = parsedToken['caTAX_user_name'].toString();
+    LoginSignUp.globalName = name;
+    var email1 = parsedToken['caTAX_email_id'].toString();
+    LoginSignUp.globalEmail = email1;
+    var letter = name[0];
+    LoginSignUp.globalLetter = letter;
+  } else {
+    print('Something went wrong');
+  }
 }
 
-class Body extends StatefulWidget {
+checkUserPinSet() async {
+  var url = Uri.parse(
+      'https://optymoney.com/ajax-request/ajax_response.php?action=checkMPINApp&subaction=submit');
+  final headers = {'Content-Type': 'application/x-www-form-urlencoded'};
+  Map<String, dynamic> body = {
+    'uid': LoginSignUp.globalUserId,
+  };
+  //String jsonBody = json.encode(body);
+  final encoding = Encoding.getByName('utf-8');
+
+  Response response = await post(
+    url,
+    headers: headers,
+    body: body,
+    encoding: encoding,
+  );
+
+  var responseBody = response.body;
+  //var statusCode = response.statusCode;
+  //print(responseBody);
+
+  var decodedJson = json.decode(responseBody);
+  LoginSignUp.mpinMessage = decodedJson['message'].toString();
+  LoginSignUp.mpinStatus = decodedJson['status'].toString();
+  //print(LoginSignUp.mpinMessage);
+}
+
+class LoginSignUp extends StatefulWidget {
   static String? email;
   static String? password;
+  static var globalPan;
+  static var globalUserId;
+  static var globalName;
+  static var globalEmail;
+  static var globalLetter;
+  static var message;
+  static var mpinMessage;
+  static var mpinStatus;
+  static var digest;
   @override
-  _BodyState createState() => _BodyState();
+  _LoginSignUpState createState() => _LoginSignUpState();
 }
 
-class _BodyState extends State<Body> {
+class _LoginSignUpState extends State<LoginSignUp> {
   final _formKey = GlobalKey<FormState>();
   final _formKey1 = GlobalKey<FormState>();
   final _pinPutController = TextEditingController();
@@ -391,11 +445,45 @@ class _BodyState extends State<Body> {
                       } else if (_passwordControllerSignIn.text.isEmpty) {
                         _showSnackBar('Password cannot be empty');
                       } else {
-                        Body.email = _emailControllerSignIn.text.toString();
-                        Body.password =
+                        LoginSignUp.email =
+                            _emailControllerSignIn.text.toString();
+                        LoginSignUp.password =
                             _passwordControllerSignIn.text.toString();
-                        await makeLoginRequest();
-                        Navigator.pushNamed(context, Dashboard.routeName);
+                        bool emailValid = RegExp(
+                                r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
+                            .hasMatch(LoginSignUp.email!);
+                        if (emailValid == true) {
+                          await makeLoginRequest();
+                          if (LoginSignUp.message == 'LOGIN_SUCCESS' &&
+                              LoginSignUp.globalUserId != null) {
+                            await MyApp.prefs
+                                .setString('userId', LoginSignUp.globalUserId);
+                            await MyApp.prefs
+                                .setString('emailId', LoginSignUp.globalEmail);
+                            await MyApp.prefs
+                                .setString('name', LoginSignUp.globalName);
+                            await MyApp.prefs
+                                .setString('pan', LoginSignUp.globalPan);
+                            var hashedPass =
+                                utf8.encode(LoginSignUp.password.toString());
+                            LoginSignUp.digest = sha512256.convert(hashedPass);
+                            await MyApp.prefs.setString(
+                                'hash', LoginSignUp.digest.toString());
+                            await checkUserPinSet();
+                            if (LoginSignUp.mpinMessage == 'MPIN_SET' &&
+                                LoginSignUp.mpinStatus == '1') {
+                              await MyApp.prefs.setString('pinSet', 'Yes');
+                              Navigator.pushNamed(context, Dashboard.routeName);
+                            } else {
+                              Navigator.pushNamed(
+                                  context, PinSetupLogin.routeName);
+                            }
+                          } else {
+                            _showSnackBar(
+                                'The entered email or password is incorrect');
+                          }
+                        } else
+                          _showSnackBar('Please enter a correct email address');
                       }
                     },
                     child: PrimaryButton(btnText: 'Login'),
@@ -640,7 +728,7 @@ class _BodyState extends State<Body> {
     );
     return PinPut(
       obscureText: '*',
-      fieldsCount: 6,
+      fieldsCount: 5,
       eachFieldHeight: 50.0,
       eachFieldWidth: 50,
       withCursor: false,

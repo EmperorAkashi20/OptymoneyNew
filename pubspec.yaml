@@ -44,13 +44,19 @@ dependencies:
   loading_animations: ^2.2.0
   #animating numbers
   number_slide_animation: ^0.2.1
+  #using sliders to adjust amount
   syncfusion_flutter_sliders: ^19.2.47
+  #fontawesome icons
   font_awesome_flutter: ^9.1.0
+  #creatting graphs
   fl_chart: ^0.36.2
+  #used for uploading files in ITR
   file_picker: ^3.0.3
   path_provider: ^2.0.1
-  local_auth: ^1.1.6
-  slide_to_confirm: ^1.0.2
+  #storing basic user info
+  shared_preferences: ^2.0.6
+  #SHA512256
+  crypto: ^3.0.1
 
 dev_dependencies:
   flutter_test:
