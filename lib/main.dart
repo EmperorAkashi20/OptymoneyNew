@@ -7,6 +7,7 @@ import 'package:optymoney/routes.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 GlobalKey globalKey = GlobalKey();
+GlobalKey globalKey1 = GlobalKey();
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

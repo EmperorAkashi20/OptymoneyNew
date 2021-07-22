@@ -13,7 +13,6 @@ makeUserRequest() async {
   Map<String, dynamic> body = {
     'cust_name': LoginSignUp.globalName,
     'birthday': Body.bday,
-    'sex': 'male',
     'aadhar_num': Body.aadhar,
     'nominee': Body.nominee,
     'line1': Body.line1,
@@ -25,6 +24,7 @@ makeUserRequest() async {
     'country': Body.country,
     'r_of_nominee_w_app': Body.relationWithNominee,
     'uid': LoginSignUp.globalUserId,
+    'pan': Body.pan,
   };
   //String jsonBody = json.encode(body);
   final encoding = Encoding.getByName('utf-8');
@@ -58,6 +58,7 @@ class Body extends StatefulWidget {
   static var country;
   static var relationWithNominee;
   static var message;
+  static var pan;
 
   const Body({Key? key}) : super(key: key);
 
@@ -66,6 +67,7 @@ class Body extends StatefulWidget {
 }
 
 class _BodyState extends State<Body> {
+  bool enabled = false;
   TextEditingController cityController =
       new TextEditingController(text: LoginSignUp.customerCity);
   TextEditingController bdayController =
@@ -102,6 +104,24 @@ class _BodyState extends State<Body> {
         backgroundColor: Colors.lightBlue.withOpacity(0.3),
         automaticallyImplyLeading: false,
         actions: [
+          Align(
+            alignment: Alignment.centerLeft,
+            child: TextButton(
+              onPressed: () {
+                setState(() {
+                  enabled = true;
+                });
+              },
+              child: Text(
+                'Edit',
+                style: TextStyle(
+                  color: Colors.black,
+                  fontSize: 18,
+                ),
+              ),
+            ),
+          ),
+          Spacer(),
           CloseButton(
             color: Colors.black,
           ),
@@ -187,6 +207,7 @@ class _BodyState extends State<Body> {
                 children: [
                   InputWithIcon(
                     icon: Icons.cake,
+                    enabledOrNot: enabled,
                     hint: "Birthday",
                     obscureText: false,
                     dataController: bdayController,
@@ -208,6 +229,7 @@ class _BodyState extends State<Body> {
                   ),
                   InputWithIcon(
                     icon: Icons.location_city,
+                    enabledOrNot: enabled,
                     hint: 'Address Line 1',
                     obscureText: false,
                     dataController: address1Controller,
@@ -218,6 +240,7 @@ class _BodyState extends State<Body> {
                   ),
                   InputWithIcon(
                     icon: Icons.location_city,
+                    enabledOrNot: enabled,
                     hint: 'Address Line 2',
                     obscureText: false,
                     dataController: address2Controller,
@@ -227,6 +250,7 @@ class _BodyState extends State<Body> {
                     height: 10,
                   ),
                   InputWithIcon(
+                    enabledOrNot: enabled,
                     icon: Icons.location_city,
                     hint: 'Address Line 3',
                     obscureText: false,
@@ -239,6 +263,7 @@ class _BodyState extends State<Body> {
                   InputWithIcon(
                     icon: Icons.location_pin,
                     hint: 'City',
+                    enabledOrNot: enabled,
                     dataController: cityController,
                     obscureText: false,
                     onChanged: (value) => value,
@@ -248,6 +273,7 @@ class _BodyState extends State<Body> {
                   ),
                   InputWithIcon(
                     icon: Icons.location_pin,
+                    enabledOrNot: enabled,
                     hint: 'State',
                     obscureText: false,
                     dataController: stateController,
@@ -258,6 +284,7 @@ class _BodyState extends State<Body> {
                   ),
                   InputWithIcon(
                     icon: Icons.location_pin,
+                    enabledOrNot: enabled,
                     hint: 'PIN Code',
                     obscureText: false,
                     dataController: pinCodeController,
@@ -268,6 +295,7 @@ class _BodyState extends State<Body> {
                   ),
                   InputWithIcon(
                     icon: Icons.my_location,
+                    enabledOrNot: enabled,
                     hint: 'Country',
                     obscureText: false,
                     dataController: countryController,
@@ -278,6 +306,7 @@ class _BodyState extends State<Body> {
                   ),
                   InputWithIcon(
                     icon: Icons.credit_card_rounded,
+                    enabledOrNot: enabled,
                     hint: 'PAN Number',
                     obscureText: false,
                     dataController: panController,
@@ -288,6 +317,7 @@ class _BodyState extends State<Body> {
                   ),
                   InputWithIcon(
                     icon: Icons.credit_card_rounded,
+                    enabledOrNot: enabled,
                     hint: 'Aadhar Number',
                     obscureText: false,
                     dataController: aadharController,
@@ -298,6 +328,7 @@ class _BodyState extends State<Body> {
                   ),
                   InputWithIcon(
                     icon: Icons.people_alt_rounded,
+                    enabledOrNot: enabled,
                     hint: 'Nominee Name',
                     obscureText: false,
                     dataController: nomineeNameController,
@@ -308,6 +339,7 @@ class _BodyState extends State<Body> {
                   ),
                   InputWithIcon(
                     icon: Icons.people_alt_rounded,
+                    enabledOrNot: enabled,
                     hint: 'Relation with Nominee',
                     obscureText: false,
                     dataController: nomineeRelationController,
@@ -331,9 +363,13 @@ class _BodyState extends State<Body> {
                   Body.state = stateController.text.toString();
                   Body.pinCode = pinCodeController.text.toString();
                   Body.country = countryController.text.toString();
+                  Body.pan = panController.text.toString();
                   Body.relationWithNominee =
                       nomineeRelationController.text.toString();
                   await makeUserRequest();
+                  setState(() {
+                    enabled = false;
+                  });
                   _showSnackBar(Body.message);
                 },
                 child: OutlineBtn(btnText: 'Save Updated Details'),

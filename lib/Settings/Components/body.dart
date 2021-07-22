@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:optymoney/CompleteProfile/CompleteProfile.dart';
 import 'package:optymoney/LoginNSignUp/Components/body.dart';
 import 'package:optymoney/ViewProfile/ViewProfile.dart';
 
@@ -66,6 +67,29 @@ class _BodyState extends State<Body> {
                               fontSize: 18,
                               fontWeight: FontWeight.bold),
                         ),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        if (LoginSignUp.kycStatus != 'success')
+                          GestureDetector(
+                            onTap: () {
+                              setState(() {
+                                print('object');
+                              });
+                            },
+                            child: Container(
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(20),
+                                border:
+                                    Border.all(color: Colors.blueGrey.shade700),
+                              ),
+                              height: windowHeight * 0.04,
+                              width: windowWidth * 0.4,
+                              child: Center(
+                                child: Text('Complete Your KYC'),
+                              ),
+                            ),
+                          ),
                       ],
                     ),
                     Column(
@@ -105,8 +129,7 @@ class _BodyState extends State<Body> {
                               GestureDetector(
                                 onTap: () {
                                   if (LoginSignUp.globalPan.toString() !=
-                                          'null' &&
-                                      LoginSignUp.aadhar.toString() != 'null') {
+                                      'null') {
                                     setState(() {
                                       _showSnackBar('Profile Status: Complete');
                                     });
@@ -121,9 +144,7 @@ class _BodyState extends State<Body> {
                                   radius: 15,
                                   child: Center(
                                     child: LoginSignUp.globalPan.toString() !=
-                                                'null' &&
-                                            LoginSignUp.aadhar.toString() !=
-                                                'null'
+                                            'null'
                                         ? Icon(
                                             Icons.check,
                                             size: 15,
@@ -231,6 +252,7 @@ class _BodyState extends State<Body> {
                     subtitle: Text('Tap to view or edit your data'),
                     onTap: () {
                       if (LoginSignUp.globalPan.toString() == 'null') {
+                        Navigator.pushNamed(context, CompleteProfile.routeName);
                       } else {
                         Navigator.pushNamed(context, ViewProfile.routeName);
                       }
