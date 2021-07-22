@@ -1,7 +1,9 @@
 import 'package:flutter/widgets.dart';
+import 'package:optymoney/BankDetails/BankDetails.dart';
 import 'package:optymoney/BestPerformingFunds/BestPerformingFunds.dart';
 import 'package:optymoney/BestPerformingFunds/Components/DetailsPage.dart';
 import 'package:optymoney/Calculators/calculators.dart';
+import 'package:optymoney/Cart/Cart.dart';
 import 'package:optymoney/CompleteProfile/CompleteProfile.dart';
 import 'package:optymoney/Dashboard/Components/DetailsPage.dart';
 import 'package:optymoney/Dashboard/dashboard.dart';
@@ -29,4 +31,6 @@ final Map<String, WidgetBuilder> routes = {
   LoginWithMPin.routeName: (context) => LoginWithMPin(),
   CompleteProfile.routeName: (context) => CompleteProfile(),
   ViewProfile.routeName: (context) => ViewProfile(),
+  BankDetails.routeName: (context) => BankDetails(),
+  Cart.routeName: (context) => Cart(),
 };

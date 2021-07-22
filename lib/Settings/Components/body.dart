@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:optymoney/BankDetails/BankDetails.dart';
 import 'package:optymoney/CompleteProfile/CompleteProfile.dart';
 import 'package:optymoney/LoginNSignUp/Components/body.dart';
 import 'package:optymoney/ViewProfile/ViewProfile.dart';
@@ -281,7 +282,9 @@ class _BodyState extends State<Body> {
                     ),
                     trailing: Icon(Icons.arrow_forward_rounded),
                     subtitle: Text('Tap to view or edit your bank details'),
-                    onTap: () {},
+                    onTap: () {
+                      Navigator.pushNamed(context, BankDetails.routeName);
+                    },
                     // tileColor: Colors.lightBlue.withOpacity(0.3),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(20),
