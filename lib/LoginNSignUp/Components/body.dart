@@ -545,10 +545,10 @@ class _LoginSignUpState extends State<LoginSignUp> {
                             await checkUserPinSet();
                             if (LoginSignUp.mpinMessage == 'MPIN_SET' &&
                                 LoginSignUp.mpinStatus == '1') {
+                              await makeKycRequest();
                               await MyApp.prefs.setString('pinSet', 'Yes');
                               Navigator.pushNamed(context, Dashboard.routeName);
                               await makeUserRequest();
-                              await makeKycRequest();
                             } else {
                               Navigator.pushNamed(
                                   context, PinSetupLogin.routeName);

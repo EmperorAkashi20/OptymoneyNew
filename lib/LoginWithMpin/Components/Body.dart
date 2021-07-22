@@ -191,9 +191,9 @@ class _BodyState extends State<Body> {
                       });
                       await makeLoginWithMpinRequest();
                       if (Body.message == 'LOGIN_SUCCESS') {
+                        await makeKycRequest();
                         Navigator.pushNamed(context, Dashboard.routeName);
                         await makeUserRequest();
-                        await makeKycRequest();
                       } else if (Body.message == 'LOGIN_FAILED') {
                         _showSnackBar('Entered PIN is incorrect');
                       }
