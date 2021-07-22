@@ -11,6 +11,7 @@ import 'package:optymoney/LoginNSignUp/loginNsignup.dart';
 import 'package:optymoney/LoginWithMpin/LoginWithMPin.dart';
 import 'package:optymoney/PinSetupLogin/PinSetupLogin.dart';
 import 'package:optymoney/Settings/Settings.dart';
+import 'package:optymoney/ViewProfile/ViewProfile.dart';
 
 // We use name route
 // All our routes will be available here
@@ -27,4 +28,5 @@ final Map<String, WidgetBuilder> routes = {
   PinSetupLogin.routeName: (context) => PinSetupLogin(),
   LoginWithMPin.routeName: (context) => LoginWithMPin(),
   CompleteProfile.routeName: (context) => CompleteProfile(),
+  ViewProfile.routeName: (context) => ViewProfile(),
 };

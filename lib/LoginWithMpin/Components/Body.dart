@@ -69,6 +69,43 @@ makeKycRequest() async {
   print(LoginSignUp.kycStatus);
 }
 
+makeUserRequest() async {
+  var url = Uri.parse(
+      'https://optymoney.com/ajax-request/ajax_response.php?action=getCustomerInfo&subaction=submit');
+  final headers = {'Content-Type': 'application/x-www-form-urlencoded'};
+  Map<String, dynamic> body = {
+    'uid': LoginSignUp.globalUserId,
+  };
+  //String jsonBody = json.encode(body);
+  final encoding = Encoding.getByName('utf-8');
+
+  Response response = await post(
+    url,
+    headers: headers,
+    body: body,
+    encoding: encoding,
+  );
+
+//  var statusCode = response.statusCode;
+  var responseBody = response.body;
+  var jsonData = responseBody;
+
+  var parsedJson = json.decode(jsonData);
+  LoginSignUp.customerId = parsedJson['fr_customer_id'].toString();
+  LoginSignUp.customerBday = parsedJson['dob'].toString();
+  LoginSignUp.customerAddress1 = parsedJson['address1'].toString();
+  LoginSignUp.customerAddress2 = parsedJson['address2'].toString();
+  LoginSignUp.customerAddress3 = parsedJson['address3'].toString();
+  LoginSignUp.customerMobile = parsedJson['contact_no'].toString();
+  LoginSignUp.customerState = parsedJson['state'].toString();
+  LoginSignUp.customerCity = parsedJson['city'].toString();
+  LoginSignUp.customerPinCode = parsedJson['pincode'].toString();
+  LoginSignUp.customerCountry = parsedJson['country'].toString();
+  LoginSignUp.nomineeName = parsedJson['nominee_name'].toString();
+  LoginSignUp.nomineeRelation = parsedJson['r_of_nominee_w_app'].toString();
+  LoginSignUp.aadhar = parsedJson['aadhaar_no'].toString();
+}
+
 class Body extends StatefulWidget {
   static var mpin;
   static var message;
@@ -154,8 +191,9 @@ class _BodyState extends State<Body> {
                       });
                       await makeLoginWithMpinRequest();
                       if (Body.message == 'LOGIN_SUCCESS') {
-                        await makeKycRequest();
                         Navigator.pushNamed(context, Dashboard.routeName);
+                        await makeUserRequest();
+                        await makeKycRequest();
                       } else if (Body.message == 'LOGIN_FAILED') {
                         _showSnackBar('Entered PIN is incorrect');
                       }

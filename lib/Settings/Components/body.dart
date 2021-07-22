@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:optymoney/LoginNSignUp/Components/body.dart';
+import 'package:optymoney/ViewProfile/ViewProfile.dart';
 
 class Body extends StatefulWidget {
   const Body({Key? key}) : super(key: key);
@@ -104,7 +105,8 @@ class _BodyState extends State<Body> {
                               GestureDetector(
                                 onTap: () {
                                   if (LoginSignUp.globalPan.toString() !=
-                                      'null') {
+                                          'null' &&
+                                      LoginSignUp.aadhar.toString() != 'null') {
                                     setState(() {
                                       _showSnackBar('Profile Status: Complete');
                                     });
@@ -119,7 +121,9 @@ class _BodyState extends State<Body> {
                                   radius: 15,
                                   child: Center(
                                     child: LoginSignUp.globalPan.toString() !=
-                                            'null'
+                                                'null' &&
+                                            LoginSignUp.aadhar.toString() !=
+                                                'null'
                                         ? Icon(
                                             Icons.check,
                                             size: 15,
@@ -145,7 +149,8 @@ class _BodyState extends State<Body> {
                                 onTap: () {
                                   if (LoginSignUp.kycStatus == 'success') {
                                     setState(() {
-                                      _showSnackBar('KYC Status: Complete');
+                                      _showSnackBar(
+                                          'KYC Status: Complete. You are investment ready.');
                                     });
                                   } else {
                                     setState(() {
@@ -226,7 +231,9 @@ class _BodyState extends State<Body> {
                     subtitle: Text('Tap to view or edit your data'),
                     onTap: () {
                       if (LoginSignUp.globalPan.toString() == 'null') {
-                      } else {}
+                      } else {
+                        Navigator.pushNamed(context, ViewProfile.routeName);
+                      }
                     },
                     // tileColor: Colors.lightBlue.withOpacity(0.3),
                     shape: RoundedRectangleBorder(

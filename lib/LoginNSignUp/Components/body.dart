@@ -104,6 +104,43 @@ makeKycRequest() async {
   print(LoginSignUp.kycStatus);
 }
 
+makeUserRequest() async {
+  var url = Uri.parse(
+      'https://optymoney.com/ajax-request/ajax_response.php?action=getCustomerInfo&subaction=submit');
+  final headers = {'Content-Type': 'application/x-www-form-urlencoded'};
+  Map<String, dynamic> body = {
+    'uid': LoginSignUp.globalUserId,
+  };
+  //String jsonBody = json.encode(body);
+  final encoding = Encoding.getByName('utf-8');
+
+  Response response = await post(
+    url,
+    headers: headers,
+    body: body,
+    encoding: encoding,
+  );
+
+//  var statusCode = response.statusCode;
+  var responseBody = response.body;
+  var jsonData = responseBody;
+
+  var parsedJson = json.decode(jsonData);
+  LoginSignUp.customerId = parsedJson['fr_customer_id'].toString();
+  LoginSignUp.customerBday = parsedJson['dob'].toString();
+  LoginSignUp.customerAddress1 = parsedJson['address1'].toString();
+  LoginSignUp.customerAddress2 = parsedJson['address2'].toString();
+  LoginSignUp.customerAddress3 = parsedJson['address3'].toString();
+  LoginSignUp.customerMobile = parsedJson['contact_no'].toString();
+  LoginSignUp.customerState = parsedJson['state'].toString();
+  LoginSignUp.customerCity = parsedJson['city'].toString();
+  LoginSignUp.customerPinCode = parsedJson['pincode'].toString();
+  LoginSignUp.customerCountry = parsedJson['country'].toString();
+  LoginSignUp.nomineeName = parsedJson['nominee_name'].toString();
+  LoginSignUp.nomineeRelation = parsedJson['r_of_nominee_w_app'].toString();
+  LoginSignUp.aadhar = parsedJson['aadhaar_no'].toString();
+}
+
 class LoginSignUp extends StatefulWidget {
   static String? email;
   static String? password;
@@ -117,6 +154,19 @@ class LoginSignUp extends StatefulWidget {
   static var mpinStatus;
   static var digest;
   static var kycStatus;
+  static var customerId;
+  static var customerBday;
+  static var customerAddress1;
+  static var customerAddress2;
+  static var customerAddress3;
+  static var customerMobile;
+  static var customerState;
+  static var customerCity;
+  static var customerPinCode;
+  static var customerCountry;
+  static var nomineeName;
+  static var nomineeRelation;
+  static var aadhar;
   @override
   _LoginSignUpState createState() => _LoginSignUpState();
 }
@@ -479,7 +529,6 @@ class _LoginSignUpState extends State<LoginSignUp> {
                           await makeLoginRequest();
                           if (LoginSignUp.message == 'LOGIN_SUCCESS' &&
                               LoginSignUp.globalUserId != null) {
-                            await makeKycRequest();
                             await MyApp.prefs
                                 .setString('userId', LoginSignUp.globalUserId);
                             await MyApp.prefs
@@ -498,6 +547,8 @@ class _LoginSignUpState extends State<LoginSignUp> {
                                 LoginSignUp.mpinStatus == '1') {
                               await MyApp.prefs.setString('pinSet', 'Yes');
                               Navigator.pushNamed(context, Dashboard.routeName);
+                              await makeUserRequest();
+                              await makeKycRequest();
                             } else {
                               Navigator.pushNamed(
                                   context, PinSetupLogin.routeName);
