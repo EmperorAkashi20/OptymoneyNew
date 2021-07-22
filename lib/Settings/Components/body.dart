@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:optymoney/LoginNSignUp/Components/body.dart';
 
 class Body extends StatefulWidget {
   const Body({Key? key}) : super(key: key);
@@ -38,7 +39,7 @@ class _BodyState extends State<Body> {
                           radius: 50,
                           child: Center(
                             child: Text(
-                              'R',
+                              LoginSignUp.globalLetter,
                               style: TextStyle(
                                 fontWeight: FontWeight.w700,
                                 color: Colors.white,
@@ -51,14 +52,14 @@ class _BodyState extends State<Body> {
                           height: 10,
                         ),
                         Text(
-                          'Rishabh Sethia',
+                          LoginSignUp.globalName,
                           style: TextStyle(
                               color: Colors.black54,
                               fontSize: 25,
                               fontWeight: FontWeight.bold),
                         ),
                         Text(
-                          'rishabhsethia@optymoney.com',
+                          LoginSignUp.globalEmail,
                           style: TextStyle(
                               color: Colors.black54,
                               fontSize: 18,
@@ -102,38 +103,71 @@ class _BodyState extends State<Body> {
                               ),
                               GestureDetector(
                                 onTap: () {
-                                  setState(() {
-                                    _showSnackBar('Profile Status: Complete');
-                                  });
+                                  if (LoginSignUp.globalPan.toString() !=
+                                      'null') {
+                                    setState(() {
+                                      _showSnackBar('Profile Status: Complete');
+                                    });
+                                  } else {
+                                    setState(() {
+                                      _showSnackBar(
+                                          'Profile Status: Incomplete');
+                                    });
+                                  }
                                 },
                                 child: CircleAvatar(
                                   radius: 15,
                                   child: Center(
-                                    child: Icon(
-                                      Icons.check,
-                                      size: 15,
-                                    ),
+                                    child: LoginSignUp.globalPan.toString() !=
+                                            'null'
+                                        ? Icon(
+                                            Icons.check,
+                                            size: 15,
+                                          )
+                                        : Text(
+                                            '?',
+                                            style: TextStyle(
+                                              color: Colors.white,
+                                              fontSize: 15,
+                                            ),
+                                          ),
                                   ),
                                 ),
                               ),
                               Container(
                                 width: windowWidth * 0.3,
                                 height: 4,
-                                color: Colors.blue.shade700,
+                                color: LoginSignUp.kycStatus == 'success'
+                                    ? Colors.blue.shade700
+                                    : Colors.white,
                               ),
                               GestureDetector(
                                 onTap: () {
-                                  setState(() {
-                                    _showSnackBar('KYC Status: Complete');
-                                  });
+                                  if (LoginSignUp.kycStatus == 'success') {
+                                    setState(() {
+                                      _showSnackBar('KYC Status: Complete');
+                                    });
+                                  } else {
+                                    setState(() {
+                                      _showSnackBar(
+                                          'KYC Status: Incomplete. You cannot invest yet.');
+                                    });
+                                  }
                                 },
                                 child: CircleAvatar(
                                   radius: 15,
                                   child: Center(
-                                    child: Icon(
-                                      Icons.check,
-                                      size: 15,
-                                    ),
+                                    child: LoginSignUp.kycStatus == 'success'
+                                        ? Icon(
+                                            Icons.check,
+                                            size: 15,
+                                          )
+                                        : Text(
+                                            '?',
+                                            style: TextStyle(
+                                                color: Colors.white,
+                                                fontSize: 15),
+                                          ),
                                   ),
                                 ),
                               ),
@@ -190,7 +224,10 @@ class _BodyState extends State<Body> {
                     ),
                     trailing: Icon(Icons.arrow_forward_rounded),
                     subtitle: Text('Tap to view or edit your data'),
-                    onTap: () {},
+                    onTap: () {
+                      if (LoginSignUp.globalPan.toString() == 'null') {
+                      } else {}
+                    },
                     // tileColor: Colors.lightBlue.withOpacity(0.3),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(20),

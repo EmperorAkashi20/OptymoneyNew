@@ -2,7 +2,11 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
+import 'package:optymoney/Components/outlinebtn.dart';
 import 'package:optymoney/Components/primarybtn.dart';
+import 'package:optymoney/Dashboard/dashboard.dart';
+import 'package:optymoney/LoginNSignUp/Components/body.dart';
+import 'package:optymoney/LoginNSignUp/loginNsignup.dart';
 import 'package:pinput/pin_put/pin_put.dart';
 
 import '../../main.dart';
@@ -28,21 +32,46 @@ makeLoginWithMpinRequest() async {
 
   var responseBody = (response.body);
   var responseData = json.decode(responseBody);
-  var responseMessgae = responseData['message'].toString();
-  if (responseMessgae != 'LOGIN_FAILED') {
+  print(responseData);
+  Body.message = responseData['message'].toString();
+  print(Body.message);
+  if (Body.message != 'LOGIN_FAILED') {
     var parsedToken = json.decode(responseData['token']);
-    var responseUser = parsedToken['caTAX_user_id'].toString();
-    var responsePan = parsedToken['caTAX_pan_number'].toString();
-
-    var userIdGlobal = responseUser;
-    var pan = responsePan;
+    LoginSignUp.globalUserId = parsedToken['caTAX_user_id'].toString();
+    LoginSignUp.globalPan = parsedToken['caTAX_pan_number'].toString();
+    LoginSignUp.globalEmail = parsedToken['caTAX_email_id'].toString();
+    LoginSignUp.globalName = parsedToken['caTAX_user_name'].toString();
+    LoginSignUp.globalLetter = LoginSignUp.globalName[0];
   } else {
     print('oops');
   }
 }
 
+makeKycRequest() async {
+  var url = Uri.parse(
+      'https://optymoney.com/ajax-request/ajax_response.php?action=kyccheck_api&subaction=submit');
+  final headers = {'Content-Type': 'application/json'};
+  var body = jsonEncode({
+    'pan': LoginSignUp.globalPan,
+  });
+  //String jsonBody = json.encode(body);
+  final encoding = Encoding.getByName('utf-8');
+
+  Response response = await post(
+    url,
+    headers: headers,
+    body: body,
+    encoding: encoding,
+  );
+  var parsedJson = json.decode(response.body);
+  print(response.body);
+  LoginSignUp.kycStatus = parsedJson['status'].toString();
+  print(LoginSignUp.kycStatus);
+}
+
 class Body extends StatefulWidget {
   static var mpin;
+  static var message;
   const Body({Key? key}) : super(key: key);
 
   @override
@@ -88,18 +117,52 @@ class _BodyState extends State<Body> {
                   ),
                 ],
               ),
-              Form(
-                key: _formKey,
-                child: animatingBordersForMpin(),
+              Column(
+                children: [
+                  Form(
+                    key: _formKey,
+                    child: animatingBordersForMpin(),
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      TextButton(
+                        onPressed: () {},
+                        child: Text('Forgot MPIN'),
+                      ),
+                    ],
+                  ),
+                ],
               ),
-              GestureDetector(
-                onTap: () async {
-                  setState(() {
-                    Body.mpin = _pinPutController.text.toString();
-                  });
-                  await makeLoginWithMpinRequest();
-                },
-                child: PrimaryButton(btnText: 'Confirm'),
+              Column(
+                children: [
+                  GestureDetector(
+                    onTap: () async {
+                      Navigator.pushNamed(context, LoginAndSignUp.routeName);
+                    },
+                    child: OutlineBtn(
+                      btnText: 'Use Email and password instead',
+                    ),
+                  ),
+                  SizedBox(
+                    height: 15,
+                  ),
+                  GestureDetector(
+                    onTap: () async {
+                      setState(() {
+                        Body.mpin = _pinPutController.text.toString();
+                      });
+                      await makeLoginWithMpinRequest();
+                      if (Body.message == 'LOGIN_SUCCESS') {
+                        await makeKycRequest();
+                        Navigator.pushNamed(context, Dashboard.routeName);
+                      } else if (Body.message == 'LOGIN_FAILED') {
+                        _showSnackBar('Entered PIN is incorrect');
+                      }
+                    },
+                    child: PrimaryButton(btnText: 'Confirm'),
+                  ),
+                ],
               ),
             ],
           ),
@@ -136,5 +199,25 @@ class _BodyState extends State<Body> {
         ),
       ),
     );
+  }
+
+  void _showSnackBar(String text) {
+    final snackBar = SnackBar(
+      duration: const Duration(seconds: 3),
+      content: Container(
+        height: 40.0,
+        color: Colors.transparent,
+        child: Center(
+          child: Text(
+            text,
+            style: const TextStyle(fontSize: 15.0, color: Colors.black),
+          ),
+        ),
+      ),
+      backgroundColor: Colors.white,
+    );
+    ScaffoldMessenger.of(context)
+      ..hideCurrentSnackBar()
+      ..showSnackBar(snackBar);
   }
 }

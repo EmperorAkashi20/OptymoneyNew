@@ -2,6 +2,7 @@ import 'package:flutter/widgets.dart';
 import 'package:optymoney/BestPerformingFunds/BestPerformingFunds.dart';
 import 'package:optymoney/BestPerformingFunds/Components/DetailsPage.dart';
 import 'package:optymoney/Calculators/calculators.dart';
+import 'package:optymoney/CompleteProfile/CompleteProfile.dart';
 import 'package:optymoney/Dashboard/Components/DetailsPage.dart';
 import 'package:optymoney/Dashboard/dashboard.dart';
 import 'package:optymoney/ITR/incometax.dart';
@@ -25,4 +26,5 @@ final Map<String, WidgetBuilder> routes = {
   SingleProductDetailsPage.routeName: (context) => SingleProductDetailsPage(),
   PinSetupLogin.routeName: (context) => PinSetupLogin(),
   LoginWithMPin.routeName: (context) => LoginWithMPin(),
+  CompleteProfile.routeName: (context) => CompleteProfile(),
 };

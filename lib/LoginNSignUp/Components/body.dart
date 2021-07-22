@@ -82,6 +82,28 @@ checkUserPinSet() async {
   //print(LoginSignUp.mpinMessage);
 }
 
+makeKycRequest() async {
+  var url = Uri.parse(
+      'https://optymoney.com/ajax-request/ajax_response.php?action=kyccheck_api&subaction=submit');
+  final headers = {'Content-Type': 'application/json'};
+  var body = jsonEncode({
+    'pan': LoginSignUp.globalPan,
+  });
+  //String jsonBody = json.encode(body);
+  final encoding = Encoding.getByName('utf-8');
+
+  Response response = await post(
+    url,
+    headers: headers,
+    body: body,
+    encoding: encoding,
+  );
+  var parsedJson = json.decode(response.body);
+  print(response.body);
+  LoginSignUp.kycStatus = parsedJson['status'].toString();
+  print(LoginSignUp.kycStatus);
+}
+
 class LoginSignUp extends StatefulWidget {
   static String? email;
   static String? password;
@@ -94,6 +116,7 @@ class LoginSignUp extends StatefulWidget {
   static var mpinMessage;
   static var mpinStatus;
   static var digest;
+  static var kycStatus;
   @override
   _LoginSignUpState createState() => _LoginSignUpState();
 }
@@ -456,6 +479,7 @@ class _LoginSignUpState extends State<LoginSignUp> {
                           await makeLoginRequest();
                           if (LoginSignUp.message == 'LOGIN_SUCCESS' &&
                               LoginSignUp.globalUserId != null) {
+                            await makeKycRequest();
                             await MyApp.prefs
                                 .setString('userId', LoginSignUp.globalUserId);
                             await MyApp.prefs
