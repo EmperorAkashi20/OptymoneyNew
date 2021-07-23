@@ -40,7 +40,7 @@ class _DashboardDataState extends State<DashboardData> {
     final headers = {'Content-Type': 'application/x-www-form-urlencoded'};
     Map<String, dynamic> body = {
       'uid': LoginSignUp.globalUserId,
-      'pan': LoginSignUp.globalPan,
+      'pan': LoginSignUp.globalPan.toString(),
     };
     //String jsonBody = json.encode(body);
     final encoding = Encoding.getByName('utf-8');

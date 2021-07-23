@@ -141,6 +141,85 @@ makeUserRequest() async {
   LoginSignUp.aadhar = parsedJson['aadhaar_no'].toString();
 }
 
+sendOtpRequest() async {
+  var url = Uri.parse(
+      'https://optymoney.com/ajax-request/ajax_response.php?action=doSendOTP');
+  final headers = {'Content-Type': 'application/x-www-form-urlencoded'};
+  Map<String, dynamic> body = {
+    'email': LoginSignUp.email,
+    'mobile': LoginSignUp.phoneNo,
+  };
+  //String jsonBody = json.encode(body);
+  final encoding = Encoding.getByName('utf-8');
+
+  Response response = await post(
+    url,
+    headers: headers,
+    body: body,
+    encoding: encoding,
+  );
+
+  var responseBody = response.body.toString();
+  print(responseBody);
+  var parsedJson = jsonDecode(responseBody);
+  LoginSignUp.otpMessage = parsedJson['message'].toString();
+  LoginSignUp.otpStatus = parsedJson['status'].toString();
+}
+
+makeSignUpRequest() async {
+  var url = Uri.parse(
+      'https://optymoney.com/ajax-request/ajax_response.php?action=doSignupFromApp&subaction=submit');
+  final headers = {'Content-Type': 'application/x-www-form-urlencoded'};
+  Map<String, dynamic> body = {
+    'name': LoginSignUp.name,
+    'email': LoginSignUp.email,
+    'mobile': LoginSignUp.phoneNo,
+    'otp': LoginSignUp.otp,
+    'reg_passwd': LoginSignUp.password,
+    'repasswd': LoginSignUp.rePass,
+  };
+
+  final encoding = Encoding.getByName('utf-8');
+
+  Response response = await post(
+    url,
+    headers: headers,
+    body: body,
+    encoding: encoding,
+  );
+
+  var responseBody = (response.body);
+  var jsonData = responseBody;
+  var parsedJson = json.decode(jsonData);
+  print(parsedJson);
+  LoginSignUp.globalUserId = parsedJson['status'].toString();
+  LoginSignUp.registerMessage = parsedJson['message'].toString();
+}
+
+setMpinRequestRequest() async {
+  var url = Uri.parse(
+      'https://optymoney.com/ajax-request/ajax_response.php?action=savePin&subaction=submit');
+  final headers = {'Content-Type': 'application/x-www-form-urlencoded'};
+  Map<String, dynamic> body = {
+    'userid': LoginSignUp.globalUserId,
+    'mpin': LoginSignUp.mpin,
+  };
+
+  final encoding = Encoding.getByName('utf-8');
+
+  Response response = await post(
+    url,
+    headers: headers,
+    body: body,
+    encoding: encoding,
+  );
+
+  var responseBody = (response.body);
+
+  print(responseBody);
+  LoginSignUp.mpinResponse = responseBody.toString();
+}
+
 class LoginSignUp extends StatefulWidget {
   static String? email;
   static String? password;
@@ -167,6 +246,16 @@ class LoginSignUp extends StatefulWidget {
   static var nomineeName;
   static var nomineeRelation;
   static var aadhar;
+  static var rePass;
+  static var name;
+  static var phoneNo;
+  static var otpMessage;
+  static var otpStatus;
+  static var otp;
+  static var registerMessage;
+  static var mpin;
+  static var mpinResponse;
+
   @override
   _LoginSignUpState createState() => _LoginSignUpState();
 }
@@ -174,6 +263,10 @@ class LoginSignUp extends StatefulWidget {
 class _LoginSignUpState extends State<LoginSignUp> {
   final _formKey = GlobalKey<FormState>();
   final _formKey1 = GlobalKey<FormState>();
+  final _pinPutControllerOtp = TextEditingController();
+  final _pinPutFocusNodeOtp = FocusNode();
+  final _pinPutControllerMpin = TextEditingController();
+  final _pinPutFocusNodeMpin = FocusNode();
   final _pinPutController = TextEditingController();
   final _pinPutFocusNode = FocusNode();
   TextEditingController _emailControllerSignIn = new TextEditingController();
@@ -643,25 +736,60 @@ class _LoginSignUpState extends State<LoginSignUp> {
               ),
               SizedBox(height: 20),
               GestureDetector(
-                onTap: () {
-                  if (_nameControllerSignUp.text.isEmpty ||
-                      _emailControllerSignUp.text.isEmpty ||
-                      _phoneControllerSignUp.text.isEmpty ||
-                      _passControllerSignUp.text.isEmpty ||
-                      _rePassControllerSignUp.text.isEmpty) {
-                    setState(() {
-                      _showSnackBar('Fields Cannot be empty');
-                    });
-                  } else if (_passControllerSignUp.text !=
-                      _rePassControllerSignUp.text) {
-                    setState(() {
-                      _showSnackBar('Passwords Do Not Match');
-                    });
+                onTap: () async {
+                  if (_nameControllerSignUp.text.isEmpty &&
+                      _emailControllerSignUp.text.isEmpty &&
+                      _phoneControllerSignUp.text.isEmpty &&
+                      _passControllerSignUp.text.isEmpty &&
+                      _passwordControllerSignIn.text.isEmpty) {
+                    _showSnackBar('Field Cannot be empty');
+                  } else if (_nameControllerSignUp.text.isEmpty) {
+                    _showSnackBar('Enter Your Name');
+                  } else if (_emailControllerSignUp.text.isEmpty) {
+                    _showSnackBar('Enter your Email');
+                  } else if (_phoneControllerSignUp.text.isEmpty) {
+                    _showSnackBar('Enter your phone number');
+                  } else if (_phoneControllerSignUp.text.length < 10 ||
+                      _phoneControllerSignUp.text.length > 10) {
+                    _showSnackBar(
+                        "Mobile number should be 10 digits long. Don't include country code");
+                  } else if (_passControllerSignUp.text.isEmpty) {
+                    _showSnackBar('Password cannot be empty');
+                  } else if (_rePassControllerSignUp.text.isEmpty) {
+                    _showSnackBar('Re-Enter your password');
+                  } else if (_passControllerSignUp.text.length < 8) {
+                    _showSnackBar(
+                        'Password length should be greater than 7 characters');
+                  } else if (_passControllerSignUp.text.toString() !=
+                      _rePassControllerSignUp.text.toString()) {
+                    _showSnackBar('Passwords do not match. Please check');
                   } else {
-                    setState(() {
-                      _pageState = 3;
-                      _showSnackBar('Check Your Inbox for OTP');
-                    });
+                    LoginSignUp.email = _emailControllerSignUp.text.toString();
+                    LoginSignUp.password =
+                        _passControllerSignUp.text.toString();
+                    LoginSignUp.rePass =
+                        _rePassControllerSignUp.text.toString();
+                    bool emailValid = RegExp(
+                            r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
+                        .hasMatch(LoginSignUp.email!);
+                    LoginSignUp.name = _nameControllerSignUp.text.toString();
+                    LoginSignUp.phoneNo =
+                        _phoneControllerSignUp.text.toString();
+                    if (emailValid == true) {
+                      await sendOtpRequest();
+                      print(LoginSignUp.otpStatus);
+                      if (LoginSignUp.otpStatus == '1') {
+                        _showSnackBar(
+                            LoginSignUp.otpMessage + "Valid for next 15 mins");
+                        setState(() {
+                          _pageState = 3;
+                        });
+                      } else {
+                        _showSnackBar(LoginSignUp.otpMessage);
+                      }
+                    } else {
+                      _showSnackBar('Please enter a valid email');
+                    }
                   }
                 },
                 child: PrimaryButton(btnText: 'Continue'),
@@ -700,8 +828,9 @@ class _LoginSignUpState extends State<LoginSignUp> {
               Container(
                 margin: EdgeInsets.only(bottom: 20),
                 child: Text(
-                  'Enter the OTP',
-                  style: TextStyle(fontSize: 20),
+                  'Enter the OTP sent on\n +91 ${LoginSignUp.phoneNo}',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(fontSize: 18),
                 ),
               ),
               Column(
@@ -714,7 +843,8 @@ class _LoginSignUpState extends State<LoginSignUp> {
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
                       TextButton(
-                        onPressed: () {
+                        onPressed: () async {
+                          await sendOtpRequest();
                           _showSnackBar('Sent');
                         },
                         child: Text('Resend OTP'),
@@ -726,11 +856,22 @@ class _LoginSignUpState extends State<LoginSignUp> {
               Column(
                 children: [
                   GestureDetector(
-                    onTap: () {
-                      setState(() {
-                        print(_pinPutController.text);
-                        _pageState = 4;
-                      });
+                    onTap: () async {
+                      if (_pinPutController.text.isNotEmpty) {
+                        setState(() {
+                          LoginSignUp.otp = _pinPutController.text.toString();
+                        });
+                        await makeSignUpRequest();
+                        if (LoginSignUp.registerMessage == 'REGISTER_SUCCESS') {
+                          setState(() {
+                            _pageState = 4;
+                          });
+                        } else if (LoginSignUp.registerMessage == 'WRONG_OTP') {
+                          _showSnackBar('Please Check the entered OTP');
+                        }
+                      } else {
+                        _showSnackBar('Empty OTP is invalid');
+                      }
                     },
                     child: Padding(
                       padding: const EdgeInsets.only(bottom: 40.0),
@@ -773,7 +914,8 @@ class _LoginSignUpState extends State<LoginSignUp> {
               Container(
                 margin: EdgeInsets.only(bottom: 20),
                 child: Text(
-                  'Set your 4 digit MPIN',
+                  'Registration successful\n\nAs a last step set your 4 digit MPIN',
+                  textAlign: TextAlign.center,
                   style: TextStyle(fontSize: 20),
                 ),
               ),
@@ -781,8 +923,22 @@ class _LoginSignUpState extends State<LoginSignUp> {
                 child: animatingBordersForMpin(),
               ),
               GestureDetector(
-                onTap: () {
-                  Navigator.pushNamed(context, Dashboard.routeName);
+                onTap: () async {
+                  print(_pinPutControllerMpin.text);
+                  if (_pinPutControllerMpin.text.isNotEmpty) {
+                    setState(() {
+                      LoginSignUp.mpin = _pinPutControllerMpin.text.toString();
+                    });
+                    await setMpinRequestRequest();
+                    if (LoginSignUp.mpinResponse == '1') {
+                      Navigator.pushNamed(context, Dashboard.routeName);
+                    } else {
+                      _showSnackBar(
+                          'Oops, something went wrong. Please try later');
+                    }
+                  } else {
+                    _showSnackBar('MPIN Cannot be empty');
+                  }
                 },
                 child: PrimaryButton(btnText: 'I am ready!'),
               ),
@@ -838,8 +994,8 @@ class _LoginSignUpState extends State<LoginSignUp> {
       eachFieldWidth: 50,
       withCursor: false,
       //onSubmit: (String pin) => _showSnackBar(pin),
-      focusNode: _pinPutFocusNode,
-      controller: _pinPutController,
+      focusNode: _pinPutFocusNodeMpin,
+      controller: _pinPutControllerMpin,
       submittedFieldDecoration: pinPutDecoration.copyWith(
         borderRadius: BorderRadius.circular(20.0),
       ),
@@ -862,6 +1018,7 @@ class _LoginSignUpState extends State<LoginSignUp> {
         child: Center(
           child: Text(
             text,
+            textAlign: TextAlign.center,
             style: const TextStyle(fontSize: 15.0, color: Colors.black),
           ),
         ),
