@@ -9,7 +9,39 @@ import 'package:optymoney/LoginNSignUp/Components/body.dart';
 
 import '../../Models.dart';
 
+raiseTicket() async {
+  var url = Uri.parse(
+      '${urlWeb}ajax-request/ajax_response.php?action=ticketapp&subaction=submit');
+  final headers = {'Content-Type': 'application/json'};
+  var body = jsonEncode({
+    'uid': LoginSignUp.globalUserId,
+    'subject': Body.subject,
+    'content': Body.content,
+  });
+  //String jsonBody = json.encode(body);
+  final encoding = Encoding.getByName('utf-8');
+
+  print(body);
+
+  Response response = await post(
+    url,
+    headers: headers,
+    body: body,
+    encoding: encoding,
+  );
+
+  var responseBody = response.body;
+  print(responseBody);
+  var parsedJson = jsonDecode(responseBody);
+  Body.message = parsedJson['message'].toString();
+  Body.status = parsedJson['status'].toString();
+}
+
 class Body extends StatefulWidget {
+  static var subject;
+  static var content;
+  static var status;
+  static var message;
   const Body({Key? key}) : super(key: key);
 
   @override
@@ -18,7 +50,7 @@ class Body extends StatefulWidget {
 
 class _BodyState extends State<Body> {
   TextEditingController contentController = new TextEditingController();
-  TextEditingController subjectCOntroller = new TextEditingController();
+  TextEditingController subjectController = new TextEditingController();
 
   Future<List<TicketData>> getTicketData() async {
     var url = Uri.parse(
@@ -132,51 +164,204 @@ class _BodyState extends State<Body> {
                     itemBuilder: (context, index) {
                       return Padding(
                         padding: EdgeInsets.symmetric(horizontal: 5),
-                        child: Card(
-                          child: Padding(
-                            padding:
-                                const EdgeInsets.symmetric(horizontal: 8.0),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              children: [
-                                Row(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Expanded(
-                                      flex: 6,
-                                      child: Text(
-                                        snapshot.data[index].ticket_id +
-                                            '.' +
-                                            snapshot.data[index].ticket_subject,
-                                        style: TextStyle(
-                                          fontSize: 18,
-                                          fontWeight: FontWeight.bold,
-                                        ),
-                                        textAlign: TextAlign.start,
+                        child: GestureDetector(
+                          onTap: () {
+                            showModalBottomSheet(
+                              context: context,
+                              builder: (context) {
+                                return Scaffold(
+                                  appBar: AppBar(
+                                    backgroundColor: Colors.white,
+                                    elevation: 0,
+                                    title: Text(
+                                      snapshot.data[index].ticket_subject,
+                                      style: TextStyle(
+                                        color: Colors.black,
+                                        fontWeight: FontWeight.bold,
                                       ),
                                     ),
-                                    Expanded(
-                                      flex: 2,
-                                      child: Text(
-                                        snapshot.data[index].ticket_date,
-                                        style: TextStyle(
-                                            fontSize: 15,
-                                            fontWeight: FontWeight.bold),
+                                    actions: [
+                                      CloseButton(
+                                        color: Colors.black,
                                       ),
-                                    ),
-                                  ],
-                                ),
-                                SizedBox(height: windowHeight * 0.01),
-                                Text(
-                                  snapshot.data[index].ticket_content,
-                                  style: TextStyle(
-                                    fontSize: 15,
-                                    fontWeight: FontWeight.w600,
+                                    ],
                                   ),
-                                  textAlign: TextAlign.start,
-                                ),
-                              ],
+                                  body: SingleChildScrollView(
+                                    child: Container(
+                                      child: Padding(
+                                        padding: const EdgeInsets.symmetric(
+                                          horizontal: 10.0,
+                                        ),
+                                        child: Column(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.start,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            SizedBox(
+                                              height: windowHeight * 0.02,
+                                            ),
+                                            Text(
+                                              'Problem faced by you:',
+                                              style: TextStyle(
+                                                fontSize: 18,
+                                                fontWeight: FontWeight.w600,
+                                              ),
+                                            ),
+                                            SizedBox(
+                                              height: windowHeight * 0.01,
+                                            ),
+                                            Text(
+                                              snapshot
+                                                  .data[index].ticket_content,
+                                              style: TextStyle(
+                                                fontSize: 15,
+                                                fontWeight: FontWeight.w600,
+                                              ),
+                                            ),
+                                            SizedBox(
+                                              height: windowHeight * 0.04,
+                                            ),
+                                            Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment
+                                                      .spaceBetween,
+                                              children: [
+                                                Text(
+                                                  'Issue Attended By:',
+                                                  style: TextStyle(
+                                                    fontSize: 18,
+                                                    fontWeight: FontWeight.w600,
+                                                  ),
+                                                ),
+                                                Text(
+                                                  snapshot.data[index]
+                                                              .ticket_attender ==
+                                                          'null'
+                                                      ? 'Pending'
+                                                      : snapshot.data[index]
+                                                          .ticket_attender,
+                                                  style: TextStyle(
+                                                    fontSize: 18,
+                                                    fontWeight: FontWeight.w600,
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                            SizedBox(
+                                              height: windowHeight * 0.01,
+                                            ),
+                                            Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment
+                                                      .spaceBetween,
+                                              children: [
+                                                Text(
+                                                  'Issue resolution date:',
+                                                  style: TextStyle(
+                                                    fontSize: 18,
+                                                    fontWeight: FontWeight.w600,
+                                                  ),
+                                                ),
+                                                Text(
+                                                  snapshot.data[index]
+                                                              .ticket_res_date ==
+                                                          'null'
+                                                      ? 'Pending'
+                                                      : snapshot.data[index]
+                                                          .ticket_res_date,
+                                                  style: TextStyle(
+                                                    fontSize: 18,
+                                                    fontWeight: FontWeight.w600,
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                            SizedBox(
+                                              height: windowHeight * 0.04,
+                                            ),
+                                            Text(
+                                              'Resolution:',
+                                              style: TextStyle(
+                                                fontSize: 18,
+                                                fontWeight: FontWeight.w600,
+                                              ),
+                                            ),
+                                            SizedBox(
+                                              height: windowHeight * 0.01,
+                                            ),
+                                            Text(
+                                              snapshot.data[index]
+                                                          .ticket_solution ==
+                                                      'null'
+                                                  ? 'Your issue will soon be resolved. Please be patient.'
+                                                  : snapshot.data[index]
+                                                      .ticket_solution,
+                                              style: TextStyle(
+                                                fontSize: 15,
+                                                fontWeight: FontWeight.w600,
+                                              ),
+                                            ),
+                                            SizedBox(
+                                              height: windowHeight * 0.02,
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                );
+                              },
+                            );
+                          },
+                          child: Card(
+                            child: Padding(
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 8.0, vertical: 10),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: [
+                                  Row(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Expanded(
+                                        flex: 6,
+                                        child: Text(
+                                          snapshot.data[index].ticket_id +
+                                              '.' +
+                                              snapshot
+                                                  .data[index].ticket_subject,
+                                          style: TextStyle(
+                                            fontSize: 18,
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                          textAlign: TextAlign.start,
+                                        ),
+                                      ),
+                                      Expanded(
+                                        flex: 2,
+                                        child: Text(
+                                          snapshot.data[index].ticket_date,
+                                          style: TextStyle(
+                                              fontSize: 15,
+                                              fontWeight: FontWeight.bold),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  SizedBox(height: windowHeight * 0.01),
+                                  Text(
+                                    snapshot.data[index].ticket_content,
+                                    style: TextStyle(
+                                      fontSize: 15,
+                                      fontWeight: FontWeight.w600,
+                                    ),
+                                    textAlign: TextAlign.start,
+                                  ),
+                                ],
+                              ),
                             ),
                           ),
                         ),
@@ -229,7 +414,7 @@ class _BodyState extends State<Body> {
                                             margin: EdgeInsets.all(12),
                                             height: windowHeight * 0.08,
                                             child: TextField(
-                                              controller: contentController,
+                                              controller: subjectController,
                                               maxLines: 12,
                                               decoration: InputDecoration(
                                                 hintText: 'Subject',
@@ -261,7 +446,40 @@ class _BodyState extends State<Body> {
                                           SizedBox(
                                             height: windowHeight * 0.03,
                                           ),
-                                          PrimaryButton(btnText: 'Submit'),
+                                          GestureDetector(
+                                            onTap: () async {
+                                              Body.subject = subjectController
+                                                  .text
+                                                  .toString();
+                                              Body.content = contentController
+                                                  .text
+                                                  .toString();
+                                              if (Body.subject.isEmpty &&
+                                                  Body.content.isEmpty) {
+                                                _showSnackBar(
+                                                    'Please enter details');
+                                              } else if (Body.subject.isEmpty ||
+                                                  Body.content.isEmpty) {
+                                                _showSnackBar(
+                                                    'Fileds cannot be empty');
+                                              } else {
+                                                await raiseTicket();
+                                                Navigator.pop(context);
+                                                if (Body.status == 'true') {
+                                                  _showSnackBar(Body.message);
+                                                  setState(() {
+                                                    getTicketData();
+                                                  });
+                                                } else {
+                                                  _showSnackBar(
+                                                      'Something went wrong, please try again later.');
+                                                }
+                                              }
+                                            },
+                                            child: PrimaryButton(
+                                              btnText: 'Submit',
+                                            ),
+                                          ),
                                         ],
                                       ),
                                     ),
@@ -282,6 +500,27 @@ class _BodyState extends State<Body> {
         ),
       ),
     );
+  }
+
+  void _showSnackBar(String text) {
+    final snackBar = SnackBar(
+      duration: const Duration(seconds: 3),
+      content: Container(
+        height: 40.0,
+        color: Colors.transparent,
+        child: Center(
+          child: Text(
+            text,
+            textAlign: TextAlign.center,
+            style: const TextStyle(fontSize: 15.0, color: Colors.black),
+          ),
+        ),
+      ),
+      backgroundColor: Colors.white,
+    );
+    ScaffoldMessenger.of(context)
+      ..hideCurrentSnackBar()
+      ..showSnackBar(snackBar);
   }
 }
 
