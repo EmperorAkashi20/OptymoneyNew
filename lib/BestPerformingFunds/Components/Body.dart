@@ -1,8 +1,11 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:http/http.dart';
 import 'package:loading_animations/loading_animations.dart';
+import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
+import 'package:optymoney/BestPerformingFunds/BestPerformingFunds.dart';
 import 'package:optymoney/BestPerformingFunds/Components/DetailsPage.dart';
 
 class Body extends StatefulWidget {
@@ -265,138 +268,228 @@ class _BodyState extends State<Body> {
                   ),
                 );
               } else {
-                return ListView.builder(
-                  itemCount: snapshot.data.length,
-                  itemBuilder: (BuildContext context, int index) {
-                    return Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 5),
-                      child: GestureDetector(
-                        onTap: () async {
-                          Body.schemePlan = snapshot.data[index].scheme_plan;
-                          Body.isin = snapshot.data[index].isin;
-                          Body.schemeCode = snapshot.data[index].scheme_code;
-                          Body.schemeType = snapshot.data[index].scheme_type;
-                          Body.return1 = snapshot.data[index].nav_price1;
-                          Body.return3 = snapshot.data[index].nav_price2;
-                          Body.return5 = snapshot.data[index].nav_price3;
-                          Body.encodedIsinForGraph =
-                              snapshot.data[index].encodedIsin;
-                          Body.schemeName = snapshot.data[index].scheme_name;
-                          Body.idIndex = snapshot.data[index].pk_nav_id;
-                          Body.encodedIndex = snapshot.data[index].encodedIsin;
-                          await makeSipRequest(snapshot.data[index].pk_nav_id);
-                          Navigator.pushNamed(
-                              context, SingleProductDetailsPage.routeName);
-                        },
-                        child: Padding(
-                          padding: EdgeInsets.symmetric(vertical: 3),
-                          child: Card(
-                            elevation: 1,
-                            color: Colors.white,
+                return Stack(
+                  children: [
+                    ListView.builder(
+                      itemCount: snapshot.data.length,
+                      itemBuilder: (BuildContext context, int index) {
+                        return Padding(
+                          padding: EdgeInsets.symmetric(horizontal: 5),
+                          child: GestureDetector(
+                            onTap: () async {
+                              Body.schemePlan =
+                                  snapshot.data[index].scheme_plan;
+                              Body.isin = snapshot.data[index].isin;
+                              Body.schemeCode =
+                                  snapshot.data[index].scheme_code;
+                              Body.schemeType =
+                                  snapshot.data[index].scheme_type;
+                              Body.return1 = snapshot.data[index].nav_price1;
+                              Body.return3 = snapshot.data[index].nav_price2;
+                              Body.return5 = snapshot.data[index].nav_price3;
+                              Body.encodedIsinForGraph =
+                                  snapshot.data[index].encodedIsin;
+                              Body.schemeName =
+                                  snapshot.data[index].scheme_name;
+                              Body.idIndex = snapshot.data[index].pk_nav_id;
+                              Body.encodedIndex =
+                                  snapshot.data[index].encodedIsin;
+                              await makeSipRequest(
+                                  snapshot.data[index].pk_nav_id);
+                              Navigator.pushNamed(
+                                  context, SingleProductDetailsPage.routeName);
+                            },
                             child: Padding(
-                              padding: const EdgeInsets.all(10.0),
-                              child: Column(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    snapshot.data[index].scheme_name,
-                                    style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  ),
-                                  SizedBox(
-                                    height: 4,
-                                  ),
-                                  Container(
-                                    width: windowWidth * 0.34,
-                                    decoration: BoxDecoration(
-                                      color: Colors.lightBlueAccent.shade100,
-                                      borderRadius: BorderRadius.circular(5),
-                                    ),
-                                    child: Padding(
-                                      padding: const EdgeInsets.symmetric(
-                                          vertical: 3.0, horizontal: 8.0),
-                                      child: Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          Text(
-                                            snapshot.data[index].scheme_type,
-                                            style: TextStyle(
+                              padding: EdgeInsets.symmetric(vertical: 3),
+                              child: Card(
+                                elevation: 1,
+                                color: Colors.white,
+                                child: Padding(
+                                  padding: const EdgeInsets.all(10.0),
+                                  child: Column(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        snapshot.data[index].scheme_name,
+                                        style: TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
+                                      SizedBox(
+                                        height: 4,
+                                      ),
+                                      Container(
+                                        width: windowWidth * 0.34,
+                                        decoration: BoxDecoration(
+                                          color:
+                                              Colors.lightBlueAccent.shade100,
+                                          borderRadius:
+                                              BorderRadius.circular(5),
+                                        ),
+                                        child: Padding(
+                                          padding: const EdgeInsets.symmetric(
+                                              vertical: 3.0, horizontal: 8.0),
+                                          child: Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceBetween,
+                                            children: [
+                                              Text(
+                                                snapshot
+                                                    .data[index].scheme_type,
+                                                style: TextStyle(
+                                                    color: Colors.white,
+                                                    fontWeight:
+                                                        FontWeight.w900),
+                                              ),
+                                              Icon(
+                                                Icons.star,
+                                                size: 15,
                                                 color: Colors.white,
-                                                fontWeight: FontWeight.w900),
+                                              )
+                                            ],
                                           ),
-                                          Icon(
-                                            Icons.star,
-                                            size: 15,
-                                            color: Colors.white,
-                                          )
+                                        ),
+                                      ),
+                                      SizedBox(
+                                        height: 10,
+                                      ),
+                                      Padding(
+                                        padding: const EdgeInsets.symmetric(
+                                            horizontal: 8.0),
+                                        child: Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            Column(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.end,
+                                              children: [
+                                                Text("1 Year"),
+                                                Text(
+                                                  snapshot.data[index]
+                                                          .nav_price1 +
+                                                      "%",
+                                                  style: TextStyle(
+                                                      fontWeight:
+                                                          FontWeight.bold),
+                                                ),
+                                              ],
+                                            ),
+                                            Column(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.end,
+                                              children: [
+                                                Text("3 Years"),
+                                                Text(
+                                                  snapshot.data[index]
+                                                          .nav_price2 +
+                                                      "%",
+                                                  style: TextStyle(
+                                                      fontWeight:
+                                                          FontWeight.bold),
+                                                ),
+                                              ],
+                                            ),
+                                            Column(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.end,
+                                              children: [
+                                                Text("5 Years"),
+                                                Text(
+                                                  snapshot.data[index]
+                                                          .nav_price3 +
+                                                      "%",
+                                                  style: TextStyle(
+                                                      fontWeight:
+                                                          FontWeight.bold),
+                                                ),
+                                              ],
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                        );
+                      },
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(18.0),
+                      child: Align(
+                        alignment: Alignment.bottomRight,
+                        child: FloatingActionButton(
+                          child: FaIcon(FontAwesomeIcons.filter),
+                          onPressed: () {
+                            setState(
+                              () {
+                                showCupertinoModalBottomSheet(
+                                  expand: false,
+                                  isDismissible: true,
+                                  enableDrag: true,
+                                  bounce: true,
+                                  duration: Duration(milliseconds: 400),
+                                  context: context,
+                                  builder: (context) => DefaultTabController(
+                                    length: 2,
+                                    child: Scaffold(
+                                      appBar: AppBar(
+                                        toolbarHeight: windowHeight * 0.08,
+                                        title: Text(
+                                          'AMC Filters',
+                                          style: TextStyle(
+                                            color: Colors.black,
+                                            fontSize: 18,
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                        ),
+                                        elevation: 0,
+                                        backgroundColor: Colors.white,
+                                        automaticallyImplyLeading: false,
+                                        actions: [
+                                          CloseButton(
+                                            color: Colors.black,
+                                          ),
+                                        ],
+                                        bottom: TabBar(
+                                          tabs: [
+                                            Text(
+                                              'Categories',
+                                              style: TextStyle(
+                                                color: Colors.black,
+                                              ),
+                                            ),
+                                            Text(
+                                              "All AMC's",
+                                              style: TextStyle(
+                                                color: Colors.black,
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                      body: TabBarView(
+                                        children: [
+                                          Icon(Icons.access_alarm_outlined),
+                                          Icon(Icons.access_alarm_outlined),
                                         ],
                                       ),
                                     ),
                                   ),
-                                  SizedBox(
-                                    height: 10,
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.symmetric(
-                                        horizontal: 8.0),
-                                    child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Column(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.end,
-                                          children: [
-                                            Text("1 Year"),
-                                            Text(
-                                              snapshot.data[index].nav_price1 +
-                                                  "%",
-                                              style: TextStyle(
-                                                  fontWeight: FontWeight.bold),
-                                            ),
-                                          ],
-                                        ),
-                                        Column(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.end,
-                                          children: [
-                                            Text("3 Years"),
-                                            Text(
-                                              snapshot.data[index].nav_price2 +
-                                                  "%",
-                                              style: TextStyle(
-                                                  fontWeight: FontWeight.bold),
-                                            ),
-                                          ],
-                                        ),
-                                        Column(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.end,
-                                          children: [
-                                            Text("5 Years"),
-                                            Text(
-                                              snapshot.data[index].nav_price3 +
-                                                  "%",
-                                              style: TextStyle(
-                                                  fontWeight: FontWeight.bold),
-                                            ),
-                                          ],
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
+                                );
+                              },
+                            );
+                          },
                         ),
                       ),
-                    );
-                  },
+                    ),
+                  ],
                 );
               }
             },

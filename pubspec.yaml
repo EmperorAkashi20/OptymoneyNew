@@ -58,6 +58,7 @@ dependencies:
   #SHA512256
   crypto: ^3.0.1
   url_launcher: ^6.0.9
+  modal_bottom_sheet: ^2.0.0
 
 dev_dependencies:
   flutter_test:

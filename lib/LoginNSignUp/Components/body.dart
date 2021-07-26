@@ -262,9 +262,6 @@ class LoginSignUp extends StatefulWidget {
 
 class _LoginSignUpState extends State<LoginSignUp> {
   final _formKey = GlobalKey<FormState>();
-  final _formKey1 = GlobalKey<FormState>();
-  final _pinPutControllerOtp = TextEditingController();
-  final _pinPutFocusNodeOtp = FocusNode();
   final _pinPutControllerMpin = TextEditingController();
   final _pinPutFocusNodeMpin = FocusNode();
   final _pinPutController = TextEditingController();
