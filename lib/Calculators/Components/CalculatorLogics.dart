@@ -238,18 +238,20 @@ class _SipCalcFromState extends State<SipCalcFrom> {
                   ),
                   child: Padding(
                     padding: const EdgeInsets.only(left: 8.0),
-                    child: DropdownButton<String>(
-                      elevation: 0,
-                      items: _options.map((String dropDownStringItem) {
-                        return DropdownMenuItem<String>(
-                          value: dropDownStringItem,
-                          child: Text(dropDownStringItem),
-                        );
-                      }).toList(),
-                      onChanged: (String? newValueSelected) {
-                        _dropDownItemSelected(newValueSelected);
-                      },
-                      value: _currentItemSelected,
+                    child: DropdownButtonHideUnderline(
+                      child: DropdownButton<String>(
+                        elevation: 0,
+                        items: _options.map((String dropDownStringItem) {
+                          return DropdownMenuItem<String>(
+                            value: dropDownStringItem,
+                            child: Text(dropDownStringItem),
+                          );
+                        }).toList(),
+                        onChanged: (String? newValueSelected) {
+                          _dropDownItemSelected(newValueSelected);
+                        },
+                        value: _currentItemSelected,
+                      ),
                     ),
                   ),
                 ),
