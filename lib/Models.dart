@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import 'size_config.dart';
 import 'constants.dart';
 
 // ----------------------------------------------------------------------------------Global----------------------------------------------------------------------------------------------------------------------------------
+
+const urlWeb = 'https://test.optymoney.com/';
 
 class FormFieldGlobal extends StatelessWidget {
   const FormFieldGlobal({

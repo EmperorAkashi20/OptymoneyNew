@@ -7,12 +7,15 @@ import 'package:optymoney/Cart/Cart.dart';
 import 'package:optymoney/CompleteProfile/CompleteProfile.dart';
 import 'package:optymoney/Dashboard/Components/DetailsPage.dart';
 import 'package:optymoney/Dashboard/dashboard.dart';
+import 'package:optymoney/Feedback/Feedback.dart';
 import 'package:optymoney/ITR/incometax.dart';
 import 'package:optymoney/Investments/investments.dart';
 import 'package:optymoney/LoginNSignUp/loginNsignup.dart';
 import 'package:optymoney/LoginWithMpin/LoginWithMPin.dart';
+import 'package:optymoney/Orders/Orders.dart';
 import 'package:optymoney/PinSetupLogin/PinSetupLogin.dart';
 import 'package:optymoney/Settings/Settings.dart';
+import 'package:optymoney/SupportTicket/SupportTicket.dart';
 import 'package:optymoney/ViewProfile/ViewProfile.dart';
 
 // We use name route
@@ -33,4 +36,7 @@ final Map<String, WidgetBuilder> routes = {
   ViewProfile.routeName: (context) => ViewProfile(),
   BankDetails.routeName: (context) => BankDetails(),
   Cart.routeName: (context) => Cart(),
+  Orders.routeName: (context) => Orders(),
+  FeedbackApp.routeName: (context) => FeedbackApp(),
+  SupportTicket.routeName: (context) => SupportTicket(),
 };

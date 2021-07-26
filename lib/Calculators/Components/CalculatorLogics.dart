@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:number_slide_animation/number_slide_animation.dart';
 import 'dart:math';
 
 import '../../../../../constants.dart';
@@ -76,6 +77,127 @@ class _SipCalcFromState extends State<SipCalcFrom> {
         child: Container(
           child: Column(
             children: <Widget>[
+              Stack(
+                alignment: Alignment.center,
+                children: [
+                  Container(
+                    height: windowHeight * 0.3,
+                    width: windowWidth,
+                    child: Center(
+                      child: Card(
+                        elevation: 0,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(30),
+                        ),
+                        child: Container(
+                          height: windowHeight * 0.25,
+                          width: windowWidth * 0.9,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(30),
+                            gradient: LinearGradient(
+                              begin: Alignment.topCenter,
+                              end: Alignment.bottomCenter,
+                              colors: [
+                                Colors.blue.shade900,
+                                Colors.blue.shade300
+                              ],
+                            ),
+                          ),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.only(top: 30.0),
+                                child: Text(
+                                  'Future Value Of Investment',
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.w700,
+                                  ),
+                                ),
+                              ),
+                              Text(
+                                '₹' + fvInvestmentInt.toString(),
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 34,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                              if (fvInvestmentInt != 0)
+                                Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 8.0),
+                                  child: Text(
+                                    "Suggestion: If you invest ₹" +
+                                        sipAmount.toString() +
+                                        " per month for " +
+                                        noOfYrs.toString() +
+                                        " years @ " +
+                                        r.toString() +
+                                        " % P.A expected rate of return, you will accumulate ₹" +
+                                        fvInvestmentInt.toString() +
+                                        " at the end of the " +
+                                        noOfYrs.toString() +
+                                        " years.",
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.w600,
+                                    ),
+                                  ),
+                                ),
+                              SizedBox(
+                                height: windowHeight * 0.03,
+                              ),
+                              // NumberSlideAnimation(
+                              //   number: fvInvestmentInt.toString(),
+                              //   duration: Duration(seconds: 2),
+                              //   curve: Curves.bounceIn,
+                              //   textStyle: TextStyle(
+                              //     color: Colors.white,
+                              //     fontSize: 28,
+                              //   ),
+                              // ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                  Positioned(
+                    bottom: -3,
+                    child: Card(
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      elevation: 4,
+                      child: Container(
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10),
+                          color: Colors.blue.shade900,
+                        ),
+                        height: windowHeight * 0.05,
+                        width: windowWidth * 0.4,
+                        child: Center(
+                          child: Text(
+                            'Invest Now',
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 15,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  )
+                ],
+              ),
+              SizedBox(
+                height: windowHeight * 0.02,
+              ),
               TitleHeaderWithRichText(
                   text: "SIP Amount", richText: " (Minimum Rs. 500/-)"),
               FormFieldGlobal(
@@ -143,9 +265,9 @@ class _SipCalcFromState extends State<SipCalcFrom> {
                 height: windowHeight * 0.03,
               ),
               Padding(
-                padding: const EdgeInsets.only(right: 18.0),
+                padding: const EdgeInsets.only(right: 0.0),
                 child: Align(
-                  alignment: Alignment.centerRight,
+                  alignment: Alignment.center,
                   child: Container(
                     height: windowHeight * 0.05,
                     width: windowWidth * 0.3,
@@ -184,6 +306,8 @@ class _SipCalcFromState extends State<SipCalcFrom> {
                           fvInvestmentDouble = (d * fv1) - fv1;
                           amountInvested = investedAmount.toString();
                           fvInvestmentInt = fvInvestmentDouble.round();
+                          print(fvInvestmentInt.toString());
+                          print(fvInvestmentDouble.toString());
                         });
                       },
                       style: TextButton.styleFrom(
@@ -198,32 +322,6 @@ class _SipCalcFromState extends State<SipCalcFrom> {
                     ),
                   ),
                 ),
-              ),
-              Divider(),
-              OutputTextForPopUp(),
-              TitleHeader(text: "Amount Invested"),
-              GlobalOutputField(
-                outputValue: amountInvested,
-              ),
-              TitleHeader(text: "Future Value Investment Of"),
-              GlobalOutputField(
-                outputValue: fvInvestmentInt.toString(),
-              ),
-              SuggestionBox1(
-                suggestion: "If you invest ₹" +
-                    sipAmount.toString() +
-                    " per month for " +
-                    noOfYrs.toString() +
-                    " years @ " +
-                    r.toString() +
-                    " % P.A expected rate of return, you will accumulate ₹" +
-                    fvInvestmentInt.toString() +
-                    " at the end of the " +
-                    noOfYrs.toString() +
-                    " years.",
-              ),
-              SizedBox(
-                height: windowHeight * 0.03,
               ),
             ],
           ),

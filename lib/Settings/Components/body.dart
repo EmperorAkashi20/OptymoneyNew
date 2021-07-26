@@ -3,7 +3,10 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:optymoney/BankDetails/BankDetails.dart';
 import 'package:optymoney/Cart/Cart.dart';
 import 'package:optymoney/CompleteProfile/CompleteProfile.dart';
+import 'package:optymoney/Feedback/Feedback.dart';
 import 'package:optymoney/LoginNSignUp/Components/body.dart';
+import 'package:optymoney/Orders/Orders.dart';
+import 'package:optymoney/SupportTicket/SupportTicket.dart';
 import 'package:optymoney/ViewProfile/ViewProfile.dart';
 
 class Body extends StatefulWidget {
@@ -227,7 +230,9 @@ class _BodyState extends State<Body> {
                     ),
                     trailing: Icon(Icons.arrow_forward_rounded),
                     subtitle: Text('Check your order status'),
-                    onTap: () {},
+                    onTap: () {
+                      Navigator.pushNamed(context, Orders.routeName);
+                    },
                     // tileColor: Colors.lightBlue.withOpacity(0.3),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(20),
@@ -382,6 +387,30 @@ class _BodyState extends State<Body> {
                   child: TextButton(
                     onPressed: () {},
                     child: Text('Privacy Policy'),
+                  ),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                child: Align(
+                  alignment: Alignment.centerLeft,
+                  child: TextButton(
+                    onPressed: () {
+                      Navigator.pushNamed(context, FeedbackApp.routeName);
+                    },
+                    child: Text('Feedback'),
+                  ),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                child: Align(
+                  alignment: Alignment.centerLeft,
+                  child: TextButton(
+                    onPressed: () {
+                      Navigator.pushNamed(context, SupportTicket.routeName);
+                    },
+                    child: Text('Raise a support ticket'),
                   ),
                 ),
               ),
