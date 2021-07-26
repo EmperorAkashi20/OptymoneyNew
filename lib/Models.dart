@@ -20,10 +20,12 @@ class FormFieldGlobal extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    double windowHeight = MediaQuery.of(context).size.height;
+    double windowWidth = MediaQuery.of(context).size.width;
     return Padding(
       padding: const EdgeInsets.only(left: 18.0, right: 18.0),
       child: Container(
-        height: getProportionateScreenHeight(50),
+        height: windowHeight * 0.05,
         child: TextFormField(
           enabled: enabledOrNot,
           controller: dataController,
@@ -66,8 +68,10 @@ class FormFieldGlobalForPopUp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    double windowHeight = MediaQuery.of(context).size.height;
+    double windowWidth = MediaQuery.of(context).size.width;
     return Container(
-      height: getProportionateScreenHeight(50),
+      height: windowHeight * 0.05,
       child: TextFormField(
         enabled: enabledOrNot,
         controller: dataController,
@@ -113,10 +117,12 @@ class FormFieldDisplayProfile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    double windowHeight = MediaQuery.of(context).size.height;
+    double windowWidth = MediaQuery.of(context).size.width;
     return Padding(
       padding: const EdgeInsets.only(left: 18.0, right: 18.0),
       child: Container(
-        height: getProportionateScreenHeight(50),
+        height: windowHeight * 0.05,
         child: TextFormField(
           initialValue: initValue,
           onChanged: (value) => onChange,
@@ -155,6 +161,8 @@ class TitleHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    double windowHeight = MediaQuery.of(context).size.height;
+    double windowWidth = MediaQuery.of(context).size.width;
     return Padding(
       padding: const EdgeInsets.only(top: 20.0, left: 20),
       child: Align(
@@ -178,6 +186,8 @@ class TitleHeaderForPopUp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    double windowHeight = MediaQuery.of(context).size.height;
+    double windowWidth = MediaQuery.of(context).size.width;
     return Align(
       alignment: Alignment.topLeft,
       child: Text(
@@ -195,6 +205,8 @@ class OutputTextForPopUp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    double windowHeight = MediaQuery.of(context).size.height;
+    double windowWidth = MediaQuery.of(context).size.width;
     return Padding(
       padding: const EdgeInsets.only(left: 18.0),
       child: Align(
@@ -222,13 +234,15 @@ class GlobalOutputField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    double windowHeight = MediaQuery.of(context).size.height;
+    double windowWidth = MediaQuery.of(context).size.width;
     return Padding(
       padding: const EdgeInsets.only(
         left: 18.0,
         right: 18.0,
       ),
       child: Container(
-        height: getProportionateScreenHeight(50),
+        height: windowHeight * 0.05,
         width: double.infinity,
         child: Container(
           decoration: BoxDecoration(
@@ -266,10 +280,12 @@ class SuggestionBox1 extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    double windowHeight = MediaQuery.of(context).size.height;
+    double windowWidth = MediaQuery.of(context).size.width;
     return Padding(
       padding: const EdgeInsets.only(left: 18.0, right: 18.0, top: 18.0),
       child: Container(
-        height: getProportionateScreenHeight(100),
+        height: windowHeight * 0.1,
         width: double.infinity,
         child: Container(
           decoration: ShapeDecoration(
@@ -318,10 +334,12 @@ class SuggestionBox2 extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    double windowHeight = MediaQuery.of(context).size.height;
+    double windowWidth = MediaQuery.of(context).size.width;
     return Padding(
       padding: const EdgeInsets.only(left: 18.0, right: 18.0, top: 18.0),
       child: Container(
-        height: getProportionateScreenHeight(100),
+        height: windowHeight * 0.1,
         width: double.infinity,
         child: Container(
           decoration: ShapeDecoration(
@@ -370,6 +388,8 @@ class TitleHeaderWithRichText extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    double windowHeight = MediaQuery.of(context).size.height;
+    double windowWidth = MediaQuery.of(context).size.width;
     return Padding(
       padding: const EdgeInsets.only(top: 20.0, left: 20),
       child: Align(

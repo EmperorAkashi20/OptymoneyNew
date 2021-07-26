@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:optymoney/BestPerformingFunds/BestPerformingFunds.dart';
 import 'package:optymoney/Calculators/calculators.dart';
 import 'package:optymoney/Dashboard/Components/DashboardData.dart';
 import 'package:optymoney/ITR/incometax.dart';
-import 'package:optymoney/Investments/investments.dart';
 import 'package:optymoney/Settings/Settings.dart';
 
 class Body extends StatefulWidget {

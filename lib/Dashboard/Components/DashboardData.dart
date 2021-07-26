@@ -32,8 +32,6 @@ class DashboardData extends StatefulWidget {
 }
 
 class _DashboardDataState extends State<DashboardData> {
-  Timer? _timer;
-  late double _progress;
   Future<List<Scheme>> _getScheme() async {
     var url = Uri.parse(
         'https://optymoney.com/ajax-request/ajax_response.php?action=fetchPortfolioApp&subaction=submit');

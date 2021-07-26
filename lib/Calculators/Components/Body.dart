@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
-import 'package:optymoney/Calculators/CalculatorLogics.dart';
+import 'package:optymoney/Calculators/Components/CalculatorLogics.dart';
 
 class Body extends StatefulWidget {
   const Body({Key? key}) : super(key: key);
@@ -169,18 +169,21 @@ class _BodyState extends State<Body> {
                         windowWidth: windowWidth,
                         letter: 'L',
                         name: 'Lump Sum',
+                        navigationRoute: LumpSumCalcFrom(),
                       ),
                       FinancialCalculatorsTiles(
                         windowHeight: windowHeight,
                         windowWidth: windowWidth,
                         letter: 'E',
                         name: 'EMI Car Loan',
+                        navigationRoute: EmiCarLoanCalcForm(),
                       ),
                       FinancialCalculatorsTiles(
                         windowHeight: windowHeight,
                         windowWidth: windowWidth,
                         letter: 'H',
                         name: 'House Rent',
+                        navigationRoute: HraCalcFrom(),
                       ),
                     ],
                   ),
@@ -192,18 +195,21 @@ class _BodyState extends State<Body> {
                         windowWidth: windowWidth,
                         letter: 'T',
                         name: 'Tax   Calculator',
+                        navigationRoute: TaxCalculator(),
                       ),
                       FinancialCalculatorsTiles(
                         windowHeight: windowHeight,
                         windowWidth: windowWidth,
                         letter: 'E',
                         name: 'EMI Personal Loan',
+                        navigationRoute: EmiCarLoanCalcForm(),
                       ),
                       FinancialCalculatorsTiles(
                         windowHeight: windowHeight,
                         windowWidth: windowWidth,
                         letter: 'S',
                         name: 'SIP Installment',
+                        navigationRoute: SipInstallmentCalcForm(),
                       ),
                     ],
                   ),
@@ -215,18 +221,21 @@ class _BodyState extends State<Body> {
                         windowWidth: windowWidth,
                         letter: 'F',
                         name: 'Fixed Deposit Calculator',
+                        navigationRoute: FixedDepositCalcForm(),
                       ),
                       FinancialCalculatorsTiles(
                         windowHeight: windowHeight,
                         windowWidth: windowWidth,
                         letter: 'P',
                         name: 'PPF  Calculator',
+                        navigationRoute: PpfCalcFrom(),
                       ),
                       FinancialCalculatorsTiles(
                         windowHeight: windowHeight,
                         windowWidth: windowWidth,
                         letter: 'T',
                         name: 'Tax Regime Comparision',
+                        navigationRoute: OldVsNewTax(),
                       ),
                     ],
                   ),
@@ -238,12 +247,14 @@ class _BodyState extends State<Body> {
                         windowWidth: windowWidth,
                         letter: 'R',
                         name: 'Recurring Deposit',
+                        navigationRoute: RecurringDepositCalcForm(),
                       ),
                       FinancialCalculatorsTiles(
                         windowHeight: windowHeight,
                         windowWidth: windowWidth,
                         letter: 'N',
                         name: 'NPS Calculator',
+                        navigationRoute: NpsCalcForm(),
                       ),
                       Expanded(
                         child: Card(),

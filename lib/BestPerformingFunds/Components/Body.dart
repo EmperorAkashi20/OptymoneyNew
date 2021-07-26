@@ -5,7 +5,6 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:http/http.dart';
 import 'package:loading_animations/loading_animations.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
-import 'package:optymoney/BestPerformingFunds/BestPerformingFunds.dart';
 import 'package:optymoney/BestPerformingFunds/Components/DetailsPage.dart';
 
 class Body extends StatefulWidget {

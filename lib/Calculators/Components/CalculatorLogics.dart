@@ -55,23 +55,25 @@ class _SipCalcFromState extends State<SipCalcFrom> {
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      child: Scaffold(
-        appBar: AppBar(
-          automaticallyImplyLeading: false,
-          backgroundColor: Colors.white,
-          elevation: 2,
-          title: Text(
-            'SIP Calculator',
-            style: TextStyle(color: Colors.black, fontSize: 18),
-          ),
-          actions: [
-            CloseButton(
-              color: Colors.black,
-            ),
-          ],
+    double windowHeight = MediaQuery.of(context).size.height;
+    double windowWidth = MediaQuery.of(context).size.width;
+    return Scaffold(
+      appBar: AppBar(
+        automaticallyImplyLeading: false,
+        backgroundColor: Colors.white,
+        elevation: 2,
+        title: Text(
+          'SIP Calculator',
+          style: TextStyle(color: Colors.black, fontSize: 18),
         ),
-        body: Container(
+        actions: [
+          CloseButton(
+            color: Colors.black,
+          ),
+        ],
+      ),
+      body: SingleChildScrollView(
+        child: Container(
           child: Column(
             children: <Widget>[
               TitleHeaderWithRichText(
@@ -101,7 +103,7 @@ class _SipCalcFromState extends State<SipCalcFrom> {
               Padding(
                 padding: const EdgeInsets.only(left: 18.0, right: 18.0),
                 child: Container(
-                  height: getProportionateScreenHeight(50),
+                  height: windowHeight * 0.05,
                   width: double.infinity,
                   decoration: BoxDecoration(
                     color: Colors.white,
@@ -138,19 +140,19 @@ class _SipCalcFromState extends State<SipCalcFrom> {
                 dataController: inflationRate,
               ),
               SizedBox(
-                height: getProportionateScreenHeight(20),
+                height: windowHeight * 0.03,
               ),
               Padding(
                 padding: const EdgeInsets.only(right: 18.0),
                 child: Align(
                   alignment: Alignment.centerRight,
                   child: Container(
-                    height: getProportionateScreenHeight(50),
-                    width: getProportionateScreenWidth(150),
+                    height: windowHeight * 0.05,
+                    width: windowWidth * 0.3,
                     child: TextButton(
                       child: Text('Compute',
                           style: TextStyle(
-                              color: kPrimaryColor,
+                              color: Colors.blue.shade700,
                               fontSize: 20,
                               fontWeight: FontWeight.w500)),
                       onPressed: () {
@@ -187,12 +189,12 @@ class _SipCalcFromState extends State<SipCalcFrom> {
                       style: TextButton.styleFrom(
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(10.0),
-                          side: BorderSide(color: kPrimaryColor),
+                          side: BorderSide(color: Colors.blue.shade700),
                         ),
                       ),
                       // shape: RoundedRectangleBorder(
                       //   borderRadius: BorderRadius.circular(10.0),
-                      //   side: BorderSide(color: kPrimaryColor),
+                      //   side: BorderSide(color: Colors.blue.shade700),
                     ),
                   ),
                 ),
@@ -221,7 +223,7 @@ class _SipCalcFromState extends State<SipCalcFrom> {
                     " years.",
               ),
               SizedBox(
-                height: getProportionateScreenHeight(20),
+                height: windowHeight * 0.03,
               ),
             ],
           ),
@@ -264,119 +266,116 @@ class _EmiCarLoanCalcFormState extends State<EmiCarLoanCalcForm> {
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      child: Container(
-        child: Column(
-          children: <Widget>[
-            Padding(
-              padding: const EdgeInsets.only(left: 19.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: <Widget>[
-                  Text(
-                    "EMI Car Loan Calculator",
-                    style: TextStyle(
-                      fontSize: 20,
-                      color: kPrimaryColor,
-                      fontWeight: FontWeight.w800,
-                    ),
-                  ),
-                  Spacer(),
-                  CloseButton(),
-                ],
+    double windowHeight = MediaQuery.of(context).size.height;
+    double windowWidth = MediaQuery.of(context).size.width;
+    return Scaffold(
+      appBar: AppBar(
+        automaticallyImplyLeading: false,
+        backgroundColor: Colors.white,
+        elevation: 2,
+        title: Text(
+          'EMI Car Loan Calculator',
+          style: TextStyle(color: Colors.black, fontSize: 18),
+        ),
+        actions: [
+          CloseButton(
+            color: Colors.black,
+          ),
+        ],
+      ),
+      body: SingleChildScrollView(
+        child: Container(
+          child: Column(
+            children: <Widget>[
+              TitleHeader(text: "Car Loan Amount"),
+              FormFieldGlobal(
+                keyboardTypeGlobal: TextInputType.number,
+                hintText: "Amount Here",
+                dataController: carLoanAmount,
               ),
-            ),
-            Divider(
-              thickness: 0.2,
-              color: kPrimaryColor,
-            ),
-            TitleHeader(text: "Car Loan Amount"),
-            FormFieldGlobal(
-              keyboardTypeGlobal: TextInputType.number,
-              hintText: "Amount Here",
-              dataController: carLoanAmount,
-            ),
-            TitleHeaderWithRichText(text: "Interest Rate", richText: " (P.A.)"),
-            FormFieldGlobal(
-              keyboardTypeGlobal: TextInputType.number,
-              hintText: "Rate % Here",
-              dataController: interestRate,
-            ),
-            TitleHeaderWithRichText(text: "Tenure", richText: " (Years)"),
-            FormFieldGlobal(
-              keyboardTypeGlobal: TextInputType.number,
-              hintText: "Time Here",
-              dataController: tenure,
-            ),
-            SizedBox(
-              height: getProportionateScreenHeight(20),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(right: 18.0),
-              child: Align(
-                alignment: Alignment.centerRight,
-                child: Container(
-                  height: getProportionateScreenHeight(50),
-                  width: getProportionateScreenWidth(150),
-                  child: TextButton(
-                    child: Text('Compute',
-                        style: TextStyle(
-                            color: kPrimaryColor,
-                            fontSize: 20,
-                            fontWeight: FontWeight.w500)),
-                    onPressed: () {
-                      setState(() {
-                        p = double.tryParse(carLoanAmount.text);
-                        r = double.tryParse(interestRate.text)! / 100 / 12;
-                        n = double.tryParse(tenure.text)! * 12;
-                        x = pow((1 + r), n);
-                        emi = ((p * x * r) / (x - 1));
-                        totalPayAmt = ((emi * n));
-                        totalPayInt = totalPayAmt - p;
-                        emiAmount = (emi.round()).toString();
-                        totalAmountPayable = (totalPayAmt.round()).toString();
-                        interestAmount = (totalPayInt.round()).toString();
-                      });
-                    },
-                    style: TextButton.styleFrom(
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10.0),
-                        side: BorderSide(color: kPrimaryColor),
+              TitleHeaderWithRichText(
+                  text: "Interest Rate", richText: " (P.A.)"),
+              FormFieldGlobal(
+                keyboardTypeGlobal: TextInputType.number,
+                hintText: "Rate % Here",
+                dataController: interestRate,
+              ),
+              TitleHeaderWithRichText(text: "Tenure", richText: " (Years)"),
+              FormFieldGlobal(
+                keyboardTypeGlobal: TextInputType.number,
+                hintText: "Time Here",
+                dataController: tenure,
+              ),
+              SizedBox(
+                height: windowHeight * 0.03,
+              ),
+              Padding(
+                padding: const EdgeInsets.only(right: 18.0),
+                child: Align(
+                  alignment: Alignment.centerRight,
+                  child: Container(
+                    height: windowHeight * 0.05,
+                    width: windowWidth * 0.3,
+                    child: TextButton(
+                      child: Text('Compute',
+                          style: TextStyle(
+                              color: Colors.blue.shade700,
+                              fontSize: 20,
+                              fontWeight: FontWeight.w500)),
+                      onPressed: () {
+                        setState(() {
+                          p = double.tryParse(carLoanAmount.text);
+                          r = double.tryParse(interestRate.text)! / 100 / 12;
+                          n = double.tryParse(tenure.text)! * 12;
+                          x = pow((1 + r), n);
+                          emi = ((p * x * r) / (x - 1));
+                          totalPayAmt = ((emi * n));
+                          totalPayInt = totalPayAmt - p;
+                          emiAmount = (emi.round()).toString();
+                          totalAmountPayable = (totalPayAmt.round()).toString();
+                          interestAmount = (totalPayInt.round()).toString();
+                        });
+                      },
+                      style: TextButton.styleFrom(
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10.0),
+                          side: BorderSide(color: Colors.blue.shade700),
+                        ),
                       ),
+                      // shape: RoundedRectangleBorder(
+                      //   borderRadius: BorderRadius.circular(10.0),
+                      //   side: BorderSide(color: Colors.blue.shade700),
+                      // ),
                     ),
-                    // shape: RoundedRectangleBorder(
-                    //   borderRadius: BorderRadius.circular(10.0),
-                    //   side: BorderSide(color: kPrimaryColor),
-                    // ),
                   ),
                 ),
               ),
-            ),
-            Divider(),
-            OutputTextForPopUp(),
-            TitleHeader(text: "EMI Amount"),
-            GlobalOutputField(
-              outputValue: emiAmount,
-            ),
-            TitleHeader(text: "Total Payable Amount"),
-            GlobalOutputField(
-              outputValue: totalAmountPayable,
-            ),
-            TitleHeader(text: "Interest Amount"),
-            GlobalOutputField(
-              outputValue: interestAmount,
-            ),
-            SuggestionBox1(
-              suggestion:
-                  "Keep your loan tenure as low as possible, as the tenure increases interest component increases significantly.",
-            ),
-            SuggestionBox2(
-              suggestion: "* Invest in SIP's to reach your car goal ",
-            ),
-            SizedBox(
-              height: getProportionateScreenHeight(20),
-            ),
-          ],
+              Divider(),
+              OutputTextForPopUp(),
+              TitleHeader(text: "EMI Amount"),
+              GlobalOutputField(
+                outputValue: emiAmount,
+              ),
+              TitleHeader(text: "Total Payable Amount"),
+              GlobalOutputField(
+                outputValue: totalAmountPayable,
+              ),
+              TitleHeader(text: "Interest Amount"),
+              GlobalOutputField(
+                outputValue: interestAmount,
+              ),
+              SuggestionBox1(
+                suggestion:
+                    "Keep your loan tenure as low as possible, as the tenure increases interest component increases significantly.",
+              ),
+              SuggestionBox2(
+                suggestion: "* Invest in SIP's to reach your car goal ",
+              ),
+              SizedBox(
+                height: windowHeight * 0.03,
+              ),
+            ],
+          ),
         ),
       ),
     );
@@ -410,6 +409,8 @@ class _EmiHomeLoanCalcFormState extends State<EmiHomeLoanCalcForm> {
 
   @override
   Widget build(BuildContext context) {
+    double windowHeight = MediaQuery.of(context).size.height;
+    double windowWidth = MediaQuery.of(context).size.width;
     return SingleChildScrollView(
       child: Container(
         child: Column(
@@ -423,7 +424,7 @@ class _EmiHomeLoanCalcFormState extends State<EmiHomeLoanCalcForm> {
                     "EMI Home Loan Calculator",
                     style: TextStyle(
                       fontSize: 20,
-                      color: kPrimaryColor,
+                      color: Colors.blue.shade700,
                       fontWeight: FontWeight.w800,
                     ),
                   ),
@@ -434,7 +435,7 @@ class _EmiHomeLoanCalcFormState extends State<EmiHomeLoanCalcForm> {
             ),
             Divider(
               thickness: 0.2,
-              color: kPrimaryColor,
+              color: Colors.blue.shade700,
             ),
             TitleHeader(text: "Housing Loan Amount"),
             FormFieldGlobal(
@@ -455,19 +456,19 @@ class _EmiHomeLoanCalcFormState extends State<EmiHomeLoanCalcForm> {
               dataController: tenure,
             ),
             SizedBox(
-              height: getProportionateScreenHeight(20),
+              height: windowHeight * 0.03,
             ),
             Padding(
               padding: const EdgeInsets.only(right: 18.0),
               child: Align(
                 alignment: Alignment.centerRight,
                 child: Container(
-                  height: getProportionateScreenHeight(50),
-                  width: getProportionateScreenWidth(150),
-                  child: FlatButton(
+                  height: windowHeight * 0.05,
+                  width: windowWidth * 0.3,
+                  child: TextButton(
                     child: Text('Compute',
                         style: TextStyle(
-                            color: kPrimaryColor,
+                            color: Colors.blue.shade700,
                             fontSize: 20,
                             fontWeight: FontWeight.w500)),
                     onPressed: () {
@@ -484,9 +485,11 @@ class _EmiHomeLoanCalcFormState extends State<EmiHomeLoanCalcForm> {
                         interestAmount = (totalPayInt.round()).toString();
                       });
                     },
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10.0),
-                      side: BorderSide(color: kPrimaryColor),
+                    style: TextButton.styleFrom(
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10.0),
+                        side: BorderSide(color: Colors.blue.shade700),
+                      ),
                     ),
                   ),
                 ),
@@ -514,7 +517,7 @@ class _EmiHomeLoanCalcFormState extends State<EmiHomeLoanCalcForm> {
               suggestion: "* Invest in SIP's to reach your house goal ",
             ),
             SizedBox(
-              height: getProportionateScreenHeight(20),
+              height: windowHeight * 0.03,
             ),
           ],
         ),
@@ -552,6 +555,8 @@ class _EmiPersonalLoanCalcFormState extends State<EmiPersonalLoanCalcForm> {
 
   @override
   Widget build(BuildContext context) {
+    double windowHeight = MediaQuery.of(context).size.height;
+    double windowWidth = MediaQuery.of(context).size.width;
     return SingleChildScrollView(
       child: Container(
         child: Column(
@@ -565,7 +570,7 @@ class _EmiPersonalLoanCalcFormState extends State<EmiPersonalLoanCalcForm> {
                     "EMI Personal Loan Calculator",
                     style: TextStyle(
                       fontSize: 20,
-                      color: kPrimaryColor,
+                      color: Colors.blue.shade700,
                       fontWeight: FontWeight.w800,
                     ),
                   ),
@@ -576,7 +581,7 @@ class _EmiPersonalLoanCalcFormState extends State<EmiPersonalLoanCalcForm> {
             ),
             Divider(
               thickness: 0.2,
-              color: kPrimaryColor,
+              color: Colors.blue.shade700,
             ),
             TitleHeader(text: "Housing Loan Amount"),
             FormFieldGlobal(
@@ -597,19 +602,19 @@ class _EmiPersonalLoanCalcFormState extends State<EmiPersonalLoanCalcForm> {
               dataController: tenure,
             ),
             SizedBox(
-              height: getProportionateScreenHeight(20),
+              height: windowHeight * 0.03,
             ),
             Padding(
               padding: const EdgeInsets.only(right: 18.0),
               child: Align(
                 alignment: Alignment.centerRight,
                 child: Container(
-                  height: getProportionateScreenHeight(50),
-                  width: getProportionateScreenWidth(150),
-                  child: FlatButton(
+                  height: windowHeight * 0.05,
+                  width: windowWidth * 0.3,
+                  child: TextButton(
                     child: Text('Compute',
                         style: TextStyle(
-                            color: kPrimaryColor,
+                            color: Colors.blue.shade700,
                             fontSize: 20,
                             fontWeight: FontWeight.w500)),
                     onPressed: () {
@@ -626,9 +631,11 @@ class _EmiPersonalLoanCalcFormState extends State<EmiPersonalLoanCalcForm> {
                         interestComponent = (totalPayInt.round()).toString();
                       });
                     },
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10.0),
-                      side: BorderSide(color: kPrimaryColor),
+                    style: TextButton.styleFrom(
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10.0),
+                        side: BorderSide(color: Colors.blue.shade700),
+                      ),
                     ),
                   ),
                 ),
@@ -657,7 +664,7 @@ class _EmiPersonalLoanCalcFormState extends State<EmiPersonalLoanCalcForm> {
                   "* Invest in SIP's for emergency fund with instant withdraw option ",
             ),
             SizedBox(
-              height: getProportionateScreenHeight(20),
+              height: windowHeight * 0.03,
             ),
           ],
         ),
@@ -685,6 +692,8 @@ class _SwpCalcFormState extends State<SwpCalcForm> {
 
   @override
   Widget build(BuildContext context) {
+    double windowHeight = MediaQuery.of(context).size.height;
+    double windowWidth = MediaQuery.of(context).size.width;
     return SingleChildScrollView(
       child: Container(
         child: Column(
@@ -698,7 +707,7 @@ class _SwpCalcFormState extends State<SwpCalcForm> {
                     "SWP Calculator",
                     style: TextStyle(
                       fontSize: 20,
-                      color: kPrimaryColor,
+                      color: Colors.blue.shade700,
                       fontWeight: FontWeight.w800,
                     ),
                   ),
@@ -709,7 +718,7 @@ class _SwpCalcFormState extends State<SwpCalcForm> {
             ),
             Divider(
               thickness: 0.2,
-              color: kPrimaryColor,
+              color: Colors.blue.shade700,
             ),
             TitleHeader(text: "Total Investment Amount"),
             FormFieldGlobal(
@@ -739,27 +748,29 @@ class _SwpCalcFormState extends State<SwpCalcForm> {
               dataController: tenure,
             ),
             SizedBox(
-              height: getProportionateScreenHeight(20),
+              height: windowHeight * 0.03,
             ),
             Padding(
               padding: const EdgeInsets.only(right: 18.0),
               child: Align(
                 alignment: Alignment.centerRight,
                 child: Container(
-                  height: getProportionateScreenHeight(50),
-                  width: getProportionateScreenWidth(150),
-                  child: FlatButton(
+                  height: windowHeight * 0.05,
+                  width: windowWidth * 0.3,
+                  child: TextButton(
                     child: Text('Compute',
                         style: TextStyle(
-                            color: kPrimaryColor,
+                            color: Colors.blue.shade700,
                             fontSize: 20,
                             fontWeight: FontWeight.w500)),
                     onPressed: () {
                       setState(() {});
                     },
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10.0),
-                      side: BorderSide(color: kPrimaryColor),
+                    style: TextButton.styleFrom(
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10.0),
+                        side: BorderSide(color: Colors.blue.shade700),
+                      ),
                     ),
                   ),
                 ),
@@ -772,7 +783,7 @@ class _SwpCalcFormState extends State<SwpCalcForm> {
               outputValue: valueAtTheEnd,
             ),
             SizedBox(
-              height: getProportionateScreenHeight(20),
+              height: windowHeight * 0.03,
             ),
           ],
         ),
@@ -827,6 +838,8 @@ class _LumpSumCalcFromState extends State<LumpSumCalcFrom> {
 
   @override
   Widget build(BuildContext context) {
+    double windowHeight = MediaQuery.of(context).size.height;
+    double windowWidth = MediaQuery.of(context).size.width;
     return SingleChildScrollView(
       child: Container(
         child: Column(
@@ -840,7 +853,7 @@ class _LumpSumCalcFromState extends State<LumpSumCalcFrom> {
                     "Lump Sum Calculator",
                     style: TextStyle(
                       fontSize: 20,
-                      color: kPrimaryColor,
+                      color: Colors.blue.shade700,
                       fontWeight: FontWeight.w800,
                     ),
                   ),
@@ -851,7 +864,7 @@ class _LumpSumCalcFromState extends State<LumpSumCalcFrom> {
             ),
             Divider(
               thickness: 0.2,
-              color: kPrimaryColor,
+              color: Colors.blue.shade700,
             ),
             TitleHeaderWithRichText(
                 text: "LumpSum Amount Invested", richText: " "),
@@ -879,7 +892,7 @@ class _LumpSumCalcFromState extends State<LumpSumCalcFrom> {
             Padding(
               padding: const EdgeInsets.only(left: 18.0, right: 18.0),
               child: Container(
-                height: getProportionateScreenHeight(50),
+                height: windowHeight * 0.05,
                 width: double.infinity,
                 decoration: BoxDecoration(
                   color: Colors.white,
@@ -916,19 +929,19 @@ class _LumpSumCalcFromState extends State<LumpSumCalcFrom> {
               enabledOrNot: enabledOrNotEnabled(),
             ),
             SizedBox(
-              height: getProportionateScreenHeight(20),
+              height: windowHeight * 0.03,
             ),
             Padding(
               padding: const EdgeInsets.only(right: 18.0),
               child: Align(
                 alignment: Alignment.centerRight,
                 child: Container(
-                  height: getProportionateScreenHeight(50),
-                  width: getProportionateScreenWidth(150),
-                  child: FlatButton(
+                  height: windowHeight * 0.05,
+                  width: windowWidth * 0.3,
+                  child: TextButton(
                     child: Text('Compute',
                         style: TextStyle(
-                            color: kPrimaryColor,
+                            color: Colors.blue.shade700,
                             fontSize: 20,
                             fontWeight: FontWeight.w500)),
                     onPressed: () {
@@ -954,9 +967,11 @@ class _LumpSumCalcFromState extends State<LumpSumCalcFrom> {
                         fvInt = fv.round();
                       });
                     },
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10.0),
-                      side: BorderSide(color: kPrimaryColor),
+                    style: TextButton.styleFrom(
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10.0),
+                        side: BorderSide(color: Colors.blue.shade700),
+                      ),
                     ),
                   ),
                 ),
@@ -986,7 +1001,7 @@ class _LumpSumCalcFromState extends State<LumpSumCalcFrom> {
                   " years.",
             ),
             SizedBox(
-              height: getProportionateScreenHeight(20),
+              height: windowHeight * 0.03,
             ),
           ],
         ),
@@ -1032,6 +1047,8 @@ class _HraCalcFromState extends State<HraCalcFrom> {
 
   @override
   Widget build(BuildContext context) {
+    double windowHeight = MediaQuery.of(context).size.height;
+    double windowWidth = MediaQuery.of(context).size.width;
     return SingleChildScrollView(
       child: Container(
         child: Column(
@@ -1045,7 +1062,7 @@ class _HraCalcFromState extends State<HraCalcFrom> {
                     "HRA Calculator",
                     style: TextStyle(
                       fontSize: 20,
-                      color: kPrimaryColor,
+                      color: Colors.blue.shade700,
                       fontWeight: FontWeight.w800,
                     ),
                   ),
@@ -1056,7 +1073,7 @@ class _HraCalcFromState extends State<HraCalcFrom> {
             ),
             Divider(
               thickness: 0.2,
-              color: kPrimaryColor,
+              color: Colors.blue.shade700,
             ),
             TitleHeaderWithRichText(
                 text: "Basic Salary Received", richText: " "),
@@ -1094,7 +1111,7 @@ class _HraCalcFromState extends State<HraCalcFrom> {
             Padding(
               padding: const EdgeInsets.only(left: 18.0, right: 18.0),
               child: Container(
-                height: getProportionateScreenHeight(50),
+                height: windowHeight * 0.05,
                 width: double.infinity,
                 decoration: BoxDecoration(
                   color: Colors.white,
@@ -1124,19 +1141,19 @@ class _HraCalcFromState extends State<HraCalcFrom> {
               ),
             ),
             SizedBox(
-              height: getProportionateScreenHeight(20),
+              height: windowHeight * 0.03,
             ),
             Padding(
               padding: const EdgeInsets.only(right: 18.0),
               child: Align(
                 alignment: Alignment.centerRight,
                 child: Container(
-                  height: getProportionateScreenHeight(50),
-                  width: getProportionateScreenWidth(150),
-                  child: FlatButton(
+                  height: windowHeight * 0.05,
+                  width: windowWidth * 0.3,
+                  child: TextButton(
                     child: Text('Compute',
                         style: TextStyle(
-                            color: kPrimaryColor,
+                            color: Colors.blue.shade700,
                             fontSize: 20,
                             fontWeight: FontWeight.w500)),
                     onPressed: () {
@@ -1167,9 +1184,11 @@ class _HraCalcFromState extends State<HraCalcFrom> {
                         hraTaxable = hraTax.toString();
                       });
                     },
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10.0),
-                      side: BorderSide(color: kPrimaryColor),
+                    style: TextButton.styleFrom(
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10.0),
+                        side: BorderSide(color: Colors.blue.shade700),
+                      ),
                     ),
                   ),
                 ),
@@ -1189,7 +1208,7 @@ class _HraCalcFromState extends State<HraCalcFrom> {
               suggestion: "Invest in Tax saving mutual funds for saving TAX ",
             ),
             SizedBox(
-              height: getProportionateScreenHeight(20),
+              height: windowHeight * 0.03,
             ),
           ],
         ),
@@ -1251,6 +1270,8 @@ class _PpfCalcFromState extends State<PpfCalcFrom> {
 
   @override
   Widget build(BuildContext context) {
+    double windowHeight = MediaQuery.of(context).size.height;
+    double windowWidth = MediaQuery.of(context).size.width;
     return SingleChildScrollView(
       child: Container(
         child: Column(
@@ -1264,7 +1285,7 @@ class _PpfCalcFromState extends State<PpfCalcFrom> {
                     "PPF Calculator",
                     style: TextStyle(
                       fontSize: 20,
-                      color: kPrimaryColor,
+                      color: Colors.blue.shade700,
                       fontWeight: FontWeight.w800,
                     ),
                   ),
@@ -1275,7 +1296,7 @@ class _PpfCalcFromState extends State<PpfCalcFrom> {
             ),
             Divider(
               thickness: 0.2,
-              color: kPrimaryColor,
+              color: Colors.blue.shade700,
             ),
             TitleHeaderWithRichText(
                 text: "PPF Interest Rate", richText: " (%)"),
@@ -1296,12 +1317,12 @@ class _PpfCalcFromState extends State<PpfCalcFrom> {
               dataController: tenure,
             ),
             SizedBox(
-              height: getProportionateScreenHeight(20),
+              height: windowHeight * 0.03,
             ),
             Padding(
               padding: const EdgeInsets.only(left: 18.0, right: 18.0),
               child: Container(
-                height: getProportionateScreenHeight(50),
+                height: windowHeight * 0.05,
                 width: double.infinity,
                 decoration: BoxDecoration(
                   color: Colors.white,
@@ -1331,19 +1352,19 @@ class _PpfCalcFromState extends State<PpfCalcFrom> {
               ),
             ),
             SizedBox(
-              height: getProportionateScreenHeight(20),
+              height: windowHeight * 0.03,
             ),
             Padding(
               padding: const EdgeInsets.only(right: 18.0),
               child: Align(
                 alignment: Alignment.centerRight,
                 child: Container(
-                  height: getProportionateScreenHeight(50),
-                  width: getProportionateScreenWidth(150),
-                  child: FlatButton(
+                  height: windowHeight * 0.05,
+                  width: windowWidth * 0.3,
+                  child: TextButton(
                     child: Text('Compute',
                         style: TextStyle(
-                            color: kPrimaryColor,
+                            color: Colors.blue.shade700,
                             fontSize: 20,
                             fontWeight: FontWeight.w500)),
                     onPressed: () {
@@ -1368,9 +1389,11 @@ class _PpfCalcFromState extends State<PpfCalcFrom> {
                         totalInterestEarned = interestEarned.round().toString();
                       });
                     },
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10.0),
-                      side: BorderSide(color: kPrimaryColor),
+                    style: TextButton.styleFrom(
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10.0),
+                        side: BorderSide(color: Colors.blue.shade700),
+                      ),
                     ),
                   ),
                 ),
@@ -1396,7 +1419,7 @@ class _PpfCalcFromState extends State<PpfCalcFrom> {
                   "ELSS(Tax Saving MF) is also exempted like PPF and can generate better return then PPF ",
             ),
             SizedBox(
-              height: getProportionateScreenHeight(20),
+              height: windowHeight * 0.03,
             ),
           ],
         ),
@@ -1441,6 +1464,8 @@ class _SipInstallmentCalcFormState extends State<SipInstallmentCalcForm> {
 
   @override
   Widget build(BuildContext context) {
+    double windowHeight = MediaQuery.of(context).size.height;
+    double windowWidth = MediaQuery.of(context).size.width;
     return SingleChildScrollView(
       child: Container(
         child: Column(
@@ -1454,7 +1479,7 @@ class _SipInstallmentCalcFormState extends State<SipInstallmentCalcForm> {
                     "SIP Installment Calculator",
                     style: TextStyle(
                       fontSize: 20,
-                      color: kPrimaryColor,
+                      color: Colors.blue.shade700,
                       fontWeight: FontWeight.w800,
                     ),
                   ),
@@ -1465,7 +1490,7 @@ class _SipInstallmentCalcFormState extends State<SipInstallmentCalcForm> {
             ),
             Divider(
               thickness: 0.2,
-              color: kPrimaryColor,
+              color: Colors.blue.shade700,
             ),
             TitleHeader(text: "Amount You Want To Achieve"),
             FormFieldGlobal(
@@ -1483,7 +1508,7 @@ class _SipInstallmentCalcFormState extends State<SipInstallmentCalcForm> {
             Padding(
               padding: const EdgeInsets.only(left: 18.0, right: 18.0),
               child: Container(
-                height: getProportionateScreenHeight(50),
+                height: windowHeight * 0.05,
                 width: double.infinity,
                 decoration: BoxDecoration(
                   color: Colors.white,
@@ -1517,19 +1542,19 @@ class _SipInstallmentCalcFormState extends State<SipInstallmentCalcForm> {
               outputValue: _currentItemSelected,
             ),
             SizedBox(
-              height: getProportionateScreenHeight(20),
+              height: windowHeight * 0.03,
             ),
             Padding(
               padding: const EdgeInsets.only(right: 18.0),
               child: Align(
                 alignment: Alignment.centerRight,
                 child: Container(
-                  height: getProportionateScreenHeight(50),
-                  width: getProportionateScreenWidth(150),
-                  child: FlatButton(
+                  height: windowHeight * 0.05,
+                  width: windowWidth * 0.3,
+                  child: TextButton(
                     child: Text('Compute',
                         style: TextStyle(
-                            color: kPrimaryColor,
+                            color: Colors.blue.shade700,
                             fontSize: 20,
                             fontWeight: FontWeight.w500)),
                     onPressed: () {
@@ -1553,16 +1578,18 @@ class _SipInstallmentCalcFormState extends State<SipInstallmentCalcForm> {
                         monthlySipInvestmentNeeded = sipAmount.toString();
                       });
                     },
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10.0),
-                      side: BorderSide(color: kPrimaryColor),
+                    style: TextButton.styleFrom(
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10.0),
+                        side: BorderSide(color: Colors.blue.shade700),
+                      ),
                     ),
                   ),
                 ),
               ),
             ),
             SizedBox(
-              height: getProportionateScreenHeight(20),
+              height: windowHeight * 0.03,
             ),
             Divider(),
             OutputTextForPopUp(),
@@ -1571,7 +1598,7 @@ class _SipInstallmentCalcFormState extends State<SipInstallmentCalcForm> {
               outputValue: monthlySipInvestmentNeeded,
             ),
             SizedBox(
-              height: getProportionateScreenHeight(20),
+              height: windowHeight * 0.03,
             ),
           ],
         ),
@@ -1654,6 +1681,8 @@ class _FixedDepositCalcFormState extends State<FixedDepositCalcForm> {
 
   @override
   Widget build(BuildContext context) {
+    double windowHeight = MediaQuery.of(context).size.height;
+    double windowWidth = MediaQuery.of(context).size.width;
     return SingleChildScrollView(
       child: Container(
         child: Column(
@@ -1667,7 +1696,7 @@ class _FixedDepositCalcFormState extends State<FixedDepositCalcForm> {
                     "Fixed Deposit Calculator",
                     style: TextStyle(
                       fontSize: 20,
-                      color: kPrimaryColor,
+                      color: Colors.blue.shade700,
                       fontWeight: FontWeight.w800,
                     ),
                   ),
@@ -1678,7 +1707,7 @@ class _FixedDepositCalcFormState extends State<FixedDepositCalcForm> {
             ),
             Divider(
               thickness: 0.2,
-              color: kPrimaryColor,
+              color: Colors.blue.shade700,
             ),
             TitleHeader(text: "Amount Invested"),
             FormFieldGlobal(
@@ -1695,7 +1724,7 @@ class _FixedDepositCalcFormState extends State<FixedDepositCalcForm> {
             Padding(
               padding: const EdgeInsets.only(left: 18.0, right: 18.0),
               child: Container(
-                height: getProportionateScreenHeight(50),
+                height: windowHeight * 0.05,
                 width: double.infinity,
                 decoration: BoxDecoration(
                   color: Colors.white,
@@ -1734,7 +1763,7 @@ class _FixedDepositCalcFormState extends State<FixedDepositCalcForm> {
             Padding(
               padding: const EdgeInsets.only(left: 18.0, right: 18.0),
               child: Container(
-                height: getProportionateScreenHeight(50),
+                height: windowHeight * 0.05,
                 width: double.infinity,
                 decoration: BoxDecoration(
                   color: Colors.white,
@@ -1764,19 +1793,19 @@ class _FixedDepositCalcFormState extends State<FixedDepositCalcForm> {
               ),
             ),
             SizedBox(
-              height: getProportionateScreenHeight(20),
+              height: windowHeight * 0.03,
             ),
             Padding(
               padding: const EdgeInsets.only(right: 18.0),
               child: Align(
                 alignment: Alignment.centerRight,
                 child: Container(
-                  height: getProportionateScreenHeight(50),
-                  width: getProportionateScreenWidth(150),
-                  child: FlatButton(
+                  height: windowHeight * 0.05,
+                  width: windowWidth * 0.3,
+                  child: TextButton(
                     child: Text('Compute',
                         style: TextStyle(
-                            color: kPrimaryColor,
+                            color: Colors.blue.shade700,
                             fontSize: 20,
                             fontWeight: FontWeight.w500)),
                     onPressed: () {
@@ -1802,9 +1831,11 @@ class _FixedDepositCalcFormState extends State<FixedDepositCalcForm> {
                         interestEarned = totalInt.toString();
                       });
                     },
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10.0),
-                      side: BorderSide(color: kPrimaryColor),
+                    style: TextButton.styleFrom(
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10.0),
+                        side: BorderSide(color: Colors.blue.shade700),
+                      ),
                     ),
                   ),
                 ),
@@ -1835,7 +1866,7 @@ class _FixedDepositCalcFormState extends State<FixedDepositCalcForm> {
               suggestion: "Earn More then FD's by Investing MF's",
             ),
             SizedBox(
-              height: getProportionateScreenHeight(20),
+              height: windowHeight * 0.03,
             ),
           ],
         ),
@@ -1904,6 +1935,8 @@ class _SukanyaSamriddhiCalcFormState extends State<SukanyaSamriddhiCalcForm> {
 
   @override
   Widget build(BuildContext context) {
+    double windowHeight = MediaQuery.of(context).size.height;
+    double windowWidth = MediaQuery.of(context).size.width;
     return SingleChildScrollView(
       child: Container(
         child: Column(
@@ -1917,7 +1950,7 @@ class _SukanyaSamriddhiCalcFormState extends State<SukanyaSamriddhiCalcForm> {
                     "Sukanya Samriddhi Yojna",
                     style: TextStyle(
                       fontSize: 20,
-                      color: kPrimaryColor,
+                      color: Colors.blue.shade700,
                       fontWeight: FontWeight.w800,
                     ),
                   ),
@@ -1928,7 +1961,7 @@ class _SukanyaSamriddhiCalcFormState extends State<SukanyaSamriddhiCalcForm> {
             ),
             Divider(
               thickness: 0.2,
-              color: kPrimaryColor,
+              color: Colors.blue.shade700,
             ),
             TitleHeader(text: "Amount Invested"),
             FormFieldGlobal(
@@ -1939,7 +1972,7 @@ class _SukanyaSamriddhiCalcFormState extends State<SukanyaSamriddhiCalcForm> {
             Padding(
               padding: const EdgeInsets.only(left: 18.0, right: 18.0),
               child: Container(
-                height: getProportionateScreenHeight(50),
+                height: windowHeight * 0.05,
                 width: double.infinity,
                 decoration: BoxDecoration(
                   color: Colors.white,
@@ -1981,19 +2014,19 @@ class _SukanyaSamriddhiCalcFormState extends State<SukanyaSamriddhiCalcForm> {
               dataController: investmentStartedAtTheAgeOf,
             ),
             SizedBox(
-              height: getProportionateScreenHeight(20),
+              height: windowHeight * 0.03,
             ),
             Padding(
               padding: const EdgeInsets.only(right: 18.0),
               child: Align(
                 alignment: Alignment.centerRight,
                 child: Container(
-                  height: getProportionateScreenHeight(50),
-                  width: getProportionateScreenWidth(150),
-                  child: FlatButton(
+                  height: windowHeight * 0.05,
+                  width: windowWidth * 0.3,
+                  child: TextButton(
                     child: Text('Compute',
                         style: TextStyle(
-                            color: kPrimaryColor,
+                            color: Colors.blue.shade700,
                             fontSize: 20,
                             fontWeight: FontWeight.w500)),
                     onPressed: () {
@@ -2020,9 +2053,11 @@ class _SukanyaSamriddhiCalcFormState extends State<SukanyaSamriddhiCalcForm> {
                         totalMaturityAmount = result.toString();
                       });
                     },
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10.0),
-                      side: BorderSide(color: kPrimaryColor),
+                    style: TextButton.styleFrom(
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10.0),
+                        side: BorderSide(color: Colors.blue.shade700),
+                      ),
                     ),
                   ),
                 ),
@@ -2043,7 +2078,7 @@ class _SukanyaSamriddhiCalcFormState extends State<SukanyaSamriddhiCalcForm> {
                   " Invest in top MF's for child education, child marriage and for bright future of child . ",
             ),
             SizedBox(
-              height: getProportionateScreenHeight(20),
+              height: windowHeight * 0.03,
             ),
           ],
         ),
@@ -2096,6 +2131,8 @@ class _RecurringDepositCalcFormState extends State<RecurringDepositCalcForm> {
 
   @override
   Widget build(BuildContext context) {
+    double windowHeight = MediaQuery.of(context).size.height;
+    double windowWidth = MediaQuery.of(context).size.width;
     return SingleChildScrollView(
       child: Container(
         child: Column(
@@ -2109,7 +2146,7 @@ class _RecurringDepositCalcFormState extends State<RecurringDepositCalcForm> {
                     "Recurring Deposit Calculator",
                     style: TextStyle(
                       fontSize: 20,
-                      color: kPrimaryColor,
+                      color: Colors.blue.shade700,
                       fontWeight: FontWeight.w800,
                     ),
                   ),
@@ -2120,7 +2157,7 @@ class _RecurringDepositCalcFormState extends State<RecurringDepositCalcForm> {
             ),
             Divider(
               thickness: 0.2,
-              color: kPrimaryColor,
+              color: Colors.blue.shade700,
             ),
             TitleHeader(text: "Amount Invested Monthly"),
             FormFieldGlobal(
@@ -2141,19 +2178,19 @@ class _RecurringDepositCalcFormState extends State<RecurringDepositCalcForm> {
               dataController: interestRate,
             ),
             SizedBox(
-              height: getProportionateScreenHeight(20),
+              height: windowHeight * 0.03,
             ),
             Padding(
               padding: const EdgeInsets.only(right: 18.0),
               child: Align(
                 alignment: Alignment.centerRight,
                 child: Container(
-                  height: getProportionateScreenHeight(50),
-                  width: getProportionateScreenWidth(150),
-                  child: FlatButton(
+                  height: windowHeight * 0.05,
+                  width: windowWidth * 0.3,
+                  child: TextButton(
                     child: Text('Compute',
                         style: TextStyle(
-                            color: kPrimaryColor,
+                            color: Colors.blue.shade700,
                             fontSize: 20,
                             fontWeight: FontWeight.w500)),
                     onPressed: () {
@@ -2169,9 +2206,11 @@ class _RecurringDepositCalcFormState extends State<RecurringDepositCalcForm> {
                         maturityValue = (amount.round()).toString();
                       });
                     },
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10.0),
-                      side: BorderSide(color: kPrimaryColor),
+                    style: TextButton.styleFrom(
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10.0),
+                        side: BorderSide(color: Colors.blue.shade700),
+                      ),
                     ),
                   ),
                 ),
@@ -2186,7 +2225,7 @@ class _RecurringDepositCalcFormState extends State<RecurringDepositCalcForm> {
             SuggestionBox1(
                 suggestion: " Earn More then RD's by Investing MF's "),
             SizedBox(
-              height: getProportionateScreenHeight(20),
+              height: windowHeight * 0.03,
             ),
           ],
         ),
@@ -2223,6 +2262,8 @@ class _NpsCalcFormState extends State<NpsCalcForm> {
   var r;
   @override
   Widget build(BuildContext context) {
+    double windowHeight = MediaQuery.of(context).size.height;
+    double windowWidth = MediaQuery.of(context).size.width;
     return SingleChildScrollView(
       child: Container(
         child: Column(
@@ -2236,7 +2277,7 @@ class _NpsCalcFormState extends State<NpsCalcForm> {
                     "NPS Calculator",
                     style: TextStyle(
                       fontSize: 20,
-                      color: kPrimaryColor,
+                      color: Colors.blue.shade700,
                       fontWeight: FontWeight.w800,
                     ),
                   ),
@@ -2247,7 +2288,7 @@ class _NpsCalcFormState extends State<NpsCalcForm> {
             ),
             Divider(
               thickness: 0.2,
-              color: kPrimaryColor,
+              color: Colors.blue.shade700,
             ),
             TitleHeaderWithRichText(text: "Current Age", richText: " (Years)"),
             FormFieldGlobal(
@@ -2284,19 +2325,19 @@ class _NpsCalcFormState extends State<NpsCalcForm> {
               dataController: expectedRateOfReturn,
             ),
             SizedBox(
-              height: getProportionateScreenHeight(20),
+              height: windowHeight * 0.03,
             ),
             Padding(
               padding: const EdgeInsets.only(right: 18.0),
               child: Align(
                 alignment: Alignment.centerRight,
                 child: Container(
-                  height: getProportionateScreenHeight(50),
-                  width: getProportionateScreenWidth(150),
-                  child: FlatButton(
+                  height: windowHeight * 0.05,
+                  width: windowWidth * 0.3,
+                  child: TextButton(
                     child: Text('Compute',
                         style: TextStyle(
-                            color: kPrimaryColor,
+                            color: Colors.blue.shade700,
                             fontSize: 20,
                             fontWeight: FontWeight.w500)),
                     onPressed: () {
@@ -2324,9 +2365,11 @@ class _NpsCalcFormState extends State<NpsCalcForm> {
                             (fvInvestment.round()).toString();
                       });
                     },
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10.0),
-                      side: BorderSide(color: kPrimaryColor),
+                    style: TextButton.styleFrom(
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10.0),
+                        side: BorderSide(color: Colors.blue.shade700),
+                      ),
                     ),
                   ),
                 ),
@@ -2347,7 +2390,7 @@ class _NpsCalcFormState extends State<NpsCalcForm> {
               outputValue: pensionWealthGenerated,
             ),
             SizedBox(
-              height: getProportionateScreenHeight(20),
+              height: windowHeight * 0.03,
             ),
           ],
         ),
@@ -2387,6 +2430,8 @@ class _TaxCalculatorState extends State<TaxCalculator> {
 
   @override
   Widget build(BuildContext context) {
+    double windowHeight = MediaQuery.of(context).size.height;
+    double windowWidth = MediaQuery.of(context).size.width;
     return SingleChildScrollView(
       child: Container(
         child: Column(
@@ -2401,7 +2446,7 @@ class _TaxCalculatorState extends State<TaxCalculator> {
                     style: TextStyle(
                       fontSize: 20,
                       fontWeight: FontWeight.w800,
-                      color: kPrimaryColor,
+                      color: Colors.blue.shade700,
                     ),
                   ),
                   Spacer(),
@@ -2411,7 +2456,7 @@ class _TaxCalculatorState extends State<TaxCalculator> {
             ),
             Divider(
               thickness: 0.2,
-              color: kPrimaryColor,
+              color: Colors.blue.shade700,
             ),
             TitleHeader(
               text: "**Investment limit under Sec 80C Rs.1,50,000",
@@ -2475,7 +2520,7 @@ class _TaxCalculatorState extends State<TaxCalculator> {
               padding:
                   const EdgeInsets.only(left: 18.0, right: 18.0, bottom: 18),
               child: Container(
-                height: getProportionateScreenHeight(50),
+                height: windowHeight * 0.05,
                 width: double.infinity,
                 decoration: BoxDecoration(
                   color: Colors.white,
@@ -2509,12 +2554,12 @@ class _TaxCalculatorState extends State<TaxCalculator> {
               child: Align(
                 alignment: Alignment.centerRight,
                 child: Container(
-                  height: getProportionateScreenHeight(50),
-                  width: getProportionateScreenWidth(150),
-                  child: FlatButton(
+                  height: windowHeight * 0.05,
+                  width: windowWidth * 0.3,
+                  child: TextButton(
                     child: Text('Compute',
                         style: TextStyle(
-                            color: kPrimaryColor,
+                            color: Colors.blue.shade700,
                             fontSize: 20,
                             fontWeight: FontWeight.w500)),
                     onPressed: () {
@@ -2631,9 +2676,11 @@ class _TaxCalculatorState extends State<TaxCalculator> {
                         taxSaved = (taxSavedFromFurInv.round()).toString();
                       });
                     },
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10.0),
-                      side: BorderSide(color: kPrimaryColor),
+                    style: TextButton.styleFrom(
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10.0),
+                        side: BorderSide(color: Colors.blue.shade700),
+                      ),
                     ),
                   ),
                 ),
@@ -2654,7 +2701,7 @@ class _TaxCalculatorState extends State<TaxCalculator> {
               outputValue: taxSaved,
             ),
             SizedBox(
-              height: getProportionateScreenHeight(20),
+              height: windowHeight * 0.03,
             ),
           ],
         ),
@@ -2681,6 +2728,8 @@ class OldVsNewTax extends StatefulWidget {
 class _OldVsNewTaxState extends State<OldVsNewTax> {
   @override
   Widget build(BuildContext context) {
+    double windowHeight = MediaQuery.of(context).size.height;
+    double windowWidth = MediaQuery.of(context).size.width;
     return SingleChildScrollView(
       child: Container(
         child: Column(
@@ -2695,7 +2744,7 @@ class _OldVsNewTaxState extends State<OldVsNewTax> {
                     style: TextStyle(
                       fontSize: 20,
                       fontWeight: FontWeight.w800,
-                      color: kPrimaryColor,
+                      color: Colors.blue.shade700,
                     ),
                   ),
                   Spacer(),
@@ -2705,7 +2754,7 @@ class _OldVsNewTaxState extends State<OldVsNewTax> {
             ),
             Divider(
               thickness: 0.2,
-              color: kPrimaryColor,
+              color: Colors.blue.shade700,
             ),
             TitleHeaderWithRichText(
               text: "Salary Income",
@@ -2788,7 +2837,7 @@ class _OldVsNewTaxState extends State<OldVsNewTax> {
                   style: TextStyle(
                     fontSize: 20,
                     fontWeight: FontWeight.w800,
-                    color: kPrimaryColor,
+                    color: Colors.blue.shade700,
                   ),
                 ),
                 Spacer(),
@@ -2796,7 +2845,7 @@ class _OldVsNewTaxState extends State<OldVsNewTax> {
             ),
             Divider(
               thickness: 0.2,
-              color: kPrimaryColor,
+              color: Colors.blue.shade700,
             ),
             TitleHeaderWithRichText(
               text: "Rent Paid",
@@ -2841,7 +2890,7 @@ class _OldVsNewTaxState extends State<OldVsNewTax> {
                   style: TextStyle(
                     fontSize: 20,
                     fontWeight: FontWeight.w800,
-                    color: kPrimaryColor,
+                    color: Colors.blue.shade700,
                   ),
                 ),
                 Spacer(),
@@ -2849,7 +2898,7 @@ class _OldVsNewTaxState extends State<OldVsNewTax> {
             ),
             Divider(
               thickness: 0.2,
-              color: kPrimaryColor,
+              color: Colors.blue.shade700,
             ),
             TitleHeader(text: "Name*"),
             FormFieldGlobal(
@@ -2871,27 +2920,29 @@ class _OldVsNewTaxState extends State<OldVsNewTax> {
               child: Align(
                 alignment: Alignment.centerRight,
                 child: Container(
-                  height: getProportionateScreenHeight(50),
-                  width: getProportionateScreenWidth(150),
-                  child: FlatButton(
+                  height: windowHeight * 0.05,
+                  width: windowWidth * 0.3,
+                  child: TextButton(
                     child: Text('Compute',
                         style: TextStyle(
-                            color: kPrimaryColor,
+                            color: Colors.blue.shade700,
                             fontSize: 20,
                             fontWeight: FontWeight.w500)),
                     onPressed: () {
                       setState(() {});
                     },
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10.0),
-                      side: BorderSide(color: kPrimaryColor),
+                    style: TextButton.styleFrom(
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10.0),
+                        side: BorderSide(color: Colors.blue.shade700),
+                      ),
                     ),
                   ),
                 ),
               ),
             ),
             SizedBox(
-              height: getProportionateScreenHeight(20),
+              height: windowHeight * 0.03,
             ),
           ],
         ),
