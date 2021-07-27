@@ -405,40 +405,66 @@ class _BodyState extends State<Body> {
                                             CrossAxisAlignment.center,
                                         children: [
                                           Container(
-                                            decoration: BoxDecoration(
-                                              borderRadius:
-                                                  BorderRadius.circular(20),
-                                              border: Border.all(
-                                                  color: Colors.black),
-                                            ),
                                             margin: EdgeInsets.all(12),
                                             height: windowHeight * 0.08,
                                             child: TextField(
                                               controller: subjectController,
                                               maxLines: 12,
                                               decoration: InputDecoration(
+                                                enabledBorder:
+                                                    OutlineInputBorder(
+                                                  borderRadius:
+                                                      BorderRadius.all(
+                                                          Radius.circular(
+                                                              12.0)),
+                                                  borderSide: BorderSide(
+                                                      color: Colors.black,
+                                                      width: 0.5),
+                                                ),
+                                                focusedBorder:
+                                                    OutlineInputBorder(
+                                                  borderRadius:
+                                                      BorderRadius.all(
+                                                          Radius.circular(
+                                                              10.0)),
+                                                  borderSide: BorderSide(
+                                                      color: Colors.red),
+                                                ),
                                                 hintText: 'Subject',
-                                                //fillColor: Colors.grey[200],
+                                                fillColor: Colors.white,
                                                 filled: true,
                                               ),
                                             ),
                                           ),
                                           Container(
-                                            decoration: BoxDecoration(
-                                              borderRadius:
-                                                  BorderRadius.circular(20),
-                                              border: Border.all(
-                                                  color: Colors.black),
-                                            ),
                                             margin: EdgeInsets.all(12),
                                             height: windowHeight * 0.25,
                                             child: TextField(
                                               controller: contentController,
                                               maxLines: 12,
                                               decoration: InputDecoration(
+                                                enabledBorder:
+                                                    OutlineInputBorder(
+                                                  borderRadius:
+                                                      BorderRadius.all(
+                                                          Radius.circular(
+                                                              12.0)),
+                                                  borderSide: BorderSide(
+                                                      color: Colors.black,
+                                                      width: 0.5),
+                                                ),
+                                                focusedBorder:
+                                                    OutlineInputBorder(
+                                                  borderRadius:
+                                                      BorderRadius.all(
+                                                          Radius.circular(
+                                                              10.0)),
+                                                  borderSide: BorderSide(
+                                                      color: Colors.red),
+                                                ),
                                                 hintText:
                                                     'How can we help you?',
-                                                //fillColor: Colors.grey[200],
+                                                fillColor: Colors.white,
                                                 filled: true,
                                               ),
                                             ),
