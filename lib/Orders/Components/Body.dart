@@ -42,7 +42,7 @@ class _BodyState extends State<Body> {
   }
 }
 
-class Orders {
+class WillOrders {
   // ignore: non_constant_identifier_names
   var pk_user_settings_id;
   // ignore: non_constant_identifier_names
@@ -67,7 +67,7 @@ class Orders {
   // ignore: non_constant_identifier_names
   var url_link;
 
-  Orders(
+  WillOrders(
     this.pk_user_settings_id,
     this.fr_user_id,
     this.paid_amount,
