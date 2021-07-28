@@ -776,6 +776,10 @@ class _LoginSignUpState extends State<LoginSignUp> {
                       await sendOtpRequest();
                       print(LoginSignUp.otpStatus);
                       if (LoginSignUp.otpStatus == '1') {
+                        LoginSignUp.globalName = LoginSignUp.name.toString();
+                        LoginSignUp.globalEmail = LoginSignUp.email.toString();
+                        LoginSignUp.globalLetter =
+                            LoginSignUp.name[0].toString().toUpperCase();
                         _showSnackBar(
                             LoginSignUp.otpMessage + "Valid for next 15 mins");
                         setState(() {

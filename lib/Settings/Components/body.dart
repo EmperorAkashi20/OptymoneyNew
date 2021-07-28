@@ -5,6 +5,7 @@ import 'package:optymoney/Cart/Cart.dart';
 import 'package:optymoney/CompleteProfile/CompleteProfile.dart';
 import 'package:optymoney/Feedback/Feedback.dart';
 import 'package:optymoney/LoginNSignUp/Components/body.dart';
+import 'package:optymoney/Onboarding/Onboarding.dart';
 import 'package:optymoney/Orders/Orders.dart';
 import 'package:optymoney/SupportTicket/SupportTicket.dart';
 import 'package:optymoney/ViewProfile/ViewProfile.dart';
@@ -46,7 +47,7 @@ class _BodyState extends State<Body> {
                           radius: 50,
                           child: Center(
                             child: Text(
-                              LoginSignUp.globalLetter,
+                              LoginSignUp.globalLetter.toString(),
                               style: TextStyle(
                                 fontWeight: FontWeight.w700,
                                 color: Colors.white,
@@ -59,14 +60,14 @@ class _BodyState extends State<Body> {
                           height: 10,
                         ),
                         Text(
-                          LoginSignUp.globalName,
+                          LoginSignUp.globalName.toString(),
                           style: TextStyle(
                               color: Colors.black54,
                               fontSize: 25,
                               fontWeight: FontWeight.bold),
                         ),
                         Text(
-                          LoginSignUp.globalEmail,
+                          LoginSignUp.globalEmail.toString(),
                           style: TextStyle(
                               color: Colors.black54,
                               fontSize: 18,
@@ -75,12 +76,11 @@ class _BodyState extends State<Body> {
                         SizedBox(
                           height: 10,
                         ),
-                        if (LoginSignUp.kycStatus != 'success')
+                        if (LoginSignUp.kycStatus.toString() != 'success')
                           GestureDetector(
                             onTap: () {
-                              setState(() {
-                                print('object');
-                              });
+                              Navigator.pushNamed(
+                                  context, Onboarding.routeName);
                             },
                             child: Container(
                               decoration: BoxDecoration(
@@ -173,7 +173,8 @@ class _BodyState extends State<Body> {
                               ),
                               GestureDetector(
                                 onTap: () {
-                                  if (LoginSignUp.kycStatus == 'success') {
+                                  if (LoginSignUp.kycStatus.toString() ==
+                                      'success') {
                                     setState(() {
                                       _showSnackBar(
                                           'KYC Status: Complete. You are investment ready.');

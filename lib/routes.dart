@@ -13,6 +13,7 @@ import 'package:optymoney/Investments/Components/DetailsPage.dart';
 import 'package:optymoney/Investments/investments.dart';
 import 'package:optymoney/LoginNSignUp/loginNsignup.dart';
 import 'package:optymoney/LoginWithMpin/LoginWithMPin.dart';
+import 'package:optymoney/Onboarding/Onboarding.dart';
 import 'package:optymoney/Orders/Orders.dart';
 import 'package:optymoney/PinSetupLogin/PinSetupLogin.dart';
 import 'package:optymoney/Settings/Settings.dart';
@@ -41,4 +42,5 @@ final Map<String, WidgetBuilder> routes = {
   FeedbackApp.routeName: (context) => FeedbackApp(),
   SupportTicket.routeName: (context) => SupportTicket(),
   DetailsPageFilters.routeName: (context) => DetailsPageFilters(),
+  Onboarding.routeName: (context) => Onboarding(),
 };
