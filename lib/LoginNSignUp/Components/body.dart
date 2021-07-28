@@ -99,9 +99,9 @@ makeKycRequest() async {
     encoding: encoding,
   );
   var parsedJson = json.decode(response.body);
-  print(response.body);
+  //print(response.body);
   LoginSignUp.kycStatus = parsedJson['status'].toString();
-  print(LoginSignUp.kycStatus);
+  //print(LoginSignUp.kycStatus);
 }
 
 makeUserRequest() async {
@@ -160,7 +160,7 @@ sendOtpRequest() async {
   );
 
   var responseBody = response.body.toString();
-  print(responseBody);
+  // print(responseBody);
   var parsedJson = jsonDecode(responseBody);
   LoginSignUp.otpMessage = parsedJson['message'].toString();
   LoginSignUp.otpStatus = parsedJson['status'].toString();
@@ -191,7 +191,7 @@ makeSignUpRequest() async {
   var responseBody = (response.body);
   var jsonData = responseBody;
   var parsedJson = json.decode(jsonData);
-  print(parsedJson);
+  //print(parsedJson);
   LoginSignUp.globalUserId = parsedJson['status'].toString();
   LoginSignUp.registerMessage = parsedJson['message'].toString();
 }
@@ -216,7 +216,7 @@ setMpinRequestRequest() async {
 
   var responseBody = (response.body);
 
-  print(responseBody);
+  //print(responseBody);
   LoginSignUp.mpinResponse = responseBody.toString();
 }
 
