@@ -387,6 +387,14 @@ class _EmiCarLoanCalcFormState extends State<EmiCarLoanCalcForm> {
         child: Container(
           child: Column(
             children: <Widget>[
+              OutputCard(
+                windowHeight: windowHeight,
+                windowWidth: windowWidth,
+                title: 'Total amount payable',
+                amount: totalAmountPayable,
+                suggestion:
+                    'Suggestions: Keep your loan tenure as low as possible, as the tenure increases interest component increases significantly.',
+              ),
               TitleHeader(text: "Car Loan Amount"),
               FormFieldGlobal(
                 keyboardTypeGlobal: TextInputType.number,
@@ -410,9 +418,9 @@ class _EmiCarLoanCalcFormState extends State<EmiCarLoanCalcForm> {
                 height: windowHeight * 0.03,
               ),
               Padding(
-                padding: const EdgeInsets.only(right: 18.0),
+                padding: const EdgeInsets.only(right: 0.0),
                 child: Align(
-                  alignment: Alignment.centerRight,
+                  alignment: Alignment.center,
                   child: Container(
                     height: windowHeight * 0.05,
                     width: windowWidth * 0.3,
@@ -451,25 +459,13 @@ class _EmiCarLoanCalcFormState extends State<EmiCarLoanCalcForm> {
                 ),
               ),
               Divider(),
-              OutputTextForPopUp(),
               TitleHeader(text: "EMI Amount"),
               GlobalOutputField(
                 outputValue: emiAmount,
               ),
-              TitleHeader(text: "Total Payable Amount"),
-              GlobalOutputField(
-                outputValue: totalAmountPayable,
-              ),
               TitleHeader(text: "Interest Amount"),
               GlobalOutputField(
                 outputValue: interestAmount,
-              ),
-              SuggestionBox1(
-                suggestion:
-                    "Keep your loan tenure as low as possible, as the tenure increases interest component increases significantly.",
-              ),
-              SuggestionBox2(
-                suggestion: "* Invest in SIP's to reach your car goal ",
               ),
               SizedBox(
                 height: windowHeight * 0.03,
@@ -478,6 +474,132 @@ class _EmiCarLoanCalcFormState extends State<EmiCarLoanCalcForm> {
           ),
         ),
       ),
+    );
+  }
+}
+
+class OutputCard extends StatelessWidget {
+  const OutputCard({
+    Key? key,
+    required this.windowHeight,
+    required this.windowWidth,
+    required this.amount,
+    required this.title,
+    required this.suggestion,
+  }) : super(key: key);
+
+  final double windowHeight;
+  final double windowWidth;
+  final String amount;
+  final String title;
+  final String suggestion;
+
+  @override
+  Widget build(BuildContext context) {
+    return Stack(
+      alignment: Alignment.center,
+      children: [
+        Container(
+          height: windowHeight * 0.3,
+          width: windowWidth,
+          child: Center(
+            child: Card(
+              elevation: 0,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(30),
+              ),
+              child: Container(
+                height: windowHeight * 0.25,
+                width: windowWidth * 0.9,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(30),
+                  gradient: LinearGradient(
+                    begin: Alignment.topCenter,
+                    end: Alignment.bottomCenter,
+                    colors: [Colors.blue.shade900, Colors.blue.shade300],
+                  ),
+                ),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.only(top: 30.0),
+                      child: Text(
+                        title,
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 18,
+                          fontWeight: FontWeight.w700,
+                        ),
+                      ),
+                    ),
+                    Text(
+                      '₹' + amount,
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 34,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    if (amount != '0')
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                        child: Text(
+                          suggestion,
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 14,
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
+                      ),
+                    SizedBox(
+                      height: windowHeight * 0.03,
+                    ),
+                    // NumberSlideAnimation(
+                    //   number: fvInvestmentInt.toString(),
+                    //   duration: Duration(seconds: 2),
+                    //   curve: Curves.bounceIn,
+                    //   textStyle: TextStyle(
+                    //     color: Colors.white,
+                    //     fontSize: 28,
+                    //   ),
+                    // ),
+                  ],
+                ),
+              ),
+            ),
+          ),
+        ),
+        Positioned(
+          bottom: -3,
+          child: Card(
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(10),
+            ),
+            elevation: 4,
+            child: Container(
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(10),
+                color: Colors.blue.shade900,
+              ),
+              height: windowHeight * 0.05,
+              width: windowWidth * 0.4,
+              child: Center(
+                child: Text(
+                  'Invest Now',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 15,
+                  ),
+                ),
+              ),
+            ),
+          ),
+        )
+      ],
     );
   }
 }
@@ -511,115 +633,105 @@ class _EmiHomeLoanCalcFormState extends State<EmiHomeLoanCalcForm> {
   Widget build(BuildContext context) {
     double windowHeight = MediaQuery.of(context).size.height;
     double windowWidth = MediaQuery.of(context).size.width;
-    return SingleChildScrollView(
-      child: Container(
-        child: Column(
-          children: <Widget>[
-            Padding(
-              padding: const EdgeInsets.only(left: 19.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: <Widget>[
-                  Text(
-                    "EMI Home Loan Calculator",
-                    style: TextStyle(
-                      fontSize: 20,
-                      color: Colors.blue.shade700,
-                      fontWeight: FontWeight.w800,
-                    ),
-                  ),
-                  Spacer(),
-                  CloseButton(),
-                ],
+    return Scaffold(
+      appBar: AppBar(
+        automaticallyImplyLeading: false,
+        backgroundColor: Colors.white,
+        elevation: 2,
+        title: Text(
+          'EMI Home Loan Calculator',
+          style: TextStyle(color: Colors.black, fontSize: 18),
+        ),
+        actions: [
+          CloseButton(
+            color: Colors.black,
+          ),
+        ],
+      ),
+      body: SingleChildScrollView(
+        child: Container(
+          child: Column(
+            children: <Widget>[
+              OutputCard(
+                  windowHeight: windowHeight,
+                  windowWidth: windowWidth,
+                  amount: totalAmountPayable,
+                  title: 'Total Payable Amount',
+                  suggestion:
+                      'Suggestion: Keep your loan tenure as low as possible, as the tenure increases interest component increases significantly.'),
+              TitleHeader(text: "Housing Loan Amount"),
+              FormFieldGlobal(
+                keyboardTypeGlobal: TextInputType.number,
+                hintText: "Amount Here",
+                dataController: homeLoanAmount,
               ),
-            ),
-            Divider(
-              thickness: 0.2,
-              color: Colors.blue.shade700,
-            ),
-            TitleHeader(text: "Housing Loan Amount"),
-            FormFieldGlobal(
-              keyboardTypeGlobal: TextInputType.number,
-              hintText: "Amount Here",
-              dataController: homeLoanAmount,
-            ),
-            TitleHeaderWithRichText(text: "Interest Rate", richText: " (P.A.)"),
-            FormFieldGlobal(
-              keyboardTypeGlobal: TextInputType.number,
-              hintText: "Rate % Here",
-              dataController: interestRate,
-            ),
-            TitleHeaderWithRichText(text: "Tenure", richText: " (Years)"),
-            FormFieldGlobal(
-              keyboardTypeGlobal: TextInputType.number,
-              hintText: "Time Here",
-              dataController: tenure,
-            ),
-            SizedBox(
-              height: windowHeight * 0.03,
-            ),
-            Padding(
-              padding: const EdgeInsets.only(right: 18.0),
-              child: Align(
-                alignment: Alignment.centerRight,
-                child: Container(
-                  height: windowHeight * 0.05,
-                  width: windowWidth * 0.3,
-                  child: TextButton(
-                    child: Text('Compute',
-                        style: TextStyle(
-                            color: Colors.blue.shade700,
-                            fontSize: 20,
-                            fontWeight: FontWeight.w500)),
-                    onPressed: () {
-                      setState(() {
-                        p = double.tryParse(homeLoanAmount.text);
-                        r = double.tryParse(interestRate.text)! / 100 / 12;
-                        n = double.tryParse(tenure.text)! * 12;
-                        x = pow((1 + r), n);
-                        emi = ((p * x * r) / (x - 1));
-                        totalPayAmt = ((emi * n));
-                        totalPayInt = totalPayAmt - p;
-                        emiAmount = (emi.round()).toString();
-                        totalAmountPayable = (totalPayAmt.round()).toString();
-                        interestAmount = (totalPayInt.round()).toString();
-                      });
-                    },
-                    style: TextButton.styleFrom(
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10.0),
-                        side: BorderSide(color: Colors.blue.shade700),
+              TitleHeaderWithRichText(
+                  text: "Interest Rate", richText: " (P.A.)"),
+              FormFieldGlobal(
+                keyboardTypeGlobal: TextInputType.number,
+                hintText: "Rate % Here",
+                dataController: interestRate,
+              ),
+              TitleHeaderWithRichText(text: "Tenure", richText: " (Years)"),
+              FormFieldGlobal(
+                keyboardTypeGlobal: TextInputType.number,
+                hintText: "Time Here",
+                dataController: tenure,
+              ),
+              SizedBox(
+                height: windowHeight * 0.03,
+              ),
+              Padding(
+                padding: const EdgeInsets.only(right: 0.0),
+                child: Align(
+                  alignment: Alignment.center,
+                  child: Container(
+                    height: windowHeight * 0.05,
+                    width: windowWidth * 0.3,
+                    child: TextButton(
+                      child: Text('Compute',
+                          style: TextStyle(
+                              color: Colors.blue.shade700,
+                              fontSize: 20,
+                              fontWeight: FontWeight.w500)),
+                      onPressed: () {
+                        setState(() {
+                          p = double.tryParse(homeLoanAmount.text);
+                          r = double.tryParse(interestRate.text)! / 100 / 12;
+                          n = double.tryParse(tenure.text)! * 12;
+                          x = pow((1 + r), n);
+                          emi = ((p * x * r) / (x - 1));
+                          totalPayAmt = ((emi * n));
+                          totalPayInt = totalPayAmt - p;
+                          emiAmount = (emi.round()).toString();
+                          totalAmountPayable = (totalPayAmt.round()).toString();
+                          interestAmount = (totalPayInt.round()).toString();
+                        });
+                      },
+                      style: TextButton.styleFrom(
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10.0),
+                          side: BorderSide(color: Colors.blue.shade700),
+                        ),
                       ),
                     ),
                   ),
                 ),
               ),
-            ),
-            Divider(),
-            OutputTextForPopUp(),
-            TitleHeader(text: "EMI Amount"),
-            GlobalOutputField(
-              outputValue: emiAmount,
-            ),
-            TitleHeader(text: "Total Payable Amount"),
-            GlobalOutputField(
-              outputValue: totalAmountPayable,
-            ),
-            TitleHeader(text: "Interest Amount"),
-            GlobalOutputField(
-              outputValue: interestAmount,
-            ),
-            SuggestionBox1(
-              suggestion:
-                  "Keep your loan tenure as low as possible, as the tenure increases interest component increases significantly.",
-            ),
-            SuggestionBox2(
-              suggestion: "* Invest in SIP's to reach your house goal ",
-            ),
-            SizedBox(
-              height: windowHeight * 0.03,
-            ),
-          ],
+              Divider(),
+              TitleHeader(text: "EMI Amount"),
+              GlobalOutputField(
+                outputValue: emiAmount,
+              ),
+              TitleHeader(text: "Interest Amount"),
+              GlobalOutputField(
+                outputValue: interestAmount,
+              ),
+              SizedBox(
+                height: windowHeight * 0.03,
+              ),
+            ],
+          ),
         ),
       ),
     );
@@ -657,116 +769,105 @@ class _EmiPersonalLoanCalcFormState extends State<EmiPersonalLoanCalcForm> {
   Widget build(BuildContext context) {
     double windowHeight = MediaQuery.of(context).size.height;
     double windowWidth = MediaQuery.of(context).size.width;
-    return SingleChildScrollView(
-      child: Container(
-        child: Column(
-          children: <Widget>[
-            Padding(
-              padding: const EdgeInsets.only(left: 19.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: <Widget>[
-                  Text(
-                    "EMI Personal Loan Calculator",
-                    style: TextStyle(
-                      fontSize: 20,
-                      color: Colors.blue.shade700,
-                      fontWeight: FontWeight.w800,
-                    ),
-                  ),
-                  Spacer(),
-                  CloseButton(),
-                ],
+    return Scaffold(
+      appBar: AppBar(
+        automaticallyImplyLeading: false,
+        backgroundColor: Colors.white,
+        elevation: 2,
+        title: Text(
+          'EMI Personal Loan Calculator',
+          style: TextStyle(color: Colors.black, fontSize: 18),
+        ),
+        actions: [
+          CloseButton(
+            color: Colors.black,
+          ),
+        ],
+      ),
+      body: SingleChildScrollView(
+        child: Container(
+          child: Column(
+            children: <Widget>[
+              OutputCard(
+                  windowHeight: windowHeight,
+                  windowWidth: windowWidth,
+                  amount: totalAmountPayable,
+                  title: 'Total payable amount',
+                  suggestion:
+                      'Suggestion: Keep your loan tenure as low as possible, as the tenure increases interest component increases significantly.'),
+              TitleHeader(text: "Personal Loan Amount"),
+              FormFieldGlobal(
+                keyboardTypeGlobal: TextInputType.number,
+                hintText: "Amount Here",
+                dataController: personalLoanAmount,
               ),
-            ),
-            Divider(
-              thickness: 0.2,
-              color: Colors.blue.shade700,
-            ),
-            TitleHeader(text: "Housing Loan Amount"),
-            FormFieldGlobal(
-              keyboardTypeGlobal: TextInputType.number,
-              hintText: "Amount Here",
-              dataController: personalLoanAmount,
-            ),
-            TitleHeaderWithRichText(text: "Interest Rate", richText: " (P.A.)"),
-            FormFieldGlobal(
-              keyboardTypeGlobal: TextInputType.number,
-              hintText: "Rate % Here",
-              dataController: interestRate,
-            ),
-            TitleHeaderWithRichText(text: "Tenure", richText: " (Years)"),
-            FormFieldGlobal(
-              keyboardTypeGlobal: TextInputType.number,
-              hintText: "Time Here",
-              dataController: tenure,
-            ),
-            SizedBox(
-              height: windowHeight * 0.03,
-            ),
-            Padding(
-              padding: const EdgeInsets.only(right: 18.0),
-              child: Align(
-                alignment: Alignment.centerRight,
-                child: Container(
-                  height: windowHeight * 0.05,
-                  width: windowWidth * 0.3,
-                  child: TextButton(
-                    child: Text('Compute',
-                        style: TextStyle(
-                            color: Colors.blue.shade700,
-                            fontSize: 20,
-                            fontWeight: FontWeight.w500)),
-                    onPressed: () {
-                      setState(() {
-                        p = double.tryParse(personalLoanAmount.text);
-                        r = double.tryParse(interestRate.text)! / 100 / 12;
-                        n = double.tryParse(tenure.text)! * 12;
-                        x = pow((1 + r), n);
-                        emi = ((p * x * r) / (x - 1));
-                        totalPayAmt = ((emi * n));
-                        totalPayInt = totalPayAmt - p;
-                        emiAmount = (emi.round()).toString();
-                        totalAmountPayable = (totalPayAmt.round()).toString();
-                        interestComponent = (totalPayInt.round()).toString();
-                      });
-                    },
-                    style: TextButton.styleFrom(
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10.0),
-                        side: BorderSide(color: Colors.blue.shade700),
+              TitleHeaderWithRichText(
+                  text: "Interest Rate", richText: " (P.A.)"),
+              FormFieldGlobal(
+                keyboardTypeGlobal: TextInputType.number,
+                hintText: "Rate % Here",
+                dataController: interestRate,
+              ),
+              TitleHeaderWithRichText(text: "Tenure", richText: " (Years)"),
+              FormFieldGlobal(
+                keyboardTypeGlobal: TextInputType.number,
+                hintText: "Time Here",
+                dataController: tenure,
+              ),
+              SizedBox(
+                height: windowHeight * 0.03,
+              ),
+              Padding(
+                padding: const EdgeInsets.only(right: 0.0),
+                child: Align(
+                  alignment: Alignment.center,
+                  child: Container(
+                    height: windowHeight * 0.05,
+                    width: windowWidth * 0.3,
+                    child: TextButton(
+                      child: Text('Compute',
+                          style: TextStyle(
+                              color: Colors.blue.shade700,
+                              fontSize: 20,
+                              fontWeight: FontWeight.w500)),
+                      onPressed: () {
+                        setState(() {
+                          p = double.tryParse(personalLoanAmount.text);
+                          r = double.tryParse(interestRate.text)! / 100 / 12;
+                          n = double.tryParse(tenure.text)! * 12;
+                          x = pow((1 + r), n);
+                          emi = ((p * x * r) / (x - 1));
+                          totalPayAmt = ((emi * n));
+                          totalPayInt = totalPayAmt - p;
+                          emiAmount = (emi.round()).toString();
+                          totalAmountPayable = (totalPayAmt.round()).toString();
+                          interestComponent = (totalPayInt.round()).toString();
+                        });
+                      },
+                      style: TextButton.styleFrom(
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10.0),
+                          side: BorderSide(color: Colors.blue.shade700),
+                        ),
                       ),
                     ),
                   ),
                 ),
               ),
-            ),
-            Divider(),
-            OutputTextForPopUp(),
-            TitleHeader(text: "EMI Amount"),
-            GlobalOutputField(
-              outputValue: emiAmount,
-            ),
-            TitleHeader(text: "Total Payable Amount"),
-            GlobalOutputField(
-              outputValue: totalAmountPayable,
-            ),
-            TitleHeader(text: "Interest Amount"),
-            GlobalOutputField(
-              outputValue: interestComponent,
-            ),
-            SuggestionBox1(
-              suggestion:
-                  "Keep your loan tenure as low as possible, as the tenure increases interest component increases significantly.",
-            ),
-            SuggestionBox2(
-              suggestion:
-                  "* Invest in SIP's for emergency fund with instant withdraw option ",
-            ),
-            SizedBox(
-              height: windowHeight * 0.03,
-            ),
-          ],
+              Divider(),
+              TitleHeader(text: "EMI Amount"),
+              GlobalOutputField(
+                outputValue: emiAmount,
+              ),
+              TitleHeader(text: "Interest Amount"),
+              GlobalOutputField(
+                outputValue: interestComponent,
+              ),
+              SizedBox(
+                height: windowHeight * 0.03,
+              ),
+            ],
+          ),
         ),
       ),
     );
@@ -794,98 +895,92 @@ class _SwpCalcFormState extends State<SwpCalcForm> {
   Widget build(BuildContext context) {
     double windowHeight = MediaQuery.of(context).size.height;
     double windowWidth = MediaQuery.of(context).size.width;
-    return SingleChildScrollView(
-      child: Container(
-        child: Column(
-          children: <Widget>[
-            Padding(
-              padding: const EdgeInsets.only(left: 19.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: <Widget>[
-                  Text(
-                    "SWP Calculator",
-                    style: TextStyle(
-                      fontSize: 20,
-                      color: Colors.blue.shade700,
-                      fontWeight: FontWeight.w800,
-                    ),
-                  ),
-                  Spacer(),
-                  CloseButton(),
-                ],
+    return Scaffold(
+      appBar: AppBar(
+        automaticallyImplyLeading: false,
+        backgroundColor: Colors.white,
+        elevation: 2,
+        title: Text(
+          'EMI Personal Loan Calculator',
+          style: TextStyle(color: Colors.black, fontSize: 18),
+        ),
+        actions: [
+          CloseButton(
+            color: Colors.black,
+          ),
+        ],
+      ),
+      body: SingleChildScrollView(
+        child: Container(
+          child: Column(
+            children: <Widget>[
+              OutputCard(
+                  windowHeight: windowHeight,
+                  windowWidth: windowWidth,
+                  amount: valueAtTheEnd,
+                  title: 'Value at the end of tensure',
+                  suggestion: ''),
+              TitleHeader(text: "Total Investment Amount"),
+              FormFieldGlobal(
+                keyboardTypeGlobal: TextInputType.number,
+                hintText: "Amount Here",
+                dataController: totalAmountInvested,
               ),
-            ),
-            Divider(
-              thickness: 0.2,
-              color: Colors.blue.shade700,
-            ),
-            TitleHeader(text: "Total Investment Amount"),
-            FormFieldGlobal(
-              keyboardTypeGlobal: TextInputType.number,
-              hintText: "Amount Here",
-              dataController: totalAmountInvested,
-            ),
-            TitleHeader(text: "Withdrawal Per Month"),
-            FormFieldGlobal(
-              keyboardTypeGlobal: TextInputType.number,
-              hintText: "Amount Here",
-              dataController: withdrawalPerMonth,
-            ),
-            TitleHeader(text: "Expected Return"),
-            FormFieldGlobal(
-              keyboardTypeGlobal: TextInputType.number,
-              hintText: "Amount Here",
-              dataController: expectedReturn,
-            ),
-            TitleHeaderWithRichText(
-              text: "Tenure",
-              richText: " (Years)",
-            ),
-            FormFieldGlobal(
-              keyboardTypeGlobal: TextInputType.number,
-              hintText: "Years",
-              dataController: tenure,
-            ),
-            SizedBox(
-              height: windowHeight * 0.03,
-            ),
-            Padding(
-              padding: const EdgeInsets.only(right: 18.0),
-              child: Align(
-                alignment: Alignment.centerRight,
-                child: Container(
-                  height: windowHeight * 0.05,
-                  width: windowWidth * 0.3,
-                  child: TextButton(
-                    child: Text('Compute',
-                        style: TextStyle(
-                            color: Colors.blue.shade700,
-                            fontSize: 20,
-                            fontWeight: FontWeight.w500)),
-                    onPressed: () {
-                      setState(() {});
-                    },
-                    style: TextButton.styleFrom(
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10.0),
-                        side: BorderSide(color: Colors.blue.shade700),
+              TitleHeader(text: "Withdrawal Per Month"),
+              FormFieldGlobal(
+                keyboardTypeGlobal: TextInputType.number,
+                hintText: "Amount Here",
+                dataController: withdrawalPerMonth,
+              ),
+              TitleHeader(text: "Expected Return"),
+              FormFieldGlobal(
+                keyboardTypeGlobal: TextInputType.number,
+                hintText: "Amount Here",
+                dataController: expectedReturn,
+              ),
+              TitleHeaderWithRichText(
+                text: "Tenure",
+                richText: " (Years)",
+              ),
+              FormFieldGlobal(
+                keyboardTypeGlobal: TextInputType.number,
+                hintText: "Years",
+                dataController: tenure,
+              ),
+              SizedBox(
+                height: windowHeight * 0.03,
+              ),
+              Padding(
+                padding: const EdgeInsets.only(right: 18.0),
+                child: Align(
+                  alignment: Alignment.center,
+                  child: Container(
+                    height: windowHeight * 0.05,
+                    width: windowWidth * 0.3,
+                    child: TextButton(
+                      child: Text('Compute',
+                          style: TextStyle(
+                              color: Colors.blue.shade700,
+                              fontSize: 20,
+                              fontWeight: FontWeight.w500)),
+                      onPressed: () {
+                        setState(() {});
+                      },
+                      style: TextButton.styleFrom(
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10.0),
+                          side: BorderSide(color: Colors.blue.shade700),
+                        ),
                       ),
                     ),
                   ),
                 ),
               ),
-            ),
-            Divider(),
-            OutputTextForPopUp(),
-            TitleHeader(text: "Value At The End Of Tenure"),
-            GlobalOutputField(
-              outputValue: valueAtTheEnd,
-            ),
-            SizedBox(
-              height: windowHeight * 0.03,
-            ),
-          ],
+              SizedBox(
+                height: windowHeight * 0.03,
+              ),
+            ],
+          ),
         ),
       ),
     );
@@ -940,170 +1035,164 @@ class _LumpSumCalcFromState extends State<LumpSumCalcFrom> {
   Widget build(BuildContext context) {
     double windowHeight = MediaQuery.of(context).size.height;
     double windowWidth = MediaQuery.of(context).size.width;
-    return SingleChildScrollView(
-      child: Container(
-        child: Column(
-          children: <Widget>[
-            Padding(
-              padding: const EdgeInsets.only(left: 19.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: <Widget>[
-                  Text(
-                    "Lump Sum Calculator",
-                    style: TextStyle(
-                      fontSize: 20,
-                      color: Colors.blue.shade700,
-                      fontWeight: FontWeight.w800,
-                    ),
-                  ),
-                  Spacer(),
-                  CloseButton(),
-                ],
+    return Scaffold(
+      appBar: AppBar(
+        automaticallyImplyLeading: false,
+        backgroundColor: Colors.white,
+        elevation: 2,
+        title: Text(
+          'Lump Sum Calculator',
+          style: TextStyle(color: Colors.black, fontSize: 18),
+        ),
+        actions: [
+          CloseButton(
+            color: Colors.black,
+          ),
+        ],
+      ),
+      body: SingleChildScrollView(
+        child: Container(
+          child: Column(
+            children: <Widget>[
+              OutputCard(
+                windowHeight: windowHeight,
+                windowWidth: windowWidth,
+                amount: fvInt.toString(),
+                title: 'Future Value of Investment',
+                suggestion: "If you invest ₹" +
+                    requiredAmt.toString() +
+                    "per month for " +
+                    noOfYrs.toString() +
+                    "years @ " +
+                    r.toString() +
+                    "% P.A expected rate of return, you will accumulate ₹" +
+                    fvInt.toString() +
+                    " at the end of " +
+                    noOfYrs.toString() +
+                    " years.",
               ),
-            ),
-            Divider(
-              thickness: 0.2,
-              color: Colors.blue.shade700,
-            ),
-            TitleHeaderWithRichText(
-                text: "LumpSum Amount Invested", richText: " "),
-            FormFieldGlobal(
-              keyboardTypeGlobal: TextInputType.number,
-              hintText: "Invested Monthly",
-              dataController: lumpSumAmount,
-            ),
-            TitleHeaderWithRichText(text: "Time Period", richText: " (Years)"),
-            FormFieldGlobal(
-              keyboardTypeGlobal: TextInputType.number,
-              hintText: "No. Of Years",
-              dataController: investedFor,
-            ),
-            TitleHeaderWithRichText(
-              text: "Expected Rate Of Return",
-              richText: " (%)",
-            ),
-            FormFieldGlobal(
-              keyboardTypeGlobal: TextInputType.number,
-              hintText: "Rate % Here",
-              dataController: expectedRateOfReturn,
-            ),
-            TitleHeader(text: "Adjust For Inflation?"),
-            Padding(
-              padding: const EdgeInsets.only(left: 18.0, right: 18.0),
-              child: Container(
-                height: windowHeight * 0.05,
-                width: double.infinity,
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  shape: BoxShape.rectangle,
-                  border: Border.all(
-                    width: 1.1,
-                    color: Colors.grey,
-                  ),
-                  borderRadius: BorderRadius.all(Radius.circular(5.0)),
-                ),
-                child: Padding(
-                  padding: const EdgeInsets.only(left: 8.0),
-                  child: DropdownButton<String>(
-                    elevation: 0,
-                    items: _options.map((String dropDownStringItem) {
-                      return DropdownMenuItem<String>(
-                        value: dropDownStringItem,
-                        child: Text(dropDownStringItem),
-                      );
-                    }).toList(),
-                    onChanged: (String? newValueSelected) {
-                      _dropDownItemSelected(newValueSelected);
-                    },
-                    value: _currentItemSelected,
-                  ),
-                ),
+              TitleHeaderWithRichText(
+                  text: "LumpSum Amount Invested", richText: " "),
+              FormFieldGlobal(
+                keyboardTypeGlobal: TextInputType.number,
+                hintText: "Invested Monthly",
+                dataController: lumpSumAmount,
               ),
-            ),
-            TitleHeaderWithRichText(text: "Inflation Rate", richText: " (%)"),
-            FormFieldGlobal(
-              keyboardTypeGlobal: TextInputType.number,
-              hintText: "Rate % Here",
-              dataController: inflationRate,
-              enabledOrNot: enabledOrNotEnabled(),
-            ),
-            SizedBox(
-              height: windowHeight * 0.03,
-            ),
-            Padding(
-              padding: const EdgeInsets.only(right: 18.0),
-              child: Align(
-                alignment: Alignment.centerRight,
+              TitleHeaderWithRichText(
+                  text: "Time Period", richText: " (Years)"),
+              FormFieldGlobal(
+                keyboardTypeGlobal: TextInputType.number,
+                hintText: "No. Of Years",
+                dataController: investedFor,
+              ),
+              TitleHeaderWithRichText(
+                text: "Expected Rate Of Return",
+                richText: " (%)",
+              ),
+              FormFieldGlobal(
+                keyboardTypeGlobal: TextInputType.number,
+                hintText: "Rate % Here",
+                dataController: expectedRateOfReturn,
+              ),
+              TitleHeader(text: "Adjust For Inflation?"),
+              Padding(
+                padding: const EdgeInsets.only(left: 18.0, right: 18.0),
                 child: Container(
                   height: windowHeight * 0.05,
-                  width: windowWidth * 0.3,
-                  child: TextButton(
-                    child: Text('Compute',
-                        style: TextStyle(
-                            color: Colors.blue.shade700,
-                            fontSize: 20,
-                            fontWeight: FontWeight.w500)),
-                    onPressed: () {
-                      setState(() {
-                        if (_currentItemSelected == 'No') {
-                          i = 0;
-                          inflationRateController = 0;
-                        } else if (_currentItemSelected == 'Yes') {
-                          i = double.tryParse(inflationRate.text);
-                        }
-                        if (inflationRate.text.isEmpty) {
-                          i = 0;
-                        }
-                        requiredAmt = double.tryParse(lumpSumAmount.text);
-                        noOfYrs = double.tryParse(investedFor.text);
-                        r = double.tryParse(expectedRateOfReturn.text);
-                        returnRate = r! / 100;
-                        inflationRateController = i! / 100;
-                        a = 1 + returnRate;
-                        b = 1 + inflationRateController;
-                        realReturn = (a / b) - 1;
-                        fv = (requiredAmt! * pow((1 + realReturn), noOfYrs!));
-                        fvInt = fv.round();
-                      });
-                    },
-                    style: TextButton.styleFrom(
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10.0),
-                        side: BorderSide(color: Colors.blue.shade700),
+                  width: double.infinity,
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    shape: BoxShape.rectangle,
+                    border: Border.all(
+                      width: 1.1,
+                      color: Colors.grey,
+                    ),
+                    borderRadius: BorderRadius.all(Radius.circular(5.0)),
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.only(left: 8.0),
+                    child: DropdownButton<String>(
+                      elevation: 0,
+                      items: _options.map((String dropDownStringItem) {
+                        return DropdownMenuItem<String>(
+                          value: dropDownStringItem,
+                          child: Text(dropDownStringItem),
+                        );
+                      }).toList(),
+                      onChanged: (String? newValueSelected) {
+                        _dropDownItemSelected(newValueSelected);
+                      },
+                      value: _currentItemSelected,
+                    ),
+                  ),
+                ),
+              ),
+              TitleHeaderWithRichText(text: "Inflation Rate", richText: " (%)"),
+              FormFieldGlobal(
+                keyboardTypeGlobal: TextInputType.number,
+                hintText: "Rate % Here",
+                dataController: inflationRate,
+                enabledOrNot: enabledOrNotEnabled(),
+              ),
+              SizedBox(
+                height: windowHeight * 0.03,
+              ),
+              Padding(
+                padding: const EdgeInsets.only(right: 18.0),
+                child: Align(
+                  alignment: Alignment.center,
+                  child: Container(
+                    height: windowHeight * 0.05,
+                    width: windowWidth * 0.3,
+                    child: TextButton(
+                      child: Text('Compute',
+                          style: TextStyle(
+                              color: Colors.blue.shade700,
+                              fontSize: 20,
+                              fontWeight: FontWeight.w500)),
+                      onPressed: () {
+                        setState(() {
+                          if (_currentItemSelected == 'No') {
+                            i = 0;
+                            inflationRateController = 0;
+                          } else if (_currentItemSelected == 'Yes') {
+                            i = double.tryParse(inflationRate.text);
+                          }
+                          if (inflationRate.text.isEmpty) {
+                            i = 0;
+                          }
+                          requiredAmt = double.tryParse(lumpSumAmount.text);
+                          noOfYrs = double.tryParse(investedFor.text);
+                          r = double.tryParse(expectedRateOfReturn.text);
+                          returnRate = r! / 100;
+                          inflationRateController = i! / 100;
+                          a = 1 + returnRate;
+                          b = 1 + inflationRateController;
+                          realReturn = (a / b) - 1;
+                          fv = (requiredAmt! * pow((1 + realReturn), noOfYrs!));
+                          fvInt = fv.round();
+                        });
+                      },
+                      style: TextButton.styleFrom(
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10.0),
+                          side: BorderSide(color: Colors.blue.shade700),
+                        ),
                       ),
                     ),
                   ),
                 ),
               ),
-            ),
-            Divider(),
-            OutputTextForPopUp(),
-            TitleHeader(text: "Amount Invested"),
-            GlobalOutputField(
-              outputValue: requiredAmt.toString(),
-            ),
-            TitleHeader(text: "Future Value Of Investment"),
-            GlobalOutputField(
-              outputValue: fvInt.toString(),
-            ),
-            SuggestionBox1(
-              suggestion: "If you invest ₹" +
-                  requiredAmt.toString() +
-                  "per month for " +
-                  noOfYrs.toString() +
-                  "years @ " +
-                  r.toString() +
-                  "% P.A expected rate of return, you will accumulate ₹" +
-                  fvInt.toString() +
-                  " at the end of " +
-                  noOfYrs.toString() +
-                  " years.",
-            ),
-            SizedBox(
-              height: windowHeight * 0.03,
-            ),
-          ],
+              Divider(),
+              TitleHeader(text: "Amount Invested"),
+              GlobalOutputField(
+                outputValue: requiredAmt.toString(),
+              ),
+              SizedBox(
+                height: windowHeight * 0.03,
+              ),
+            ],
+          ),
         ),
       ),
     );
@@ -1149,168 +1238,161 @@ class _HraCalcFromState extends State<HraCalcFrom> {
   Widget build(BuildContext context) {
     double windowHeight = MediaQuery.of(context).size.height;
     double windowWidth = MediaQuery.of(context).size.width;
-    return SingleChildScrollView(
-      child: Container(
-        child: Column(
-          children: <Widget>[
-            Padding(
-              padding: const EdgeInsets.only(left: 19.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: <Widget>[
-                  Text(
-                    "HRA Calculator",
-                    style: TextStyle(
-                      fontSize: 20,
-                      color: Colors.blue.shade700,
-                      fontWeight: FontWeight.w800,
-                    ),
-                  ),
-                  Spacer(),
-                  CloseButton(),
-                ],
+    return Scaffold(
+      appBar: AppBar(
+        automaticallyImplyLeading: false,
+        backgroundColor: Colors.white,
+        elevation: 2,
+        title: Text(
+          'HRA Calculator',
+          style: TextStyle(color: Colors.black, fontSize: 18),
+        ),
+        actions: [
+          CloseButton(
+            color: Colors.black,
+          ),
+        ],
+      ),
+      body: SingleChildScrollView(
+        child: Container(
+          child: Column(
+            children: <Widget>[
+              OutputCard(
+                  windowHeight: windowHeight,
+                  windowWidth: windowWidth,
+                  amount: hraTaxable.toString(),
+                  title: 'HRA Taxable',
+                  suggestion:
+                      'Suggestion: Invest in Tax saving mutual funds for saving TAX '),
+              TitleHeaderWithRichText(
+                  text: "Basic Salary Received", richText: " "),
+              FormFieldGlobal(
+                keyboardTypeGlobal: TextInputType.number,
+                hintText: "Amount Here",
+                dataController: basicSalaryReceived,
               ),
-            ),
-            Divider(
-              thickness: 0.2,
-              color: Colors.blue.shade700,
-            ),
-            TitleHeaderWithRichText(
-                text: "Basic Salary Received", richText: " "),
-            FormFieldGlobal(
-              keyboardTypeGlobal: TextInputType.number,
-              hintText: "Amount Here",
-              dataController: basicSalaryReceived,
-            ),
-            TitleHeaderWithRichText(
-                text: "Dearness Allowance(DA) Received", richText: " "),
-            FormFieldGlobal(
-              keyboardTypeGlobal: TextInputType.number,
-              hintText: "Amount Here",
-              dataController: dearnessAllowanceReceived,
-            ),
-            TitleHeaderWithRichText(
-              text: "HRA Received",
-              richText: " ",
-            ),
-            FormFieldGlobal(
-              keyboardTypeGlobal: TextInputType.number,
-              hintText: "Amount Here",
-              dataController: hraReceived,
-            ),
-            TitleHeaderWithRichText(
-              text: "Actual Rent Paid",
-              richText: " ",
-            ),
-            FormFieldGlobal(
-              keyboardTypeGlobal: TextInputType.number,
-              hintText: "Amount Here",
-              dataController: actualRentPaid,
-            ),
-            TitleHeader(text: "Select City"),
-            Padding(
-              padding: const EdgeInsets.only(left: 18.0, right: 18.0),
-              child: Container(
-                height: windowHeight * 0.05,
-                width: double.infinity,
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  shape: BoxShape.rectangle,
-                  border: Border.all(
-                    width: 1.1,
-                    color: Colors.grey,
-                  ),
-                  borderRadius: BorderRadius.all(Radius.circular(5.0)),
-                ),
-                child: Padding(
-                  padding: const EdgeInsets.only(left: 8.0),
-                  child: DropdownButton<String>(
-                    elevation: 0,
-                    items: _options.map((String dropDownStringItem) {
-                      return DropdownMenuItem<String>(
-                        value: dropDownStringItem,
-                        child: Text(dropDownStringItem),
-                      );
-                    }).toList(),
-                    onChanged: (String? newValueSelected) {
-                      _dropDownItemSelected(newValueSelected);
-                    },
-                    value: _currentItemSelected,
-                  ),
-                ),
+              TitleHeaderWithRichText(
+                  text: "Dearness Allowance(DA) Received", richText: " "),
+              FormFieldGlobal(
+                keyboardTypeGlobal: TextInputType.number,
+                hintText: "Amount Here",
+                dataController: dearnessAllowanceReceived,
               ),
-            ),
-            SizedBox(
-              height: windowHeight * 0.03,
-            ),
-            Padding(
-              padding: const EdgeInsets.only(right: 18.0),
-              child: Align(
-                alignment: Alignment.centerRight,
+              TitleHeaderWithRichText(
+                text: "HRA Received",
+                richText: " ",
+              ),
+              FormFieldGlobal(
+                keyboardTypeGlobal: TextInputType.number,
+                hintText: "Amount Here",
+                dataController: hraReceived,
+              ),
+              TitleHeaderWithRichText(
+                text: "Actual Rent Paid",
+                richText: " ",
+              ),
+              FormFieldGlobal(
+                keyboardTypeGlobal: TextInputType.number,
+                hintText: "Amount Here",
+                dataController: actualRentPaid,
+              ),
+              TitleHeader(text: "Select City"),
+              Padding(
+                padding: const EdgeInsets.only(left: 18.0, right: 18.0),
                 child: Container(
                   height: windowHeight * 0.05,
-                  width: windowWidth * 0.3,
-                  child: TextButton(
-                    child: Text('Compute',
-                        style: TextStyle(
-                            color: Colors.blue.shade700,
-                            fontSize: 20,
-                            fontWeight: FontWeight.w500)),
-                    onPressed: () {
-                      setState(() {
-                        salRec = double.tryParse(basicSalaryReceived.text);
-                        da = double.tryParse(dearnessAllowanceReceived.text);
-                        hraRec = double.tryParse(hraReceived.text);
-                        rentPaid = double.tryParse(actualRentPaid.text);
-                        rentPaid = (rentPaid! - ((salRec! + da!) * (10 / 100)));
-                        city = _currentItemSelected;
-                        if (city == 'Other') {
-                          metroNoMetro = ((salRec! + da!) * (40 / 100));
-                        } else {
-                          metroNoMetro = ((salRec! + da!) * (50 / 100));
-                        }
-                        // var list = [hraReceived, rentPaid, metroNoMetro];
-                        // list.sort();
-                        if (hraRec! < rentPaid! && hraRec! < metroNoMetro) {
-                          hraExemption = hraRec.toString();
-                        } else if (rentPaid! < hraRec! &&
-                            rentPaid! < metroNoMetro) {
-                          hraExemption = rentPaid.toString();
-                        } else if (metroNoMetro < hraRec! &&
-                            metroNoMetro < rentPaid!) {
-                          hraExemption = metroNoMetro.toString();
-                        }
-                        hraTax = (hraRec! - double.tryParse(hraExemption)!);
-                        hraTaxable = hraTax.toString();
-                      });
-                    },
-                    style: TextButton.styleFrom(
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10.0),
-                        side: BorderSide(color: Colors.blue.shade700),
+                  width: double.infinity,
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    shape: BoxShape.rectangle,
+                    border: Border.all(
+                      width: 1.1,
+                      color: Colors.grey,
+                    ),
+                    borderRadius: BorderRadius.all(Radius.circular(5.0)),
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.only(left: 8.0),
+                    child: DropdownButton<String>(
+                      elevation: 0,
+                      items: _options.map((String dropDownStringItem) {
+                        return DropdownMenuItem<String>(
+                          value: dropDownStringItem,
+                          child: Text(dropDownStringItem),
+                        );
+                      }).toList(),
+                      onChanged: (String? newValueSelected) {
+                        _dropDownItemSelected(newValueSelected);
+                      },
+                      value: _currentItemSelected,
+                    ),
+                  ),
+                ),
+              ),
+              SizedBox(
+                height: windowHeight * 0.03,
+              ),
+              Padding(
+                padding: const EdgeInsets.only(right: 0.0),
+                child: Align(
+                  alignment: Alignment.center,
+                  child: Container(
+                    height: windowHeight * 0.05,
+                    width: windowWidth * 0.3,
+                    child: TextButton(
+                      child: Text('Compute',
+                          style: TextStyle(
+                              color: Colors.blue.shade700,
+                              fontSize: 20,
+                              fontWeight: FontWeight.w500)),
+                      onPressed: () {
+                        setState(() {
+                          salRec = double.tryParse(basicSalaryReceived.text);
+                          da = double.tryParse(dearnessAllowanceReceived.text);
+                          hraRec = double.tryParse(hraReceived.text);
+                          rentPaid = double.tryParse(actualRentPaid.text);
+                          rentPaid =
+                              (rentPaid! - ((salRec! + da!) * (10 / 100)));
+                          city = _currentItemSelected;
+                          if (city == 'Other') {
+                            metroNoMetro = ((salRec! + da!) * (40 / 100));
+                          } else {
+                            metroNoMetro = ((salRec! + da!) * (50 / 100));
+                          }
+                          // var list = [hraReceived, rentPaid, metroNoMetro];
+                          // list.sort();
+                          if (hraRec! < rentPaid! && hraRec! < metroNoMetro) {
+                            hraExemption = hraRec.toString();
+                          } else if (rentPaid! < hraRec! &&
+                              rentPaid! < metroNoMetro) {
+                            hraExemption = rentPaid.toString();
+                          } else if (metroNoMetro < hraRec! &&
+                              metroNoMetro < rentPaid!) {
+                            hraExemption = metroNoMetro.toString();
+                          }
+                          hraTax = (hraRec! - double.tryParse(hraExemption)!);
+                          hraTaxable = hraTax.toString();
+                        });
+                      },
+                      style: TextButton.styleFrom(
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10.0),
+                          side: BorderSide(color: Colors.blue.shade700),
+                        ),
                       ),
                     ),
                   ),
                 ),
               ),
-            ),
-            Divider(),
-            OutputTextForPopUp(),
-            TitleHeader(text: "HRA Exemption"),
-            GlobalOutputField(
-              outputValue: hraExemption,
-            ),
-            TitleHeader(text: "HRA Taxable"),
-            GlobalOutputField(
-              outputValue: hraTaxable,
-            ),
-            SuggestionBox1(
-              suggestion: "Invest in Tax saving mutual funds for saving TAX ",
-            ),
-            SizedBox(
-              height: windowHeight * 0.03,
-            ),
-          ],
+              TitleHeader(text: "HRA Exemption"),
+              GlobalOutputField(
+                outputValue: hraExemption,
+              ),
+              SizedBox(
+                height: windowHeight * 0.03,
+              ),
+            ],
+          ),
         ),
       ),
     );
@@ -1372,156 +1454,150 @@ class _PpfCalcFromState extends State<PpfCalcFrom> {
   Widget build(BuildContext context) {
     double windowHeight = MediaQuery.of(context).size.height;
     double windowWidth = MediaQuery.of(context).size.width;
-    return SingleChildScrollView(
-      child: Container(
-        child: Column(
-          children: <Widget>[
-            Padding(
-              padding: const EdgeInsets.only(left: 19.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: <Widget>[
-                  Text(
-                    "PPF Calculator",
-                    style: TextStyle(
-                      fontSize: 20,
-                      color: Colors.blue.shade700,
-                      fontWeight: FontWeight.w800,
-                    ),
-                  ),
-                  Spacer(),
-                  CloseButton(),
-                ],
+    return Scaffold(
+      appBar: AppBar(
+        automaticallyImplyLeading: false,
+        backgroundColor: Colors.white,
+        elevation: 2,
+        title: Text(
+          'PPF Calculator',
+          style: TextStyle(color: Colors.black, fontSize: 18),
+        ),
+        actions: [
+          CloseButton(
+            color: Colors.black,
+          ),
+        ],
+      ),
+      body: SingleChildScrollView(
+        child: Container(
+          child: Column(
+            children: <Widget>[
+              OutputCard(
+                  windowHeight: windowHeight,
+                  windowWidth: windowWidth,
+                  amount: totalMaturityAmount,
+                  title: 'Total Maturity Earned',
+                  suggestion:
+                      'Suggestion: ELSS(Tax Saving MF) is also exempted like PPF and can generate better return then PPF '),
+              TitleHeaderWithRichText(
+                  text: "PPF Interest Rate", richText: " (%)"),
+              GlobalOutputField(
+                outputValue: rateType.toString(),
               ),
-            ),
-            Divider(
-              thickness: 0.2,
-              color: Colors.blue.shade700,
-            ),
-            TitleHeaderWithRichText(
-                text: "PPF Interest Rate", richText: " (%)"),
-            GlobalOutputField(
-              outputValue: rateType.toString(),
-            ),
-            TitleHeaderWithRichText(
-                text: "Amount Invested", richText: " (Per Year)"),
-            FormFieldGlobal(
-              keyboardTypeGlobal: TextInputType.number,
-              hintText: "Amount Here",
-              dataController: totalAmountInvested,
-            ),
-            TitleHeader(text: "No Of Years"),
-            FormFieldGlobal(
-              keyboardTypeGlobal: TextInputType.number,
-              hintText: "Time Here",
-              dataController: tenure,
-            ),
-            SizedBox(
-              height: windowHeight * 0.03,
-            ),
-            Padding(
-              padding: const EdgeInsets.only(left: 18.0, right: 18.0),
-              child: Container(
-                height: windowHeight * 0.05,
-                width: double.infinity,
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  shape: BoxShape.rectangle,
-                  border: Border.all(
-                    width: 1.1,
-                    color: Colors.grey,
-                  ),
-                  borderRadius: BorderRadius.all(Radius.circular(5.0)),
-                ),
-                child: Padding(
-                  padding: const EdgeInsets.only(left: 8.0),
-                  child: DropdownButton<String>(
-                    elevation: 0,
-                    items: _options.map((String dropDownStringItem) {
-                      return DropdownMenuItem<String>(
-                        value: dropDownStringItem,
-                        child: Text(dropDownStringItem),
-                      );
-                    }).toList(),
-                    onChanged: (String? newValueSelected) {
-                      _dropDownItemSelected(newValueSelected);
-                    },
-                    value: _currentItemSelected,
-                  ),
-                ),
+              TitleHeaderWithRichText(
+                  text: "Amount Invested", richText: " (Per Year)"),
+              FormFieldGlobal(
+                keyboardTypeGlobal: TextInputType.number,
+                hintText: "Amount Here",
+                dataController: totalAmountInvested,
               ),
-            ),
-            SizedBox(
-              height: windowHeight * 0.03,
-            ),
-            Padding(
-              padding: const EdgeInsets.only(right: 18.0),
-              child: Align(
-                alignment: Alignment.centerRight,
+              TitleHeader(text: "No Of Years"),
+              FormFieldGlobal(
+                keyboardTypeGlobal: TextInputType.number,
+                hintText: "Time Here",
+                dataController: tenure,
+              ),
+              SizedBox(
+                height: windowHeight * 0.03,
+              ),
+              Padding(
+                padding: const EdgeInsets.only(left: 18.0, right: 18.0),
                 child: Container(
                   height: windowHeight * 0.05,
-                  width: windowWidth * 0.3,
-                  child: TextButton(
-                    child: Text('Compute',
-                        style: TextStyle(
-                            color: Colors.blue.shade700,
-                            fontSize: 20,
-                            fontWeight: FontWeight.w500)),
-                    onPressed: () {
-                      setState(() {
-                        principal = double.tryParse(totalAmountInvested.text);
-                        time = double.tryParse(tenure.text);
-                        selected = _currentItemSelected;
-                        if (selected == 'End Of Period') {
-                          rateType = 7.6;
-                        } else if (selected == 'Beginning Of Period') {
-                          rateType = 7.8;
-                        }
-                        if (rateType == 7.6) {
-                          ppfTotalMatAmt = clcPPF(principal, rateType, time);
-                        } else if (rateType == 7.8) {
-                          ppfTotalMatAmt = clcPPF(principal, rateType, time);
-                        }
-                        totalInvestment1 = (principal * time);
-                        interestEarned = ppfTotalMatAmt - totalInvestment1;
-                        totalMaturityAmount = ppfTotalMatAmt.round().toString();
-                        totalInvestment = totalInvestment1.round().toString();
-                        totalInterestEarned = interestEarned.round().toString();
-                      });
-                    },
-                    style: TextButton.styleFrom(
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10.0),
-                        side: BorderSide(color: Colors.blue.shade700),
+                  width: double.infinity,
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    shape: BoxShape.rectangle,
+                    border: Border.all(
+                      width: 1.1,
+                      color: Colors.grey,
+                    ),
+                    borderRadius: BorderRadius.all(Radius.circular(5.0)),
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.only(left: 8.0),
+                    child: DropdownButton<String>(
+                      elevation: 0,
+                      items: _options.map((String dropDownStringItem) {
+                        return DropdownMenuItem<String>(
+                          value: dropDownStringItem,
+                          child: Text(dropDownStringItem),
+                        );
+                      }).toList(),
+                      onChanged: (String? newValueSelected) {
+                        _dropDownItemSelected(newValueSelected);
+                      },
+                      value: _currentItemSelected,
+                    ),
+                  ),
+                ),
+              ),
+              SizedBox(
+                height: windowHeight * 0.03,
+              ),
+              Padding(
+                padding: const EdgeInsets.only(right: 0.0),
+                child: Align(
+                  alignment: Alignment.center,
+                  child: Container(
+                    height: windowHeight * 0.05,
+                    width: windowWidth * 0.3,
+                    child: TextButton(
+                      child: Text('Compute',
+                          style: TextStyle(
+                              color: Colors.blue.shade700,
+                              fontSize: 20,
+                              fontWeight: FontWeight.w500)),
+                      onPressed: () {
+                        setState(() {
+                          principal = double.tryParse(totalAmountInvested.text);
+                          time = double.tryParse(tenure.text);
+                          selected = _currentItemSelected;
+                          if (selected == 'End Of Period') {
+                            rateType = 7.6;
+                          } else if (selected == 'Beginning Of Period') {
+                            rateType = 7.8;
+                          }
+                          if (rateType == 7.6) {
+                            ppfTotalMatAmt = clcPPF(principal, rateType, time);
+                          } else if (rateType == 7.8) {
+                            ppfTotalMatAmt = clcPPF(principal, rateType, time);
+                          }
+                          totalInvestment1 = (principal * time);
+                          interestEarned = ppfTotalMatAmt - totalInvestment1;
+                          totalMaturityAmount =
+                              ppfTotalMatAmt.round().toString();
+                          totalInvestment = totalInvestment1.round().toString();
+                          totalInterestEarned =
+                              interestEarned.round().toString();
+                        });
+                      },
+                      style: TextButton.styleFrom(
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10.0),
+                          side: BorderSide(color: Colors.blue.shade700),
+                        ),
                       ),
                     ),
                   ),
                 ),
               ),
-            ),
-            Divider(),
-            OutputTextForPopUp(),
-            TitleHeader(text: "Total Investment"),
-            GlobalOutputField(
-              outputValue: totalInvestment,
-            ),
-            TitleHeader(text: "Total Interest Earned"),
-            GlobalOutputField(
-              outputValue: totalInterestEarned,
-            ),
-            TitleHeader(text: "Total Maturity Earned"),
-            GlobalOutputField(
-              outputValue: totalMaturityAmount,
-            ),
-            SuggestionBox1(suggestion: "Tax Saving Under Sex 80C,"),
-            SuggestionBox2(
-              suggestion:
-                  "ELSS(Tax Saving MF) is also exempted like PPF and can generate better return then PPF ",
-            ),
-            SizedBox(
-              height: windowHeight * 0.03,
-            ),
-          ],
+              Divider(),
+              TitleHeader(text: "Total Investment"),
+              GlobalOutputField(
+                outputValue: totalInvestment,
+              ),
+              TitleHeader(text: "Total Interest Earned"),
+              GlobalOutputField(
+                outputValue: totalInterestEarned,
+              ),
+              SuggestionBox1(suggestion: "Tax Saving Under Sec 80C,"),
+              SizedBox(
+                height: windowHeight * 0.03,
+              ),
+            ],
+          ),
         ),
       ),
     );
@@ -1566,141 +1642,132 @@ class _SipInstallmentCalcFormState extends State<SipInstallmentCalcForm> {
   Widget build(BuildContext context) {
     double windowHeight = MediaQuery.of(context).size.height;
     double windowWidth = MediaQuery.of(context).size.width;
-    return SingleChildScrollView(
-      child: Container(
-        child: Column(
-          children: <Widget>[
-            Padding(
-              padding: const EdgeInsets.only(left: 19.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: <Widget>[
-                  Text(
-                    "SIP Installment Calculator",
-                    style: TextStyle(
-                      fontSize: 20,
-                      color: Colors.blue.shade700,
-                      fontWeight: FontWeight.w800,
-                    ),
-                  ),
-                  Spacer(),
-                  CloseButton(),
-                ],
+    return Scaffold(
+      appBar: AppBar(
+        automaticallyImplyLeading: false,
+        backgroundColor: Colors.white,
+        elevation: 2,
+        title: Text(
+          'SIP Installment Calculator',
+          style: TextStyle(color: Colors.black, fontSize: 18),
+        ),
+        actions: [
+          CloseButton(
+            color: Colors.black,
+          ),
+        ],
+      ),
+      body: SingleChildScrollView(
+        child: Container(
+          child: Column(
+            children: <Widget>[
+              OutputCard(
+                  windowHeight: windowHeight,
+                  windowWidth: windowWidth,
+                  amount: monthlySipInvestmentNeeded,
+                  title: 'Monthly Investment Required',
+                  suggestion: ''),
+              TitleHeader(text: "Amount You Want To Achieve"),
+              FormFieldGlobal(
+                keyboardTypeGlobal: TextInputType.number,
+                hintText: "Amount Here",
+                dataController: amountYouWantToAchieve,
               ),
-            ),
-            Divider(
-              thickness: 0.2,
-              color: Colors.blue.shade700,
-            ),
-            TitleHeader(text: "Amount You Want To Achieve"),
-            FormFieldGlobal(
-              keyboardTypeGlobal: TextInputType.number,
-              hintText: "Amount Here",
-              dataController: amountYouWantToAchieve,
-            ),
-            TitleHeader(text: "Within Number Of Years"),
-            FormFieldGlobal(
-              keyboardTypeGlobal: TextInputType.number,
-              hintText: "Time Here",
-              dataController: withinNumberOfYears,
-            ),
-            TitleHeader(text: "Risk Undertaken"),
-            Padding(
-              padding: const EdgeInsets.only(left: 18.0, right: 18.0),
-              child: Container(
-                height: windowHeight * 0.05,
-                width: double.infinity,
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  shape: BoxShape.rectangle,
-                  border: Border.all(
-                    width: 1.1,
-                    color: Colors.grey,
-                  ),
-                  borderRadius: BorderRadius.all(Radius.circular(5.0)),
-                ),
-                child: Padding(
-                  padding: const EdgeInsets.only(left: 8.0),
-                  child: DropdownButton<String>(
-                    elevation: 0,
-                    items: _options.map((String dropDownStringItem) {
-                      return DropdownMenuItem<String>(
-                        value: dropDownStringItem,
-                        child: Text(dropDownStringItem),
-                      );
-                    }).toList(),
-                    onChanged: (String? newValueSelected) {
-                      _dropDownItemSelected(newValueSelected);
-                    },
-                    value: _currentItemSelected,
-                  ),
-                ),
+              TitleHeader(text: "Within Number Of Years"),
+              FormFieldGlobal(
+                keyboardTypeGlobal: TextInputType.number,
+                hintText: "Time Here",
+                dataController: withinNumberOfYears,
               ),
-            ),
-            TitleHeaderWithRichText(text: "Rate Of Return", richText: " (%)"),
-            GlobalOutputField(
-              outputValue: _currentItemSelected,
-            ),
-            SizedBox(
-              height: windowHeight * 0.03,
-            ),
-            Padding(
-              padding: const EdgeInsets.only(right: 18.0),
-              child: Align(
-                alignment: Alignment.centerRight,
+              TitleHeader(text: "Risk Undertaken"),
+              Padding(
+                padding: const EdgeInsets.only(left: 18.0, right: 18.0),
                 child: Container(
                   height: windowHeight * 0.05,
-                  width: windowWidth * 0.3,
-                  child: TextButton(
-                    child: Text('Compute',
-                        style: TextStyle(
-                            color: Colors.blue.shade700,
-                            fontSize: 20,
-                            fontWeight: FontWeight.w500)),
-                    onPressed: () {
-                      setState(() {
-                        requiredAmount =
-                            double.tryParse(amountYouWantToAchieve.text);
-                        noOfYrs = double.tryParse(withinNumberOfYears.text);
-                        if (_currentItemSelected == 'Low - 7%') {
-                          r = 7;
-                        } else if (_currentItemSelected == 'Medium - 12%') {
-                          r = 12;
-                        } else if (_currentItemSelected == 'High - 15%') {
-                          r = 15;
-                        }
-                        returnRate = r / 100;
-                        a = pow((1 + returnRate), (1 / (noOfYrs * 12)));
-                        nominalRate = noOfYrs * (a - 1);
-                        b = (pow((1 + nominalRate), (noOfYrs * 12)));
-                        sipAmount =
-                            ((requiredAmount * nominalRate) / (b - 1)).round();
-                        monthlySipInvestmentNeeded = sipAmount.toString();
-                      });
-                    },
-                    style: TextButton.styleFrom(
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10.0),
-                        side: BorderSide(color: Colors.blue.shade700),
+                  width: double.infinity,
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    shape: BoxShape.rectangle,
+                    border: Border.all(
+                      width: 1.1,
+                      color: Colors.grey,
+                    ),
+                    borderRadius: BorderRadius.all(Radius.circular(5.0)),
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.only(left: 8.0),
+                    child: DropdownButton<String>(
+                      elevation: 0,
+                      items: _options.map((String dropDownStringItem) {
+                        return DropdownMenuItem<String>(
+                          value: dropDownStringItem,
+                          child: Text(dropDownStringItem),
+                        );
+                      }).toList(),
+                      onChanged: (String? newValueSelected) {
+                        _dropDownItemSelected(newValueSelected);
+                      },
+                      value: _currentItemSelected,
+                    ),
+                  ),
+                ),
+              ),
+              TitleHeaderWithRichText(text: "Rate Of Return", richText: " (%)"),
+              GlobalOutputField(
+                outputValue: _currentItemSelected,
+              ),
+              SizedBox(
+                height: windowHeight * 0.03,
+              ),
+              Padding(
+                padding: const EdgeInsets.only(right: 0.0),
+                child: Align(
+                  alignment: Alignment.center,
+                  child: Container(
+                    height: windowHeight * 0.05,
+                    width: windowWidth * 0.3,
+                    child: TextButton(
+                      child: Text('Compute',
+                          style: TextStyle(
+                              color: Colors.blue.shade700,
+                              fontSize: 20,
+                              fontWeight: FontWeight.w500)),
+                      onPressed: () {
+                        setState(() {
+                          requiredAmount =
+                              double.tryParse(amountYouWantToAchieve.text);
+                          noOfYrs = double.tryParse(withinNumberOfYears.text);
+                          if (_currentItemSelected == 'Low - 7%') {
+                            r = 7;
+                          } else if (_currentItemSelected == 'Medium - 12%') {
+                            r = 12;
+                          } else if (_currentItemSelected == 'High - 15%') {
+                            r = 15;
+                          }
+                          returnRate = r / 100;
+                          a = pow((1 + returnRate), (1 / (noOfYrs * 12)));
+                          nominalRate = noOfYrs * (a - 1);
+                          b = (pow((1 + nominalRate), (noOfYrs * 12)));
+                          sipAmount = ((requiredAmount * nominalRate) / (b - 1))
+                              .round();
+                          monthlySipInvestmentNeeded = sipAmount.toString();
+                        });
+                      },
+                      style: TextButton.styleFrom(
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10.0),
+                          side: BorderSide(color: Colors.blue.shade700),
+                        ),
                       ),
                     ),
                   ),
                 ),
               ),
-            ),
-            SizedBox(
-              height: windowHeight * 0.03,
-            ),
-            Divider(),
-            OutputTextForPopUp(),
-            TitleHeader(text: "Monthly Investment Required"),
-            GlobalOutputField(
-              outputValue: monthlySipInvestmentNeeded,
-            ),
-            SizedBox(
-              height: windowHeight * 0.03,
-            ),
-          ],
+              SizedBox(
+                height: windowHeight * 0.03,
+              ),
+            ],
+          ),
         ),
       ),
     );
@@ -1783,192 +1850,182 @@ class _FixedDepositCalcFormState extends State<FixedDepositCalcForm> {
   Widget build(BuildContext context) {
     double windowHeight = MediaQuery.of(context).size.height;
     double windowWidth = MediaQuery.of(context).size.width;
-    return SingleChildScrollView(
-      child: Container(
-        child: Column(
-          children: <Widget>[
-            Padding(
-              padding: const EdgeInsets.only(left: 19.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: <Widget>[
-                  Text(
-                    "Fixed Deposit Calculator",
-                    style: TextStyle(
-                      fontSize: 20,
-                      color: Colors.blue.shade700,
-                      fontWeight: FontWeight.w800,
-                    ),
-                  ),
-                  Spacer(),
-                  CloseButton(),
-                ],
+    return Scaffold(
+      appBar: AppBar(
+        automaticallyImplyLeading: false,
+        backgroundColor: Colors.white,
+        elevation: 2,
+        title: Text(
+          'Fixed Deposit Calculator',
+          style: TextStyle(color: Colors.black, fontSize: 18),
+        ),
+        actions: [
+          CloseButton(
+            color: Colors.black,
+          ),
+        ],
+      ),
+      body: SingleChildScrollView(
+        child: Container(
+          child: Column(
+            children: <Widget>[
+              OutputCard(
+                windowHeight: windowHeight,
+                windowWidth: windowWidth,
+                amount: maturityValue,
+                title: 'Maturity Value of Investment',
+                suggestion: "If you invest Rs" +
+                    principal.toString() +
+                    " per month for " +
+                    time.toString() +
+                    " years @ " +
+                    rate3.toString() +
+                    "% P.A expected rate of return, you will accumulate Rs." +
+                    maturityValue +
+                    " at the end of the Period.",
               ),
-            ),
-            Divider(
-              thickness: 0.2,
-              color: Colors.blue.shade700,
-            ),
-            TitleHeader(text: "Amount Invested"),
-            FormFieldGlobal(
-              keyboardTypeGlobal: TextInputType.number,
-              hintText: "Amount Here",
-              dataController: amountInvested,
-            ),
-            TitleHeader(text: "Invested For Number Of"),
-            FormFieldGlobal(
-              keyboardTypeGlobal: TextInputType.number,
-              hintText: "Amount Here",
-              dataController: investedForNumberOf,
-            ),
-            Padding(
-              padding: const EdgeInsets.only(left: 18.0, right: 18.0),
-              child: Container(
-                height: windowHeight * 0.05,
-                width: double.infinity,
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  shape: BoxShape.rectangle,
-                  border: Border.all(
-                    width: 1.1,
-                    color: Colors.grey,
-                  ),
-                  borderRadius: BorderRadius.all(Radius.circular(5.0)),
-                ),
-                child: Padding(
-                  padding: const EdgeInsets.only(left: 8.0),
-                  child: DropdownButton<String>(
-                    elevation: 0,
-                    items: _options.map((String dropDownStringItem) {
-                      return DropdownMenuItem<String>(
-                        value: dropDownStringItem,
-                        child: Text(dropDownStringItem),
-                      );
-                    }).toList(),
-                    onChanged: (String? newValueSelected) {
-                      _dropDownItemSelected(newValueSelected);
-                    },
-                    value: _currentItemSelected,
-                  ),
-                ),
+              TitleHeader(text: "Amount Invested"),
+              FormFieldGlobal(
+                keyboardTypeGlobal: TextInputType.number,
+                hintText: "Amount Here",
+                dataController: amountInvested,
               ),
-            ),
-            TitleHeaderWithRichText(text: "Interest Rate", richText: " (%)"),
-            FormFieldGlobal(
-              keyboardTypeGlobal: TextInputType.number,
-              hintText: "Rate % Here",
-              dataController: interestRate,
-            ),
-            TitleHeader(text: "Frequency"),
-            Padding(
-              padding: const EdgeInsets.only(left: 18.0, right: 18.0),
-              child: Container(
-                height: windowHeight * 0.05,
-                width: double.infinity,
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  shape: BoxShape.rectangle,
-                  border: Border.all(
-                    width: 1.1,
-                    color: Colors.grey,
-                  ),
-                  borderRadius: BorderRadius.all(Radius.circular(5.0)),
-                ),
-                child: Padding(
-                  padding: const EdgeInsets.only(left: 8.0),
-                  child: DropdownButton<String>(
-                    elevation: 0,
-                    items: _options2.map((String dropDownStringItem) {
-                      return DropdownMenuItem<String>(
-                        value: dropDownStringItem,
-                        child: Text(dropDownStringItem),
-                      );
-                    }).toList(),
-                    onChanged: (String? newValueSelected2) {
-                      _dropDownItemSelected2(newValueSelected2);
-                    },
-                    value: _currentItemSelected2,
-                  ),
-                ),
+              TitleHeader(text: "Invested For Number Of"),
+              FormFieldGlobal(
+                keyboardTypeGlobal: TextInputType.number,
+                hintText: "Amount Here",
+                dataController: investedForNumberOf,
               ),
-            ),
-            SizedBox(
-              height: windowHeight * 0.03,
-            ),
-            Padding(
-              padding: const EdgeInsets.only(right: 18.0),
-              child: Align(
-                alignment: Alignment.centerRight,
+              Padding(
+                padding: const EdgeInsets.only(left: 18.0, right: 18.0),
                 child: Container(
                   height: windowHeight * 0.05,
-                  width: windowWidth * 0.3,
-                  child: TextButton(
-                    child: Text('Compute',
-                        style: TextStyle(
-                            color: Colors.blue.shade700,
-                            fontSize: 20,
-                            fontWeight: FontWeight.w500)),
-                    onPressed: () {
-                      setState(() {
-                        principal = double.tryParse(amountInvested.text);
-                        time = double.tryParse(investedForNumberOf.text);
-                        rate3 = double.tryParse(interestRate.text);
-                        intType = _currentItemSelected2;
-                        var timePeriod3 = calcTime1(_currentItemSelected);
-                        if (intType == 'Simple Interest') {
-                          amt = clcSimpleInt(
-                              principal, 1, time, rate3, timePeriod3);
-                        } else {
-                          amt = (principal *
-                              pow((1 + (rate3! / (intType * 100))),
-                                  (intType * time / timePeriod3)));
-                        }
-                        print(amt);
-                        amt = amt.round();
-                        totalInt = amt - principal.round();
-                        // var showTime = calcTime(timePeriod);
-                        maturityValue = amt.toString();
-                        interestEarned = totalInt.toString();
-                      });
-                    },
-                    style: TextButton.styleFrom(
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10.0),
-                        side: BorderSide(color: Colors.blue.shade700),
+                  width: double.infinity,
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    shape: BoxShape.rectangle,
+                    border: Border.all(
+                      width: 1.1,
+                      color: Colors.grey,
+                    ),
+                    borderRadius: BorderRadius.all(Radius.circular(5.0)),
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.only(left: 8.0),
+                    child: DropdownButton<String>(
+                      elevation: 0,
+                      items: _options.map((String dropDownStringItem) {
+                        return DropdownMenuItem<String>(
+                          value: dropDownStringItem,
+                          child: Text(dropDownStringItem),
+                        );
+                      }).toList(),
+                      onChanged: (String? newValueSelected) {
+                        _dropDownItemSelected(newValueSelected);
+                      },
+                      value: _currentItemSelected,
+                    ),
+                  ),
+                ),
+              ),
+              TitleHeaderWithRichText(text: "Interest Rate", richText: " (%)"),
+              FormFieldGlobal(
+                keyboardTypeGlobal: TextInputType.number,
+                hintText: "Rate % Here",
+                dataController: interestRate,
+              ),
+              TitleHeader(text: "Frequency"),
+              Padding(
+                padding: const EdgeInsets.only(left: 18.0, right: 18.0),
+                child: Container(
+                  height: windowHeight * 0.05,
+                  width: double.infinity,
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    shape: BoxShape.rectangle,
+                    border: Border.all(
+                      width: 1.1,
+                      color: Colors.grey,
+                    ),
+                    borderRadius: BorderRadius.all(Radius.circular(5.0)),
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.only(left: 8.0),
+                    child: DropdownButton<String>(
+                      elevation: 0,
+                      items: _options2.map((String dropDownStringItem) {
+                        return DropdownMenuItem<String>(
+                          value: dropDownStringItem,
+                          child: Text(dropDownStringItem),
+                        );
+                      }).toList(),
+                      onChanged: (String? newValueSelected2) {
+                        _dropDownItemSelected2(newValueSelected2);
+                      },
+                      value: _currentItemSelected2,
+                    ),
+                  ),
+                ),
+              ),
+              SizedBox(
+                height: windowHeight * 0.03,
+              ),
+              Padding(
+                padding: const EdgeInsets.only(right: 0.0),
+                child: Align(
+                  alignment: Alignment.center,
+                  child: Container(
+                    height: windowHeight * 0.05,
+                    width: windowWidth * 0.3,
+                    child: TextButton(
+                      child: Text('Compute',
+                          style: TextStyle(
+                              color: Colors.blue.shade700,
+                              fontSize: 20,
+                              fontWeight: FontWeight.w500)),
+                      onPressed: () {
+                        setState(() {
+                          principal = double.tryParse(amountInvested.text);
+                          time = double.tryParse(investedForNumberOf.text);
+                          rate3 = double.tryParse(interestRate.text);
+                          intType = _currentItemSelected2;
+                          var timePeriod3 = calcTime1(_currentItemSelected);
+                          if (intType == 'Simple Interest') {
+                            amt = clcSimpleInt(
+                                principal, 1, time, rate3, timePeriod3);
+                          } else {
+                            amt = (principal *
+                                pow((1 + (rate3! / (intType * 100))),
+                                    (intType * time / timePeriod3)));
+                          }
+                          print(amt);
+                          amt = amt.round();
+                          totalInt = amt - principal.round();
+                          // var showTime = calcTime(timePeriod);
+                          maturityValue = amt.toString();
+                          interestEarned = totalInt.toString();
+                        });
+                      },
+                      style: TextButton.styleFrom(
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10.0),
+                          side: BorderSide(color: Colors.blue.shade700),
+                        ),
                       ),
                     ),
                   ),
                 ),
               ),
-            ),
-            Divider(),
-            OutputTextForPopUp(),
-            TitleHeader(text: "Maturity Value Of Investment"),
-            GlobalOutputField(
-              outputValue: maturityValue,
-            ),
-            TitleHeader(text: "Interest Earned"),
-            GlobalOutputField(
-              outputValue: interestEarned,
-            ),
-            SuggestionBox1(
-              suggestion: "If you invest Rs" +
-                  principal.toString() +
-                  " per month for " +
-                  time.toString() +
-                  " years @ " +
-                  rate3.toString() +
-                  "% P.A expected rate of return, you will accumulate Rs." +
-                  maturityValue +
-                  " at the end of the Period.",
-            ),
-            SuggestionBox2(
-              suggestion: "Earn More then FD's by Investing MF's",
-            ),
-            SizedBox(
-              height: windowHeight * 0.03,
-            ),
-          ],
+              Divider(),
+              TitleHeader(text: "Interest Earned"),
+              GlobalOutputField(
+                outputValue: interestEarned,
+              ),
+              SizedBox(
+                height: windowHeight * 0.03,
+              ),
+            ],
+          ),
         ),
       ),
     );
@@ -2037,150 +2094,142 @@ class _SukanyaSamriddhiCalcFormState extends State<SukanyaSamriddhiCalcForm> {
   Widget build(BuildContext context) {
     double windowHeight = MediaQuery.of(context).size.height;
     double windowWidth = MediaQuery.of(context).size.width;
-    return SingleChildScrollView(
-      child: Container(
-        child: Column(
-          children: <Widget>[
-            Padding(
-              padding: const EdgeInsets.only(left: 19.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: <Widget>[
-                  Text(
-                    "Sukanya Samriddhi Yojna",
-                    style: TextStyle(
-                      fontSize: 20,
-                      color: Colors.blue.shade700,
-                      fontWeight: FontWeight.w800,
-                    ),
-                  ),
-                  Spacer(),
-                  CloseButton(),
-                ],
+    return Scaffold(
+      appBar: AppBar(
+        automaticallyImplyLeading: false,
+        backgroundColor: Colors.white,
+        elevation: 2,
+        title: Text(
+          'Sukanya Samriddhi Yojna',
+          style: TextStyle(color: Colors.black, fontSize: 18),
+        ),
+        actions: [
+          CloseButton(
+            color: Colors.black,
+          ),
+        ],
+      ),
+      body: SingleChildScrollView(
+        child: Container(
+          child: Column(
+            children: <Widget>[
+              OutputCard(
+                  windowHeight: windowHeight,
+                  windowWidth: windowWidth,
+                  amount: totalMaturityAmount,
+                  title: 'Total Maturity Value',
+                  suggestion:
+                      " Invest in top MF's for child education, child marriage and for bright future of child . "),
+              TitleHeader(text: "Amount Invested"),
+              FormFieldGlobal(
+                keyboardTypeGlobal: TextInputType.number,
+                hintText: "Amount Here",
+                dataController: amountInvested,
               ),
-            ),
-            Divider(
-              thickness: 0.2,
-              color: Colors.blue.shade700,
-            ),
-            TitleHeader(text: "Amount Invested"),
-            FormFieldGlobal(
-              keyboardTypeGlobal: TextInputType.number,
-              hintText: "Amount Here",
-              dataController: amountInvested,
-            ),
-            Padding(
-              padding: const EdgeInsets.only(left: 18.0, right: 18.0),
-              child: Container(
-                height: windowHeight * 0.05,
-                width: double.infinity,
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  shape: BoxShape.rectangle,
-                  border: Border.all(
-                    width: 1.1,
-                    color: Colors.grey,
-                  ),
-                  borderRadius: BorderRadius.all(Radius.circular(5.0)),
-                ),
-                child: Padding(
-                  padding: const EdgeInsets.only(left: 8.0),
-                  child: DropdownButton<String>(
-                    elevation: 0,
-                    items: _options.map((String dropDownStringItem) {
-                      return DropdownMenuItem<String>(
-                        value: dropDownStringItem,
-                        child: Text(dropDownStringItem),
-                      );
-                    }).toList(),
-                    onChanged: (String? newValueSelected) {
-                      _dropDownItemSelected(newValueSelected);
-                    },
-                    value: _currentItemSelected,
-                  ),
-                ),
-              ),
-            ),
-            TitleHeaderWithRichText(text: "Interest Rate", richText: " (%)"),
-            FormFieldGlobal(
-              keyboardTypeGlobal: TextInputType.number,
-              hintText: "Rate % Here",
-              dataController: interestRate,
-            ),
-            TitleHeader(text: "Investment Started At the Year Of"),
-            FormFieldGlobal(
-              keyboardTypeGlobal: TextInputType.number,
-              hintText: "Year Here",
-              dataController: investmentStartedAtTheAgeOf,
-            ),
-            SizedBox(
-              height: windowHeight * 0.03,
-            ),
-            Padding(
-              padding: const EdgeInsets.only(right: 18.0),
-              child: Align(
-                alignment: Alignment.centerRight,
+              Padding(
+                padding: const EdgeInsets.only(left: 18.0, right: 18.0),
                 child: Container(
                   height: windowHeight * 0.05,
-                  width: windowWidth * 0.3,
-                  child: TextButton(
-                    child: Text('Compute',
-                        style: TextStyle(
-                            color: Colors.blue.shade700,
-                            fontSize: 20,
-                            fontWeight: FontWeight.w500)),
-                    onPressed: () {
-                      setState(() {
-                        totalAmount = double.tryParse(amountInvested.text);
-                        r = double.tryParse(interestRate.text);
-                        startYear =
-                            double.tryParse(investmentStartedAtTheAgeOf.text);
-                        rate = r / 100;
-                        maturityYearInt = (startYear + 15).round();
-                        maturityYear = maturityYearInt.toString();
-                        if (_currentItemSelected == 'Years') {
-                          monthType = 1;
-                        } else if (_currentItemSelected == 'Months') {
-                          monthType = 12;
-                        }
-                        if (monthType == 12) {
-                          result =
-                              (ssyCal(totalAmount, rate, monthType)).round();
-                        } else if (monthType == 1) {
-                          result =
-                              (ssyCal(totalAmount, rate, monthType)).round();
-                        }
-                        totalMaturityAmount = result.toString();
-                      });
-                    },
-                    style: TextButton.styleFrom(
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10.0),
-                        side: BorderSide(color: Colors.blue.shade700),
+                  width: double.infinity,
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    shape: BoxShape.rectangle,
+                    border: Border.all(
+                      width: 1.1,
+                      color: Colors.grey,
+                    ),
+                    borderRadius: BorderRadius.all(Radius.circular(5.0)),
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.only(left: 8.0),
+                    child: DropdownButton<String>(
+                      elevation: 0,
+                      items: _options.map((String dropDownStringItem) {
+                        return DropdownMenuItem<String>(
+                          value: dropDownStringItem,
+                          child: Text(dropDownStringItem),
+                        );
+                      }).toList(),
+                      onChanged: (String? newValueSelected) {
+                        _dropDownItemSelected(newValueSelected);
+                      },
+                      value: _currentItemSelected,
+                    ),
+                  ),
+                ),
+              ),
+              TitleHeaderWithRichText(text: "Interest Rate", richText: " (%)"),
+              FormFieldGlobal(
+                keyboardTypeGlobal: TextInputType.number,
+                hintText: "Rate % Here",
+                dataController: interestRate,
+              ),
+              TitleHeader(text: "Investment Started At the Year Of"),
+              FormFieldGlobal(
+                keyboardTypeGlobal: TextInputType.number,
+                hintText: "Year Here",
+                dataController: investmentStartedAtTheAgeOf,
+              ),
+              SizedBox(
+                height: windowHeight * 0.03,
+              ),
+              Padding(
+                padding: const EdgeInsets.only(right: 0),
+                child: Align(
+                  alignment: Alignment.center,
+                  child: Container(
+                    height: windowHeight * 0.05,
+                    width: windowWidth * 0.3,
+                    child: TextButton(
+                      child: Text('Compute',
+                          style: TextStyle(
+                              color: Colors.blue.shade700,
+                              fontSize: 20,
+                              fontWeight: FontWeight.w500)),
+                      onPressed: () {
+                        setState(() {
+                          totalAmount = double.tryParse(amountInvested.text);
+                          r = double.tryParse(interestRate.text);
+                          startYear =
+                              double.tryParse(investmentStartedAtTheAgeOf.text);
+                          rate = r / 100;
+                          maturityYearInt = (startYear + 15).round();
+                          maturityYear = maturityYearInt.toString();
+                          if (_currentItemSelected == 'Years') {
+                            monthType = 1;
+                          } else if (_currentItemSelected == 'Months') {
+                            monthType = 12;
+                          }
+                          if (monthType == 12) {
+                            result =
+                                (ssyCal(totalAmount, rate, monthType)).round();
+                          } else if (monthType == 1) {
+                            result =
+                                (ssyCal(totalAmount, rate, monthType)).round();
+                          }
+                          totalMaturityAmount = result.toString();
+                        });
+                      },
+                      style: TextButton.styleFrom(
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10.0),
+                          side: BorderSide(color: Colors.blue.shade700),
+                        ),
                       ),
                     ),
                   ),
                 ),
               ),
-            ),
-            Divider(),
-            OutputTextForPopUp(),
-            TitleHeader(text: "Maturity Year"),
-            GlobalOutputField(
-              outputValue: maturityYear,
-            ),
-            TitleHeader(text: "Total Maturity Amount"),
-            GlobalOutputField(
-              outputValue: totalMaturityAmount,
-            ),
-            SuggestionBox1(
-              suggestion:
-                  " Invest in top MF's for child education, child marriage and for bright future of child . ",
-            ),
-            SizedBox(
-              height: windowHeight * 0.03,
-            ),
-          ],
+              Divider(),
+              TitleHeader(text: "Maturity Year"),
+              GlobalOutputField(
+                outputValue: maturityYear,
+              ),
+              SizedBox(
+                height: windowHeight * 0.03,
+              ),
+            ],
+          ),
         ),
       ),
     );
@@ -2233,101 +2282,95 @@ class _RecurringDepositCalcFormState extends State<RecurringDepositCalcForm> {
   Widget build(BuildContext context) {
     double windowHeight = MediaQuery.of(context).size.height;
     double windowWidth = MediaQuery.of(context).size.width;
-    return SingleChildScrollView(
-      child: Container(
-        child: Column(
-          children: <Widget>[
-            Padding(
-              padding: const EdgeInsets.only(left: 19.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: <Widget>[
-                  Text(
-                    "Recurring Deposit Calculator",
-                    style: TextStyle(
-                      fontSize: 20,
-                      color: Colors.blue.shade700,
-                      fontWeight: FontWeight.w800,
-                    ),
-                  ),
-                  Spacer(),
-                  CloseButton(),
-                ],
+    return Scaffold(
+      appBar: AppBar(
+        automaticallyImplyLeading: false,
+        backgroundColor: Colors.white,
+        elevation: 2,
+        title: Text(
+          'Recurring Deposit Calculator',
+          style: TextStyle(color: Colors.black, fontSize: 18),
+        ),
+        actions: [
+          CloseButton(
+            color: Colors.black,
+          ),
+        ],
+      ),
+      body: SingleChildScrollView(
+        child: Container(
+          child: Column(
+            children: <Widget>[
+              OutputCard(
+                  windowHeight: windowHeight,
+                  windowWidth: windowWidth,
+                  amount: maturityValue,
+                  title: 'Maturity Value',
+                  suggestion:
+                      "Suggestion: Earn More then RD's by Investing MF's "),
+              TitleHeader(text: "Amount Invested Monthly"),
+              FormFieldGlobal(
+                keyboardTypeGlobal: TextInputType.number,
+                hintText: "Amount Here",
+                dataController: amountInvestedMonthly,
               ),
-            ),
-            Divider(
-              thickness: 0.2,
-              color: Colors.blue.shade700,
-            ),
-            TitleHeader(text: "Amount Invested Monthly"),
-            FormFieldGlobal(
-              keyboardTypeGlobal: TextInputType.number,
-              hintText: "Amount Here",
-              dataController: amountInvestedMonthly,
-            ),
-            TitleHeaderWithRichText(text: "Invested For", richText: " (Years)"),
-            FormFieldGlobal(
-              keyboardTypeGlobal: TextInputType.number,
-              hintText: "Years Here",
-              dataController: investedForNoOfYears,
-            ),
-            TitleHeaderWithRichText(text: "Interest Rate", richText: " (%)"),
-            FormFieldGlobal(
-              keyboardTypeGlobal: TextInputType.number,
-              hintText: "Rate % Here",
-              dataController: interestRate,
-            ),
-            SizedBox(
-              height: windowHeight * 0.03,
-            ),
-            Padding(
-              padding: const EdgeInsets.only(right: 18.0),
-              child: Align(
-                alignment: Alignment.centerRight,
-                child: Container(
-                  height: windowHeight * 0.05,
-                  width: windowWidth * 0.3,
-                  child: TextButton(
-                    child: Text('Compute',
-                        style: TextStyle(
-                            color: Colors.blue.shade700,
-                            fontSize: 20,
-                            fontWeight: FontWeight.w500)),
-                    onPressed: () {
-                      setState(() {
-                        monthlyInstallment =
-                            double.tryParse(amountInvestedMonthly.text);
-                        numberOfYears =
-                            double.tryParse(investedForNoOfYears.text);
-                        rateOfInterest = double.tryParse(interestRate.text);
-                        numberOfMonths = numberOfYears * (12);
-                        amount = (clcRecurrInt(monthlyInstallment,
-                            numberOfMonths, rateOfInterest));
-                        maturityValue = (amount.round()).toString();
-                      });
-                    },
-                    style: TextButton.styleFrom(
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10.0),
-                        side: BorderSide(color: Colors.blue.shade700),
+              TitleHeaderWithRichText(
+                  text: "Invested For", richText: " (Years)"),
+              FormFieldGlobal(
+                keyboardTypeGlobal: TextInputType.number,
+                hintText: "Years Here",
+                dataController: investedForNoOfYears,
+              ),
+              TitleHeaderWithRichText(text: "Interest Rate", richText: " (%)"),
+              FormFieldGlobal(
+                keyboardTypeGlobal: TextInputType.number,
+                hintText: "Rate % Here",
+                dataController: interestRate,
+              ),
+              SizedBox(
+                height: windowHeight * 0.03,
+              ),
+              Padding(
+                padding: const EdgeInsets.only(right: 0.0),
+                child: Align(
+                  alignment: Alignment.center,
+                  child: Container(
+                    height: windowHeight * 0.05,
+                    width: windowWidth * 0.3,
+                    child: TextButton(
+                      child: Text('Compute',
+                          style: TextStyle(
+                              color: Colors.blue.shade700,
+                              fontSize: 20,
+                              fontWeight: FontWeight.w500)),
+                      onPressed: () {
+                        setState(() {
+                          monthlyInstallment =
+                              double.tryParse(amountInvestedMonthly.text);
+                          numberOfYears =
+                              double.tryParse(investedForNoOfYears.text);
+                          rateOfInterest = double.tryParse(interestRate.text);
+                          numberOfMonths = numberOfYears * (12);
+                          amount = (clcRecurrInt(monthlyInstallment,
+                              numberOfMonths, rateOfInterest));
+                          maturityValue = (amount.round()).toString();
+                        });
+                      },
+                      style: TextButton.styleFrom(
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10.0),
+                          side: BorderSide(color: Colors.blue.shade700),
+                        ),
                       ),
                     ),
                   ),
                 ),
               ),
-            ),
-            Divider(),
-            OutputTextForPopUp(),
-            TitleHeader(text: "Maturity Value"),
-            GlobalOutputField(
-              outputValue: maturityValue,
-            ),
-            SuggestionBox1(
-                suggestion: " Earn More then RD's by Investing MF's "),
-            SizedBox(
-              height: windowHeight * 0.03,
-            ),
-          ],
+              SizedBox(
+                height: windowHeight * 0.03,
+              ),
+            ],
+          ),
         ),
       ),
     );
@@ -2364,135 +2407,131 @@ class _NpsCalcFormState extends State<NpsCalcForm> {
   Widget build(BuildContext context) {
     double windowHeight = MediaQuery.of(context).size.height;
     double windowWidth = MediaQuery.of(context).size.width;
-    return SingleChildScrollView(
-      child: Container(
-        child: Column(
-          children: <Widget>[
-            Padding(
-              padding: const EdgeInsets.only(left: 19.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: <Widget>[
-                  Text(
-                    "NPS Calculator",
-                    style: TextStyle(
-                      fontSize: 20,
-                      color: Colors.blue.shade700,
-                      fontWeight: FontWeight.w800,
-                    ),
-                  ),
-                  Spacer(),
-                  CloseButton(),
-                ],
+    return Scaffold(
+      appBar: AppBar(
+        automaticallyImplyLeading: false,
+        backgroundColor: Colors.white,
+        elevation: 2,
+        title: Text(
+          'NPS Calculator',
+          style: TextStyle(color: Colors.black, fontSize: 18),
+        ),
+        actions: [
+          CloseButton(
+            color: Colors.black,
+          ),
+        ],
+      ),
+      body: SingleChildScrollView(
+        child: Container(
+          child: Column(
+            children: <Widget>[
+              OutputCard(
+                  windowHeight: windowHeight,
+                  windowWidth: windowWidth,
+                  amount: pensionWealthGenerated,
+                  title: 'Pension Wealth Generated',
+                  suggestion: ''),
+              TitleHeaderWithRichText(
+                  text: "Current Age", richText: " (Years)"),
+              FormFieldGlobal(
+                keyboardTypeGlobal: TextInputType.number,
+                hintText: "Age Here",
+                dataController: currentAge,
               ),
-            ),
-            Divider(
-              thickness: 0.2,
-              color: Colors.blue.shade700,
-            ),
-            TitleHeaderWithRichText(text: "Current Age", richText: " (Years)"),
-            FormFieldGlobal(
-              keyboardTypeGlobal: TextInputType.number,
-              hintText: "Age Here",
-              dataController: currentAge,
-            ),
-            TitleHeaderWithRichText(
-                text: "Retirement Age", richText: " (Years)"),
-            FormFieldGlobal(
-              keyboardTypeGlobal: TextInputType.number,
-              hintText: "Age Here",
-              dataController: retirementAge,
-            ),
-            TitleHeaderWithRichText(
-                text: "Total Investing Period", richText: " (Years)"),
-            FormFieldGlobal(
-              keyboardTypeGlobal: TextInputType.number,
-              hintText: "Time Here",
-              dataController: totalInvestingPeriod,
-            ),
-            TitleHeaderWithRichText(
-                text: "Monthly Contribution To Be Done", richText: ""),
-            FormFieldGlobal(
-              keyboardTypeGlobal: TextInputType.number,
-              hintText: "Years Here",
-              dataController: monthlyContributionToBeDone,
-            ),
-            TitleHeaderWithRichText(
-                text: "Expected Rate Of Return", richText: " (%)"),
-            FormFieldGlobal(
-              keyboardTypeGlobal: TextInputType.number,
-              hintText: "Years Here",
-              dataController: expectedRateOfReturn,
-            ),
-            SizedBox(
-              height: windowHeight * 0.03,
-            ),
-            Padding(
-              padding: const EdgeInsets.only(right: 18.0),
-              child: Align(
-                alignment: Alignment.centerRight,
-                child: Container(
-                  height: windowHeight * 0.05,
-                  width: windowWidth * 0.3,
-                  child: TextButton(
-                    child: Text('Compute',
-                        style: TextStyle(
-                            color: Colors.blue.shade700,
-                            fontSize: 20,
-                            fontWeight: FontWeight.w500)),
-                    onPressed: () {
-                      setState(() {
-                        currentAge1 = double.tryParse(currentAge.text);
-                        retirementAge1 = double.tryParse(retirementAge.text);
-                        numberOfYears =
-                            double.tryParse(totalInvestingPeriod.text);
-                        amount =
-                            double.tryParse(monthlyContributionToBeDone.text);
-                        r = double.tryParse(expectedRateOfReturn.text);
-                        var returnRate = (r / (1200));
-                        var prinAmtInv = amount * numberOfYears * 12;
-                        var d = pow((1 + returnRate), (numberOfYears * 12));
-                        // var returnRate1 = (1 + returnRate);
-                        var fv1 = amount / returnRate;
-                        var fvInvestment = (d * fv1) - fv1;
-                        var intEarOnInvest = fvInvestment - prinAmtInv;
+              TitleHeaderWithRichText(
+                  text: "Retirement Age", richText: " (Years)"),
+              FormFieldGlobal(
+                keyboardTypeGlobal: TextInputType.number,
+                hintText: "Age Here",
+                dataController: retirementAge,
+              ),
+              TitleHeaderWithRichText(
+                  text: "Total Investing Period", richText: " (Years)"),
+              FormFieldGlobal(
+                keyboardTypeGlobal: TextInputType.number,
+                hintText: "Time Here",
+                dataController: totalInvestingPeriod,
+              ),
+              TitleHeaderWithRichText(
+                  text: "Monthly Contribution To Be Done", richText: ""),
+              FormFieldGlobal(
+                keyboardTypeGlobal: TextInputType.number,
+                hintText: "Years Here",
+                dataController: monthlyContributionToBeDone,
+              ),
+              TitleHeaderWithRichText(
+                  text: "Expected Rate Of Return", richText: " (%)"),
+              FormFieldGlobal(
+                keyboardTypeGlobal: TextInputType.number,
+                hintText: "Years Here",
+                dataController: expectedRateOfReturn,
+              ),
+              SizedBox(
+                height: windowHeight * 0.03,
+              ),
+              Padding(
+                padding: const EdgeInsets.only(right: 0.0),
+                child: Align(
+                  alignment: Alignment.center,
+                  child: Container(
+                    height: windowHeight * 0.05,
+                    width: windowWidth * 0.3,
+                    child: TextButton(
+                      child: Text('Compute',
+                          style: TextStyle(
+                              color: Colors.blue.shade700,
+                              fontSize: 20,
+                              fontWeight: FontWeight.w500)),
+                      onPressed: () {
+                        setState(() {
+                          currentAge1 = double.tryParse(currentAge.text);
+                          retirementAge1 = double.tryParse(retirementAge.text);
+                          numberOfYears =
+                              double.tryParse(totalInvestingPeriod.text);
+                          amount =
+                              double.tryParse(monthlyContributionToBeDone.text);
+                          r = double.tryParse(expectedRateOfReturn.text);
+                          var returnRate = (r / (1200));
+                          var prinAmtInv = amount * numberOfYears * 12;
+                          var d = pow((1 + returnRate), (numberOfYears * 12));
+                          // var returnRate1 = (1 + returnRate);
+                          var fv1 = amount / returnRate;
+                          var fvInvestment = (d * fv1) - fv1;
+                          var intEarOnInvest = fvInvestment - prinAmtInv;
 
-                        principalAmountInvested =
-                            (prinAmtInv.round()).toString();
-                        interestEarnedOnInvestment =
-                            (intEarOnInvest.round()).toString();
-                        pensionWealthGenerated =
-                            (fvInvestment.round()).toString();
-                      });
-                    },
-                    style: TextButton.styleFrom(
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10.0),
-                        side: BorderSide(color: Colors.blue.shade700),
+                          principalAmountInvested =
+                              (prinAmtInv.round()).toString();
+                          interestEarnedOnInvestment =
+                              (intEarOnInvest.round()).toString();
+                          pensionWealthGenerated =
+                              (fvInvestment.round()).toString();
+                        });
+                      },
+                      style: TextButton.styleFrom(
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10.0),
+                          side: BorderSide(color: Colors.blue.shade700),
+                        ),
                       ),
                     ),
                   ),
                 ),
               ),
-            ),
-            Divider(),
-            OutputTextForPopUp(),
-            TitleHeader(text: "Principal Amount Invested"),
-            GlobalOutputField(
-              outputValue: principalAmountInvested,
-            ),
-            TitleHeader(text: "Interest Earned On Investment"),
-            GlobalOutputField(
-              outputValue: interestEarnedOnInvestment,
-            ),
-            TitleHeader(text: "Pension Wealth Generated"),
-            GlobalOutputField(
-              outputValue: pensionWealthGenerated,
-            ),
-            SizedBox(
-              height: windowHeight * 0.03,
-            ),
-          ],
+              Divider(),
+              TitleHeader(text: "Principal Amount Invested"),
+              GlobalOutputField(
+                outputValue: principalAmountInvested,
+              ),
+              TitleHeader(text: "Interest Earned On Investment"),
+              GlobalOutputField(
+                outputValue: interestEarnedOnInvestment,
+              ),
+              SizedBox(
+                height: windowHeight * 0.03,
+              ),
+            ],
+          ),
         ),
       ),
     );

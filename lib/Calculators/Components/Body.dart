@@ -202,7 +202,7 @@ class _BodyState extends State<Body> {
                         windowWidth: windowWidth,
                         letter: 'E',
                         name: 'EMI Personal Loan',
-                        navigationRoute: EmiCarLoanCalcForm(),
+                        navigationRoute: EmiPersonalLoanCalcForm(),
                       ),
                       FinancialCalculatorsTiles(
                         windowHeight: windowHeight,
