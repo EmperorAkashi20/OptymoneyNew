@@ -3,23 +3,23 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
 import 'package:loading_animations/loading_animations.dart';
-import 'package:optymoney/BestPerformingFunds/Components/Body.dart';
 import 'package:optymoney/Components/outlinebtn.dart';
+import 'package:optymoney/Investments/Components/body.dart';
 import 'package:optymoney/LoginNSignUp/Components/body.dart';
 import 'package:syncfusion_flutter_sliders/sliders.dart';
 
 addToCartRequest() async {
   print(Body.encodedIndex);
-  print(SingleProductDetailsPage.sipAmount);
-  print(SingleProductDetailsPage.date);
+  print(DetailsPageFilters.sipAmount);
+  print(DetailsPageFilters.date);
   print(Body.idIndex);
   var url = Uri.parse(
       'https://optymoney.com/__lib.ajax/mutual_fund.php?action=add_cart_api&subaction=submit');
   final headers = {'Content-Type': 'application/x-www-form-urlencoded'};
   var body = jsonEncode({
     "sch_code": Body.encodedIndex,
-    "f_sip_amount": SingleProductDetailsPage.sipAmount,
-    "sip_date": SingleProductDetailsPage.date,
+    "f_sip_amount": DetailsPageFilters.sipAmount,
+    "sip_date": DetailsPageFilters.date,
     "sch_d": Body.idIndex,
     "uid": LoginSignUp.globalUserId,
   });
@@ -36,8 +36,8 @@ addToCartRequest() async {
   print(response.body);
   var responseBody = response.body;
   var decodedBody = jsonDecode(responseBody);
-  SingleProductDetailsPage.message = decodedBody['msg'].toString();
-  SingleProductDetailsPage.status = decodedBody['status'].toString();
+  DetailsPageFilters.message = decodedBody['msg'].toString();
+  DetailsPageFilters.status = decodedBody['status'].toString();
 }
 
 addToCartRequestOneTime() async {
@@ -49,7 +49,7 @@ addToCartRequestOneTime() async {
     "f_sip_amount": '',
     "sip_date": '0',
     "sch_d": Body.idIndex,
-    "f_lum_amount": SingleProductDetailsPage.lumpSumAmount,
+    "f_lum_amount": DetailsPageFilters.lumpSumAmount,
     "uid": '2052',
   });
   //String jsonBody = json.encode(body);
@@ -65,11 +65,11 @@ addToCartRequestOneTime() async {
   print(response.body);
   var responseBody = response.body;
   var decodedBody = jsonDecode(responseBody);
-  SingleProductDetailsPage.message = decodedBody['msg'].toString();
-  SingleProductDetailsPage.status = decodedBody['status'].toString();
+  DetailsPageFilters.message = decodedBody['msg'].toString();
+  DetailsPageFilters.status = decodedBody['status'].toString();
 }
 
-class SingleProductDetailsPage extends StatefulWidget {
+class DetailsPageFilters extends StatefulWidget {
   static var ignoreButton = false;
   static var date;
   static var sipAmount;
@@ -77,15 +77,14 @@ class SingleProductDetailsPage extends StatefulWidget {
   static var message;
   static var status;
   static var lumpSumAmount;
-  static String routeName = '/SingleProductPage';
-  const SingleProductDetailsPage({Key? key}) : super(key: key);
+  static String routeName = '/DetailsPageFilters';
+  const DetailsPageFilters({Key? key}) : super(key: key);
 
   @override
-  _SingleProductDetailsPageState createState() =>
-      _SingleProductDetailsPageState();
+  _DetailsPageFiltersState createState() => _DetailsPageFiltersState();
 }
 
-class _SingleProductDetailsPageState extends State<SingleProductDetailsPage> {
+class _DetailsPageFiltersState extends State<DetailsPageFilters> {
   double miniamt = Body.minAmt;
   var selectedDate;
   Future<List<ChartData>> _getChartData() async {
@@ -1002,21 +1001,21 @@ class _SingleProductDetailsPageState extends State<SingleProductDetailsPage> {
                                                         horizontal: 10.0),
                                                     child: GestureDetector(
                                                       onTap: () async {
-                                                        SingleProductDetailsPage
+                                                        DetailsPageFilters
                                                                 .sipAmount =
                                                             miniamt;
-                                                        SingleProductDetailsPage
+                                                        DetailsPageFilters
                                                                 .date =
                                                             selectedDate;
 
                                                         await addToCartRequest();
                                                         _showSnackBar(
-                                                            SingleProductDetailsPage
+                                                            DetailsPageFilters
                                                                     .status
                                                                     .toString()
                                                                     .toUpperCase() +
                                                                 ' : ' +
-                                                                SingleProductDetailsPage
+                                                                DetailsPageFilters
                                                                     .message);
                                                       },
                                                       child: OutlineBtn(
@@ -1175,18 +1174,18 @@ class _SingleProductDetailsPageState extends State<SingleProductDetailsPage> {
                                                         horizontal: 10.0),
                                                     child: GestureDetector(
                                                       onTap: () async {
-                                                        SingleProductDetailsPage
+                                                        DetailsPageFilters
                                                                 .lumpSumAmount =
                                                             miniamt;
 
                                                         await addToCartRequestOneTime();
                                                         _showSnackBar(
-                                                            SingleProductDetailsPage
+                                                            DetailsPageFilters
                                                                     .status
                                                                     .toString()
                                                                     .toUpperCase() +
                                                                 ' : ' +
-                                                                SingleProductDetailsPage
+                                                                DetailsPageFilters
                                                                     .message);
                                                       },
                                                       child: OutlineBtn(
@@ -1259,7 +1258,7 @@ class DateCard extends StatelessWidget {
     return GestureDetector(
       onTap: press as void Function(),
       child: Card(
-        color: SingleProductDetailsPage.isSelected == false
+        color: DetailsPageFilters.isSelected == false
             ? Colors.white
             : Colors.lightBlueAccent,
         elevation: 2,

@@ -6,6 +6,10 @@ import 'package:http/http.dart';
 import 'package:loading_animations/loading_animations.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:optymoney/BestPerformingFunds/Components/DetailsPage.dart';
+import 'package:optymoney/Components/primarybtn.dart';
+import 'package:optymoney/Investments/Components/AmcFilters.dart';
+import 'package:optymoney/Investments/Components/CategoriesDisplay.dart';
+import 'package:optymoney/Investments/investments.dart';
 
 class Body extends StatefulWidget {
   static var offerId = 32;
@@ -171,7 +175,7 @@ class _BodyState extends State<Body> {
             child: Container(
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(20),
-                color: Colors.lightBlueAccent,
+                color: Colors.blue.shade900,
               ),
               width: windowWidth * 0.7,
               child: DropdownButtonHideUnderline(
@@ -182,7 +186,7 @@ class _BodyState extends State<Body> {
                       Icons.arrow_circle_down_rounded,
                       color: Colors.white,
                     ),
-                    dropdownColor: Color(0XFFF0092D6),
+                    dropdownColor: Colors.blue.shade900, //Color(0XFFF0092D6),
                     isExpanded: true,
                     iconSize: 35,
                     //isDense: true,
@@ -473,10 +477,34 @@ class _BodyState extends State<Body> {
                                           ],
                                         ),
                                       ),
-                                      body: TabBarView(
+                                      body: Column(
                                         children: [
-                                          Icon(Icons.access_alarm_outlined),
-                                          Icon(Icons.access_alarm_outlined),
+                                          Expanded(
+                                            flex: 7,
+                                            child: TabBarView(
+                                              children: [
+                                                CategoriesDisplay(),
+                                                AmcFilters(),
+                                              ],
+                                            ),
+                                          ),
+                                          Expanded(
+                                            flex: 1,
+                                            child: Padding(
+                                              padding:
+                                                  const EdgeInsets.symmetric(
+                                                      horizontal: 18.0,
+                                                      vertical: 18),
+                                              child: GestureDetector(
+                                                onTap: () =>
+                                                    Navigator.pushNamed(context,
+                                                        Investments.routeName),
+                                                child: PrimaryButton(
+                                                  btnText: 'Apply Filters',
+                                                ),
+                                              ),
+                                            ),
+                                          ),
                                         ],
                                       ),
                                     ),

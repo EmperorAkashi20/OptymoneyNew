@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:optymoney/Investments/Components/body.dart';
+import 'package:optymoney/Investments/Components/Body.dart';
 
 class Investments extends StatelessWidget {
   static String routeName = '/Investments';

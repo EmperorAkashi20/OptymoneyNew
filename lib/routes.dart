@@ -9,6 +9,7 @@ import 'package:optymoney/Dashboard/Components/DetailsPage.dart';
 import 'package:optymoney/Dashboard/dashboard.dart';
 import 'package:optymoney/Feedback/Feedback.dart';
 import 'package:optymoney/ITR/incometax.dart';
+import 'package:optymoney/Investments/Components/DetailsPage.dart';
 import 'package:optymoney/Investments/investments.dart';
 import 'package:optymoney/LoginNSignUp/loginNsignup.dart';
 import 'package:optymoney/LoginWithMpin/LoginWithMPin.dart';
@@ -39,4 +40,5 @@ final Map<String, WidgetBuilder> routes = {
   Orders.routeName: (context) => Orders(),
   FeedbackApp.routeName: (context) => FeedbackApp(),
   SupportTicket.routeName: (context) => SupportTicket(),
+  DetailsPageFilters.routeName: (context) => DetailsPageFilters(),
 };
