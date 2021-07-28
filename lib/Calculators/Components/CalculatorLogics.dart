@@ -1,9 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:number_slide_animation/number_slide_animation.dart';
 import 'dart:math';
 
-import '../../../../../constants.dart';
 import '../../../../../size_config.dart';
 import '../../Models.dart';
 

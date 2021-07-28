@@ -22,7 +22,7 @@ class FormFieldGlobal extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     double windowHeight = MediaQuery.of(context).size.height;
-    double windowWidth = MediaQuery.of(context).size.width;
+    // double windowWidth = MediaQuery.of(context).size.width;
     return Padding(
       padding: const EdgeInsets.only(left: 18.0, right: 18.0),
       child: Container(
@@ -70,7 +70,7 @@ class FormFieldGlobalForPopUp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     double windowHeight = MediaQuery.of(context).size.height;
-    double windowWidth = MediaQuery.of(context).size.width;
+    // double windowWidth = MediaQuery.of(context).size.width;
     return Container(
       height: windowHeight * 0.05,
       child: TextFormField(
@@ -119,7 +119,7 @@ class FormFieldDisplayProfile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     double windowHeight = MediaQuery.of(context).size.height;
-    double windowWidth = MediaQuery.of(context).size.width;
+    // double windowWidth = MediaQuery.of(context).size.width;
     return Padding(
       padding: const EdgeInsets.only(left: 18.0, right: 18.0),
       child: Container(
@@ -162,8 +162,8 @@ class TitleHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    double windowHeight = MediaQuery.of(context).size.height;
-    double windowWidth = MediaQuery.of(context).size.width;
+    // double windowHeight = MediaQuery.of(context).size.height;
+    // double windowWidth = MediaQuery.of(context).size.width;
     return Padding(
       padding: const EdgeInsets.only(top: 20.0, left: 20),
       child: Align(
@@ -187,8 +187,8 @@ class TitleHeaderForPopUp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    double windowHeight = MediaQuery.of(context).size.height;
-    double windowWidth = MediaQuery.of(context).size.width;
+    // double windowHeight = MediaQuery.of(context).size.height;
+    // double windowWidth = MediaQuery.of(context).size.width;
     return Align(
       alignment: Alignment.topLeft,
       child: Text(
@@ -206,8 +206,8 @@ class OutputTextForPopUp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    double windowHeight = MediaQuery.of(context).size.height;
-    double windowWidth = MediaQuery.of(context).size.width;
+    // double windowHeight = MediaQuery.of(context).size.height;
+    // double windowWidth = MediaQuery.of(context).size.width;
     return Padding(
       padding: const EdgeInsets.only(left: 18.0),
       child: Align(
@@ -236,7 +236,7 @@ class GlobalOutputField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     double windowHeight = MediaQuery.of(context).size.height;
-    double windowWidth = MediaQuery.of(context).size.width;
+    // double windowWidth = MediaQuery.of(context).size.width;
     return Padding(
       padding: const EdgeInsets.only(
         left: 18.0,
@@ -282,7 +282,7 @@ class SuggestionBox1 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     double windowHeight = MediaQuery.of(context).size.height;
-    double windowWidth = MediaQuery.of(context).size.width;
+    // double windowWidth = MediaQuery.of(context).size.width;
     return Padding(
       padding: const EdgeInsets.only(left: 18.0, right: 18.0, top: 18.0),
       child: Container(
@@ -336,7 +336,7 @@ class SuggestionBox2 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     double windowHeight = MediaQuery.of(context).size.height;
-    double windowWidth = MediaQuery.of(context).size.width;
+    // double windowWidth = MediaQuery.of(context).size.width;
     return Padding(
       padding: const EdgeInsets.only(left: 18.0, right: 18.0, top: 18.0),
       child: Container(
@@ -389,8 +389,8 @@ class TitleHeaderWithRichText extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    double windowHeight = MediaQuery.of(context).size.height;
-    double windowWidth = MediaQuery.of(context).size.width;
+    // double windowHeight = MediaQuery.of(context).size.height;
+    // double windowWidth = MediaQuery.of(context).size.width;
     return Padding(
       padding: const EdgeInsets.only(top: 20.0, left: 20),
       child: Align(

@@ -3,7 +3,6 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
 import 'package:loading_animations/loading_animations.dart';
-import 'package:optymoney/Components/inputwithicon.dart';
 import 'package:optymoney/Components/primarybtn.dart';
 import 'package:optymoney/LoginNSignUp/Components/body.dart';
 
@@ -97,7 +96,7 @@ class _BodyState extends State<Body> {
   @override
   Widget build(BuildContext context) {
     double windowHeight = MediaQuery.of(context).size.height;
-    double windowWidth = MediaQuery.of(context).size.width;
+    // double windowWidth = MediaQuery.of(context).size.width;
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,

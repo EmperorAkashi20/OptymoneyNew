@@ -13,7 +13,7 @@ class _BodyState extends State<Body> {
   @override
   Widget build(BuildContext context) {
     double windowHeight = MediaQuery.of(context).size.height;
-    double windowWidth = MediaQuery.of(context).size.width;
+    // double windowWidth = MediaQuery.of(context).size.width;
     return DefaultTabController(
       length: 2,
       child: Scaffold(

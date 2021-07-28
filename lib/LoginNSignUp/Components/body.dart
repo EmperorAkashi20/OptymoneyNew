@@ -302,7 +302,7 @@ class _LoginSignUpState extends State<LoginSignUp> {
   double _mpinYOffset = 0;
   double _mpinHeight = 0;
   double _mpinWidth = 0;
-  double _mpinOpacity = 1;
+  // double _mpinOpacity = 1;
 
   double windowWidth = 0;
   double windowHeight = 0;

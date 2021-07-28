@@ -55,8 +55,8 @@ class _AmcFiltersState extends State<AmcFilters> {
 
   @override
   Widget build(BuildContext context) {
-    double windowHeight = MediaQuery.of(context).size.height;
-    double windowWidht = MediaQuery.of(context).size.width;
+    // double windowHeight = MediaQuery.of(context).size.height;
+    // double windowWidht = MediaQuery.of(context).size.width;
     return Container(
       child: FutureBuilder(
         future: makeAmcRequest(),

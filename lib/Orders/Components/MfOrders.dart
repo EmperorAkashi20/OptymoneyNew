@@ -58,7 +58,7 @@ class _MutualFundOrdersTabState extends State<MutualFundOrdersTab> {
   @override
   Widget build(BuildContext context) {
     double windowHeight = MediaQuery.of(context).size.height;
-    double windowWidth = MediaQuery.of(context).size.width;
+    // double windowWidth = MediaQuery.of(context).size.width;
     return Scaffold(
       body: Container(
         child: FutureBuilder(
