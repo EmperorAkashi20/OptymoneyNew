@@ -59,8 +59,8 @@ class _BodyState extends State<Body> {
     );
     var dataBody = response.body;
     var jsonData = json.decode(dataBody);
-    print(body);
-    print(jsonData);
+    // print(body);
+    // print(jsonData);
     List<AllSchemeWithFilters> allSchemeWithFilterss = [];
 
     for (var sch in jsonData) {
@@ -107,12 +107,12 @@ class _BodyState extends State<Body> {
       body: body,
       encoding: encoding,
     );
+
     var dataBody = response.body;
     var jsonData = json.decode(dataBody);
-    Body.minAmt =
-        double.tryParse(jsonData[0]['sip_minimum_installment_amount']);
-    Body.maxAmt =
-        double.tryParse(jsonData[0]['sip_maximum_installment_amount']);
+    //print(response.body);
+    Body.minAmt = double.tryParse(jsonData[0]['minimum_purchase_amount']);
+    Body.maxAmt = double.tryParse(jsonData[0]['maximum_purchase_amount']);
     Body.id = jsonData[0]['pk_nav_id'];
     Body.lumpSumMin = double.tryParse(jsonData[0]['minimum_purchase_amount']);
     Body.lumpSumMax = double.tryParse(jsonData[0]['maximum_purchase_amount']);
@@ -125,6 +125,8 @@ class _BodyState extends State<Body> {
       Body.maxAmt = 99999999.0;
     }
     Body.values = Body.minAmt;
+    // print(Body.minAmt);
+    // print(Body.maxAmt);
   }
 
   @override

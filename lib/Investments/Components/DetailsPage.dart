@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart';
 import 'package:loading_animations/loading_animations.dart';
 import 'package:optymoney/Components/outlinebtn.dart';
-import 'package:optymoney/Investments/Components/body.dart';
+import 'package:optymoney/Investments/Components/Body.dart';
 import 'package:optymoney/LoginNSignUp/Components/body.dart';
 import 'package:syncfusion_flutter_sliders/sliders.dart';
 
@@ -77,7 +77,7 @@ class DetailsPageFilters extends StatefulWidget {
   static var message;
   static var status;
   static var lumpSumAmount;
-  static String routeName = '/DetailsPageFilters';
+  static String routeName = '/detailsPageFilters';
   const DetailsPageFilters({Key? key}) : super(key: key);
 
   @override
@@ -87,6 +87,7 @@ class DetailsPageFilters extends StatefulWidget {
 class _DetailsPageFiltersState extends State<DetailsPageFilters> {
   double miniamt = Body.minAmt;
   var selectedDate;
+
   Future<List<ChartData>> _getChartData() async {
     var url = Uri.parse('https://optymoney.com/__lib.ajax/ajax_response.php');
     final headers = {'Content-Type': 'application/x-www-form-urlencoded'};
