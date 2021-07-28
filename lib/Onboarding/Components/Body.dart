@@ -206,13 +206,18 @@ class _BodyState extends State<Body> {
                   children: [
                     GestureDetector(
                       onTap: () async {
-                        await getDataFunction();
-                        await makeOnboardRequest();
-                        if (Body.id != null) {
-                          await onBoardingProcess();
-                        } else {
+                        if (LoginSignUp.globalPan.toString() == 'null') {
                           _showSnackBar(
-                              'Something went wrong, please try again later');
+                              'Please update your details to proceed with KYC');
+                        } else {
+                          await getDataFunction();
+                          await makeOnboardRequest();
+                          if (Body.id != null) {
+                            await onBoardingProcess();
+                          } else {
+                            _showSnackBar(
+                                'Something went wrong, please try again later');
+                          }
                         }
                       },
                       child: PrimaryButton(btnText: 'Proceed'),

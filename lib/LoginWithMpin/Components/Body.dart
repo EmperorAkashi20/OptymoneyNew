@@ -121,11 +121,30 @@ class _BodyState extends State<Body> {
   final _formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
+    double windowHeight = MediaQuery.of(context).size.height;
+    // double windowWidth = MediaQuery.of(context).size.width;
     return Scaffold(
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         elevation: 0,
         backgroundColor: Colors.white,
-        automaticallyImplyLeading: false,
+        toolbarHeight: 50,
+        title: Align(
+          alignment: Alignment.centerLeft,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Image.asset(
+                'assets/icons/2.png',
+                height: windowHeight * 0.06,
+              ),
+              Text(
+                'Login with MPIN',
+                style: TextStyle(color: Colors.black, fontSize: 20),
+              ),
+            ],
+          ),
+        ),
       ),
       body: Padding(
         padding: const EdgeInsets.all(25.0),
