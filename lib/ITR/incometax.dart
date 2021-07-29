@@ -8,15 +8,6 @@ class IncomeTax extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        automaticallyImplyLeading: false,
-        backgroundColor: Colors.white,
-        elevation: 0,
-        title: Text(
-          "File your ITR freely with us",
-          style: TextStyle(color: Colors.black),
-        ),
-      ),
       body: Body(),
     );
   }

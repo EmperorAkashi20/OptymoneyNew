@@ -327,8 +327,7 @@ class _BodyState extends State<Body> {
                                       Container(
                                         width: windowWidth * 0.34,
                                         decoration: BoxDecoration(
-                                          color:
-                                              Colors.lightBlueAccent.shade100,
+                                          color: Colors.blue.shade700,
                                           borderRadius:
                                               BorderRadius.circular(5),
                                         ),
@@ -428,6 +427,10 @@ class _BodyState extends State<Body> {
                       child: Align(
                         alignment: Alignment.bottomRight,
                         child: FloatingActionButton(
+                          backgroundColor: Colors.blue.shade700,
+                          splashColor: Colors.blue.shade900,
+                          elevation: 16,
+                          tooltip: 'Filters',
                           child: FaIcon(FontAwesomeIcons.filter),
                           onPressed: () {
                             setState(

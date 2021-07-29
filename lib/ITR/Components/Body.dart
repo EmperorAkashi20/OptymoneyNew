@@ -20,9 +20,9 @@ Future<http.StreamedResponse> makeItrRequest() async {
     "content-type": "multipart/form-data",
   });
   request.fields['itr_e'] = 'itr';
-  request.fields['fname'] = LoginSignUp.globalName;
-  request.fields['mobile'] = LoginSignUp.customerMobile;
-  request.fields['pan'] = LoginSignUp.globalPan;
+  request.fields['fname'] = LoginSignUp.globalName.toString();
+  request.fields['mobile'] = LoginSignUp.customerMobile.toString();
+  request.fields['pan'] = LoginSignUp.globalPan.toString();
   request.fields['dobofusr'] = LoginSignUp.customerBday;
   request.fields['address'] = LoginSignUp.customerAddress1 +
       LoginSignUp.customerAddress2 +
@@ -120,6 +120,7 @@ class Body extends StatefulWidget {
   static var bank;
   static var accno1;
   static var ifsc1;
+
   const Body({Key? key}) : super(key: key);
 
   @override
@@ -143,514 +144,562 @@ class _BodyState extends State<Body> {
   Widget build(BuildContext context) {
     double windowWidth = MediaQuery.of(context).size.width;
     double windowHeight = MediaQuery.of(context).size.height;
-    return SingleChildScrollView(
-      child: Container(
-        child: Column(
-          children: [
-            Center(
-              child: Text(
-                "Financial Details",
-                style: TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold,
+    return Scaffold(
+      appBar: AppBar(
+        automaticallyImplyLeading: false,
+        elevation: 0,
+        backgroundColor: Colors.white,
+        toolbarHeight: 50,
+        title: Align(
+          alignment: Alignment.centerLeft,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Image.asset(
+                'assets/icons/2.png',
+                height: windowHeight * 0.06,
+              ),
+              Text(
+                'File Your ITR Freely With',
+                style: TextStyle(color: Colors.black, fontSize: 20),
+              ),
+            ],
+          ),
+        ),
+      ),
+      body: SingleChildScrollView(
+        child: Container(
+          child: Column(
+            children: [
+              Center(
+                child: Text(
+                  "Financial Details",
+                  style: TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
               ),
-            ),
-            SizedBox(
-              height: 15,
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 15.0),
-              child: InputWithIcon(
-                icon: Icons.wrap_text_outlined,
-                hint: 'Bank Name',
-                obscureText: false,
+              SizedBox(
+                height: 15,
               ),
-            ),
-            SizedBox(
-              height: 15,
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 15.0),
-              child: InputWithIcon(
-                icon: Icons.wrap_text_outlined,
-                hint: 'Account Number',
-                obscureText: false,
-                keyboardTypeGlobal: TextInputType.number,
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 18.0),
+                child: InputWithIcon(
+                  icon: Icons.wrap_text,
+                  hint: 'Bank Name',
+                  obscureText: false,
+                  dataController: bankName,
+                ),
               ),
-            ),
-            SizedBox(
-              height: 15,
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 15.0),
-              child: InputWithIcon(
-                icon: Icons.wrap_text_outlined,
-                hint: 'IFSC Code',
-                obscureText: false,
+              SizedBox(
+                height: windowHeight * 0.03,
               ),
-            ),
-            SizedBox(
-              height: 10,
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 25.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    "ITR",
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 15,
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 18.0),
+                child: InputWithIcon(
+                  icon: Icons.wrap_text,
+                  hint: 'Account number',
+                  obscureText: false,
+                  dataController: accno,
+                  keyboardTypeGlobal: TextInputType.number,
+                ),
+              ),
+              SizedBox(
+                height: windowHeight * 0.03,
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 18.0),
+                child: InputWithIcon(
+                  icon: Icons.wrap_text,
+                  hint: 'IFSC',
+                  obscureText: false,
+                  dataController: ifsc,
+                ),
+              ),
+              SizedBox(
+                height: 10,
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 25.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      "ITR",
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 15,
+                      ),
                     ),
-                  ),
-                  SizedBox(
-                    width: 10,
-                  ),
-                  ConstrainedBox(
-                    constraints: const BoxConstraints.tightFor(width: 50.0),
-                    child: Switch.adaptive(
-                      value: _itr,
-                      onChanged: (bool value) {
-                        setState(() {
-                          _itr = value;
-                          print(value);
-                        });
-                      },
+                    SizedBox(
+                      width: 10,
                     ),
-                  ),
-                  SizedBox(
-                    width: 10,
-                  ),
-                  Expanded(
-                    flex: 1,
-                    child: Text(
+                    ConstrainedBox(
+                      constraints: const BoxConstraints.tightFor(width: 50.0),
+                      child: Switch.adaptive(
+                        value: _itr,
+                        onChanged: (bool value) {
+                          setState(() {
+                            _itr = value;
+                            print(value);
+                          });
+                        },
+                      ),
+                    ),
+                    SizedBox(
+                      width: 10,
+                    ),
+                    Text(
                       "E-Assessment",
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: 15,
                       ),
                     ),
-                  ),
-                ],
-              ),
-            ),
-            SizedBox(
-              height: 10,
-            ),
-            if (_itr == false)
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 15.0),
-                child: Align(
-                  alignment: Alignment.centerLeft,
-                  child: Column(
-                    children: [
-                      Align(
-                        alignment: Alignment.centerLeft,
-                        child: Container(
-                          width: windowWidth * 0.4,
-                          decoration: BoxDecoration(
-                            color: Color(0xFF3594DD),
-                            borderRadius: BorderRadius.circular(20),
-                          ),
-                          child: TextButton(
-                            onPressed: () async {
-                              setState(() {});
-                              FilePickerResult? result = await FilePicker
-                                  .platform
-                                  .pickFiles(allowMultiple: true);
-
-                              if (result != null) {
-                                // print('\nfile:' + result.paths.toString());
-                                Body.filesitr = result.paths;
-                                a = Body.filesitr.toList();
-                              }
-                            },
-                            child: Text(
-                              "Form 16/16A",
-                              style: TextStyle(color: Colors.black),
-                            ),
-                          ),
-                        ),
-                      ),
-                      SizedBox(
-                        height: 10,
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 2.0),
-                        child: Card(
-                          elevation: 1,
-                          child: Builder(
-                            builder: (BuildContext context) {
-                              return Container(
-                                height: windowHeight * 0.25,
-                                child: Scrollbar(
-                                  child: RefreshIndicator(
-                                    onRefresh: callList,
-                                    child: ListView.separated(
-                                      separatorBuilder: (context, index) =>
-                                          Divider(
-                                        color: Colors.black,
-                                        thickness: 1,
-                                      ),
-                                      itemCount: a.isNotEmpty ? a.length : 1,
-                                      itemBuilder: (context, index) {
-                                        if (Body.filesitr == null) {
-                                          return Center(
-                                              child: Text(
-                                                  'After selecting files, please pull down here to refresh'));
-                                        } else if (Body.filesitr.length == 0) {
-                                          return Text('okay');
-                                        } else {
-                                          return ListTile(
-                                            title: Text('File ' +
-                                                (index + 1).toString() +
-                                                ': ' +
-                                                Body.filesitr.toString()),
-                                          );
-                                        }
-                                      },
-                                    ),
-                                  ),
-                                ),
-                              );
-                            },
-                          ),
-                        ),
-                      ),
-                      SizedBox(
-                        height: 10,
-                      ),
-                      Align(
-                        alignment: Alignment.centerLeft,
-                        child: Container(
-                          width: windowWidth * 0.4,
-                          decoration: BoxDecoration(
-                            color: Color(0xFF3594DD),
-                            borderRadius: BorderRadius.circular(20),
-                          ),
-                          child: TextButton(
-                            onPressed: () async {
-                              FilePickerResult? result = await FilePicker
-                                  .platform
-                                  .pickFiles(allowMultiple: true);
-
-                              if (result != null) {
-                                // print('\nfile:' + result.paths.toString());
-                                Body.addfileitr = result.paths;
-                                b = Body.addfileitr.toList();
-                              }
-                            },
-                            child: Text(
-                              "Other Attachments",
-                              style: TextStyle(color: Colors.black),
-                            ),
-                          ),
-                        ),
-                      ),
-                      SizedBox(
-                        height: 10,
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 2.0),
-                        child: Card(
-                          elevation: 1,
-                          child: Builder(
-                            builder: (BuildContext context) {
-                              return Container(
-                                height: windowHeight * 0.25,
-                                child: Scrollbar(
-                                  child: RefreshIndicator(
-                                    onRefresh: callList,
-                                    child: ListView.separated(
-                                      separatorBuilder: (context, index) =>
-                                          Divider(
-                                        color: Colors.black,
-                                        thickness: 1,
-                                      ),
-                                      itemCount: b.isNotEmpty ? b.length : 1,
-                                      itemBuilder: (context, index) {
-                                        if (Body.addfileitr == null) {
-                                          return Center(
-                                              child: Text(
-                                                  'After selecting files, please pull down here to refresh'));
-                                        } else if (Body.addfileitr.length ==
-                                            0) {
-                                          return Text('okay');
-                                        } else {
-                                          return ListTile(
-                                            title: Text('File ' +
-                                                (index + 1).toString() +
-                                                ': ' +
-                                                Body.addfileitr.toString()),
-                                          );
-                                        }
-                                      },
-                                    ),
-                                  ),
-                                ),
-                              );
-                            },
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
+                  ],
                 ),
               ),
-            if (_itr == true)
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 15.0),
-                child: Align(
-                  alignment: Alignment.centerLeft,
-                  child: Column(
-                    children: [
-                      Align(
-                        alignment: Alignment.centerLeft,
-                        child: Container(
-                          width: windowWidth * 0.4,
-                          decoration: BoxDecoration(
-                            color: Color(0xFF3594DD),
-                            borderRadius: BorderRadius.circular(20),
-                          ),
-                          child: TextButton(
-                            onPressed: () async {
-                              FilePickerResult? result = await FilePicker
-                                  .platform
-                                  .pickFiles(allowMultiple: true);
+              SizedBox(
+                height: 10,
+              ),
+              if (_itr == false)
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 15.0),
+                  child: Align(
+                    alignment: Alignment.centerLeft,
+                    child: Column(
+                      children: [
+                        Align(
+                          alignment: Alignment.centerLeft,
+                          child: Container(
+                            width: windowWidth * 0.4,
+                            decoration: BoxDecoration(
+                              color: Colors.blue.shade700,
+                              borderRadius: BorderRadius.circular(20),
+                            ),
+                            child: TextButton(
+                              onPressed: () async {
+                                FilePickerResult? result = await FilePicker
+                                    .platform
+                                    .pickFiles(allowMultiple: true);
 
-                              if (result != null) {
-                                // print('\nfile:' + result.paths.toString());
-                                Body.noticecopy = result.paths;
-                                c = Body.noticecopy.toList();
-                              }
-                            },
-                            child: Text(
-                              "Notice Copy",
-                              style: TextStyle(color: Colors.black),
+                                if (result != null) {
+                                  // print('\nfile:' + result.paths.toString());
+                                  Body.filesitr = result.paths;
+                                  a = Body.filesitr.toList();
+                                }
+                              },
+                              child: Text(
+                                "Form 16/16A",
+                                style: TextStyle(color: Colors.black),
+                              ),
                             ),
                           ),
                         ),
-                      ),
-                      SizedBox(
-                        height: 10,
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 2.0),
-                        child: Card(
-                          elevation: 1,
-                          child: Builder(
-                            builder: (BuildContext context) {
-                              return Container(
-                                height: windowHeight * 0.25,
-                                child: Scrollbar(
-                                  child: RefreshIndicator(
-                                    onRefresh: callList,
-                                    child: ListView.separated(
-                                      separatorBuilder: (context, index) =>
-                                          Divider(
-                                        color: Colors.black,
-                                        thickness: 1,
+                        SizedBox(
+                          height: 10,
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 2.0),
+                          child: Card(
+                            elevation: 1,
+                            child: Builder(
+                              builder: (BuildContext context) {
+                                return Container(
+                                  height: windowHeight * 0.25,
+                                  child: Scrollbar(
+                                    child: RefreshIndicator(
+                                      onRefresh: callList,
+                                      child: ListView.separated(
+                                        separatorBuilder: (context, index) =>
+                                            Divider(
+                                          color: Colors.black,
+                                          thickness: 1,
+                                        ),
+                                        itemCount: a.isNotEmpty ? a.length : 1,
+                                        itemBuilder: (context, index) {
+                                          if (Body.filesitr == null) {
+                                            return Center(
+                                                child: Text(
+                                                    'After selecting files, please pull down here to refresh'));
+                                          } else if (Body.filesitr.length ==
+                                              0) {
+                                            return Text('okay');
+                                          } else {
+                                            return ListTile(
+                                              title: Text('File ' +
+                                                  (index + 1).toString() +
+                                                  ': ' +
+                                                  Body.filesitr.toString()),
+                                            );
+                                          }
+                                        },
                                       ),
-                                      itemCount: c.isNotEmpty ? c.length : 1,
-                                      itemBuilder: (context, index) {
-                                        if (Body.noticecopy == null) {
-                                          return Center(
-                                              child: Text(
-                                                  'After selecting files, please pull down here to refresh'));
-                                        } else if (Body.noticecopy.length ==
-                                            0) {
-                                          return Text('okay');
-                                        } else {
-                                          return ListTile(
-                                            title: Text('File ' +
-                                                (index + 1).toString() +
-                                                ': ' +
-                                                Body.noticecopy.toString()),
-                                          );
-                                        }
-                                      },
                                     ),
                                   ),
-                                ),
-                              );
-                            },
-                          ),
-                        ),
-                      ),
-                      SizedBox(
-                        height: 10,
-                      ),
-                      Align(
-                        alignment: Alignment.centerLeft,
-                        child: Container(
-                          width: windowWidth * 0.4,
-                          decoration: BoxDecoration(
-                            color: Color(0xFF3594DD),
-                            borderRadius: BorderRadius.circular(20),
-                          ),
-                          child: TextButton(
-                            onPressed: () async {
-                              FilePickerResult? result = await FilePicker
-                                  .platform
-                                  .pickFiles(allowMultiple: true);
-
-                              if (result != null) {
-                                // print('\nfile:' + result.paths.toString());
-                                Body.itrfiledcopy = result.paths;
-                                d = Body.itrfiledcopy.toList();
-                              }
-                            },
-                            child: Text(
-                              "Last ITR Filed",
-                              style: TextStyle(color: Colors.black),
+                                );
+                              },
                             ),
                           ),
                         ),
-                      ),
-                      SizedBox(
-                        height: 10,
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 2.0),
-                        child: Card(
-                          elevation: 1,
-                          child: Builder(
-                            builder: (BuildContext context) {
-                              return Container(
-                                height: windowHeight * 0.25,
-                                child: Scrollbar(
-                                  child: RefreshIndicator(
-                                    onRefresh: callList,
-                                    child: ListView.separated(
-                                      separatorBuilder: (context, index) =>
-                                          Divider(
-                                        color: Colors.black,
-                                        thickness: 1,
-                                      ),
-                                      itemCount: d.isNotEmpty ? d.length : 1,
-                                      itemBuilder: (context, index) {
-                                        if (Body.itrfiledcopy == null) {
-                                          return Center(
-                                              child: Text(
-                                                  'After selecting files, please pull down here to refresh'));
-                                        } else if (Body.itrfiledcopy.length ==
-                                            0) {
-                                          return Text('okay');
-                                        } else {
-                                          return ListTile(
-                                            title: Text('File ' +
-                                                (index + 1).toString() +
-                                                ': ' +
-                                                Body.itrfiledcopy.toString()),
-                                          );
-                                        }
-                                      },
-                                    ),
-                                  ),
-                                ),
-                              );
-                            },
-                          ),
+                        SizedBox(
+                          height: 10,
                         ),
-                      ),
-                      SizedBox(
-                        height: 10,
-                      ),
-                      Align(
-                        alignment: Alignment.centerLeft,
-                        child: Container(
-                          width: windowWidth * 0.4,
-                          decoration: BoxDecoration(
-                            color: Color(0xFF3594DD),
-                            borderRadius: BorderRadius.circular(20),
-                          ),
-                          child: TextButton(
-                            onPressed: () async {
-                              FilePickerResult? result = await FilePicker
-                                  .platform
-                                  .pickFiles(allowMultiple: true);
+                        Align(
+                          alignment: Alignment.centerLeft,
+                          child: Container(
+                            width: windowWidth * 0.4,
+                            decoration: BoxDecoration(
+                              color: Colors.blue.shade700,
+                              borderRadius: BorderRadius.circular(20),
+                            ),
+                            child: TextButton(
+                              onPressed: () async {
+                                FilePickerResult? result = await FilePicker
+                                    .platform
+                                    .pickFiles(allowMultiple: true);
 
-                              if (result != null) {
-                                // print('\nfile:' + result.paths.toString());
-                                Body.addeassest = result.paths;
-                                e = Body.addeassest.toList();
-                              }
-                            },
-                            child: Text(
-                              "Other Attachments",
-                              style: TextStyle(color: Colors.black),
+                                if (result != null) {
+                                  // print('\nfile:' + result.paths.toString());
+                                  Body.addfileitr = result.paths;
+                                  b = Body.addfileitr.toList();
+                                }
+                              },
+                              child: Text(
+                                "Other Attachments",
+                                style: TextStyle(color: Colors.black),
+                              ),
                             ),
                           ),
                         ),
-                      ),
-                      SizedBox(
-                        height: 10,
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 2.0),
-                        child: Card(
-                          elevation: 1,
-                          child: Builder(
-                            builder: (BuildContext context) {
-                              return Container(
-                                height: windowHeight * 0.25,
-                                child: Scrollbar(
-                                  child: RefreshIndicator(
-                                    onRefresh: callList,
-                                    child: ListView.separated(
-                                      separatorBuilder: (context, index) =>
-                                          Divider(
-                                        color: Colors.black,
-                                        thickness: 1,
+                        SizedBox(
+                          height: 10,
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 2.0),
+                          child: Card(
+                            elevation: 1,
+                            child: Builder(
+                              builder: (BuildContext context) {
+                                return Container(
+                                  height: windowHeight * 0.25,
+                                  child: Scrollbar(
+                                    child: RefreshIndicator(
+                                      onRefresh: callList,
+                                      child: ListView.separated(
+                                        separatorBuilder: (context, index) =>
+                                            Divider(
+                                          color: Colors.black,
+                                          thickness: 1,
+                                        ),
+                                        itemCount: b.isNotEmpty ? b.length : 1,
+                                        itemBuilder: (context, index) {
+                                          if (Body.addfileitr == null) {
+                                            return Center(
+                                                child: Text(
+                                                    'After selecting files, please pull down here to refresh'));
+                                          } else if (Body.addfileitr.length ==
+                                              0) {
+                                            return Text('okay');
+                                          } else {
+                                            return ListTile(
+                                              title: Text('File ' +
+                                                  (index + 1).toString() +
+                                                  ': ' +
+                                                  Body.addfileitr.toString()),
+                                            );
+                                          }
+                                        },
                                       ),
-                                      itemCount: e.isNotEmpty ? e.length : 1,
-                                      itemBuilder: (context, index) {
-                                        if (Body.addeassest == null) {
-                                          return Center(
-                                              child: Text(
-                                                  'After selecting files, please pull down here to refresh'));
-                                        } else if (Body.addeassest.length ==
-                                            0) {
-                                          return Text('okay');
-                                        } else {
-                                          return ListTile(
-                                            title: Text('File ' +
-                                                (index + 1).toString() +
-                                                ': ' +
-                                                Body.addeassest.toString()),
-                                          );
-                                        }
-                                      },
                                     ),
                                   ),
-                                ),
-                              );
-                            },
+                                );
+                              },
+                            ),
                           ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                 ),
+              if (_itr == true)
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 15.0),
+                  child: Align(
+                    alignment: Alignment.centerLeft,
+                    child: Column(
+                      children: [
+                        Align(
+                          alignment: Alignment.centerLeft,
+                          child: Container(
+                            width: windowWidth * 0.4,
+                            decoration: BoxDecoration(
+                              color: Colors.blue.shade700,
+                              borderRadius: BorderRadius.circular(20),
+                            ),
+                            child: TextButton(
+                              onPressed: () async {
+                                FilePickerResult? result = await FilePicker
+                                    .platform
+                                    .pickFiles(allowMultiple: true);
+
+                                if (result != null) {
+                                  // print('\nfile:' + result.paths.toString());
+                                  Body.noticecopy = result.paths;
+                                  c = Body.noticecopy.toList();
+                                }
+                              },
+                              child: Text(
+                                "Notice Copy",
+                                style: TextStyle(color: Colors.black),
+                              ),
+                            ),
+                          ),
+                        ),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 2.0),
+                          child: Card(
+                            elevation: 1,
+                            child: Builder(
+                              builder: (BuildContext context) {
+                                return Container(
+                                  height: windowHeight * 0.25,
+                                  child: Scrollbar(
+                                    child: RefreshIndicator(
+                                      onRefresh: callList,
+                                      child: ListView.separated(
+                                        separatorBuilder: (context, index) =>
+                                            Divider(
+                                          color: Colors.black,
+                                          thickness: 1,
+                                        ),
+                                        itemCount: c.isNotEmpty ? c.length : 1,
+                                        itemBuilder: (context, index) {
+                                          if (Body.noticecopy == null) {
+                                            return Center(
+                                                child: Text(
+                                                    'After selecting files, please pull down here to refresh'));
+                                          } else if (Body.noticecopy.length ==
+                                              0) {
+                                            return Text('okay');
+                                          } else {
+                                            return ListTile(
+                                              title: Text('File ' +
+                                                  (index + 1).toString() +
+                                                  ': ' +
+                                                  Body.noticecopy.toString()),
+                                            );
+                                          }
+                                        },
+                                      ),
+                                    ),
+                                  ),
+                                );
+                              },
+                            ),
+                          ),
+                        ),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        Align(
+                          alignment: Alignment.centerLeft,
+                          child: Container(
+                            width: windowWidth * 0.4,
+                            decoration: BoxDecoration(
+                              color: Colors.blue.shade700,
+                              borderRadius: BorderRadius.circular(20),
+                            ),
+                            child: TextButton(
+                              onPressed: () async {
+                                FilePickerResult? result = await FilePicker
+                                    .platform
+                                    .pickFiles(allowMultiple: true);
+
+                                if (result != null) {
+                                  // print('\nfile:' + result.paths.toString());
+                                  Body.itrfiledcopy = result.paths;
+                                  d = Body.itrfiledcopy.toList();
+                                }
+                              },
+                              child: Text(
+                                "Last ITR Filed",
+                                style: TextStyle(color: Colors.black),
+                              ),
+                            ),
+                          ),
+                        ),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 2.0),
+                          child: Card(
+                            elevation: 1,
+                            child: Builder(
+                              builder: (BuildContext context) {
+                                return Container(
+                                  height: windowHeight * 0.25,
+                                  child: Scrollbar(
+                                    child: RefreshIndicator(
+                                      onRefresh: callList,
+                                      child: ListView.separated(
+                                        separatorBuilder: (context, index) =>
+                                            Divider(
+                                          color: Colors.black,
+                                          thickness: 1,
+                                        ),
+                                        itemCount: d.isNotEmpty ? d.length : 1,
+                                        itemBuilder: (context, index) {
+                                          if (Body.itrfiledcopy == null) {
+                                            return Center(
+                                                child: Text(
+                                                    'After selecting files, please pull down here to refresh'));
+                                          } else if (Body.itrfiledcopy.length ==
+                                              0) {
+                                            return Text('okay');
+                                          } else {
+                                            return ListTile(
+                                              title: Text('File ' +
+                                                  (index + 1).toString() +
+                                                  ': ' +
+                                                  Body.itrfiledcopy.toString()),
+                                            );
+                                          }
+                                        },
+                                      ),
+                                    ),
+                                  ),
+                                );
+                              },
+                            ),
+                          ),
+                        ),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        Align(
+                          alignment: Alignment.centerLeft,
+                          child: Container(
+                            width: windowWidth * 0.4,
+                            decoration: BoxDecoration(
+                              color: Colors.blue.shade700,
+                              borderRadius: BorderRadius.circular(20),
+                            ),
+                            child: TextButton(
+                              onPressed: () async {
+                                FilePickerResult? result = await FilePicker
+                                    .platform
+                                    .pickFiles(allowMultiple: true);
+
+                                if (result != null) {
+                                  // print('\nfile:' + result.paths.toString());
+                                  Body.addeassest = result.paths;
+                                  e = Body.addeassest.toList();
+                                }
+                              },
+                              child: Text(
+                                "Other Attachment",
+                                style: TextStyle(color: Colors.black),
+                              ),
+                            ),
+                          ),
+                        ),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 2.0),
+                          child: Card(
+                            elevation: 1,
+                            child: Builder(
+                              builder: (BuildContext context) {
+                                return Container(
+                                  height: windowHeight * 0.25,
+                                  child: Scrollbar(
+                                    child: RefreshIndicator(
+                                      onRefresh: callList,
+                                      child: ListView.separated(
+                                        separatorBuilder: (context, index) =>
+                                            Divider(
+                                          color: Colors.black,
+                                          thickness: 1,
+                                        ),
+                                        itemCount: e.isNotEmpty ? e.length : 1,
+                                        itemBuilder: (context, index) {
+                                          if (Body.addeassest == null) {
+                                            return Center(
+                                                child: Text(
+                                                    'After selecting files, please pull down here to refresh'));
+                                          } else if (Body.addeassest.length ==
+                                              0) {
+                                            return Text('okay');
+                                          } else {
+                                            return ListTile(
+                                              title: Text('File ' +
+                                                  (index + 1).toString() +
+                                                  ': ' +
+                                                  Body.addeassest.toString()),
+                                            );
+                                          }
+                                        },
+                                      ),
+                                    ),
+                                  ),
+                                );
+                              },
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              SizedBox(height: windowHeight * 0.03),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 15.0),
+                child: GestureDetector(
+                  onTap: () async {
+                    Body.bank = bankName.text.toString();
+                    Body.ifsc1 = ifsc.text.toString();
+                    Body.accno1 = accno.text.toString();
+                    await makeItrRequest();
+                    // Navigator.pushNamed(context, FileDisplay.routeName);
+                    _showSnackBar(Body.message);
+                  },
+                  child: OutlineBtn(btnText: "Proceed"),
+                ),
               ),
-            SizedBox(
-              height: 10,
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 15.0),
-              child: GestureDetector(
-                onTap: () {
-                  print('object');
-                },
-                child: OutlineBtn(btnText: "Proceed"),
-              ),
-            ),
-          ],
+              SizedBox(height: windowHeight * 0.03),
+            ],
+          ),
         ),
       ),
     );
+  }
+
+  void _showSnackBar(String text) {
+    final snackBar = SnackBar(
+      duration: const Duration(seconds: 3),
+      content: Container(
+        height: 40.0,
+        color: Colors.transparent,
+        child: Center(
+          child: Text(
+            text,
+            style: const TextStyle(fontSize: 15.0, color: Colors.black),
+          ),
+        ),
+      ),
+      backgroundColor: Colors.white,
+    );
+    ScaffoldMessenger.of(context)
+      ..hideCurrentSnackBar()
+      ..showSnackBar(snackBar);
   }
 
   Future<void> callList() async {

@@ -17,11 +17,24 @@ class _BodyState extends State<Body> {
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
-        elevation: 3,
+        elevation: 0,
         backgroundColor: Colors.white,
-        title: Text(
-          'Manage Your Finances',
-          style: TextStyle(color: Colors.blue.shade700, fontSize: 25),
+        toolbarHeight: 50,
+        title: Align(
+          alignment: Alignment.centerLeft,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Image.asset(
+                'assets/icons/2.png',
+                height: windowHeight * 0.06,
+              ),
+              Text(
+                'Manage Your Finances',
+                style: TextStyle(color: Colors.black, fontSize: 20),
+              ),
+            ],
+          ),
         ),
       ),
       body: SingleChildScrollView(
