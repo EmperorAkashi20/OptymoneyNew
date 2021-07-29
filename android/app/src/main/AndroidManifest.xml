@@ -5,7 +5,7 @@
       <uses-permission android:name="android.permission.RECEIVE_SMS"/>
       <uses-permission android:name="android.permission.USE_FINGERPRINT"/>
    <application
-        android:label="optymoney"
+        android:label="Optymoney"
         android:icon="@mipmap/ic_launcher">
         <activity
             android:name=".MainActivity"
