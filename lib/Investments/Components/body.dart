@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:http/http.dart';
 import 'package:loading_animations/loading_animations.dart';
 import 'package:optymoney/Investments/Components/AmcFilters.dart';
@@ -49,7 +50,7 @@ class _BodyState extends State<Body> {
     var body = jsonEncode({
       "amc_code": AmcFilters.selecteCategorys,
       "schm_type": CategoriesDisplay.selectedCategories,
-      "Offer_id": '',
+      "Offer_id": '32',
     });
 
     Response response = await post(
@@ -184,6 +185,31 @@ class _BodyState extends State<Body> {
                       Text('Hold On We are fetching the data'),
                     ],
                   ),
+                ),
+              );
+            } else if (snapshot.data.length == 0) {
+              return Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      'OH!!!!',
+                      style: TextStyle(
+                        color: Colors.grey.shade400,
+                        fontSize: 30,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    Text(
+                      'The selected filters do not have any schemes under them. Please try with a different options.',
+                      style: TextStyle(
+                        color: Colors.grey.shade400,
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                      ),
+                      textAlign: TextAlign.center,
+                    ),
+                  ],
                 ),
               );
             } else {
