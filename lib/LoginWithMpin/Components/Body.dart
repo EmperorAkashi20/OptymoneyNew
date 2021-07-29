@@ -393,7 +393,12 @@ class _BodyState extends State<Body> {
                       await makeLoginWithMpinRequest();
                       if (Body.message == 'LOGIN_SUCCESS') {
                         await makeKycRequest();
-                        Navigator.pushNamed(context, Dashboard.routeName);
+                        //Navigator.pushNamed(context, Dashboard.routeName);
+                        Navigator.of(context).pushReplacement(
+                          MaterialPageRoute(
+                            builder: (BuildContext context) => Dashboard(),
+                          ),
+                        );
                         await makeUserRequest();
                       } else if (Body.message == 'LOGIN_FAILED') {
                         _showSnackBar('Entered PIN is incorrect');

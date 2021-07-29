@@ -152,7 +152,10 @@ class _DashboardDataState extends State<DashboardData> {
                       SizedBox(
                         height: 10,
                       ),
-                      Text('Hold On We are fetching the data'),
+                      Text(
+                        'Hold On\n We are fetching the data',
+                        textAlign: TextAlign.center,
+                      ),
                     ],
                   ),
                 ),

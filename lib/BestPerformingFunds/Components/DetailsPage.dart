@@ -119,6 +119,7 @@ class _SingleProductDetailsPageState extends State<SingleProductDetailsPage> {
     double windowWidth = MediaQuery.of(context).size.width;
     return Scaffold(
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         elevation: 0,
         backgroundColor: Colors.white,
         flexibleSpace: Container(
@@ -186,11 +187,11 @@ class _SingleProductDetailsPageState extends State<SingleProductDetailsPage> {
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Container(
-                            width: double.infinity,
-                            height: windowHeight * 0.3,
-                            child: Placeholder(),
-                          ),
+                          // Container(
+                          //   width: double.infinity,
+                          //   height: windowHeight * 0.3,
+                          //   child: Placeholder(),
+                          // ),
                           SizedBox(
                             height: 10,
                           ),

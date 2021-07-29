@@ -4,7 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:http/http.dart';
 import 'package:loading_animations/loading_animations.dart';
+import 'package:optymoney/Components/inputwithicon.dart';
 import 'package:optymoney/Components/outlinebtn.dart';
+import 'package:optymoney/Components/primarybtn.dart';
 import 'package:optymoney/Dashboard/Components/DashboardData.dart';
 
 class DetailsPage extends StatefulWidget {
@@ -51,6 +53,7 @@ class _DetailsPageState extends State<DetailsPage> {
     // double windowWidth = MediaQuery.of(context).size.width;
     return Scaffold(
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         elevation: 0,
         backgroundColor: Colors.white,
         flexibleSpace: Container(
@@ -112,11 +115,11 @@ class _DetailsPageState extends State<DetailsPage> {
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Container(
-                            width: double.infinity,
-                            height: windowHeight * 0.3,
-                            child: Placeholder(),
-                          ),
+                          // Container(
+                          //   width: double.infinity,
+                          //   height: windowHeight * 0.3,
+                          //   child: Placeholder(),
+                          // ),
                           SizedBox(
                             height: 10,
                           ),
@@ -460,6 +463,39 @@ class _DetailsPageState extends State<DetailsPage> {
                                                           topRight:
                                                               Radius.circular(
                                                                   20),
+                                                        ),
+                                                      ),
+                                                      child: Padding(
+                                                        padding:
+                                                            const EdgeInsets
+                                                                    .symmetric(
+                                                                horizontal:
+                                                                    18.0),
+                                                        child: Column(
+                                                          mainAxisAlignment:
+                                                              MainAxisAlignment
+                                                                  .center,
+                                                          children: [
+                                                            InputWithIcon(
+                                                              icon: Icons
+                                                                  .wrap_text,
+                                                              hint: 'Enter amount to redeem ₹' +
+                                                                  DashboardData
+                                                                      .currentValue
+                                                                      .toString() +
+                                                                  '(MAX)',
+                                                              obscureText:
+                                                                  false,
+                                                            ),
+                                                            SizedBox(
+                                                              height:
+                                                                  windowHeight *
+                                                                      0.03,
+                                                            ),
+                                                            PrimaryButton(
+                                                                btnText:
+                                                                    'Redeem'),
+                                                          ],
                                                         ),
                                                       ),
                                                     );
