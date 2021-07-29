@@ -48,8 +48,8 @@ class _BodyState extends State<Body> {
 
     var body = jsonEncode({
       "amc_code": AmcFilters.selecteCategorys,
-      "schm_type": "",
-      "Offer_id": 32,
+      "schm_type": CategoriesDisplay.selectedCategories,
+      "Offer_id": '',
     });
 
     Response response = await post(
@@ -59,8 +59,8 @@ class _BodyState extends State<Body> {
     );
     var dataBody = response.body;
     var jsonData = json.decode(dataBody);
-    // print(body);
-    // print(jsonData);
+    print(body);
+    print(jsonData);
     List<AllSchemeWithFilters> allSchemeWithFilterss = [];
 
     for (var sch in jsonData) {
@@ -149,7 +149,7 @@ class _BodyState extends State<Body> {
                 height: windowHeight * 0.06,
               ),
               Text(
-                'Dashboard',
+                'AMC List',
                 style: TextStyle(color: Colors.black, fontSize: 20),
               ),
               SizedBox(),
