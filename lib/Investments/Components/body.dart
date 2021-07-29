@@ -43,13 +43,13 @@ class _BodyState extends State<Body> {
     print(AmcFilters.selecteCategorys);
     print(CategoriesDisplay.selectedCategories);
     var url = Uri.parse(
-        'https://optymoney.com/__lib.ajax/ajax_response.php?action=filter_offer_search_app_test1');
+        'https://test.optymoney.com/__lib.ajax/ajax_response.php?action=filter_offer_search_app_test1');
     final headers = {'Content-Type': 'application/json'};
 
     var body = jsonEncode({
       "amc_code": AmcFilters.selecteCategorys,
       "schm_type": CategoriesDisplay.selectedCategories,
-      "Offer_id": '32',
+      "Offer_id": '',
     });
 
     Response response = await post(
