@@ -1,7 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
 import 'dart:async';
-import 'dart:math';
 
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
@@ -128,7 +127,6 @@ class Body extends StatefulWidget {
 }
 
 class _BodyState extends State<Body> {
-  bool _loadingPath = false;
   bool _itr = false;
   var concatenate = StringBuffer();
   var a = ['nodata'];
@@ -258,9 +256,7 @@ class _BodyState extends State<Body> {
                           ),
                           child: TextButton(
                             onPressed: () async {
-                              setState(() {
-                                _loadingPath = true;
-                              });
+                              setState(() {});
                               FilePickerResult? result = await FilePicker
                                   .platform
                                   .pickFiles(allowMultiple: true);
@@ -658,12 +654,8 @@ class _BodyState extends State<Body> {
   }
 
   Future<void> callList() async {
-    var random = Random();
-    var list = List.generate(random.nextInt(10), (i) => " Item $i");
     refreshkey.currentState?.show(atTop: true);
     await Future.delayed(Duration(seconds: 2));
-    setState(() {
-      list = List.generate(random.nextInt(10), (i) => " Item $i");
-    });
+    setState(() {});
   }
 }

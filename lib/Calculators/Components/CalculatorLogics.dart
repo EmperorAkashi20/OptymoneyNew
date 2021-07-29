@@ -2724,7 +2724,6 @@ class _TaxCalculatorState extends State<TaxCalculator> {
                             insurance1 +
                             otherAmt1);
                         var remainingSalary = salary1 - totalInvest;
-                        var tax = 0.0;
                         var furInvest;
                         var taxSavedFromFurInv;
                         if (totalInvest > 150000) {
@@ -2734,18 +2733,10 @@ class _TaxCalculatorState extends State<TaxCalculator> {
                         }
                         if (age == "normal") {
                           if (remainingSalary > 250000 &&
-                              remainingSalary <= 500000) {
-                            tax = ((remainingSalary - 250000) * 5 / 100);
-                          }
+                              remainingSalary <= 500000) {}
                           if (remainingSalary > 500000 &&
-                              remainingSalary <= 1000000) {
-                            tax =
-                                12500 + ((remainingSalary - 500000) * 20 / 100);
-                          }
-                          if (remainingSalary > 1000000) {
-                            tax = (12500 + 100000) +
-                                ((remainingSalary - 500000) * 30 / 100);
-                          }
+                              remainingSalary <= 1000000) {}
+                          if (remainingSalary > 1000000) {}
 
                           if (salary1 <= 250000) {
                             taxSavedFromFurInv = (furInvest * 0 / 100);
@@ -2761,18 +2752,10 @@ class _TaxCalculatorState extends State<TaxCalculator> {
                           }
                         } else if (age == "old") {
                           if (remainingSalary > 300000 &&
-                              remainingSalary <= 500000) {
-                            tax = ((remainingSalary - 300000) * 5 / 100);
-                          }
+                              remainingSalary <= 500000) {}
                           if (remainingSalary > 500000 &&
-                              remainingSalary <= 1000000) {
-                            tax =
-                                10000 + ((remainingSalary - 500000) * 20 / 100);
-                          }
-                          if (remainingSalary > 1000000) {
-                            tax = (10000 + 100000) +
-                                ((remainingSalary - 500000) * 30 / 100);
-                          }
+                              remainingSalary <= 1000000) {}
+                          if (remainingSalary > 1000000) {}
 
                           if (salary1 <= 300000) {
                             taxSavedFromFurInv = (furInvest * 0 / 100);
@@ -2788,13 +2771,8 @@ class _TaxCalculatorState extends State<TaxCalculator> {
                           }
                         } else if (age == "seniorCitizen") {
                           if (remainingSalary > 500000 &&
-                              remainingSalary <= 1000000) {
-                            tax = (remainingSalary - 500000) * 20 / 100;
-                          }
-                          if (remainingSalary > 1000000) {
-                            tax = (100000) +
-                                ((remainingSalary - 500000) * 30 / 100);
-                          }
+                              remainingSalary <= 1000000) {}
+                          if (remainingSalary > 1000000) {}
 
                           if (salary1 <= 500000) {
                             taxSavedFromFurInv = (furInvest * 0 / 100);

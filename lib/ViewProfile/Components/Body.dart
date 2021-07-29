@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
@@ -407,12 +406,9 @@ class _BodyState extends State<Body> {
   }
 
   Future<void> callList() async {
-    var random = Random();
-    var list = List.generate(random.nextInt(10), (i) => " Item $i");
+    //var random = Random();
     refreshkey.currentState?.show(atTop: true);
     await Future.delayed(Duration(seconds: 2));
-    setState(() {
-      list = List.generate(random.nextInt(10), (i) => " Item $i");
-    });
+    setState(() {});
   }
 }

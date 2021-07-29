@@ -118,7 +118,6 @@ class _BodyState extends State<Body> {
   double _page1XOffset = 0;
 
   double _page2YOffset = 0;
-  double _page2Height = 0;
   double _page2Width = 0;
   double _page2Opacity = 1;
   double _page2XOffset = 0;
@@ -145,7 +144,6 @@ class _BodyState extends State<Body> {
     windowWidth = MediaQuery.of(context).size.width;
 
     _page1Height = windowHeight - 270;
-    _page2Height = windowHeight - 270;
 
     switch (_pageState) {
       case 0:
@@ -200,7 +198,6 @@ class _BodyState extends State<Body> {
         _page2XOffset = 0;
         _page2Width = windowWidth;
         _page2YOffset = _keyboardVisible ? 20 : 270;
-        _page2Height = _keyboardVisible ? windowHeight : windowHeight - 270;
         _page2Opacity = 1;
 
         break;

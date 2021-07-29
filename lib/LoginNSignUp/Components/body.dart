@@ -287,7 +287,6 @@ class _LoginSignUpState extends State<LoginSignUp> {
   double _loginXOffset = 0;
 
   double _registerYOffset = 0;
-  double _registerHeight = 0;
   double _registerWidth = 0;
   double _registerOpacity = 1;
   double _registerXOffset = 0;
@@ -301,7 +300,6 @@ class _LoginSignUpState extends State<LoginSignUp> {
   double _mpinXOffset = 0;
   double _mpinYOffset = 0;
   double _mpinHeight = 0;
-  double _mpinWidth = 0;
   // double _mpinOpacity = 1;
 
   double windowWidth = 0;
@@ -326,7 +324,6 @@ class _LoginSignUpState extends State<LoginSignUp> {
     windowWidth = MediaQuery.of(context).size.width;
 
     _loginHeight = windowHeight - 270;
-    _registerHeight = windowHeight - 270;
     _otpHeight = windowHeight - 270;
     _mpinHeight = windowHeight - 270;
 
@@ -354,7 +351,6 @@ class _LoginSignUpState extends State<LoginSignUp> {
 
         _mpinYOffset = windowHeight;
         _mpinXOffset = 0;
-        _mpinWidth = windowWidth;
 
         break;
 
@@ -378,7 +374,6 @@ class _LoginSignUpState extends State<LoginSignUp> {
         _otpYOffset = windowHeight;
         _otpXOffset = 0;
 
-        _mpinWidth = windowWidth;
         _mpinYOffset = windowHeight;
         _mpinXOffset = 0;
 
@@ -399,14 +394,12 @@ class _LoginSignUpState extends State<LoginSignUp> {
         _registerXOffset = 0;
         _registerWidth = windowWidth;
         _registerYOffset = _keyboardVisible ? 20 : 270;
-        _registerHeight = _keyboardVisible ? windowHeight : windowHeight - 270;
         _registerOpacity = 1;
 
         _otpWidth = windowWidth;
         _otpYOffset = windowHeight;
         _otpXOffset = 0;
 
-        _mpinWidth = windowWidth;
         _mpinYOffset = windowHeight;
         _mpinXOffset = 0;
 
@@ -422,7 +415,6 @@ class _LoginSignUpState extends State<LoginSignUp> {
         _loginOpacity = 0.5;
 
         _registerYOffset = _keyboardVisible ? 40 : 260;
-        _registerHeight = _keyboardVisible ? windowHeight : windowHeight - 270;
         _registerXOffset = 10;
         _registerWidth = windowWidth - 20;
         _registerOpacity = 0.7;
@@ -433,7 +425,6 @@ class _LoginSignUpState extends State<LoginSignUp> {
         _otpXOffset = 0;
         _otpOpacity = 1;
 
-        _mpinWidth = windowWidth;
         _mpinYOffset = windowHeight;
         _mpinXOffset = 0;
 
