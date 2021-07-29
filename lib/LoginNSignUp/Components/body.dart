@@ -521,7 +521,7 @@ class _LoginSignUpState extends State<LoginSignUp> {
                     padding: EdgeInsets.all(20),
                     width: double.infinity,
                     decoration: BoxDecoration(
-                        color: Color(0xFFB40284A),
+                        color: Color(0xFFFDB2D4B), //Color(0xFFB40284A),
                         borderRadius: BorderRadius.circular(50)),
                     child: Center(
                       child: Text(

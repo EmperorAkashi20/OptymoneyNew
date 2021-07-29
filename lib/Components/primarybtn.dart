@@ -13,7 +13,7 @@ class _PrimaryButtonState extends State<PrimaryButton> {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-          color: Color(0xFFB40284A),
+          color: Color(0xFFFDB2D4B), //Color(0xFFB40284A),
           borderRadius: BorderRadius.circular(50)), //Color(0xFFB40284A)
       padding: EdgeInsets.all(20),
       child: Center(

@@ -59,8 +59,8 @@ class _BodyState extends State<Body> {
     );
     var dataBody = response.body;
     var jsonData = json.decode(dataBody);
-    print(body);
-    print(jsonData);
+    //print(body);
+    //print(jsonData);
     List<AllSchemeWithFilters> allSchemeWithFilterss = [];
 
     for (var sch in jsonData) {
@@ -259,7 +259,7 @@ class _BodyState extends State<Body> {
                                 Container(
                                   width: windowWidth * 0.34,
                                   decoration: BoxDecoration(
-                                    color: Colors.lightBlueAccent.shade100,
+                                    color: Colors.blue.shade700,
                                     borderRadius: BorderRadius.circular(5),
                                   ),
                                   child: Padding(

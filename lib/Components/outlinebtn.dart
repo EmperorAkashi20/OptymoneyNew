@@ -13,7 +13,8 @@ class _OutlineBtnState extends State<OutlineBtn> {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-          border: Border.all(color: Color(0xFFB40284A), width: 2),
+          border: Border.all(
+              width: 2, color: Color(0xFFFDB2D4B)), //Color(0xFFB40284A)),
           borderRadius: BorderRadius.circular(50)),
       padding: EdgeInsets.all(20),
       child: Center(

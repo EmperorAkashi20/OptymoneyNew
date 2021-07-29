@@ -427,10 +427,10 @@ class _BodyState extends State<Body> {
                       child: Align(
                         alignment: Alignment.bottomRight,
                         child: FloatingActionButton(
-                          backgroundColor: Colors.blue.shade700,
+                          backgroundColor: Color(0xFFFDB2D4B),
                           splashColor: Colors.blue.shade900,
                           elevation: 16,
-                          tooltip: 'Filters',
+                          //tooltip: 'Filters',
                           child: FaIcon(FontAwesomeIcons.filter),
                           onPressed: () {
                             setState(

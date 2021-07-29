@@ -274,7 +274,7 @@ class _SipCalcFromState extends State<SipCalcFrom> {
                     child: TextButton(
                       child: Text('Compute',
                           style: TextStyle(
-                              color: Colors.blue.shade700,
+                              color: Color(0xFFFDB2D4B),
                               fontSize: 20,
                               fontWeight: FontWeight.w500)),
                       onPressed: () {
@@ -313,12 +313,12 @@ class _SipCalcFromState extends State<SipCalcFrom> {
                       style: TextButton.styleFrom(
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(10.0),
-                          side: BorderSide(color: Colors.blue.shade700),
+                          side: BorderSide(color: Color(0xFFFDB2D4B)),
                         ),
                       ),
                       // shape: RoundedRectangleBorder(
                       //   borderRadius: BorderRadius.circular(10.0),
-                      //   side: BorderSide(color: Colors.blue.shade700),
+                      //   side: BorderSide(color: Color(0xFFFDB2D4B)),
                     ),
                   ),
                 ),
@@ -425,7 +425,7 @@ class _EmiCarLoanCalcFormState extends State<EmiCarLoanCalcForm> {
                     child: TextButton(
                       child: Text('Compute',
                           style: TextStyle(
-                              color: Colors.blue.shade700,
+                              color: Color(0xFFFDB2D4B),
                               fontSize: 20,
                               fontWeight: FontWeight.w500)),
                       onPressed: () {
@@ -445,12 +445,12 @@ class _EmiCarLoanCalcFormState extends State<EmiCarLoanCalcForm> {
                       style: TextButton.styleFrom(
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(10.0),
-                          side: BorderSide(color: Colors.blue.shade700),
+                          side: BorderSide(color: Color(0xFFFDB2D4B)),
                         ),
                       ),
                       // shape: RoundedRectangleBorder(
                       //   borderRadius: BorderRadius.circular(10.0),
-                      //   side: BorderSide(color: Colors.blue.shade700),
+                      //   side: BorderSide(color: Color(0xFFFDB2D4B)),
                       // ),
                     ),
                   ),
@@ -689,7 +689,7 @@ class _EmiHomeLoanCalcFormState extends State<EmiHomeLoanCalcForm> {
                     child: TextButton(
                       child: Text('Compute',
                           style: TextStyle(
-                              color: Colors.blue.shade700,
+                              color: Color(0xFFFDB2D4B),
                               fontSize: 20,
                               fontWeight: FontWeight.w500)),
                       onPressed: () {
@@ -709,7 +709,7 @@ class _EmiHomeLoanCalcFormState extends State<EmiHomeLoanCalcForm> {
                       style: TextButton.styleFrom(
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(10.0),
-                          side: BorderSide(color: Colors.blue.shade700),
+                          side: BorderSide(color: Color(0xFFFDB2D4B)),
                         ),
                       ),
                     ),
@@ -825,7 +825,7 @@ class _EmiPersonalLoanCalcFormState extends State<EmiPersonalLoanCalcForm> {
                     child: TextButton(
                       child: Text('Compute',
                           style: TextStyle(
-                              color: Colors.blue.shade700,
+                              color: Color(0xFFFDB2D4B),
                               fontSize: 20,
                               fontWeight: FontWeight.w500)),
                       onPressed: () {
@@ -845,7 +845,7 @@ class _EmiPersonalLoanCalcFormState extends State<EmiPersonalLoanCalcForm> {
                       style: TextButton.styleFrom(
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(10.0),
-                          side: BorderSide(color: Colors.blue.shade700),
+                          side: BorderSide(color: Color(0xFFFDB2D4B)),
                         ),
                       ),
                     ),
@@ -958,7 +958,7 @@ class _SwpCalcFormState extends State<SwpCalcForm> {
                     child: TextButton(
                       child: Text('Compute',
                           style: TextStyle(
-                              color: Colors.blue.shade700,
+                              color: Color(0xFFFDB2D4B),
                               fontSize: 20,
                               fontWeight: FontWeight.w500)),
                       onPressed: () {
@@ -967,7 +967,7 @@ class _SwpCalcFormState extends State<SwpCalcForm> {
                       style: TextButton.styleFrom(
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(10.0),
-                          side: BorderSide(color: Colors.blue.shade700),
+                          side: BorderSide(color: Color(0xFFFDB2D4B)),
                         ),
                       ),
                     ),
@@ -1145,7 +1145,7 @@ class _LumpSumCalcFromState extends State<LumpSumCalcFrom> {
                     child: TextButton(
                       child: Text('Compute',
                           style: TextStyle(
-                              color: Colors.blue.shade700,
+                              color: Color(0xFFFDB2D4B),
                               fontSize: 20,
                               fontWeight: FontWeight.w500)),
                       onPressed: () {
@@ -1174,7 +1174,7 @@ class _LumpSumCalcFromState extends State<LumpSumCalcFrom> {
                       style: TextButton.styleFrom(
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(10.0),
-                          side: BorderSide(color: Colors.blue.shade700),
+                          side: BorderSide(color: Color(0xFFFDB2D4B)),
                         ),
                       ),
                     ),
@@ -1340,7 +1340,7 @@ class _HraCalcFromState extends State<HraCalcFrom> {
                     child: TextButton(
                       child: Text('Compute',
                           style: TextStyle(
-                              color: Colors.blue.shade700,
+                              color: Color(0xFFFDB2D4B),
                               fontSize: 20,
                               fontWeight: FontWeight.w500)),
                       onPressed: () {
@@ -1375,7 +1375,7 @@ class _HraCalcFromState extends State<HraCalcFrom> {
                       style: TextButton.styleFrom(
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(10.0),
-                          side: BorderSide(color: Colors.blue.shade700),
+                          side: BorderSide(color: Color(0xFFFDB2D4B)),
                         ),
                       ),
                     ),
@@ -1544,7 +1544,7 @@ class _PpfCalcFromState extends State<PpfCalcFrom> {
                     child: TextButton(
                       child: Text('Compute',
                           style: TextStyle(
-                              color: Colors.blue.shade700,
+                              color: Color(0xFFFDB2D4B),
                               fontSize: 20,
                               fontWeight: FontWeight.w500)),
                       onPressed: () {
@@ -1574,7 +1574,7 @@ class _PpfCalcFromState extends State<PpfCalcFrom> {
                       style: TextButton.styleFrom(
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(10.0),
-                          side: BorderSide(color: Colors.blue.shade700),
+                          side: BorderSide(color: Color(0xFFFDB2D4B)),
                         ),
                       ),
                     ),
@@ -1727,7 +1727,7 @@ class _SipInstallmentCalcFormState extends State<SipInstallmentCalcForm> {
                     child: TextButton(
                       child: Text('Compute',
                           style: TextStyle(
-                              color: Colors.blue.shade700,
+                              color: Color(0xFFFDB2D4B),
                               fontSize: 20,
                               fontWeight: FontWeight.w500)),
                       onPressed: () {
@@ -1754,7 +1754,7 @@ class _SipInstallmentCalcFormState extends State<SipInstallmentCalcForm> {
                       style: TextButton.styleFrom(
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(10.0),
-                          side: BorderSide(color: Colors.blue.shade700),
+                          side: BorderSide(color: Color(0xFFFDB2D4B)),
                         ),
                       ),
                     ),
@@ -1978,7 +1978,7 @@ class _FixedDepositCalcFormState extends State<FixedDepositCalcForm> {
                     child: TextButton(
                       child: Text('Compute',
                           style: TextStyle(
-                              color: Colors.blue.shade700,
+                              color: Color(0xFFFDB2D4B),
                               fontSize: 20,
                               fontWeight: FontWeight.w500)),
                       onPressed: () {
@@ -2007,7 +2007,7 @@ class _FixedDepositCalcFormState extends State<FixedDepositCalcForm> {
                       style: TextButton.styleFrom(
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(10.0),
-                          side: BorderSide(color: Colors.blue.shade700),
+                          side: BorderSide(color: Color(0xFFFDB2D4B)),
                         ),
                       ),
                     ),
@@ -2181,7 +2181,7 @@ class _SukanyaSamriddhiCalcFormState extends State<SukanyaSamriddhiCalcForm> {
                     child: TextButton(
                       child: Text('Compute',
                           style: TextStyle(
-                              color: Colors.blue.shade700,
+                              color: Color(0xFFFDB2D4B),
                               fontSize: 20,
                               fontWeight: FontWeight.w500)),
                       onPressed: () {
@@ -2211,7 +2211,7 @@ class _SukanyaSamriddhiCalcFormState extends State<SukanyaSamriddhiCalcForm> {
                       style: TextButton.styleFrom(
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(10.0),
-                          side: BorderSide(color: Colors.blue.shade700),
+                          side: BorderSide(color: Color(0xFFFDB2D4B)),
                         ),
                       ),
                     ),
@@ -2338,7 +2338,7 @@ class _RecurringDepositCalcFormState extends State<RecurringDepositCalcForm> {
                     child: TextButton(
                       child: Text('Compute',
                           style: TextStyle(
-                              color: Colors.blue.shade700,
+                              color: Color(0xFFFDB2D4B),
                               fontSize: 20,
                               fontWeight: FontWeight.w500)),
                       onPressed: () {
@@ -2357,7 +2357,7 @@ class _RecurringDepositCalcFormState extends State<RecurringDepositCalcForm> {
                       style: TextButton.styleFrom(
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(10.0),
-                          side: BorderSide(color: Colors.blue.shade700),
+                          side: BorderSide(color: Color(0xFFFDB2D4B)),
                         ),
                       ),
                     ),
@@ -2478,7 +2478,7 @@ class _NpsCalcFormState extends State<NpsCalcForm> {
                     child: TextButton(
                       child: Text('Compute',
                           style: TextStyle(
-                              color: Colors.blue.shade700,
+                              color: Color(0xFFFDB2D4B),
                               fontSize: 20,
                               fontWeight: FontWeight.w500)),
                       onPressed: () {
@@ -2509,7 +2509,7 @@ class _NpsCalcFormState extends State<NpsCalcForm> {
                       style: TextButton.styleFrom(
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(10.0),
-                          side: BorderSide(color: Colors.blue.shade700),
+                          side: BorderSide(color: Color(0xFFFDB2D4B)),
                         ),
                       ),
                     ),
@@ -2583,7 +2583,7 @@ class _TaxCalculatorState extends State<TaxCalculator> {
                     style: TextStyle(
                       fontSize: 20,
                       fontWeight: FontWeight.w800,
-                      color: Colors.blue.shade700,
+                      color: Color(0xFFFDB2D4B),
                     ),
                   ),
                   Spacer(),
@@ -2593,7 +2593,7 @@ class _TaxCalculatorState extends State<TaxCalculator> {
             ),
             Divider(
               thickness: 0.2,
-              color: Colors.blue.shade700,
+              color: Color(0xFFFDB2D4B),
             ),
             TitleHeader(
               text: "**Investment limit under Sec 80C Rs.1,50,000",
@@ -2696,7 +2696,7 @@ class _TaxCalculatorState extends State<TaxCalculator> {
                   child: TextButton(
                     child: Text('Compute',
                         style: TextStyle(
-                            color: Colors.blue.shade700,
+                            color: Color(0xFFFDB2D4B),
                             fontSize: 20,
                             fontWeight: FontWeight.w500)),
                     onPressed: () {
@@ -2794,7 +2794,7 @@ class _TaxCalculatorState extends State<TaxCalculator> {
                     style: TextButton.styleFrom(
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(10.0),
-                        side: BorderSide(color: Colors.blue.shade700),
+                        side: BorderSide(color: Color(0xFFFDB2D4B)),
                       ),
                     ),
                   ),
@@ -2859,7 +2859,7 @@ class _OldVsNewTaxState extends State<OldVsNewTax> {
                     style: TextStyle(
                       fontSize: 20,
                       fontWeight: FontWeight.w800,
-                      color: Colors.blue.shade700,
+                      color: Color(0xFFFDB2D4B),
                     ),
                   ),
                   Spacer(),
@@ -2869,7 +2869,7 @@ class _OldVsNewTaxState extends State<OldVsNewTax> {
             ),
             Divider(
               thickness: 0.2,
-              color: Colors.blue.shade700,
+              color: Color(0xFFFDB2D4B),
             ),
             TitleHeaderWithRichText(
               text: "Salary Income",
@@ -2952,7 +2952,7 @@ class _OldVsNewTaxState extends State<OldVsNewTax> {
                   style: TextStyle(
                     fontSize: 20,
                     fontWeight: FontWeight.w800,
-                    color: Colors.blue.shade700,
+                    color: Color(0xFFFDB2D4B),
                   ),
                 ),
                 Spacer(),
@@ -2960,7 +2960,7 @@ class _OldVsNewTaxState extends State<OldVsNewTax> {
             ),
             Divider(
               thickness: 0.2,
-              color: Colors.blue.shade700,
+              color: Color(0xFFFDB2D4B),
             ),
             TitleHeaderWithRichText(
               text: "Rent Paid",
@@ -3005,7 +3005,7 @@ class _OldVsNewTaxState extends State<OldVsNewTax> {
                   style: TextStyle(
                     fontSize: 20,
                     fontWeight: FontWeight.w800,
-                    color: Colors.blue.shade700,
+                    color: Color(0xFFFDB2D4B),
                   ),
                 ),
                 Spacer(),
@@ -3013,7 +3013,7 @@ class _OldVsNewTaxState extends State<OldVsNewTax> {
             ),
             Divider(
               thickness: 0.2,
-              color: Colors.blue.shade700,
+              color: Color(0xFFFDB2D4B),
             ),
             TitleHeader(text: "Name*"),
             FormFieldGlobal(
@@ -3040,7 +3040,7 @@ class _OldVsNewTaxState extends State<OldVsNewTax> {
                   child: TextButton(
                     child: Text('Compute',
                         style: TextStyle(
-                            color: Colors.blue.shade700,
+                            color: Color(0xFFFDB2D4B),
                             fontSize: 20,
                             fontWeight: FontWeight.w500)),
                     onPressed: () {
@@ -3049,7 +3049,7 @@ class _OldVsNewTaxState extends State<OldVsNewTax> {
                     style: TextButton.styleFrom(
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(10.0),
-                        side: BorderSide(color: Colors.blue.shade700),
+                        side: BorderSide(color: Color(0xFFFDB2D4B)),
                       ),
                     ),
                   ),

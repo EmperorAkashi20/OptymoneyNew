@@ -392,7 +392,7 @@ class _BodyState extends State<Body> {
                       });
                       await makeLoginWithMpinRequest();
                       if (Body.message == 'LOGIN_SUCCESS') {
-                        await makeKycRequest();
+                        // await makeKycRequest();
                         Navigator.pushNamed(context, Dashboard.routeName);
                         await makeUserRequest();
                       } else if (Body.message == 'LOGIN_FAILED') {
