@@ -9,6 +9,7 @@ import 'package:optymoney/Onboarding/Onboarding.dart';
 import 'package:optymoney/Orders/Orders.dart';
 import 'package:optymoney/SupportTicket/SupportTicket.dart';
 import 'package:optymoney/ViewProfile/ViewProfile.dart';
+import 'package:optymoney/graphtest.dart';
 
 class Body extends StatefulWidget {
   const Body({Key? key}) : super(key: key);
@@ -356,7 +357,9 @@ class _BodyState extends State<Body> {
                 child: Align(
                   alignment: Alignment.centerLeft,
                   child: TextButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.pushNamed(context, GraphTest.routeName);
+                    },
                     child: Text('Knowledge & FAQ'),
                   ),
                 ),

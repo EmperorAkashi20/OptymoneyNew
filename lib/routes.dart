@@ -19,6 +19,7 @@ import 'package:optymoney/PinSetupLogin/PinSetupLogin.dart';
 import 'package:optymoney/Settings/Settings.dart';
 import 'package:optymoney/SupportTicket/SupportTicket.dart';
 import 'package:optymoney/ViewProfile/ViewProfile.dart';
+import 'package:optymoney/graphtest.dart';
 
 // We use name route
 // All our routes will be available here
@@ -43,4 +44,5 @@ final Map<String, WidgetBuilder> routes = {
   SupportTicket.routeName: (context) => SupportTicket(),
   DetailsPageFilters.routeName: (context) => DetailsPageFilters(),
   Onboarding.routeName: (context) => Onboarding(),
+  GraphTest.routeName: (context) => GraphTest(),
 };
