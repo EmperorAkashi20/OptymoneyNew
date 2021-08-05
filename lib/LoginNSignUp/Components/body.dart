@@ -628,7 +628,12 @@ class _LoginSignUpState extends State<LoginSignUp> {
                                 LoginSignUp.mpinStatus == '1') {
                               await makeKycRequest();
                               await MyApp.prefs.setString('pinSet', 'Yes');
-                              Navigator.pushNamed(context, Dashboard.routeName);
+                              Navigator.of(context).pushReplacement(
+                                MaterialPageRoute(
+                                  builder: (BuildContext context) =>
+                                      Dashboard(),
+                                ),
+                              );
                               await makeUserRequest();
                             } else {
                               Navigator.pushNamed(
@@ -923,7 +928,11 @@ class _LoginSignUpState extends State<LoginSignUp> {
                     });
                     await setMpinRequestRequest();
                     if (LoginSignUp.mpinResponse == '1') {
-                      Navigator.pushNamed(context, Dashboard.routeName);
+                      Navigator.of(context).pushReplacement(
+                        MaterialPageRoute(
+                          builder: (BuildContext context) => Dashboard(),
+                        ),
+                      );
                     } else {
                       _showSnackBar(
                           'Oops, something went wrong. Please try later');

@@ -11,6 +11,8 @@ import 'package:optymoney/Investments/Components/AmcFilters.dart';
 import 'package:optymoney/Investments/Components/CategoriesDisplay.dart';
 import 'package:optymoney/Investments/investments.dart';
 
+import '../../Models.dart';
+
 class Body extends StatefulWidget {
   static var offerId = 32;
   static var encoded;
@@ -60,12 +62,12 @@ class _BodyState extends State<Body> {
   String _currentItemSelected = 'Best Performing Mutual Funds';
 
   Future<List<GetIndiScheme>> getScheme() async {
-    var url = Uri.parse('https://optymoney.com/__lib.ajax/ajax_response.php');
-    final headers = {'Content-Type': 'application/x-www-form-urlencoded'};
-    Map<String, dynamic> body = {
-      'filter_offer_search_app': 'yes',
-      'offer_id': Body.offerId.toString(),
-    };
+    var url = Uri.parse(
+        '${urlWeb}__lib.ajax/ajax_response.php?action=offer_select&subaction=submit');
+    final headers = {'Content-Type': 'application/json'};
+    var body = jsonEncode({
+      'offer_id': Body.offerId,
+    });
     final encoding = Encoding.getByName('utf-8');
 
     Response response = await post(
@@ -77,6 +79,8 @@ class _BodyState extends State<Body> {
 
     var schemeBody = response.body;
     var jsonData = json.decode(schemeBody);
+
+    //print(jsonData);
 
     List<GetIndiScheme> getIndiSchemes = [];
     for (var sch in jsonData) {

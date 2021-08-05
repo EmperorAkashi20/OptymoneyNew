@@ -7,6 +7,8 @@ import 'package:optymoney/Investments/Components/AmcFilters.dart';
 import 'package:optymoney/Investments/Components/CategoriesDisplay.dart';
 import 'package:optymoney/Investments/Components/DetailsPage.dart';
 
+import '../../Models.dart';
+
 class Body extends StatefulWidget {
   static var test;
   static var encoded;
@@ -43,13 +45,12 @@ class _BodyState extends State<Body> {
     print(AmcFilters.selecteCategorys);
     print(CategoriesDisplay.selectedCategories);
     var url = Uri.parse(
-        'https://test.optymoney.com/__lib.ajax/ajax_response.php?action=filter_offer_search_app_test1');
+        '${urlWeb}__lib.ajax/ajax_response.php?action=amc_cat_selection');
     final headers = {'Content-Type': 'application/json'};
 
     var body = jsonEncode({
       "amc_code": AmcFilters.selecteCategorys,
       "schm_type": CategoriesDisplay.selectedCategories,
-      "Offer_id": '',
     });
 
     Response response = await post(
@@ -60,7 +61,9 @@ class _BodyState extends State<Body> {
     var dataBody = response.body;
     var jsonData = json.decode(dataBody);
     //print(body);
-    //print(jsonData);
+    print(url);
+    print(jsonData);
+    print(body);
     List<AllSchemeWithFilters> allSchemeWithFilterss = [];
 
     for (var sch in jsonData) {
