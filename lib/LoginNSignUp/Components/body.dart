@@ -708,129 +708,137 @@ class _LoginSignUpState extends State<LoginSignUp> {
               topRight: Radius.circular(25),
             ),
           ),
-          child: Column(
-            //mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Container(
-                margin: EdgeInsets.only(bottom: 20),
-                child: Text(
-                  'Create a new account',
-                  style: TextStyle(fontSize: 20),
-                ),
-              ),
-              InputWithIcon(
-                icon: Icons.person,
-                hint: "Name",
-                obscureText: false,
-                dataController: _nameControllerSignUp,
-                keyboardTypeGlobal: TextInputType.name,
-              ),
-              SizedBox(height: 5),
-              InputWithIcon(
-                icon: Icons.person,
-                hint: "Email Id",
-                obscureText: false,
-                dataController: _emailControllerSignUp,
-                keyboardTypeGlobal: TextInputType.emailAddress,
-              ),
-              SizedBox(height: 5),
-              InputWithIcon(
-                icon: Icons.phone,
-                hint: "Mobile Number",
-                obscureText: false,
-                dataController: _phoneControllerSignUp,
-                keyboardTypeGlobal: TextInputType.number,
-              ),
-              SizedBox(height: 5),
-              InputWithIcon(
-                icon: Icons.vpn_key,
-                hint: "Password",
-                obscureText: true,
-                dataController: _passControllerSignUp,
-              ),
-              SizedBox(height: 5),
-              InputWithIcon(
-                icon: Icons.vpn_key,
-                hint: "Password",
-                obscureText: true,
-                dataController: _rePassControllerSignUp,
-              ),
-              SizedBox(height: 20),
-              GestureDetector(
-                onTap: () async {
-                  if (_nameControllerSignUp.text.isEmpty &&
-                      _emailControllerSignUp.text.isEmpty &&
-                      _phoneControllerSignUp.text.isEmpty &&
-                      _passControllerSignUp.text.isEmpty &&
-                      _passwordControllerSignIn.text.isEmpty) {
-                    _showSnackBar('Field Cannot be empty');
-                  } else if (_nameControllerSignUp.text.isEmpty) {
-                    _showSnackBar('Enter Your Name');
-                  } else if (_emailControllerSignUp.text.isEmpty) {
-                    _showSnackBar('Enter your Email');
-                  } else if (_phoneControllerSignUp.text.isEmpty) {
-                    _showSnackBar('Enter your phone number');
-                  } else if (_phoneControllerSignUp.text.length < 10 ||
-                      _phoneControllerSignUp.text.length > 10) {
-                    _showSnackBar(
-                        "Mobile number should be 10 digits long. Don't include country code");
-                  } else if (_passControllerSignUp.text.isEmpty) {
-                    _showSnackBar('Password cannot be empty');
-                  } else if (_rePassControllerSignUp.text.isEmpty) {
-                    _showSnackBar('Re-Enter your password');
-                  } else if (_passControllerSignUp.text.length < 8) {
-                    _showSnackBar(
-                        'Password length should be greater than 7 characters');
-                  } else if (_passControllerSignUp.text.toString() !=
-                      _rePassControllerSignUp.text.toString()) {
-                    _showSnackBar('Passwords do not match. Please check');
-                  } else {
-                    LoginSignUp.email = _emailControllerSignUp.text.toString();
-                    LoginSignUp.password =
-                        _passControllerSignUp.text.toString();
-                    LoginSignUp.rePass =
-                        _rePassControllerSignUp.text.toString();
-                    bool emailValid = RegExp(
-                            r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
-                        .hasMatch(LoginSignUp.email!);
-                    LoginSignUp.name = _nameControllerSignUp.text.toString();
-                    LoginSignUp.phoneNo =
-                        _phoneControllerSignUp.text.toString();
-                    if (emailValid == true) {
-                      await sendOtpRequest();
-                      print(LoginSignUp.otpStatus);
-                      if (LoginSignUp.otpStatus == '1') {
-                        LoginSignUp.globalName = LoginSignUp.name.toString();
-                        LoginSignUp.globalEmail = LoginSignUp.email.toString();
-                        LoginSignUp.globalLetter =
-                            LoginSignUp.name[0].toString().toUpperCase();
+          child: Scaffold(
+            body: SingleChildScrollView(
+              child: Column(
+                //mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Container(
+                    margin: EdgeInsets.only(bottom: 20),
+                    child: Text(
+                      'Create a new account',
+                      style: TextStyle(fontSize: 20),
+                    ),
+                  ),
+                  InputWithIcon(
+                    icon: Icons.person,
+                    hint: "Name",
+                    obscureText: false,
+                    dataController: _nameControllerSignUp,
+                    keyboardTypeGlobal: TextInputType.name,
+                  ),
+                  SizedBox(height: 5),
+                  InputWithIcon(
+                    icon: Icons.person,
+                    hint: "Email Id",
+                    obscureText: false,
+                    dataController: _emailControllerSignUp,
+                    keyboardTypeGlobal: TextInputType.emailAddress,
+                  ),
+                  SizedBox(height: 5),
+                  InputWithIcon(
+                    icon: Icons.phone,
+                    hint: "Mobile Number",
+                    obscureText: false,
+                    dataController: _phoneControllerSignUp,
+                    keyboardTypeGlobal: TextInputType.number,
+                  ),
+                  SizedBox(height: 5),
+                  InputWithIcon(
+                    icon: Icons.vpn_key,
+                    hint: "Password",
+                    obscureText: true,
+                    dataController: _passControllerSignUp,
+                  ),
+                  SizedBox(height: 5),
+                  InputWithIcon(
+                    icon: Icons.vpn_key,
+                    hint: "Password",
+                    obscureText: true,
+                    dataController: _rePassControllerSignUp,
+                  ),
+                  SizedBox(height: 20),
+                  GestureDetector(
+                    onTap: () async {
+                      if (_nameControllerSignUp.text.isEmpty &&
+                          _emailControllerSignUp.text.isEmpty &&
+                          _phoneControllerSignUp.text.isEmpty &&
+                          _passControllerSignUp.text.isEmpty &&
+                          _passwordControllerSignIn.text.isEmpty) {
+                        _showSnackBar('Field Cannot be empty');
+                      } else if (_nameControllerSignUp.text.isEmpty) {
+                        _showSnackBar('Enter Your Name');
+                      } else if (_emailControllerSignUp.text.isEmpty) {
+                        _showSnackBar('Enter your Email');
+                      } else if (_phoneControllerSignUp.text.isEmpty) {
+                        _showSnackBar('Enter your phone number');
+                      } else if (_phoneControllerSignUp.text.length < 10 ||
+                          _phoneControllerSignUp.text.length > 10) {
                         _showSnackBar(
-                            LoginSignUp.otpMessage + "Valid for next 15 mins");
-                        setState(() {
-                          _pageState = 3;
-                        });
+                            "Mobile number should be 10 digits long. Don't include country code");
+                      } else if (_passControllerSignUp.text.isEmpty) {
+                        _showSnackBar('Password cannot be empty');
+                      } else if (_rePassControllerSignUp.text.isEmpty) {
+                        _showSnackBar('Re-Enter your password');
+                      } else if (_passControllerSignUp.text.length < 8) {
+                        _showSnackBar(
+                            'Password length should be greater than 7 characters');
+                      } else if (_passControllerSignUp.text.toString() !=
+                          _rePassControllerSignUp.text.toString()) {
+                        _showSnackBar('Passwords do not match. Please check');
                       } else {
-                        _showSnackBar(LoginSignUp.otpMessage);
+                        LoginSignUp.email =
+                            _emailControllerSignUp.text.toString();
+                        LoginSignUp.password =
+                            _passControllerSignUp.text.toString();
+                        LoginSignUp.rePass =
+                            _rePassControllerSignUp.text.toString();
+                        bool emailValid = RegExp(
+                                r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
+                            .hasMatch(LoginSignUp.email!);
+                        LoginSignUp.name =
+                            _nameControllerSignUp.text.toString();
+                        LoginSignUp.phoneNo =
+                            _phoneControllerSignUp.text.toString();
+                        if (emailValid == true) {
+                          await sendOtpRequest();
+                          print(LoginSignUp.otpStatus);
+                          if (LoginSignUp.otpStatus == '1') {
+                            LoginSignUp.globalName =
+                                LoginSignUp.name.toString();
+                            LoginSignUp.globalEmail =
+                                LoginSignUp.email.toString();
+                            LoginSignUp.globalLetter =
+                                LoginSignUp.name[0].toString().toUpperCase();
+                            _showSnackBar(LoginSignUp.otpMessage +
+                                "Valid for next 15 mins");
+                            setState(() {
+                              _pageState = 3;
+                            });
+                          } else {
+                            _showSnackBar(LoginSignUp.otpMessage);
+                          }
+                        } else {
+                          _showSnackBar('Please enter a valid email');
+                        }
                       }
-                    } else {
-                      _showSnackBar('Please enter a valid email');
-                    }
-                  }
-                },
-                child: PrimaryButton(btnText: 'Continue'),
+                    },
+                    child: PrimaryButton(btnText: 'Continue'),
+                  ),
+                  SizedBox(
+                    height: 4,
+                  ),
+                  GestureDetector(
+                    onTap: () {
+                      setState(() {
+                        _pageState = 1;
+                      });
+                    },
+                    child: OutlineBtn(btnText: 'Back to Login'),
+                  ),
+                ],
               ),
-              SizedBox(
-                height: 4,
-              ),
-              GestureDetector(
-                onTap: () {
-                  setState(() {
-                    _pageState = 1;
-                  });
-                },
-                child: OutlineBtn(btnText: 'Back to Login'),
-              ),
-            ],
+            ),
           ),
         ),
         AnimatedContainer(
