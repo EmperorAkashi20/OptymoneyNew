@@ -407,6 +407,8 @@ class _BodyState extends State<Body> {
                               builder: (BuildContext context) => Dashboard(),
                             ),
                           );
+                          _showSnackBar(
+                              'The KYC servers are currently facing some issues, please be patient.');
                         } else if (LoginSignUp.kycStatus.toString() ==
                             'success') {
                           Navigator.of(context).pushReplacement(
