@@ -65,10 +65,17 @@ makeKycRequest() async {
     body: body,
     encoding: encoding,
   );
-  var parsedJson = json.decode(response.body);
+  var parsedJson;
+  if (response.body.isNotEmpty) {
+    parsedJson = json.decode(response.body);
+    LoginSignUp.kycStatus = parsedJson['status'].toString();
+  } else {
+    print('object');
+  }
   //print(response.body);
-  LoginSignUp.kycStatus = parsedJson['status'].toString();
   //print(LoginSignUp.kycStatus);
+  print(response.statusCode);
+  LoginSignUp.kycStatusCode = response.statusCode;
 }
 
 makeUserRequest() async {
@@ -394,6 +401,20 @@ class _BodyState extends State<Body> {
                       if (Body.message == 'LOGIN_SUCCESS') {
                         await makeKycRequest();
                         //Navigator.pushNamed(context, Dashboard.routeName);
+                        if (LoginSignUp.kycStatusCode == 500) {
+                          Navigator.of(context).pushReplacement(
+                            MaterialPageRoute(
+                              builder: (BuildContext context) => Dashboard(),
+                            ),
+                          );
+                        } else if (LoginSignUp.kycStatus.toString() ==
+                            'success') {
+                          Navigator.of(context).pushReplacement(
+                            MaterialPageRoute(
+                              builder: (BuildContext context) => Dashboard(),
+                            ),
+                          );
+                        }
                         Navigator.of(context).pushReplacement(
                           MaterialPageRoute(
                             builder: (BuildContext context) => Dashboard(),

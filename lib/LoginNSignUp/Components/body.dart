@@ -98,9 +98,17 @@ makeKycRequest() async {
     body: body,
     encoding: encoding,
   );
-  var parsedJson = json.decode(response.body);
+  var parsedJson;
+  if (response.body.isNotEmpty) {
+    parsedJson = json.decode(response.body);
+    LoginSignUp.kycStatus = parsedJson['status'].toString();
+  } else {
+    print('object');
+  }
   //print(response.body);
-  LoginSignUp.kycStatus = parsedJson['status'].toString();
+  print(response.statusCode);
+  LoginSignUp.kycStatusCode = response.statusCode;
+
   //print(LoginSignUp.kycStatus);
 }
 
@@ -255,6 +263,8 @@ class LoginSignUp extends StatefulWidget {
   static var registerMessage;
   static var mpin;
   static var mpinResponse;
+  static var kycStatusCode;
+  static var kycBody;
 
   @override
   _LoginSignUpState createState() => _LoginSignUpState();
@@ -627,6 +637,22 @@ class _LoginSignUpState extends State<LoginSignUp> {
                             if (LoginSignUp.mpinMessage == 'MPIN_SET' &&
                                 LoginSignUp.mpinStatus == '1') {
                               await makeKycRequest();
+                              if (LoginSignUp.kycStatusCode == 500) {
+                                Navigator.of(context).pushReplacement(
+                                  MaterialPageRoute(
+                                    builder: (BuildContext context) =>
+                                        Dashboard(),
+                                  ),
+                                );
+                              } else if (LoginSignUp.kycStatus.toString() ==
+                                  'success') {
+                                Navigator.of(context).pushReplacement(
+                                  MaterialPageRoute(
+                                    builder: (BuildContext context) =>
+                                        Dashboard(),
+                                  ),
+                                );
+                              }
                               await MyApp.prefs.setString('pinSet', 'Yes');
                               Navigator.of(context).pushReplacement(
                                 MaterialPageRoute(
