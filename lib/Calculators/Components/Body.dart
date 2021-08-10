@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:optymoney/Calculators/Components/CalculatorLogics.dart';
+import 'package:optymoney/Calculators/Components/LifeGoalsSchemes.dart';
 
 class Body extends StatefulWidget {
+  static var offerId;
   const Body({Key? key}) : super(key: key);
 
   @override
@@ -72,56 +74,104 @@ class _BodyState extends State<Body> {
                           windowWidth: windowWidth,
                           title: 'Retire Rich',
                           image: 'assets/images/retire.png',
-                          press: () {},
+                          press: () {
+                            setState(() {
+                              Body.offerId = 32;
+                            });
+                            Navigator.pushNamed(
+                                context, LifeGoalsSchemes.routeName);
+                          },
                         ),
                         LifeGoalsCard(
                           windowHeight: windowHeight,
                           windowWidth: windowWidth,
                           title: 'Own A Car',
                           image: 'assets/images/car.png',
-                          press: () {},
+                          press: () {
+                            setState(() {
+                              Body.offerId = 33;
+                            });
+                            Navigator.pushNamed(
+                                context, LifeGoalsSchemes.routeName);
+                          },
                         ),
                         LifeGoalsCard(
                           windowHeight: windowHeight,
                           windowWidth: windowWidth,
                           title: 'Buy Your House',
                           image: 'assets/images/house.png',
-                          press: () {},
+                          press: () {
+                            setState(() {
+                              Body.offerId = 34;
+                            });
+                            Navigator.pushNamed(
+                                context, LifeGoalsSchemes.routeName);
+                          },
                         ),
                         LifeGoalsCard(
                           windowHeight: windowHeight,
                           windowWidth: windowWidth,
                           title: 'Higher Education',
                           image: 'assets/images/education.png',
-                          press: () {},
+                          press: () {
+                            setState(() {
+                              Body.offerId = 35;
+                            });
+                            Navigator.pushNamed(
+                                context, LifeGoalsSchemes.routeName);
+                          },
                         ),
                         LifeGoalsCard(
                           windowHeight: windowHeight,
                           windowWidth: windowWidth,
                           title: 'Grand Wedding',
                           image: 'assets/images/wedding.png',
-                          press: () {},
+                          press: () {
+                            setState(() {
+                              Body.offerId = 36;
+                            });
+                            Navigator.pushNamed(
+                                context, LifeGoalsSchemes.routeName);
+                          },
                         ),
                         LifeGoalsCard(
                           windowHeight: windowHeight,
                           windowWidth: windowWidth,
                           title: 'Plan A Vacation',
                           image: 'assets/images/vacation.png',
-                          press: () {},
+                          press: () {
+                            setState(() {
+                              Body.offerId = 37;
+                            });
+                            Navigator.pushNamed(
+                                context, LifeGoalsSchemes.routeName);
+                          },
                         ),
                         LifeGoalsCard(
                           windowHeight: windowHeight,
                           windowWidth: windowWidth,
                           title: 'Emergency Fund',
                           image: 'assets/images/emergencyfund.png',
-                          press: () {},
+                          press: () {
+                            setState(() {
+                              Body.offerId = 38;
+                            });
+                            Navigator.pushNamed(
+                                context, LifeGoalsSchemes.routeName);
+                          },
                         ),
                         LifeGoalsCard(
                           windowHeight: windowHeight,
                           windowWidth: windowWidth,
                           title: 'Unique Goal',
                           image: 'assets/images/uniquegoal.png',
-                          press: () {},
+                          press: () {
+                            setState(() {
+                              Body.offerId = 39;
+                            });
+                            Navigator.pushNamed(
+                                context, LifeGoalsSchemes.routeName);
+                          },
                         ),
                       ],
                     ),
@@ -374,7 +424,9 @@ class LifeGoalsCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => press as void Function(),
+      onTap: () {
+        press();
+      },
       child: Padding(
         padding: const EdgeInsets.only(right: 0.0),
         child: Card(

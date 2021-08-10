@@ -27,6 +27,8 @@ makeRedeemRequest() async {
   //String jsonBody = json.encode(body);
   final encoding = Encoding.getByName('utf-8');
 
+  print(body);
+
   Response response = await post(
     url,
     headers: headers,
