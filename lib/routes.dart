@@ -18,6 +18,7 @@ import 'package:optymoney/LoginWithMpin/LoginWithMPin.dart';
 import 'package:optymoney/Onboarding/Onboarding.dart';
 import 'package:optymoney/Orders/Orders.dart';
 import 'package:optymoney/PinSetupLogin/PinSetupLogin.dart';
+import 'package:optymoney/Settings/Components/PrivacyPolicy.dart';
 import 'package:optymoney/Settings/Settings.dart';
 import 'package:optymoney/SupportTicket/SupportTicket.dart';
 import 'package:optymoney/ViewProfile/ViewProfile.dart';
@@ -49,4 +50,5 @@ final Map<String, WidgetBuilder> routes = {
   GraphTest.routeName: (context) => GraphTest(),
   LifeGoalsSchemes.routeName: (context) => LifeGoalsSchemes(),
   SingleProductDetailsPage1.routeName: (context) => SingleProductDetailsPage1(),
+  PrivacyPolicy.routeName: (context) => PrivacyPolicy(),
 };

@@ -162,6 +162,9 @@ class _LifeGoalsSchemesState extends State<LifeGoalsSchemes> {
                 'Meet your life goals',
                 style: TextStyle(color: Colors.black, fontSize: 20),
               ),
+              CloseButton(
+                color: Colors.black,
+              ),
             ],
           ),
         ),
