@@ -104,7 +104,8 @@ Future<http.StreamedResponse> makeItrRequest() async {
   var res = await request.send();
   var response = await res.stream.bytesToString();
   var parsedJson = jsonDecode(response);
-  print(parsedJson['msg']);
+  Body.status = parsedJson['status'];
+  //print(parsedJson['msg']);
   Body.message = parsedJson['msg'];
   return res;
 }
@@ -116,6 +117,7 @@ class Body extends StatefulWidget {
   static var itrfiledcopy;
   static var addeassest;
   static var message;
+  static var status;
 
   static var bank;
   static var accno1;
@@ -669,7 +671,10 @@ class _BodyState extends State<Body> {
                     Body.accno1 = accno.text.toString();
                     await makeItrRequest();
                     // Navigator.pushNamed(context, FileDisplay.routeName);
-                    _showSnackBar(Body.message);
+                    if (Body.status.toString() == '1') {
+                      _showSnackBar(
+                          'We have received your request. Our team will get in touch with you within 48 hours. Thank you.');
+                    }
                   },
                   child: OutlineBtn(btnText: "Proceed"),
                 ),
@@ -692,6 +697,7 @@ class _BodyState extends State<Body> {
           child: Text(
             text,
             style: const TextStyle(fontSize: 15.0, color: Colors.black),
+            textAlign: TextAlign.center,
           ),
         ),
       ),

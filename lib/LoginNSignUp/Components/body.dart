@@ -228,6 +228,32 @@ setMpinRequestRequest() async {
   LoginSignUp.mpinResponse = responseBody.toString();
 }
 
+sendResetPasswordRequest() async {
+  var url = Uri.parse(
+      'https://optymoney.com/ajax-request/ajax_response.php?action=doResetPasswordApp&subaction=submit');
+  final headers = {'Content-Type': 'application/x-www-form-urlencoded'};
+  Map<String, dynamic> body = {
+    'reset_email': MyApp.email,
+  };
+  //String jsonBody = json.encode(body);
+  final encoding = Encoding.getByName('utf-8');
+
+  Response response = await post(
+    url,
+    headers: headers,
+    body: body,
+    encoding: encoding,
+  );
+
+  var responseBody = response.body;
+  var jsonData = responseBody;
+  var parsedJson = json.decode(jsonData);
+
+  LoginSignUp.resetPassStatus = parsedJson['status'];
+  LoginSignUp.resetPassMessage = parsedJson['message'];
+  LoginSignUp.resetPassCode = parsedJson['resetcode'];
+}
+
 class LoginSignUp extends StatefulWidget {
   static String? email;
   static String? password;
@@ -265,6 +291,9 @@ class LoginSignUp extends StatefulWidget {
   static var mpinResponse;
   static var kycStatusCode;
   static var kycBody;
+  static var resetPassStatus;
+  static var resetPassMessage;
+  static var resetPassCode;
 
   @override
   _LoginSignUpState createState() => _LoginSignUpState();
@@ -589,6 +618,19 @@ class _LoginSignUpState extends State<LoginSignUp> {
                         dataController: _passwordControllerSignIn,
                         obscureText: true,
                         keyboardTypeGlobal: TextInputType.text,
+                      ),
+                      Align(
+                        alignment: Alignment.centerRight,
+                        child: TextButton(
+                          onPressed: () async {
+                            sendResetPasswordRequest();
+                            if (LoginSignUp.resetPassStatus.toString() == '1') {
+                              _showSnackBar(
+                                  'Check your registered email for further instructions');
+                            }
+                          },
+                          child: Text('Forgot Password?'),
+                        ),
                       ),
                       SizedBox(
                         height: 20,

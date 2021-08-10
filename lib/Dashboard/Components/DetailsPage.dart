@@ -8,9 +8,47 @@ import 'package:optymoney/Components/inputwithicon.dart';
 import 'package:optymoney/Components/outlinebtn.dart';
 import 'package:optymoney/Components/primarybtn.dart';
 import 'package:optymoney/Dashboard/Components/DashboardData.dart';
+import 'package:optymoney/LoginNSignUp/Components/body.dart';
+
+makeRedeemRequest() async {
+  var url = Uri.parse(
+      'https://optymoney.com/__lib.ajax/mutual_fund.php?action=p_to_redeem_api&subaction=submit');
+  final headers = {'Content-Type': 'application/json'};
+  var body = jsonEncode({
+    "status": 2,
+    "uid": LoginSignUp.globalUserId,
+    "redeem_amt": DetailsPage.amount,
+    "redeem_folio": DashboardData.folioNo,
+    "redeem_scheme_id": DashboardData.schemeCode,
+    "redeem_order_id": "",
+    "redeem_all_amount": "",
+    "exampleradios": "option1",
+  });
+  //String jsonBody = json.encode(body);
+  final encoding = Encoding.getByName('utf-8');
+
+  Response response = await post(
+    url,
+    headers: headers,
+    body: body,
+    encoding: encoding,
+  );
+
+  var responseBody = response.body;
+  //print(responseBody);
+  var jsonData = responseBody;
+
+  var parsedJson = json.decode(jsonData);
+  print(parsedJson);
+  DetailsPage.orderId = parsedJson['order_id'];
+  DetailsPage.status = parsedJson['status'];
+}
 
 class DetailsPage extends StatefulWidget {
   static String routeName = '/DetailsPage';
+  static var amount;
+  static var orderId;
+  static var status;
   const DetailsPage({
     Key? key,
   }) : super(key: key);
@@ -20,6 +58,9 @@ class DetailsPage extends StatefulWidget {
 }
 
 class _DetailsPageState extends State<DetailsPage> {
+  TextEditingController amountController = new TextEditingController(
+    text: DashboardData.currentValue.toString(),
+  );
   Future<List<ChartData>> _getChartData() async {
     var url = Uri.parse('https://optymoney.com/__lib.ajax/ajax_response.php');
     final headers = {'Content-Type': 'application/x-www-form-urlencoded'};
@@ -486,15 +527,36 @@ class _DetailsPageState extends State<DetailsPage> {
                                                                   '(MAX)',
                                                               obscureText:
                                                                   false,
+                                                              dataController:
+                                                                  amountController,
                                                             ),
                                                             SizedBox(
                                                               height:
                                                                   windowHeight *
                                                                       0.03,
                                                             ),
-                                                            PrimaryButton(
-                                                                btnText:
-                                                                    'Redeem'),
+                                                            GestureDetector(
+                                                              onTap: () async {
+                                                                DetailsPage
+                                                                        .amount =
+                                                                    amountController
+                                                                        .text
+                                                                        .toString();
+                                                                await makeRedeemRequest();
+                                                                setState(() {
+                                                                  _showSnackBar(DetailsPage
+                                                                          .status
+                                                                          .toString() +
+                                                                      ' : ' +
+                                                                      DetailsPage
+                                                                          .orderId
+                                                                          .toString());
+                                                                });
+                                                              },
+                                                              child: PrimaryButton(
+                                                                  btnText:
+                                                                      'Redeem'),
+                                                            ),
                                                           ],
                                                         ),
                                                       ),
@@ -559,6 +621,27 @@ class _DetailsPageState extends State<DetailsPage> {
         ),
       ),
     );
+  }
+
+  void _showSnackBar(String text) {
+    final snackBar = SnackBar(
+      duration: const Duration(seconds: 3),
+      content: Container(
+        height: 40.0,
+        color: Colors.transparent,
+        child: Center(
+          child: Text(
+            text,
+            style: const TextStyle(fontSize: 15.0, color: Colors.black),
+            textAlign: TextAlign.center,
+          ),
+        ),
+      ),
+      backgroundColor: Colors.white,
+    );
+    ScaffoldMessenger.of(context)
+      ..hideCurrentSnackBar()
+      ..showSnackBar(snackBar);
   }
 }
 
