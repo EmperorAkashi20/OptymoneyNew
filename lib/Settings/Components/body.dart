@@ -8,10 +8,10 @@ import 'package:optymoney/Feedback/Feedback.dart';
 import 'package:optymoney/LoginNSignUp/Components/body.dart';
 import 'package:optymoney/Onboarding/Onboarding.dart';
 import 'package:optymoney/Orders/Orders.dart';
-import 'package:optymoney/Settings/Components/TermsOfService.dart';
 import 'package:optymoney/SupportTicket/SupportTicket.dart';
 import 'package:optymoney/ViewProfile/ViewProfile.dart';
 import 'package:optymoney/graphtest.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class Body extends StatefulWidget {
   const Body({Key? key}) : super(key: key);
@@ -360,18 +360,6 @@ class _BodyState extends State<Body> {
                   alignment: Alignment.centerLeft,
                   child: TextButton(
                     onPressed: () {
-                      Navigator.pushNamed(context, GraphTest.routeName);
-                    },
-                    child: Text('Knowledge & FAQ'),
-                  ),
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                child: Align(
-                  alignment: Alignment.centerLeft,
-                  child: TextButton(
-                    onPressed: () {
                       Navigator.pushNamed(context, ExpertAssistance.routeName);
                     },
                     child: Text('Contact an Expert'),
@@ -383,8 +371,26 @@ class _BodyState extends State<Body> {
                 child: Align(
                   alignment: Alignment.centerLeft,
                   child: TextButton(
-                    onPressed: () {
-                      Navigator.pushNamed(context, TermsOfService.routeName);
+                    onPressed: () async {
+                      const _url = 'https://optymoney.com/faq.html';
+                      await canLaunch(_url)
+                          ? await launch(_url)
+                          : throw 'Could not launch $_url';
+                    },
+                    child: Text('Knowledge & FAQ'),
+                  ),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                child: Align(
+                  alignment: Alignment.centerLeft,
+                  child: TextButton(
+                    onPressed: () async {
+                      const _url = 'https://optymoney.com/termsofuse.html';
+                      await canLaunch(_url)
+                          ? await launch(_url)
+                          : throw 'Could not launch $_url';
                     },
                     child: Text('Terms and Conditions'),
                   ),
@@ -395,7 +401,12 @@ class _BodyState extends State<Body> {
                 child: Align(
                   alignment: Alignment.centerLeft,
                   child: TextButton(
-                    onPressed: () {},
+                    onPressed: () async {
+                      const _url = 'https://optymoney.com/privacypolicy.html';
+                      await canLaunch(_url)
+                          ? await launch(_url)
+                          : throw 'Could not launch $_url';
+                    },
                     child: Text('Privacy Policy'),
                   ),
                 ),

@@ -6,8 +6,10 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:http/http.dart';
 import 'package:loading_animations/loading_animations.dart';
 import 'package:number_slide_animation/number_slide_animation.dart';
+import 'package:optymoney/CompleteProfile/CompleteProfile.dart';
 import 'package:optymoney/Dashboard/Components/DetailsPage.dart';
 import 'package:optymoney/LoginNSignUp/Components/body.dart';
+import 'package:optymoney/Onboarding/Onboarding.dart';
 
 class DashboardData extends StatefulWidget {
   static var purPrice;
@@ -163,15 +165,30 @@ class _DashboardDataState extends State<DashboardData> {
             } else if (snapshot.data.length == 0) {
               if (LoginSignUp.globalPan.toString() == 'null') {
                 return Container(
-                  child: Center(
-                    child: Text(
-                      'Please complete your profile to move ahead',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Text(
+                        'Please complete your profile to move ahead',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
                           color: Colors.grey,
                           fontSize: 25,
-                          fontWeight: FontWeight.bold),
-                    ),
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      TextButton(
+                        onPressed: () {
+                          Navigator.pushNamed(
+                              context, CompleteProfile.routeName);
+                        },
+                        child: Text(
+                          'Tap here to complete your profile',
+                          textAlign: TextAlign.center,
+                        ),
+                      ),
+                    ],
                   ),
                 );
               } else if (LoginSignUp.kycStatus != 'success') {
@@ -194,7 +211,7 @@ class _DashboardDataState extends State<DashboardData> {
                         ),
                         GestureDetector(
                           onTap: () {
-                            print('object');
+                            Navigator.pushNamed(context, Onboarding.routeName);
                           },
                           child: Container(
                             child: Center(

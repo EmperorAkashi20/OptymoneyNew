@@ -495,20 +495,15 @@ class _BodyState extends State<Body> {
                                               ],
                                             ),
                                           ),
-                                          Expanded(
-                                            flex: 1,
-                                            child: Padding(
-                                              padding:
-                                                  const EdgeInsets.symmetric(
-                                                      horizontal: 18.0,
-                                                      vertical: 18),
-                                              child: GestureDetector(
-                                                onTap: () =>
-                                                    Navigator.pushNamed(context,
-                                                        Investments.routeName),
-                                                child: PrimaryButton(
-                                                  btnText: 'Apply Filters',
-                                                ),
+                                          Padding(
+                                            padding: const EdgeInsets.symmetric(
+                                                horizontal: 18.0, vertical: 18),
+                                            child: GestureDetector(
+                                              onTap: () => Navigator.pushNamed(
+                                                  context,
+                                                  Investments.routeName),
+                                              child: PrimaryButton(
+                                                btnText: 'Apply Filters',
                                               ),
                                             ),
                                           ),

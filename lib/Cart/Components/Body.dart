@@ -6,6 +6,7 @@ import 'package:http/http.dart';
 import 'package:loading_animations/loading_animations.dart';
 import 'package:optymoney/Components/primarybtn.dart';
 import 'package:optymoney/LoginNSignUp/Components/body.dart';
+import 'package:optymoney/Onboarding/Onboarding.dart';
 import 'package:optymoney/Settings/Settings.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -337,49 +338,46 @@ class _BodyState extends State<Body> {
                           },
                         ),
                       ),
-                      Expanded(
-                        flex: 2,
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 18.0),
-                          child: GestureDetector(
-                            onTap: () async {
-                              if (LoginSignUp.kycStatus == 'success') {
-                                await checkoutCartItem();
-                              } else {
-                                showDialog(
-                                  context: context,
-                                  builder: (context) {
-                                    return AlertDialog(
-                                      title: Text(
-                                        'KYC Not Done',
-                                        style: TextStyle(color: Colors.black),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 18.0),
+                        child: GestureDetector(
+                          onTap: () async {
+                            if (LoginSignUp.kycStatus == 'success') {
+                              await checkoutCartItem();
+                            } else {
+                              showDialog(
+                                context: context,
+                                builder: (context) {
+                                  return AlertDialog(
+                                    title: Text(
+                                      'KYC Not Done',
+                                      style: TextStyle(color: Colors.black),
+                                    ),
+                                    content: Text(
+                                      'Please Complete Your KYC To Proceed Forward',
+                                      style: TextStyle(color: Colors.black),
+                                    ),
+                                    actions: [
+                                      TextButton(
+                                        onPressed: () async {
+                                          Navigator.pop(context);
+                                        },
+                                        child: Text('Cancle'),
                                       ),
-                                      content: Text(
-                                        'Please Complete Your KYC To Proceed Forward',
-                                        style: TextStyle(color: Colors.black),
+                                      TextButton(
+                                        onPressed: () async {
+                                          Navigator.pushNamed(
+                                              context, Onboarding.routeName);
+                                        },
+                                        child: Text('Continue'),
                                       ),
-                                      actions: [
-                                        TextButton(
-                                          onPressed: () async {
-                                            Navigator.pop(context);
-                                          },
-                                          child: Text('Cancle'),
-                                        ),
-                                        TextButton(
-                                          onPressed: () async {
-                                            Navigator.pushNamed(
-                                                context, Settings.routeName);
-                                          },
-                                          child: Text('Continue'),
-                                        ),
-                                      ],
-                                    );
-                                  },
-                                );
-                              }
-                            },
-                            child: PrimaryButton(btnText: 'Checkout'),
-                          ),
+                                    ],
+                                  );
+                                },
+                              );
+                            }
+                          },
+                          child: PrimaryButton(btnText: 'Checkout'),
                         ),
                       ),
                     ],

@@ -32,7 +32,7 @@ class _BodyState extends State<Body> {
                   height: windowHeight * 0.06,
                 ),
                 Text(
-                  'Currently Processing',
+                  'Your Previous Orders',
                   style: TextStyle(color: Colors.black, fontSize: 20),
                 ),
                 CloseButton(
