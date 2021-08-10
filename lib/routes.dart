@@ -7,6 +7,7 @@ import 'package:optymoney/Calculators/Components/LifeGoalsSchemes.dart';
 import 'package:optymoney/Calculators/calculators.dart';
 import 'package:optymoney/Cart/Cart.dart';
 import 'package:optymoney/CompleteProfile/CompleteProfile.dart';
+import 'package:optymoney/Dashboard/Components/BuyingSchemes.dart';
 import 'package:optymoney/Dashboard/Components/DetailsPage.dart';
 import 'package:optymoney/Dashboard/dashboard.dart';
 import 'package:optymoney/ExpertAssistance/ExpertAssistance.dart';
@@ -51,4 +52,5 @@ final Map<String, WidgetBuilder> routes = {
   LifeGoalsSchemes.routeName: (context) => LifeGoalsSchemes(),
   SingleProductDetailsPage1.routeName: (context) => SingleProductDetailsPage1(),
   ExpertAssistance.routeName: (context) => ExpertAssistance(),
+  BuyingSchemes.routeName: (context) => BuyingSchemes(),
 };

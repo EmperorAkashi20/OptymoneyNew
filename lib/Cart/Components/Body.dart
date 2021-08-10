@@ -7,7 +7,6 @@ import 'package:loading_animations/loading_animations.dart';
 import 'package:optymoney/Components/primarybtn.dart';
 import 'package:optymoney/LoginNSignUp/Components/body.dart';
 import 'package:optymoney/Onboarding/Onboarding.dart';
-import 'package:optymoney/Settings/Settings.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 deleteCartItem(cartid) async {

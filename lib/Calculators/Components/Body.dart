@@ -154,7 +154,7 @@ class _BodyState extends State<Body> {
                           image: 'assets/images/emergencyfund.png',
                           press: () {
                             setState(() {
-                              Body.offerId = 38;
+                              Body.offerId = 40;
                             });
                             Navigator.pushNamed(
                                 context, LifeGoalsSchemes.routeName);
@@ -379,17 +379,24 @@ class FinancialCalculatorsTiles extends StatelessWidget {
             height: windowHeight * 0.15,
             width: windowWidth * 0.3,
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Text(
-                  letter,
-                  style: TextStyle(
-                    fontSize: 35,
-                    fontWeight: FontWeight.bold,
-                    color: Color(0xFF5B16D0).withOpacity(0.8),
+                Expanded(
+                  flex: 1,
+                  child: Text(
+                    letter,
+                    style: TextStyle(
+                      fontSize: 35,
+                      fontWeight: FontWeight.bold,
+                      color: Color(0xFF5B16D0).withOpacity(0.8),
+                    ),
                   ),
                 ),
+                SizedBox(
+                  height: windowHeight * 0.001,
+                ),
                 Expanded(
+                  flex: 2,
                   child: Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 5.0),
                     child: Text(
@@ -450,11 +457,14 @@ class LifeGoalsCard extends StatelessWidget {
                   height: windowHeight * 0.13,
                   width: windowWidth * 0.5,
                 ),
-                Text(
-                  title,
-                  style: TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold,
+                Expanded(
+                  child: Text(
+                    title,
+                    style: TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                    ),
+                    textAlign: TextAlign.center,
                   ),
                 ),
               ],

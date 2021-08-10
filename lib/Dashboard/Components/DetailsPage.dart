@@ -7,6 +7,7 @@ import 'package:loading_animations/loading_animations.dart';
 import 'package:optymoney/Components/inputwithicon.dart';
 import 'package:optymoney/Components/outlinebtn.dart';
 import 'package:optymoney/Components/primarybtn.dart';
+import 'package:optymoney/Dashboard/Components/BuyingSchemes.dart';
 import 'package:optymoney/Dashboard/Components/DashboardData.dart';
 import 'package:optymoney/LoginNSignUp/Components/body.dart';
 
@@ -449,7 +450,11 @@ class _DetailsPageState extends State<DetailsPage> {
                                               MainAxisAlignment.center,
                                           children: [
                                             GestureDetector(
-                                              onTap: () => print('Buy'),
+                                              onTap: () {
+                                                Navigator.pop(context);
+                                                Navigator.pushNamed(context,
+                                                    BuyingSchemes.routeName);
+                                              },
                                               child: Row(
                                                 children: [
                                                   FaIcon(
@@ -545,6 +550,8 @@ class _DetailsPageState extends State<DetailsPage> {
                                                                         .text
                                                                         .toString();
                                                                 await makeRedeemRequest();
+                                                                Navigator.pop(
+                                                                    context);
                                                                 setState(() {
                                                                   _showSnackBar(DetailsPage
                                                                           .status

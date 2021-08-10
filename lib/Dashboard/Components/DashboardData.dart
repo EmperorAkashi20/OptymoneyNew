@@ -27,6 +27,21 @@ class DashboardData extends StatefulWidget {
   static var schemeCode;
   static var schemeType;
   static var nav;
+  static var encoded;
+  static var netAsset;
+  static var priceDate;
+  static var priceList;
+  static var dateList;
+  static var i;
+  static var id;
+  static var minAmt;
+  static var maxAmt;
+  static var values;
+  static var lumpSumMin;
+  static var lumpSumMax;
+  static var encodedIndex;
+  static var idIndex;
+
   const DashboardData({Key? key}) : super(key: key);
 
   @override
@@ -78,6 +93,7 @@ class _DashboardDataState extends State<DashboardData> {
         sch['all_units'].toDouble(),
         a.toDouble().round(),
         DashboardData.encodedIsin,
+        sch['pk_nav_id'],
       );
       // print(scheme.toString());
       //
@@ -105,6 +121,47 @@ class _DashboardDataState extends State<DashboardData> {
     DashboardData.profitLoss =
         DashboardData.presentVal - DashboardData.purPrice;
     return schemes;
+  }
+
+  makeSipRequest(pknavid) async {
+    var url = Uri.parse('https://optymoney.com/__lib.ajax/ajax_response.php');
+    final headers = {'Content-Type': 'application/x-www-form-urlencoded'};
+    Map<String, dynamic> body = {
+      'fetch_sch': pknavid,
+      'get_scheme_data': 'yes',
+    };
+    final encoding = Encoding.getByName('utf-8');
+
+    Response response = await post(
+      url,
+      headers: headers,
+      body: body,
+      encoding: encoding,
+    );
+    var dataBody = response.body;
+    var jsonData = json.decode(dataBody);
+    DashboardData.minAmt =
+        double.tryParse(jsonData[0]['sip_minimum_installment_amount']);
+    DashboardData.maxAmt =
+        double.tryParse(jsonData[0]['sip_maximum_installment_amount']);
+    DashboardData.id = jsonData[0]['pk_nav_id'];
+
+    DashboardData.lumpSumMin =
+        double.tryParse(jsonData[0]['minimum_purchase_amount']);
+    DashboardData.lumpSumMax =
+        double.tryParse(jsonData[0]['maximum_purchase_amount']);
+    if (DashboardData.lumpSumMin == DashboardData.lumpSumMax) {
+      DashboardData.lumpSumMin = 0.0;
+      DashboardData.lumpSumMax = 99999999.0;
+    } else if (DashboardData.lumpSumMin > DashboardData.lumpSumMax) {
+      DashboardData.lumpSumMin = DashboardData.lumpSumMin;
+      DashboardData.lumpSumMax = DashboardData.lumpSumMin * 200;
+    }
+    if (DashboardData.minAmt == DashboardData.maxAmt) {
+      DashboardData.minAmt = 0.0;
+      DashboardData.maxAmt = 99999999.0;
+    }
+    DashboardData.values = DashboardData.minAmt;
   }
 
   @override
@@ -807,7 +864,7 @@ class _DashboardDataState extends State<DashboardData> {
                           return Padding(
                             padding: EdgeInsets.symmetric(horizontal: 5),
                             child: GestureDetector(
-                              onTap: () {
+                              onTap: () async {
                                 DashboardData.schemeCode =
                                     snapshot.data[index].bse_scheme_code;
                                 DashboardData.isin = snapshot.data[index].isin;
@@ -826,6 +883,10 @@ class _DashboardDataState extends State<DashboardData> {
                                 DashboardData.schemeName = snapshot
                                     .data[index].fr_scheme_name
                                     .toString();
+                                DashboardData.idIndex =
+                                    snapshot.data[index].pk_nav_id;
+                                await makeSipRequest(
+                                    snapshot.data[index].pk_nav_id);
                                 Navigator.pushNamed(
                                     context, DetailsPage.routeName);
                               },
@@ -1007,6 +1068,8 @@ class Scheme {
   // ignore: non_constant_identifier_names
   final String scheme_type;
   var encodedIsin;
+  // ignore: non_constant_identifier_names
+  var pk_nav_id;
 
   Scheme(
     this.isin,
@@ -1020,5 +1083,6 @@ class Scheme {
     this.all_units,
     this.presentVal,
     this.encodedIsin,
+    this.pk_nav_id,
   );
 }

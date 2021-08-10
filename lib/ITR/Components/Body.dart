@@ -1,4 +1,3 @@
-import 'dart:convert';
 import 'dart:io';
 import 'dart:async';
 
@@ -98,15 +97,14 @@ Future<http.StreamedResponse> makeItrRequest() async {
       );
     }
   }
-  print(request.fields.entries);
-  print(
-      request.fields.keys.toString() + ': ' + request.fields.values.toString());
   var res = await request.send();
   var response = await res.stream.bytesToString();
-  var parsedJson = jsonDecode(response);
-  Body.status = parsedJson['status'];
+  // print(response);
+  // var parsedJson = jsonDecode(response);
+  //Body.status = parsedJson['status'];
   //print(parsedJson['msg']);
-  Body.message = parsedJson['msg'];
+  // Body.message = parsedJson['msg'];
+  Body.message = response.toString();
   return res;
 }
 
@@ -289,7 +287,7 @@ class _BodyState extends State<Body> {
                                 if (result != null) {
                                   // print('\nfile:' + result.paths.toString());
                                   Body.filesitr = result.paths;
-                                  a = Body.filesitr.toList();
+                                  a = Body.filesitr.toList().cast<String>();
                                 }
                               },
                               child: Text(
@@ -671,10 +669,8 @@ class _BodyState extends State<Body> {
                     Body.accno1 = accno.text.toString();
                     await makeItrRequest();
                     // Navigator.pushNamed(context, FileDisplay.routeName);
-                    if (Body.status.toString() == '1') {
-                      _showSnackBar(
-                          'We have received your request. Our team will get in touch with you within 48 hours. Thank you.');
-                    }
+                    _showSnackBar(Body.message +
+                        ' We have received your request. Our team will get in touch with you within 48 hours. Thank you.');
                   },
                   child: OutlineBtn(btnText: "Proceed"),
                 ),
