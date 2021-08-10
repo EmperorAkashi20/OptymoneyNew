@@ -327,6 +327,7 @@ class _LoginSignUpState extends State<LoginSignUp> {
 
   double _registerYOffset = 0;
   double _registerWidth = 0;
+  double _registerHeight = 0;
   double _registerOpacity = 1;
   double _registerXOffset = 0;
 
@@ -365,6 +366,7 @@ class _LoginSignUpState extends State<LoginSignUp> {
     _loginHeight = windowHeight - 270;
     _otpHeight = windowHeight - 270;
     _mpinHeight = windowHeight - 270;
+    _registerHeight = windowHeight - 270;
 
     switch (_pageState) {
       case 0:
@@ -502,76 +504,80 @@ class _LoginSignUpState extends State<LoginSignUp> {
           curve: Curves.fastLinearToSlowEaseIn,
           duration: Duration(milliseconds: 1000),
           color: _backgroundColor,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: <Widget>[
-              GestureDetector(
-                onTap: () {
-                  setState(() {
-                    _pageState = 0;
-                  });
-                },
-                child: Container(
-                  child: Column(
-                    children: <Widget>[
-                      AnimatedContainer(
-                        curve: Curves.fastLinearToSlowEaseIn,
-                        duration: Duration(milliseconds: 1000),
-                        margin: EdgeInsets.only(
-                          top: _headingTop,
-                        ),
-                        child: Text(
-                          "Invest Freely",
-                          style: TextStyle(color: _headingColor, fontSize: 28),
-                        ),
-                      ),
-                      Container(
-                        margin: EdgeInsets.all(20),
-                        padding: EdgeInsets.symmetric(horizontal: 32),
-                        child: Text(
-                          "We make investing and managing your portfolio easy for you.\nStart your savings today!!",
-                          textAlign: TextAlign.center,
-                          style: TextStyle(color: _headingColor, fontSize: 16),
-                        ),
-                      )
-                    ],
-                  ),
-                ),
-              ),
-              Container(
-                padding: EdgeInsets.symmetric(horizontal: 32),
-                child: Center(
-                  child: SvgPicture.asset('assets/icons/signup.svg'),
-                ),
-              ),
-              Container(
-                child: GestureDetector(
+          child: SingleChildScrollView(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: <Widget>[
+                GestureDetector(
                   onTap: () {
                     setState(() {
-                      if (_pageState != 0) {
-                        _pageState = 0;
-                      } else {
-                        _pageState = 1;
-                      }
+                      _pageState = 0;
                     });
                   },
                   child: Container(
-                    margin: EdgeInsets.all(32),
-                    padding: EdgeInsets.all(20),
-                    width: double.infinity,
-                    decoration: BoxDecoration(
-                        color: Color(0xFFFDB2D4B), //Color(0xFFB40284A),
-                        borderRadius: BorderRadius.circular(50)),
-                    child: Center(
-                      child: Text(
-                        "Get Started",
-                        style: TextStyle(color: Colors.white, fontSize: 16),
-                      ),
+                    child: Column(
+                      children: <Widget>[
+                        AnimatedContainer(
+                          curve: Curves.fastLinearToSlowEaseIn,
+                          duration: Duration(milliseconds: 1000),
+                          margin: EdgeInsets.only(
+                            top: _headingTop,
+                          ),
+                          child: Text(
+                            "Invest Freely",
+                            style:
+                                TextStyle(color: _headingColor, fontSize: 28),
+                          ),
+                        ),
+                        Container(
+                          margin: EdgeInsets.all(20),
+                          padding: EdgeInsets.symmetric(horizontal: 32),
+                          child: Text(
+                            "We make investing and managing your portfolio easy for you.\nStart your savings today!!",
+                            textAlign: TextAlign.center,
+                            style:
+                                TextStyle(color: _headingColor, fontSize: 16),
+                          ),
+                        )
+                      ],
                     ),
                   ),
                 ),
-              )
-            ],
+                Container(
+                  padding: EdgeInsets.symmetric(horizontal: 32),
+                  child: Center(
+                    child: SvgPicture.asset('assets/icons/signup.svg'),
+                  ),
+                ),
+                Container(
+                  child: GestureDetector(
+                    onTap: () {
+                      setState(() {
+                        if (_pageState != 0) {
+                          _pageState = 0;
+                        } else {
+                          _pageState = 1;
+                        }
+                      });
+                    },
+                    child: Container(
+                      margin: EdgeInsets.all(32),
+                      padding: EdgeInsets.all(20),
+                      width: double.infinity,
+                      decoration: BoxDecoration(
+                          color: Color(0xFFFDB2D4B), //Color(0xFFB40284A),
+                          borderRadius: BorderRadius.circular(50)),
+                      child: Center(
+                        child: Text(
+                          "Get Started",
+                          style: TextStyle(color: Colors.white, fontSize: 16),
+                        ),
+                      ),
+                    ),
+                  ),
+                )
+              ],
+            ),
           ),
         ),
         AnimatedContainer(
@@ -743,7 +749,7 @@ class _LoginSignUpState extends State<LoginSignUp> {
         AnimatedContainer(
           padding: EdgeInsets.all(32),
           width: _registerWidth,
-          //height: _registerHeight,
+          height: _registerHeight,
           curve: Curves.fastLinearToSlowEaseIn,
           duration: Duration(milliseconds: 1000),
           transform:
@@ -755,8 +761,8 @@ class _LoginSignUpState extends State<LoginSignUp> {
               topRight: Radius.circular(25),
             ),
           ),
-          child: Scaffold(
-            body: Column(
+          child: SingleChildScrollView(
+            child: Column(
               //mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Container(

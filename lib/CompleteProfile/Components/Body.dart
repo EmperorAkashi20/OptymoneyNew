@@ -119,6 +119,7 @@ class _BodyState extends State<Body> {
 
   double _page2YOffset = 0;
   double _page2Width = 0;
+  double _page2Height = 0;
   double _page2Opacity = 1;
   double _page2XOffset = 0;
 
@@ -144,6 +145,7 @@ class _BodyState extends State<Body> {
     windowWidth = MediaQuery.of(context).size.width;
 
     _page1Height = windowHeight - 270;
+    _page2Height = windowHeight - 270;
 
     switch (_pageState) {
       case 0:
@@ -209,76 +211,80 @@ class _BodyState extends State<Body> {
           curve: Curves.fastLinearToSlowEaseIn,
           duration: Duration(milliseconds: 1000),
           color: _backgroundColor,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: <Widget>[
-              GestureDetector(
-                onTap: () {
-                  setState(() {
-                    _pageState = 0;
-                  });
-                },
-                child: Container(
-                  child: Column(
-                    children: <Widget>[
-                      AnimatedContainer(
-                        curve: Curves.fastLinearToSlowEaseIn,
-                        duration: Duration(milliseconds: 1000),
-                        margin: EdgeInsets.only(
-                          top: _headingTop,
-                        ),
-                        child: Text(
-                          "Complete Your Profile",
-                          style: TextStyle(color: _headingColor, fontSize: 28),
-                        ),
-                      ),
-                      Container(
-                        margin: EdgeInsets.all(20),
-                        padding: EdgeInsets.symmetric(horizontal: 32),
-                        child: Text(
-                          "According to the government rules in India, you cannot invest without your PAN details. Please Complete your profile and enter correct details.",
-                          textAlign: TextAlign.center,
-                          style: TextStyle(color: _headingColor, fontSize: 16),
-                        ),
-                      )
-                    ],
-                  ),
-                ),
-              ),
-              Container(
-                padding: EdgeInsets.symmetric(horizontal: 32),
-                child: Center(
-                  child: SvgPicture.asset('assets/icons/signup.svg'),
-                ),
-              ),
-              Container(
-                child: GestureDetector(
+          child: SingleChildScrollView(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: <Widget>[
+                GestureDetector(
                   onTap: () {
                     setState(() {
-                      if (_pageState != 0) {
-                        _pageState = 0;
-                      } else {
-                        _pageState = 1;
-                      }
+                      _pageState = 0;
                     });
                   },
                   child: Container(
-                    margin: EdgeInsets.all(32),
-                    padding: EdgeInsets.all(20),
-                    width: double.infinity,
-                    decoration: BoxDecoration(
-                        color: Color(0xFFB40284A),
-                        borderRadius: BorderRadius.circular(50)),
-                    child: Center(
-                      child: Text(
-                        "Get Started",
-                        style: TextStyle(color: Colors.white, fontSize: 16),
-                      ),
+                    child: Column(
+                      children: <Widget>[
+                        AnimatedContainer(
+                          curve: Curves.fastLinearToSlowEaseIn,
+                          duration: Duration(milliseconds: 1000),
+                          margin: EdgeInsets.only(
+                            top: _headingTop,
+                          ),
+                          child: Text(
+                            "Complete Your Profile",
+                            style:
+                                TextStyle(color: _headingColor, fontSize: 28),
+                          ),
+                        ),
+                        Container(
+                          margin: EdgeInsets.all(20),
+                          padding: EdgeInsets.symmetric(horizontal: 32),
+                          child: Text(
+                            "According to the government rules in India, you cannot invest without your PAN details. Please Complete your profile and enter correct details.",
+                            textAlign: TextAlign.center,
+                            style:
+                                TextStyle(color: _headingColor, fontSize: 16),
+                          ),
+                        )
+                      ],
                     ),
                   ),
                 ),
-              )
-            ],
+                Container(
+                  padding: EdgeInsets.symmetric(horizontal: 32),
+                  child: Center(
+                    child: SvgPicture.asset('assets/icons/signup.svg'),
+                  ),
+                ),
+                Container(
+                  child: GestureDetector(
+                    onTap: () {
+                      setState(() {
+                        if (_pageState != 0) {
+                          _pageState = 0;
+                        } else {
+                          _pageState = 1;
+                        }
+                      });
+                    },
+                    child: Container(
+                      margin: EdgeInsets.all(32),
+                      padding: EdgeInsets.all(20),
+                      width: double.infinity,
+                      decoration: BoxDecoration(
+                          color: Color(0xFFB40284A),
+                          borderRadius: BorderRadius.circular(50)),
+                      child: Center(
+                        child: Text(
+                          "Get Started",
+                          style: TextStyle(color: Colors.white, fontSize: 16),
+                        ),
+                      ),
+                    ),
+                  ),
+                )
+              ],
+            ),
           ),
         ),
         AnimatedContainer(
@@ -295,198 +301,201 @@ class _BodyState extends State<Body> {
               topRight: Radius.circular(25),
             ),
           ),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Column(
-                children: [
-                  Container(
-                    margin: EdgeInsets.only(bottom: 20),
-                    child: Text(
-                      'Please enter all necessary details',
-                      style: TextStyle(fontSize: 20),
+          child: SingleChildScrollView(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Column(
+                  children: [
+                    Container(
+                      margin: EdgeInsets.only(bottom: 20),
+                      child: Text(
+                        'Please enter all necessary details',
+                        style: TextStyle(fontSize: 20),
+                      ),
                     ),
-                  ),
-                  Column(
-                    children: [
-                      InputWithIcon(
-                        icon: Icons.credit_card_rounded,
-                        hint: 'Aadhar Number',
-                        dataController: aadharController,
-                        obscureText: false,
-                        keyboardTypeGlobal: TextInputType.emailAddress,
-                      ),
-                      SizedBox(
-                        height: 20,
-                      ),
-                      InputWithIcon(
-                        icon: Icons.credit_card_rounded,
-                        hint: 'PAN Number',
-                        dataController: panController,
-                        obscureText: false,
-                        keyboardTypeGlobal: TextInputType.text,
-                      ),
-                      SizedBox(
-                        height: 20,
-                      ),
-                      InputWithIcon(
-                        icon: Icons.person,
-                        hint: 'Nominee Name',
-                        dataController: nomineeController,
-                        obscureText: false,
-                        keyboardTypeGlobal: TextInputType.text,
-                      ),
-                      SizedBox(
-                        height: 20,
-                      ),
-                      InputWithIcon(
-                        icon: Icons.person,
-                        hint: 'Relation With Nominee',
-                        dataController: relationWithController,
-                        obscureText: false,
-                        keyboardTypeGlobal: TextInputType.text,
-                      ),
-                      SizedBox(
-                        height: 20,
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Expanded(
-                            child: Container(
-                              width: windowWidth * 0.4,
-                              height: windowHeight * 0.06,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(30),
-                                border: Border.all(
-                                    color: Color(0xFFBC7C7C7), width: 2),
-                              ),
-                              child: Center(
-                                child: DropdownButtonHideUnderline(
-                                  child: DropdownButton<String>(
-                                    disabledHint: Text('Choose One'),
-                                    hint: Text('Choose One'),
-                                    isExpanded: true,
-                                    menuMaxHeight: windowHeight * 0.2,
-                                    items: _options
-                                        .map((String dropDownStringItem) {
-                                      return DropdownMenuItem<String>(
-                                        value: dropDownStringItem,
-                                        child: Column(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children: [
-                                            Padding(
-                                              padding: const EdgeInsets.only(
-                                                  left: 6.0, right: 6.0),
-                                              child: Text(
-                                                dropDownStringItem,
-                                                style: TextStyle(
-                                                    color: Colors.black,
-                                                    fontWeight:
-                                                        FontWeight.w400),
+                    Column(
+                      children: [
+                        InputWithIcon(
+                          icon: Icons.credit_card_rounded,
+                          hint: 'Aadhar Number',
+                          dataController: aadharController,
+                          obscureText: false,
+                          keyboardTypeGlobal: TextInputType.emailAddress,
+                        ),
+                        SizedBox(
+                          height: 20,
+                        ),
+                        InputWithIcon(
+                          icon: Icons.credit_card_rounded,
+                          hint: 'PAN Number',
+                          dataController: panController,
+                          obscureText: false,
+                          keyboardTypeGlobal: TextInputType.text,
+                        ),
+                        SizedBox(
+                          height: 20,
+                        ),
+                        InputWithIcon(
+                          icon: Icons.person,
+                          hint: 'Nominee Name',
+                          dataController: nomineeController,
+                          obscureText: false,
+                          keyboardTypeGlobal: TextInputType.text,
+                        ),
+                        SizedBox(
+                          height: 20,
+                        ),
+                        InputWithIcon(
+                          icon: Icons.person,
+                          hint: 'Relation With Nominee',
+                          dataController: relationWithController,
+                          obscureText: false,
+                          keyboardTypeGlobal: TextInputType.text,
+                        ),
+                        SizedBox(
+                          height: 20,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Expanded(
+                              child: Container(
+                                width: windowWidth * 0.4,
+                                height: windowHeight * 0.06,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(30),
+                                  border: Border.all(
+                                      color: Color(0xFFBC7C7C7), width: 2),
+                                ),
+                                child: Center(
+                                  child: DropdownButtonHideUnderline(
+                                    child: DropdownButton<String>(
+                                      disabledHint: Text('Choose One'),
+                                      hint: Text('Choose One'),
+                                      isExpanded: true,
+                                      menuMaxHeight: windowHeight * 0.2,
+                                      items: _options
+                                          .map((String dropDownStringItem) {
+                                        return DropdownMenuItem<String>(
+                                          value: dropDownStringItem,
+                                          child: Column(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                              Padding(
+                                                padding: const EdgeInsets.only(
+                                                    left: 6.0, right: 6.0),
+                                                child: Text(
+                                                  dropDownStringItem,
+                                                  style: TextStyle(
+                                                      color: Colors.black,
+                                                      fontWeight:
+                                                          FontWeight.w400),
+                                                ),
                                               ),
-                                            ),
-                                          ],
-                                        ),
-                                      );
-                                    }).toList(),
-                                    onChanged: (String? newValueSelected) {
-                                      _dropDownItemSelected(newValueSelected);
-                                      if (_currentItemSelected == 'Male') {
-                                        Body.sex = 'Male';
-                                      } else if (_currentItemSelected ==
-                                          'Female') {
-                                        Body.sex = 'Female';
-                                      } else if (_currentItemSelected ==
-                                          'Rather Not Say') {
-                                        Body.sex = 'Not Provided';
-                                      } else if (_currentItemSelected ==
-                                          'Transgender') {
-                                        Body.sex = 'Transgender';
-                                      }
-                                    },
-                                    value: _currentItemSelected,
+                                            ],
+                                          ),
+                                        );
+                                      }).toList(),
+                                      onChanged: (String? newValueSelected) {
+                                        _dropDownItemSelected(newValueSelected);
+                                        if (_currentItemSelected == 'Male') {
+                                          Body.sex = 'Male';
+                                        } else if (_currentItemSelected ==
+                                            'Female') {
+                                          Body.sex = 'Female';
+                                        } else if (_currentItemSelected ==
+                                            'Rather Not Say') {
+                                          Body.sex = 'Not Provided';
+                                        } else if (_currentItemSelected ==
+                                            'Transgender') {
+                                          Body.sex = 'Transgender';
+                                        }
+                                      },
+                                      value: _currentItemSelected,
+                                    ),
                                   ),
                                 ),
                               ),
                             ),
-                          ),
-                          Expanded(
-                            child: Container(
-                              width: windowWidth * 0.4,
-                              height: windowHeight * 0.06,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(30),
-                                border: Border.all(
-                                    color: Color(0xFFBC7C7C7), width: 2),
-                              ),
-                              child: Center(
-                                child: TextButton(
-                                  onPressed: () => _selectDate(context),
-                                  child: Body.dob.toString() == 'null'
-                                      ? Text('Tap to Select DOB')
-                                      : Text(Body.dob.toString()),
+                            Expanded(
+                              child: Container(
+                                width: windowWidth * 0.4,
+                                height: windowHeight * 0.06,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(30),
+                                  border: Border.all(
+                                      color: Color(0xFFBC7C7C7), width: 2),
+                                ),
+                                child: Center(
+                                  child: TextButton(
+                                    onPressed: () => _selectDate(context),
+                                    child: Body.dob.toString() == 'null'
+                                        ? Text('Tap to Select DOB')
+                                        : Text(Body.dob.toString()),
+                                  ),
                                 ),
                               ),
                             ),
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-              Column(
-                children: [
-                  GestureDetector(
-                    onTap: () {
-                      if (aadharController.text.isEmpty &&
-                          panController.text.isEmpty &&
-                          nomineeController.text.isEmpty &&
-                          relationWithController.text.isEmpty &&
-                          Body.dob.toString() == 'null') {
-                        _showSnackBar('No Fields can be empty');
-                      } else if (aadharController.text.isEmpty) {
-                        _showSnackBar('Enter Your Aadhar Number');
-                      } else if (aadharController.text.length < 12 ||
-                          aadharController.text.length > 12) {
-                        _showSnackBar('Please recheck your aadhar number');
-                      } else if (panController.text.isEmpty) {
-                        _showSnackBar('Enter Your PAN Number');
-                      } else if (nomineeController.text.isEmpty) {
-                        _showSnackBar('Enter Nominee Name');
-                      } else if (relationWithController.text.isEmpty) {
-                        _showSnackBar('Enter Your Relation with nominee');
-                      } else if (Body.dob.toString() == 'null') {
-                        _showSnackBar('Enter Your Date Of Birth');
-                      } else {
-                        setState(() {
-                          LoginSignUp.aadhar.aadhar =
-                              aadharController.text.toString();
-                          LoginSignUp.globalPan = panController.text.toString();
-                          LoginSignUp.nomineeName =
-                              nomineeController.text.toString();
-                          LoginSignUp.nomineeRelation =
-                              relationWithController.text.toString();
-                          Body.sex = _currentItemSelected;
-                          _pageState = 2;
-                        });
-                      }
-                    },
-                    child: PrimaryButton(btnText: "Continue"),
-                  ),
-                ],
-              ),
-            ],
+                          ],
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+                Column(
+                  children: [
+                    GestureDetector(
+                      onTap: () {
+                        if (aadharController.text.isEmpty &&
+                            panController.text.isEmpty &&
+                            nomineeController.text.isEmpty &&
+                            relationWithController.text.isEmpty &&
+                            Body.dob.toString() == 'null') {
+                          _showSnackBar('No Fields can be empty');
+                        } else if (aadharController.text.isEmpty) {
+                          _showSnackBar('Enter Your Aadhar Number');
+                        } else if (aadharController.text.length < 12 ||
+                            aadharController.text.length > 12) {
+                          _showSnackBar('Please recheck your aadhar number');
+                        } else if (panController.text.isEmpty) {
+                          _showSnackBar('Enter Your PAN Number');
+                        } else if (nomineeController.text.isEmpty) {
+                          _showSnackBar('Enter Nominee Name');
+                        } else if (relationWithController.text.isEmpty) {
+                          _showSnackBar('Enter Your Relation with nominee');
+                        } else if (Body.dob.toString() == 'null') {
+                          _showSnackBar('Enter Your Date Of Birth');
+                        } else {
+                          setState(() {
+                            LoginSignUp.aadhar =
+                                aadharController.text.toString();
+                            LoginSignUp.globalPan =
+                                panController.text.toString();
+                            LoginSignUp.nomineeName =
+                                nomineeController.text.toString();
+                            LoginSignUp.nomineeRelation =
+                                relationWithController.text.toString();
+                            Body.sex = _currentItemSelected;
+                            _pageState = 2;
+                          });
+                        }
+                      },
+                      child: PrimaryButton(btnText: "Continue"),
+                    ),
+                  ],
+                ),
+              ],
+            ),
           ),
         ),
         AnimatedContainer(
           padding: EdgeInsets.all(32),
           width: _page2Width,
-          //height: _page2Height,
+          height: _page2Height,
           curve: Curves.fastLinearToSlowEaseIn,
           duration: Duration(milliseconds: 1000),
           transform: Matrix4.translationValues(_page2XOffset, _page2YOffset, 1),
@@ -497,120 +506,123 @@ class _BodyState extends State<Body> {
               topRight: Radius.circular(25),
             ),
           ),
-          child: Column(
-            //mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Container(
-                margin: EdgeInsets.only(bottom: 20),
-                child: Text(
-                  'Please enter all necessary details',
-                  style: TextStyle(fontSize: 20),
+          child: SingleChildScrollView(
+            child: Column(
+              //mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Container(
+                  margin: EdgeInsets.only(bottom: 20),
+                  child: Text(
+                    'Please enter all necessary details',
+                    style: TextStyle(fontSize: 20),
+                  ),
                 ),
-              ),
-              InputWithIcon(
-                icon: Icons.location_city,
-                hint: "Address Line 1",
-                obscureText: false,
-                dataController: address1Controller,
-                keyboardTypeGlobal: TextInputType.name,
-              ),
-              SizedBox(height: 5),
-              InputWithIcon(
-                icon: Icons.location_city,
-                hint: "Address Line 2",
-                obscureText: false,
-                dataController: address2Controller,
-                keyboardTypeGlobal: TextInputType.emailAddress,
-              ),
-              SizedBox(height: 5),
-              InputWithIcon(
-                icon: Icons.location_city,
-                hint: 'Address Line 3',
-                obscureText: false,
-                dataController: address3Controller,
-                keyboardTypeGlobal: TextInputType.number,
-              ),
-              SizedBox(height: 5),
-              InputWithIcon(
-                icon: Icons.location_pin,
-                hint: 'City',
-                obscureText: false,
-                dataController: cityController,
-              ),
-              SizedBox(height: 5),
-              InputWithIcon(
-                icon: Icons.location_pin,
-                hint: 'State',
-                obscureText: false,
-                dataController: stateController,
-              ),
-              SizedBox(height: 5),
-              InputWithIcon(
-                icon: Icons.location_pin,
-                hint: 'Pin Code',
-                obscureText: false,
-                dataController: pinController,
-              ),
-              SizedBox(height: 5),
-              InputWithIcon(
-                icon: Icons.location_searching,
-                hint: 'Country',
-                obscureText: false,
-                dataController: countryController,
-              ),
-              SizedBox(height: 20),
-              GestureDetector(
-                onTap: () {
-                  if (address1Controller.text.isEmpty &&
-                      address2Controller.text.isEmpty &&
-                      cityController.text.isEmpty &&
-                      stateController.text.isEmpty &&
-                      pinController.text.isEmpty &&
-                      countryController.text.isEmpty) {
-                    _showSnackBar('Please fill the form correctly');
-                  } else if (address1Controller.text.isEmpty ||
-                      address2Controller.text.isEmpty) {
-                    _showSnackBar('Please Enter your address properly');
-                  } else if (cityController.text.isEmpty ||
-                      stateController.text.isEmpty ||
-                      pinController.text.isEmpty ||
-                      countryController.text.isEmpty) {
-                    _showSnackBar('Please Enter your location details');
-                  }
-                },
-                child: GestureDetector(
-                  onTap: () async {
-                    setState(() {
-                      LoginSignUp.customerAddress1 =
-                          address1Controller.text.toString();
-                      LoginSignUp.customerAddress2 =
-                          address2Controller.text.toString();
-                      LoginSignUp.customerAddress3 =
-                          address3Controller.text.toString();
-                      LoginSignUp.customerCity = cityController.text.toString();
-                      LoginSignUp.customerState =
-                          stateController.text.toString();
-                      LoginSignUp.customerCountry =
-                          countryController.text.toString();
-                      LoginSignUp.customerPinCode =
-                          pinController.text.toString();
-                    });
-                    await makeUpdateUserInfoRequest();
-                    if (Body.status == '1') {
-                      Navigator.pushNamed(context, Settings.routeName);
-                      _showSnackBar(Body.message);
-                    } else {
-                      _showSnackBar('Something went wrong');
+                InputWithIcon(
+                  icon: Icons.location_city,
+                  hint: "Address Line 1",
+                  obscureText: false,
+                  dataController: address1Controller,
+                  keyboardTypeGlobal: TextInputType.name,
+                ),
+                SizedBox(height: 5),
+                InputWithIcon(
+                  icon: Icons.location_city,
+                  hint: "Address Line 2",
+                  obscureText: false,
+                  dataController: address2Controller,
+                  keyboardTypeGlobal: TextInputType.emailAddress,
+                ),
+                SizedBox(height: 5),
+                InputWithIcon(
+                  icon: Icons.location_city,
+                  hint: 'Address Line 3',
+                  obscureText: false,
+                  dataController: address3Controller,
+                  keyboardTypeGlobal: TextInputType.number,
+                ),
+                SizedBox(height: 5),
+                InputWithIcon(
+                  icon: Icons.location_pin,
+                  hint: 'City',
+                  obscureText: false,
+                  dataController: cityController,
+                ),
+                SizedBox(height: 5),
+                InputWithIcon(
+                  icon: Icons.location_pin,
+                  hint: 'State',
+                  obscureText: false,
+                  dataController: stateController,
+                ),
+                SizedBox(height: 5),
+                InputWithIcon(
+                  icon: Icons.location_pin,
+                  hint: 'Pin Code',
+                  obscureText: false,
+                  dataController: pinController,
+                ),
+                SizedBox(height: 5),
+                InputWithIcon(
+                  icon: Icons.location_searching,
+                  hint: 'Country',
+                  obscureText: false,
+                  dataController: countryController,
+                ),
+                SizedBox(height: 20),
+                GestureDetector(
+                  onTap: () {
+                    if (address1Controller.text.isEmpty &&
+                        address2Controller.text.isEmpty &&
+                        cityController.text.isEmpty &&
+                        stateController.text.isEmpty &&
+                        pinController.text.isEmpty &&
+                        countryController.text.isEmpty) {
+                      _showSnackBar('Please fill the form correctly');
+                    } else if (address1Controller.text.isEmpty ||
+                        address2Controller.text.isEmpty) {
+                      _showSnackBar('Please Enter your address properly');
+                    } else if (cityController.text.isEmpty ||
+                        stateController.text.isEmpty ||
+                        pinController.text.isEmpty ||
+                        countryController.text.isEmpty) {
+                      _showSnackBar('Please Enter your location details');
                     }
                   },
-                  child: PrimaryButton(
-                      btnText: 'I confirm that entered detials are correct'),
+                  child: GestureDetector(
+                    onTap: () async {
+                      setState(() {
+                        LoginSignUp.customerAddress1 =
+                            address1Controller.text.toString();
+                        LoginSignUp.customerAddress2 =
+                            address2Controller.text.toString();
+                        LoginSignUp.customerAddress3 =
+                            address3Controller.text.toString();
+                        LoginSignUp.customerCity =
+                            cityController.text.toString();
+                        LoginSignUp.customerState =
+                            stateController.text.toString();
+                        LoginSignUp.customerCountry =
+                            countryController.text.toString();
+                        LoginSignUp.customerPinCode =
+                            pinController.text.toString();
+                      });
+                      await makeUpdateUserInfoRequest();
+                      if (Body.status == '1') {
+                        Navigator.pushNamed(context, Settings.routeName);
+                        _showSnackBar(Body.message);
+                      } else {
+                        _showSnackBar('Something went wrong');
+                      }
+                    },
+                    child: PrimaryButton(
+                        btnText: 'I confirm that entered detials are correct'),
+                  ),
                 ),
-              ),
-              SizedBox(
-                height: 4,
-              ),
-            ],
+                SizedBox(
+                  height: 4,
+                ),
+              ],
+            ),
           ),
         ),
       ],
