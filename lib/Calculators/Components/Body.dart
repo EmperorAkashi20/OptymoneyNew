@@ -293,12 +293,19 @@ class _BodyState extends State<Body> {
                         name: 'PPF  Calculator',
                         navigationRoute: PpfCalcFrom(),
                       ),
+                      // FinancialCalculatorsTiles(
+                      //   windowHeight: windowHeight,
+                      //   windowWidth: windowWidth,
+                      //   letter: 'T',
+                      //   name: 'Tax Regime Comparision',
+                      //   navigationRoute: OldVsNewTax(),
+                      // ),
                       FinancialCalculatorsTiles(
                         windowHeight: windowHeight,
                         windowWidth: windowWidth,
-                        letter: 'T',
-                        name: 'Tax Regime Comparision',
-                        navigationRoute: OldVsNewTax(),
+                        letter: 'R',
+                        name: 'Recurring Deposit',
+                        navigationRoute: RecurringDepositCalcForm(),
                       ),
                     ],
                   ),
@@ -308,16 +315,12 @@ class _BodyState extends State<Body> {
                       FinancialCalculatorsTiles(
                         windowHeight: windowHeight,
                         windowWidth: windowWidth,
-                        letter: 'R',
-                        name: 'Recurring Deposit',
-                        navigationRoute: RecurringDepositCalcForm(),
-                      ),
-                      FinancialCalculatorsTiles(
-                        windowHeight: windowHeight,
-                        windowWidth: windowWidth,
                         letter: 'N',
                         name: 'NPS Calculator',
                         navigationRoute: NpsCalcForm(),
+                      ),
+                      Expanded(
+                        child: Card(),
                       ),
                       Expanded(
                         child: Card(),
@@ -386,13 +389,15 @@ class FinancialCalculatorsTiles extends StatelessWidget {
                     color: Color(0xFF5B16D0).withOpacity(0.8),
                   ),
                 ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 5.0),
-                  child: Text(
-                    name,
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      fontSize: 18,
+                Expanded(
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 5.0),
+                    child: Text(
+                      name,
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        fontSize: 18,
+                      ),
                     ),
                   ),
                 ),

@@ -302,31 +302,31 @@ class _BodyState extends State<Body> {
                   ),
                 ),
               ),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 5.0),
-                child: Card(
-                  elevation: 0,
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(20)),
-                  child: ListTile(
-                    leading: FaIcon(
-                      FontAwesomeIcons.history,
-                      size: 25,
-                    ),
-                    title: Text(
-                      'Transaction History',
-                      style: TextStyle(fontSize: 20),
-                    ),
-                    trailing: Icon(Icons.arrow_forward_rounded),
-                    subtitle: Text('Tap to view your previous transactions'),
-                    onTap: () {},
-                    // tileColor: Colors.lightBlue.withOpacity(0.3),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(20),
-                    ),
-                  ),
-                ),
-              ),
+              // Padding(
+              //   padding: const EdgeInsets.symmetric(horizontal: 5.0),
+              //   child: Card(
+              //     elevation: 0,
+              //     shape: RoundedRectangleBorder(
+              //         borderRadius: BorderRadius.circular(20)),
+              //     child: ListTile(
+              //       leading: FaIcon(
+              //         FontAwesomeIcons.history,
+              //         size: 25,
+              //       ),
+              //       title: Text(
+              //         'Transaction History',
+              //         style: TextStyle(fontSize: 20),
+              //       ),
+              //       trailing: Icon(Icons.arrow_forward_rounded),
+              //       subtitle: Text('Tap to view your previous transactions'),
+              //       onTap: () {},
+              //       // tileColor: Colors.lightBlue.withOpacity(0.3),
+              //       shape: RoundedRectangleBorder(
+              //         borderRadius: BorderRadius.circular(20),
+              //       ),
+              //     ),
+              //   ),
+              // ),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 5.0),
                 child: Card(
@@ -374,7 +374,7 @@ class _BodyState extends State<Body> {
                     onPressed: () async {
                       const _url = 'https://optymoney.com/faq.html';
                       await canLaunch(_url)
-                          ? await launch(_url)
+                          ? await launch(_url, forceWebView: true)
                           : throw 'Could not launch $_url';
                     },
                     child: Text('Knowledge & FAQ'),
@@ -389,7 +389,7 @@ class _BodyState extends State<Body> {
                     onPressed: () async {
                       const _url = 'https://optymoney.com/termsofuse.html';
                       await canLaunch(_url)
-                          ? await launch(_url)
+                          ? await launch(_url, forceWebView: true)
                           : throw 'Could not launch $_url';
                     },
                     child: Text('Terms and Conditions'),
@@ -404,7 +404,7 @@ class _BodyState extends State<Body> {
                     onPressed: () async {
                       const _url = 'https://optymoney.com/privacypolicy.html';
                       await canLaunch(_url)
-                          ? await launch(_url)
+                          ? await launch(_url, forceWebView: true)
                           : throw 'Could not launch $_url';
                     },
                     child: Text('Privacy Policy'),

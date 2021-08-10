@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:optymoney/BestPerformingFunds/BestPerformingFunds.dart';
 import 'dart:math';
 
 import '../../../../../size_config.dart';
@@ -88,7 +89,7 @@ class _SipCalcFromState extends State<SipCalcFrom> {
                           borderRadius: BorderRadius.circular(30),
                         ),
                         child: Container(
-                          height: windowHeight * 0.25,
+                          height: windowHeight * 0.3,
                           width: windowWidth * 0.9,
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(30),
@@ -179,12 +180,16 @@ class _SipCalcFromState extends State<SipCalcFrom> {
                         height: windowHeight * 0.05,
                         width: windowWidth * 0.4,
                         child: Center(
-                          child: Text(
-                            'Invest Now',
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 15,
+                          child: GestureDetector(
+                            onTap: () => Navigator.pushNamed(
+                                context, BestPerformingFunds.routeName),
+                            child: Text(
+                              'Invest Now',
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 15,
+                              ),
                             ),
                           ),
                         ),
@@ -269,7 +274,7 @@ class _SipCalcFromState extends State<SipCalcFrom> {
                 child: Align(
                   alignment: Alignment.center,
                   child: Container(
-                    height: windowHeight * 0.05,
+                    height: windowHeight * 0.06,
                     width: windowWidth * 0.3,
                     child: TextButton(
                       child: Text('Compute',
@@ -278,37 +283,43 @@ class _SipCalcFromState extends State<SipCalcFrom> {
                               fontSize: 20,
                               fontWeight: FontWeight.w500)),
                       onPressed: () {
-                        setState(() {
-                          if (_currentItemSelected == 'No') {
-                            i = 0;
-                            inflationRateController = 0;
-                          } else if (_currentItemSelected == 'Yes') {
-                            i = double.tryParse(inflationRate.text);
-                          }
-                          if (inflationRate.text.isEmpty) {
-                            i = 0;
-                          }
-                          sipAmount = double.tryParse(sip1Amount.text);
-                          noOfYrs = double.tryParse(investedFor.text);
-                          r = double.tryParse(expectedRateOfReturn.text);
-                          inflationRateController = i! / 100;
-                          returnRate = r! / 100;
-                          investedAmount = sipAmount! * (noOfYrs! * 12);
-                          a = (1 + returnRate);
-                          b = (1 + inflationRateController);
-                          realReturn = ((a / b) - 1);
-                          c = pow((1 + realReturn), (1 / (noOfYrs! * 12)))
-                              as double;
-                          nominalRate = noOfYrs! * (c - 1);
-                          d = pow((1 + nominalRate), (noOfYrs! * 12)) as double;
-                          nominalRate1 = (1 + nominalRate);
-                          fv1 = sipAmount! * (nominalRate1) / nominalRate;
-                          fvInvestmentDouble = (d * fv1) - fv1;
-                          amountInvested = investedAmount.toString();
-                          fvInvestmentInt = fvInvestmentDouble.round();
-                          print(fvInvestmentInt.toString());
-                          print(fvInvestmentDouble.toString());
-                        });
+                        if (double.tryParse(sip1Amount.text)! < 500) {
+                          _showSnackBar(
+                              'Minimum SIP Amount is 500, please correct your input');
+                        } else {
+                          setState(() {
+                            if (_currentItemSelected == 'No') {
+                              i = 0;
+                              inflationRateController = 0;
+                            } else if (_currentItemSelected == 'Yes') {
+                              i = double.tryParse(inflationRate.text);
+                            }
+                            if (inflationRate.text.isEmpty) {
+                              i = 0;
+                            }
+                            sipAmount = double.tryParse(sip1Amount.text);
+                            noOfYrs = double.tryParse(investedFor.text);
+                            r = double.tryParse(expectedRateOfReturn.text);
+                            inflationRateController = i! / 100;
+                            returnRate = r! / 100;
+                            investedAmount = sipAmount! * (noOfYrs! * 12);
+                            a = (1 + returnRate);
+                            b = (1 + inflationRateController);
+                            realReturn = ((a / b) - 1);
+                            c = pow((1 + realReturn), (1 / (noOfYrs! * 12)))
+                                as double;
+                            nominalRate = noOfYrs! * (c - 1);
+                            d = pow((1 + nominalRate), (noOfYrs! * 12))
+                                as double;
+                            nominalRate1 = (1 + nominalRate);
+                            fv1 = sipAmount! * (nominalRate1) / nominalRate;
+                            fvInvestmentDouble = (d * fv1) - fv1;
+                            amountInvested = investedAmount.toString();
+                            fvInvestmentInt = fvInvestmentDouble.round();
+                            print(fvInvestmentInt.toString());
+                            print(fvInvestmentDouble.toString());
+                          });
+                        }
                       },
                       style: TextButton.styleFrom(
                         shape: RoundedRectangleBorder(
@@ -328,6 +339,27 @@ class _SipCalcFromState extends State<SipCalcFrom> {
         ),
       ),
     );
+  }
+
+  void _showSnackBar(String text) {
+    final snackBar = SnackBar(
+      duration: const Duration(seconds: 3),
+      content: Container(
+        height: 40.0,
+        color: Colors.transparent,
+        child: Center(
+          child: Text(
+            text,
+            style: const TextStyle(fontSize: 15.0, color: Colors.black),
+            textAlign: TextAlign.center,
+          ),
+        ),
+      ),
+      backgroundColor: Colors.white,
+    );
+    ScaffoldMessenger.of(context)
+      ..hideCurrentSnackBar()
+      ..showSnackBar(snackBar);
   }
 
   void _dropDownItemSelected(String? newValueSelected) {
@@ -420,7 +452,7 @@ class _EmiCarLoanCalcFormState extends State<EmiCarLoanCalcForm> {
                 child: Align(
                   alignment: Alignment.center,
                   child: Container(
-                    height: windowHeight * 0.05,
+                    height: windowHeight * 0.06,
                     width: windowWidth * 0.3,
                     child: TextButton(
                       child: Text('Compute',
@@ -684,7 +716,7 @@ class _EmiHomeLoanCalcFormState extends State<EmiHomeLoanCalcForm> {
                 child: Align(
                   alignment: Alignment.center,
                   child: Container(
-                    height: windowHeight * 0.05,
+                    height: windowHeight * 0.06,
                     width: windowWidth * 0.3,
                     child: TextButton(
                       child: Text('Compute',
@@ -820,7 +852,7 @@ class _EmiPersonalLoanCalcFormState extends State<EmiPersonalLoanCalcForm> {
                 child: Align(
                   alignment: Alignment.center,
                   child: Container(
-                    height: windowHeight * 0.05,
+                    height: windowHeight * 0.06,
                     width: windowWidth * 0.3,
                     child: TextButton(
                       child: Text('Compute',
@@ -953,7 +985,7 @@ class _SwpCalcFormState extends State<SwpCalcForm> {
                 child: Align(
                   alignment: Alignment.center,
                   child: Container(
-                    height: windowHeight * 0.05,
+                    height: windowHeight * 0.06,
                     width: windowWidth * 0.3,
                     child: TextButton(
                       child: Text('Compute',
@@ -1140,7 +1172,7 @@ class _LumpSumCalcFromState extends State<LumpSumCalcFrom> {
                 child: Align(
                   alignment: Alignment.center,
                   child: Container(
-                    height: windowHeight * 0.05,
+                    height: windowHeight * 0.06,
                     width: windowWidth * 0.3,
                     child: TextButton(
                       child: Text('Compute',
@@ -1335,7 +1367,7 @@ class _HraCalcFromState extends State<HraCalcFrom> {
                 child: Align(
                   alignment: Alignment.center,
                   child: Container(
-                    height: windowHeight * 0.05,
+                    height: windowHeight * 0.06,
                     width: windowWidth * 0.3,
                     child: TextButton(
                       child: Text('Compute',
@@ -1481,7 +1513,7 @@ class _PpfCalcFromState extends State<PpfCalcFrom> {
               TitleHeaderWithRichText(
                   text: "PPF Interest Rate", richText: " (%)"),
               GlobalOutputField(
-                outputValue: rateType.toString(),
+                outputValue: '7.1',
               ),
               TitleHeaderWithRichText(
                   text: "Amount Invested", richText: " (Per Year)"),
@@ -1539,7 +1571,7 @@ class _PpfCalcFromState extends State<PpfCalcFrom> {
                 child: Align(
                   alignment: Alignment.center,
                   child: Container(
-                    height: windowHeight * 0.05,
+                    height: windowHeight * 0.06,
                     width: windowWidth * 0.3,
                     child: TextButton(
                       child: Text('Compute',
@@ -1553,13 +1585,13 @@ class _PpfCalcFromState extends State<PpfCalcFrom> {
                           time = double.tryParse(tenure.text);
                           selected = _currentItemSelected;
                           if (selected == 'End Of Period') {
-                            rateType = 7.6;
+                            rateType = 7.1;
                           } else if (selected == 'Beginning Of Period') {
-                            rateType = 7.8;
+                            rateType = 7.1;
                           }
-                          if (rateType == 7.6) {
+                          if (rateType == 7.1) {
                             ppfTotalMatAmt = clcPPF(principal, rateType, time);
-                          } else if (rateType == 7.8) {
+                          } else if (rateType == 7.1) {
                             ppfTotalMatAmt = clcPPF(principal, rateType, time);
                           }
                           totalInvestment1 = (principal * time);
@@ -1722,7 +1754,7 @@ class _SipInstallmentCalcFormState extends State<SipInstallmentCalcForm> {
                 child: Align(
                   alignment: Alignment.center,
                   child: Container(
-                    height: windowHeight * 0.05,
+                    height: windowHeight * 0.06,
                     width: windowWidth * 0.3,
                     child: TextButton(
                       child: Text('Compute',
@@ -1973,7 +2005,7 @@ class _FixedDepositCalcFormState extends State<FixedDepositCalcForm> {
                 child: Align(
                   alignment: Alignment.center,
                   child: Container(
-                    height: windowHeight * 0.05,
+                    height: windowHeight * 0.06,
                     width: windowWidth * 0.3,
                     child: TextButton(
                       child: Text('Compute',
@@ -2176,7 +2208,7 @@ class _SukanyaSamriddhiCalcFormState extends State<SukanyaSamriddhiCalcForm> {
                 child: Align(
                   alignment: Alignment.center,
                   child: Container(
-                    height: windowHeight * 0.05,
+                    height: windowHeight * 0.06,
                     width: windowWidth * 0.3,
                     child: TextButton(
                       child: Text('Compute',
@@ -2333,7 +2365,7 @@ class _RecurringDepositCalcFormState extends State<RecurringDepositCalcForm> {
                 child: Align(
                   alignment: Alignment.center,
                   child: Container(
-                    height: windowHeight * 0.05,
+                    height: windowHeight * 0.06,
                     width: windowWidth * 0.3,
                     child: TextButton(
                       child: Text('Compute',
@@ -2473,7 +2505,7 @@ class _NpsCalcFormState extends State<NpsCalcForm> {
                 child: Align(
                   alignment: Alignment.center,
                   child: Container(
-                    height: windowHeight * 0.05,
+                    height: windowHeight * 0.06,
                     width: windowWidth * 0.3,
                     child: TextButton(
                       child: Text('Compute',
@@ -2485,25 +2517,35 @@ class _NpsCalcFormState extends State<NpsCalcForm> {
                         setState(() {
                           currentAge1 = double.tryParse(currentAge.text);
                           retirementAge1 = double.tryParse(retirementAge.text);
-                          numberOfYears =
-                              double.tryParse(totalInvestingPeriod.text);
-                          amount =
-                              double.tryParse(monthlyContributionToBeDone.text);
-                          r = double.tryParse(expectedRateOfReturn.text);
-                          var returnRate = (r / (1200));
-                          var prinAmtInv = amount * numberOfYears * 12;
-                          var d = pow((1 + returnRate), (numberOfYears * 12));
-                          // var returnRate1 = (1 + returnRate);
-                          var fv1 = amount / returnRate;
-                          var fvInvestment = (d * fv1) - fv1;
-                          var intEarOnInvest = fvInvestment - prinAmtInv;
+                          if (currentAge1 > retirementAge1) {
+                            _showSnackBar(
+                                'Current age cannot be greater than retirement age');
+                          } else {
+                            if (currentAge1 > 100 || retirementAge1 > 100) {
+                              _showSnackBar('Age cannot be greater than 100');
+                            } else {
+                              numberOfYears =
+                                  double.tryParse(totalInvestingPeriod.text);
+                              amount = double.tryParse(
+                                  monthlyContributionToBeDone.text);
+                              r = double.tryParse(expectedRateOfReturn.text);
+                              var returnRate = (r / (1200));
+                              var prinAmtInv = amount * numberOfYears * 12;
+                              var d =
+                                  pow((1 + returnRate), (numberOfYears * 12));
+                              // var returnRate1 = (1 + returnRate);
+                              var fv1 = amount / returnRate;
+                              var fvInvestment = (d * fv1) - fv1;
+                              var intEarOnInvest = fvInvestment - prinAmtInv;
 
-                          principalAmountInvested =
-                              (prinAmtInv.round()).toString();
-                          interestEarnedOnInvestment =
-                              (intEarOnInvest.round()).toString();
-                          pensionWealthGenerated =
-                              (fvInvestment.round()).toString();
+                              principalAmountInvested =
+                                  (prinAmtInv.round()).toString();
+                              interestEarnedOnInvestment =
+                                  (intEarOnInvest.round()).toString();
+                              pensionWealthGenerated =
+                                  (fvInvestment.round()).toString();
+                            }
+                          }
                         });
                       },
                       style: TextButton.styleFrom(
@@ -2533,6 +2575,27 @@ class _NpsCalcFormState extends State<NpsCalcForm> {
         ),
       ),
     );
+  }
+
+  void _showSnackBar(String text) {
+    final snackBar = SnackBar(
+      duration: const Duration(seconds: 3),
+      content: Container(
+        height: 40.0,
+        color: Colors.transparent,
+        child: Center(
+          child: Text(
+            text,
+            style: const TextStyle(fontSize: 15.0, color: Colors.black),
+            textAlign: TextAlign.center,
+          ),
+        ),
+      ),
+      backgroundColor: Colors.white,
+    );
+    ScaffoldMessenger.of(context)
+      ..hideCurrentSnackBar()
+      ..showSnackBar(snackBar);
   }
 }
 
@@ -2691,7 +2754,7 @@ class _TaxCalculatorState extends State<TaxCalculator> {
               child: Align(
                 alignment: Alignment.centerRight,
                 child: Container(
-                  height: windowHeight * 0.05,
+                  height: windowHeight * 0.06,
                   width: windowWidth * 0.3,
                   child: TextButton(
                     child: Text('Compute',
@@ -3035,7 +3098,7 @@ class _OldVsNewTaxState extends State<OldVsNewTax> {
               child: Align(
                 alignment: Alignment.centerRight,
                 child: Container(
-                  height: windowHeight * 0.05,
+                  height: windowHeight * 0.06,
                   width: windowWidth * 0.3,
                   child: TextButton(
                     child: Text('Compute',

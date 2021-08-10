@@ -404,9 +404,11 @@ class _SingleProductDetailsPageState extends State<SingleProductDetailsPage> {
                           crossAxisAlignment: CrossAxisAlignment.stretch,
                           children: <Widget>[
                             SizedBox(height: 20.0),
-                            Text('Select and Add to Cart',
-                                textAlign: TextAlign.center,
-                                style: TextStyle(fontSize: 22)),
+                            Text(
+                              'Select and Add to Cart',
+                              textAlign: TextAlign.center,
+                              style: TextStyle(fontSize: 22),
+                            ),
                             DefaultTabController(
                               length: 2, // length of tabs
                               initialIndex: 0,
@@ -434,598 +436,638 @@ class _SingleProductDetailsPageState extends State<SingleProductDetailsPage> {
                                     child: TabBarView(
                                       children: <Widget>[
                                         Container(
-                                          child: Center(
-                                            child: Padding(
-                                              padding: EdgeInsets.only(
-                                                top: 10,
-                                              ),
-                                              child: Column(
-                                                children: [
-                                                  Text(
-                                                    'Use the slider to adjust the installment amount',
-                                                    style: TextStyle(
-                                                        color: Colors.black),
-                                                    textAlign: TextAlign.center,
-                                                  ),
-                                                  SizedBox(
-                                                    height: 10,
-                                                  ),
-                                                  SfSlider(
-                                                    enableTooltip: true,
-                                                    interval: 100,
-                                                    stepSize: 100,
-                                                    thumbIcon: Icon(
-                                                      Icons
-                                                          .compare_arrows_rounded,
-                                                      size: 15,
-                                                      color: Colors.white,
+                                          child: SingleChildScrollView(
+                                            child: Center(
+                                              child: Padding(
+                                                padding: EdgeInsets.only(
+                                                  top: 10,
+                                                ),
+                                                child: Column(
+                                                  children: [
+                                                    Text(
+                                                      'Use the slider to adjust the installment amount',
+                                                      style: TextStyle(
+                                                          color: Colors.black),
+                                                      textAlign:
+                                                          TextAlign.center,
                                                     ),
-                                                    thumbShape: SfThumbShape(),
-                                                    tooltipShape:
-                                                        SfPaddleTooltipShape(),
-                                                    activeColor:
-                                                        Color(0xFF5B16D0),
-                                                    min: Body.minAmt,
-                                                    max: Body.maxAmt,
-                                                    value: miniamt.toDouble(),
-                                                    onChanged: (dynamic value) {
-                                                      setState(() {
-                                                        miniamt = value;
-                                                      });
-                                                    },
-                                                  ),
-                                                  Padding(
-                                                    padding: const EdgeInsets
-                                                            .symmetric(
-                                                        horizontal: 18.0),
-                                                    child: Container(
-                                                      width: windowWidth,
-                                                      height:
-                                                          windowHeight * 0.06,
-                                                      decoration: BoxDecoration(
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(20),
-                                                        border: Border.all(
-                                                            color:
-                                                                Colors.black54),
+                                                    SizedBox(
+                                                      height: 10,
+                                                    ),
+                                                    SfSlider(
+                                                      enableTooltip: true,
+                                                      interval: 100,
+                                                      stepSize: 100,
+                                                      thumbIcon: Icon(
+                                                        Icons
+                                                            .compare_arrows_rounded,
+                                                        size: 15,
+                                                        color: Colors.white,
                                                       ),
-                                                      child: Center(
-                                                        child: Text(
-                                                          miniamt
-                                                              .toStringAsFixed(
-                                                                  2),
-                                                          style: TextStyle(
-                                                              fontSize: 18),
-                                                        ),
-                                                      ),
-                                                    ),
-                                                  ),
-                                                  SizedBox(
-                                                    height: 18,
-                                                  ),
-                                                  Padding(
-                                                    padding: const EdgeInsets
-                                                            .symmetric(
-                                                        horizontal: 18.0),
-                                                    child: Row(
-                                                      children: [
-                                                        Expanded(
-                                                          child:
-                                                              IncrementButton(
-                                                            windowHeight:
-                                                                windowHeight,
-                                                            amount: '+ ₹1000',
-                                                            press: () {
-                                                              setState(() {
-                                                                miniamt = (miniamt +
-                                                                        1000)
-                                                                    .toDouble();
-                                                              });
-                                                            },
-                                                          ),
-                                                        ),
-                                                        SizedBox(
-                                                          width: 5,
-                                                        ),
-                                                        Expanded(
-                                                          child:
-                                                              IncrementButton(
-                                                            windowHeight:
-                                                                windowHeight,
-                                                            amount: '+ ₹3000',
-                                                            press: () {
-                                                              setState(() {
-                                                                miniamt = (miniamt +
-                                                                        3000)
-                                                                    .toDouble();
-                                                              });
-                                                            },
-                                                          ),
-                                                        ),
-                                                        SizedBox(
-                                                          width: 5,
-                                                        ),
-                                                        Expanded(
-                                                          child:
-                                                              IncrementButton(
-                                                            windowHeight:
-                                                                windowHeight,
-                                                            amount: '+ ₹5000',
-                                                            press: () {
-                                                              setState(() {
-                                                                miniamt = (miniamt +
-                                                                        5000)
-                                                                    .toDouble();
-                                                              });
-                                                            },
-                                                          ),
-                                                        ),
-                                                      ],
-                                                    ),
-                                                  ),
-                                                  SizedBox(
-                                                    height: 15,
-                                                  ),
-                                                  Padding(
-                                                    padding: const EdgeInsets
-                                                            .symmetric(
-                                                        horizontal: 18.0),
-                                                    child: Align(
-                                                      alignment:
-                                                          Alignment.centerLeft,
-                                                      child: Text(
-                                                        'SIP Date',
-                                                        style: TextStyle(
-                                                          fontSize: 16,
-                                                        ),
-                                                      ),
-                                                    ),
-                                                  ),
-                                                  Container(
-                                                    height: windowHeight * 0.1,
-                                                    child: ListView(
-                                                      scrollDirection:
-                                                          Axis.horizontal,
-                                                      children: [
-                                                        DateCard(
-                                                          windowWidth:
-                                                              windowWidth,
-                                                          windowHeight:
-                                                              windowHeight,
-                                                          date: '1st',
-                                                          press: () {
-                                                            setState(() {
-                                                              selectedDate = 1;
-                                                            });
-                                                          },
-                                                        ),
-                                                        DateCard(
-                                                          windowWidth:
-                                                              windowWidth,
-                                                          windowHeight:
-                                                              windowHeight,
-                                                          date: '2nd',
-                                                          press: () {
-                                                            setState(() {
-                                                              selectedDate = 2;
-                                                            });
-                                                          },
-                                                        ),
-                                                        DateCard(
-                                                          windowWidth:
-                                                              windowWidth,
-                                                          windowHeight:
-                                                              windowHeight,
-                                                          date: '3rd',
-                                                          press: () {
-                                                            setState(() {
-                                                              selectedDate = 3;
-                                                            });
-                                                          },
-                                                        ),
-                                                        DateCard(
-                                                          windowWidth:
-                                                              windowWidth,
-                                                          windowHeight:
-                                                              windowHeight,
-                                                          date: '4th',
-                                                          press: () {
-                                                            setState(() {
-                                                              selectedDate = 4;
-                                                            });
-                                                          },
-                                                        ),
-                                                        DateCard(
-                                                          windowWidth:
-                                                              windowWidth,
-                                                          windowHeight:
-                                                              windowHeight,
-                                                          date: '5th',
-                                                          press: () {
-                                                            setState(() {
-                                                              selectedDate = 5;
-                                                            });
-                                                          },
-                                                        ),
-                                                        DateCard(
-                                                          windowWidth:
-                                                              windowWidth,
-                                                          windowHeight:
-                                                              windowHeight,
-                                                          date: '6th',
-                                                          press: () {
-                                                            setState(() {
-                                                              selectedDate = 6;
-                                                            });
-                                                          },
-                                                        ),
-                                                        DateCard(
-                                                          windowWidth:
-                                                              windowWidth,
-                                                          windowHeight:
-                                                              windowHeight,
-                                                          date: '7th',
-                                                          press: () {
-                                                            setState(() {
-                                                              selectedDate = 7;
-                                                            });
-                                                          },
-                                                        ),
-                                                        DateCard(
-                                                          windowWidth:
-                                                              windowWidth,
-                                                          windowHeight:
-                                                              windowHeight,
-                                                          date: '8th',
-                                                          press: () {
-                                                            setState(() {
-                                                              selectedDate = 8;
-                                                            });
-                                                          },
-                                                        ),
-                                                        DateCard(
-                                                          windowWidth:
-                                                              windowWidth,
-                                                          windowHeight:
-                                                              windowHeight,
-                                                          date: '9th',
-                                                          press: () {
-                                                            setState(() {
-                                                              selectedDate = 9;
-                                                            });
-                                                          },
-                                                        ),
-                                                        DateCard(
-                                                          windowWidth:
-                                                              windowWidth,
-                                                          windowHeight:
-                                                              windowHeight,
-                                                          date: '10th',
-                                                          press: () {
-                                                            setState(() {
-                                                              selectedDate = 10;
-                                                            });
-                                                          },
-                                                        ),
-                                                        DateCard(
-                                                          windowWidth:
-                                                              windowWidth,
-                                                          windowHeight:
-                                                              windowHeight,
-                                                          date: '11th',
-                                                          press: () {
-                                                            setState(() {
-                                                              selectedDate = 11;
-                                                            });
-                                                          },
-                                                        ),
-                                                        DateCard(
-                                                          windowWidth:
-                                                              windowWidth,
-                                                          windowHeight:
-                                                              windowHeight,
-                                                          date: '12th',
-                                                          press: () {
-                                                            setState(() {
-                                                              selectedDate = 12;
-                                                            });
-                                                          },
-                                                        ),
-                                                        DateCard(
-                                                          windowWidth:
-                                                              windowWidth,
-                                                          windowHeight:
-                                                              windowHeight,
-                                                          date: '13th',
-                                                          press: () {
-                                                            setState(() {
-                                                              selectedDate = 13;
-                                                            });
-                                                          },
-                                                        ),
-                                                        DateCard(
-                                                          windowWidth:
-                                                              windowWidth,
-                                                          windowHeight:
-                                                              windowHeight,
-                                                          date: '14th',
-                                                          press: () {
-                                                            setState(() {
-                                                              selectedDate = 14;
-                                                            });
-                                                          },
-                                                        ),
-                                                        DateCard(
-                                                          windowWidth:
-                                                              windowWidth,
-                                                          windowHeight:
-                                                              windowHeight,
-                                                          date: '15th',
-                                                          press: () {
-                                                            setState(() {
-                                                              selectedDate = 15;
-                                                            });
-                                                          },
-                                                        ),
-                                                        DateCard(
-                                                          windowWidth:
-                                                              windowWidth,
-                                                          windowHeight:
-                                                              windowHeight,
-                                                          date: '16th',
-                                                          press: () {
-                                                            setState(() {
-                                                              selectedDate = 16;
-                                                            });
-                                                          },
-                                                        ),
-                                                        DateCard(
-                                                          windowWidth:
-                                                              windowWidth,
-                                                          windowHeight:
-                                                              windowHeight,
-                                                          date: '17th',
-                                                          press: () {
-                                                            setState(() {
-                                                              selectedDate = 17;
-                                                            });
-                                                          },
-                                                        ),
-                                                        DateCard(
-                                                          windowWidth:
-                                                              windowWidth,
-                                                          windowHeight:
-                                                              windowHeight,
-                                                          date: '18th',
-                                                          press: () {
-                                                            setState(() {
-                                                              selectedDate = 18;
-                                                            });
-                                                          },
-                                                        ),
-                                                        DateCard(
-                                                          windowWidth:
-                                                              windowWidth,
-                                                          windowHeight:
-                                                              windowHeight,
-                                                          date: '19th',
-                                                          press: () {
-                                                            setState(() {
-                                                              selectedDate = 19;
-                                                            });
-                                                          },
-                                                        ),
-                                                        DateCard(
-                                                          windowWidth:
-                                                              windowWidth,
-                                                          windowHeight:
-                                                              windowHeight,
-                                                          date: '20th',
-                                                          press: () {
-                                                            setState(() {
-                                                              selectedDate = 20;
-                                                            });
-                                                          },
-                                                        ),
-                                                        DateCard(
-                                                          windowWidth:
-                                                              windowWidth,
-                                                          windowHeight:
-                                                              windowHeight,
-                                                          date: '21st',
-                                                          press: () {
-                                                            setState(() {
-                                                              selectedDate = 21;
-                                                            });
-                                                          },
-                                                        ),
-                                                        DateCard(
-                                                          windowWidth:
-                                                              windowWidth,
-                                                          windowHeight:
-                                                              windowHeight,
-                                                          date: '22nd',
-                                                          press: () {
-                                                            setState(() {
-                                                              selectedDate = 22;
-                                                            });
-                                                          },
-                                                        ),
-                                                        DateCard(
-                                                          windowWidth:
-                                                              windowWidth,
-                                                          windowHeight:
-                                                              windowHeight,
-                                                          date: '23rd',
-                                                          press: () {
-                                                            setState(() {
-                                                              selectedDate = 23;
-                                                            });
-                                                          },
-                                                        ),
-                                                        DateCard(
-                                                          windowWidth:
-                                                              windowWidth,
-                                                          windowHeight:
-                                                              windowHeight,
-                                                          date: '24th',
-                                                          press: () {
-                                                            setState(() {
-                                                              selectedDate = 24;
-                                                            });
-                                                          },
-                                                        ),
-                                                        DateCard(
-                                                          windowWidth:
-                                                              windowWidth,
-                                                          windowHeight:
-                                                              windowHeight,
-                                                          date: '25th',
-                                                          press: () {
-                                                            setState(() {
-                                                              selectedDate = 25;
-                                                            });
-                                                          },
-                                                        ),
-                                                        DateCard(
-                                                          windowWidth:
-                                                              windowWidth,
-                                                          windowHeight:
-                                                              windowHeight,
-                                                          date: '26th',
-                                                          press: () {
-                                                            setState(() {
-                                                              selectedDate = 26;
-                                                            });
-                                                          },
-                                                        ),
-                                                        DateCard(
-                                                          windowWidth:
-                                                              windowWidth,
-                                                          windowHeight:
-                                                              windowHeight,
-                                                          date: '27th',
-                                                          press: () {
-                                                            setState(() {
-                                                              selectedDate = 27;
-                                                            });
-                                                          },
-                                                        ),
-                                                        DateCard(
-                                                          windowWidth:
-                                                              windowWidth,
-                                                          windowHeight:
-                                                              windowHeight,
-                                                          date: '28th',
-                                                          press: () {
-                                                            setState(() {
-                                                              selectedDate = 28;
-                                                            });
-                                                          },
-                                                        ),
-                                                        DateCard(
-                                                          windowWidth:
-                                                              windowWidth,
-                                                          windowHeight:
-                                                              windowHeight,
-                                                          date: '29th',
-                                                          press: () {
-                                                            setState(() {
-                                                              selectedDate = 29;
-                                                            });
-                                                          },
-                                                        ),
-                                                        DateCard(
-                                                          windowWidth:
-                                                              windowWidth,
-                                                          windowHeight:
-                                                              windowHeight,
-                                                          date: '30th',
-                                                          press: () {
-                                                            setState(() {
-                                                              selectedDate = 30;
-                                                            });
-                                                          },
-                                                        ),
-                                                      ],
-                                                    ),
-                                                  ),
-                                                  SizedBox(
-                                                    height: 15,
-                                                  ),
-                                                  Padding(
-                                                    padding: const EdgeInsets
-                                                            .symmetric(
-                                                        horizontal: 18.0),
-                                                    child: Container(
-                                                      width: windowWidth,
-                                                      height:
-                                                          windowHeight * 0.06,
-                                                      decoration: BoxDecoration(
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(20),
-                                                        border: Border.all(
-                                                            color:
-                                                                Colors.black45,
-                                                            width: 1.5),
-                                                      ),
-                                                      child: Center(
-                                                        child: selectedDate ==
-                                                                null
-                                                            ? Text(
-                                                                'Select A Date from above',
-                                                                style:
-                                                                    TextStyle(
-                                                                  fontSize: 18,
-                                                                ),
-                                                              )
-                                                            : Text(
-                                                                'Day ' +
-                                                                    selectedDate
-                                                                        .toString() +
-                                                                    " of every month",
-                                                                style:
-                                                                    TextStyle(
-                                                                  fontSize: 18,
-                                                                ),
-                                                              ),
-                                                      ),
-                                                    ),
-                                                  ),
-                                                  SizedBox(
-                                                    height: 30,
-                                                  ),
-                                                  Padding(
-                                                    padding: const EdgeInsets
-                                                            .symmetric(
-                                                        horizontal: 10.0),
-                                                    child: GestureDetector(
-                                                      onTap: () async {
-                                                        SingleProductDetailsPage
-                                                                .sipAmount =
-                                                            miniamt;
-                                                        SingleProductDetailsPage
-                                                                .date =
-                                                            selectedDate;
-
-                                                        await addToCartRequest();
-                                                        _showSnackBar(
-                                                            SingleProductDetailsPage
-                                                                    .status
-                                                                    .toString()
-                                                                    .toUpperCase() +
-                                                                ' : ' +
-                                                                SingleProductDetailsPage
-                                                                    .message);
+                                                      thumbShape:
+                                                          SfThumbShape(),
+                                                      tooltipShape:
+                                                          SfPaddleTooltipShape(),
+                                                      activeColor:
+                                                          Color(0xFF5B16D0),
+                                                      min: Body.minAmt,
+                                                      max: Body.maxAmt,
+                                                      value: miniamt.toDouble(),
+                                                      onChanged:
+                                                          (dynamic value) {
+                                                        setState(() {
+                                                          miniamt = value;
+                                                        });
                                                       },
-                                                      child: OutlineBtn(
-                                                          btnText:
-                                                              'Add To Cart'),
                                                     ),
-                                                  ),
-                                                ],
+                                                    Padding(
+                                                      padding: const EdgeInsets
+                                                              .symmetric(
+                                                          horizontal: 18.0),
+                                                      child: Container(
+                                                        width: windowWidth,
+                                                        height:
+                                                            windowHeight * 0.06,
+                                                        decoration:
+                                                            BoxDecoration(
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(20),
+                                                          border: Border.all(
+                                                              color: Colors
+                                                                  .black54),
+                                                        ),
+                                                        child: Center(
+                                                          child: Text(
+                                                            miniamt
+                                                                .toStringAsFixed(
+                                                                    2),
+                                                            style: TextStyle(
+                                                                fontSize: 18),
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    ),
+                                                    SizedBox(
+                                                      height: 18,
+                                                    ),
+                                                    Padding(
+                                                      padding: const EdgeInsets
+                                                              .symmetric(
+                                                          horizontal: 18.0),
+                                                      child: Row(
+                                                        children: [
+                                                          Expanded(
+                                                            child:
+                                                                IncrementButton(
+                                                              windowHeight:
+                                                                  windowHeight,
+                                                              amount: '+ ₹1000',
+                                                              press: () {
+                                                                setState(() {
+                                                                  miniamt = (miniamt +
+                                                                          1000)
+                                                                      .toDouble();
+                                                                });
+                                                              },
+                                                            ),
+                                                          ),
+                                                          SizedBox(
+                                                            width: 5,
+                                                          ),
+                                                          Expanded(
+                                                            child:
+                                                                IncrementButton(
+                                                              windowHeight:
+                                                                  windowHeight,
+                                                              amount: '+ ₹3000',
+                                                              press: () {
+                                                                setState(() {
+                                                                  miniamt = (miniamt +
+                                                                          3000)
+                                                                      .toDouble();
+                                                                });
+                                                              },
+                                                            ),
+                                                          ),
+                                                          SizedBox(
+                                                            width: 5,
+                                                          ),
+                                                          Expanded(
+                                                            child:
+                                                                IncrementButton(
+                                                              windowHeight:
+                                                                  windowHeight,
+                                                              amount: '+ ₹5000',
+                                                              press: () {
+                                                                setState(() {
+                                                                  miniamt = (miniamt +
+                                                                          5000)
+                                                                      .toDouble();
+                                                                });
+                                                              },
+                                                            ),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    ),
+                                                    SizedBox(
+                                                      height: 15,
+                                                    ),
+                                                    Padding(
+                                                      padding: const EdgeInsets
+                                                              .symmetric(
+                                                          horizontal: 18.0),
+                                                      child: Align(
+                                                        alignment: Alignment
+                                                            .centerLeft,
+                                                        child: Text(
+                                                          'SIP Date',
+                                                          style: TextStyle(
+                                                            fontSize: 16,
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    ),
+                                                    Container(
+                                                      height:
+                                                          windowHeight * 0.1,
+                                                      child: ListView(
+                                                        scrollDirection:
+                                                            Axis.horizontal,
+                                                        children: [
+                                                          DateCard(
+                                                            windowWidth:
+                                                                windowWidth,
+                                                            windowHeight:
+                                                                windowHeight,
+                                                            date: '1st',
+                                                            press: () {
+                                                              setState(() {
+                                                                selectedDate =
+                                                                    1;
+                                                              });
+                                                            },
+                                                          ),
+                                                          DateCard(
+                                                            windowWidth:
+                                                                windowWidth,
+                                                            windowHeight:
+                                                                windowHeight,
+                                                            date: '2nd',
+                                                            press: () {
+                                                              setState(() {
+                                                                selectedDate =
+                                                                    2;
+                                                              });
+                                                            },
+                                                          ),
+                                                          DateCard(
+                                                            windowWidth:
+                                                                windowWidth,
+                                                            windowHeight:
+                                                                windowHeight,
+                                                            date: '3rd',
+                                                            press: () {
+                                                              setState(() {
+                                                                selectedDate =
+                                                                    3;
+                                                              });
+                                                            },
+                                                          ),
+                                                          DateCard(
+                                                            windowWidth:
+                                                                windowWidth,
+                                                            windowHeight:
+                                                                windowHeight,
+                                                            date: '4th',
+                                                            press: () {
+                                                              setState(() {
+                                                                selectedDate =
+                                                                    4;
+                                                              });
+                                                            },
+                                                          ),
+                                                          DateCard(
+                                                            windowWidth:
+                                                                windowWidth,
+                                                            windowHeight:
+                                                                windowHeight,
+                                                            date: '5th',
+                                                            press: () {
+                                                              setState(() {
+                                                                selectedDate =
+                                                                    5;
+                                                              });
+                                                            },
+                                                          ),
+                                                          DateCard(
+                                                            windowWidth:
+                                                                windowWidth,
+                                                            windowHeight:
+                                                                windowHeight,
+                                                            date: '6th',
+                                                            press: () {
+                                                              setState(() {
+                                                                selectedDate =
+                                                                    6;
+                                                              });
+                                                            },
+                                                          ),
+                                                          DateCard(
+                                                            windowWidth:
+                                                                windowWidth,
+                                                            windowHeight:
+                                                                windowHeight,
+                                                            date: '7th',
+                                                            press: () {
+                                                              setState(() {
+                                                                selectedDate =
+                                                                    7;
+                                                              });
+                                                            },
+                                                          ),
+                                                          DateCard(
+                                                            windowWidth:
+                                                                windowWidth,
+                                                            windowHeight:
+                                                                windowHeight,
+                                                            date: '8th',
+                                                            press: () {
+                                                              setState(() {
+                                                                selectedDate =
+                                                                    8;
+                                                              });
+                                                            },
+                                                          ),
+                                                          DateCard(
+                                                            windowWidth:
+                                                                windowWidth,
+                                                            windowHeight:
+                                                                windowHeight,
+                                                            date: '9th',
+                                                            press: () {
+                                                              setState(() {
+                                                                selectedDate =
+                                                                    9;
+                                                              });
+                                                            },
+                                                          ),
+                                                          DateCard(
+                                                            windowWidth:
+                                                                windowWidth,
+                                                            windowHeight:
+                                                                windowHeight,
+                                                            date: '10th',
+                                                            press: () {
+                                                              setState(() {
+                                                                selectedDate =
+                                                                    10;
+                                                              });
+                                                            },
+                                                          ),
+                                                          DateCard(
+                                                            windowWidth:
+                                                                windowWidth,
+                                                            windowHeight:
+                                                                windowHeight,
+                                                            date: '11th',
+                                                            press: () {
+                                                              setState(() {
+                                                                selectedDate =
+                                                                    11;
+                                                              });
+                                                            },
+                                                          ),
+                                                          DateCard(
+                                                            windowWidth:
+                                                                windowWidth,
+                                                            windowHeight:
+                                                                windowHeight,
+                                                            date: '12th',
+                                                            press: () {
+                                                              setState(() {
+                                                                selectedDate =
+                                                                    12;
+                                                              });
+                                                            },
+                                                          ),
+                                                          DateCard(
+                                                            windowWidth:
+                                                                windowWidth,
+                                                            windowHeight:
+                                                                windowHeight,
+                                                            date: '13th',
+                                                            press: () {
+                                                              setState(() {
+                                                                selectedDate =
+                                                                    13;
+                                                              });
+                                                            },
+                                                          ),
+                                                          DateCard(
+                                                            windowWidth:
+                                                                windowWidth,
+                                                            windowHeight:
+                                                                windowHeight,
+                                                            date: '14th',
+                                                            press: () {
+                                                              setState(() {
+                                                                selectedDate =
+                                                                    14;
+                                                              });
+                                                            },
+                                                          ),
+                                                          DateCard(
+                                                            windowWidth:
+                                                                windowWidth,
+                                                            windowHeight:
+                                                                windowHeight,
+                                                            date: '15th',
+                                                            press: () {
+                                                              setState(() {
+                                                                selectedDate =
+                                                                    15;
+                                                              });
+                                                            },
+                                                          ),
+                                                          DateCard(
+                                                            windowWidth:
+                                                                windowWidth,
+                                                            windowHeight:
+                                                                windowHeight,
+                                                            date: '16th',
+                                                            press: () {
+                                                              setState(() {
+                                                                selectedDate =
+                                                                    16;
+                                                              });
+                                                            },
+                                                          ),
+                                                          DateCard(
+                                                            windowWidth:
+                                                                windowWidth,
+                                                            windowHeight:
+                                                                windowHeight,
+                                                            date: '17th',
+                                                            press: () {
+                                                              setState(() {
+                                                                selectedDate =
+                                                                    17;
+                                                              });
+                                                            },
+                                                          ),
+                                                          DateCard(
+                                                            windowWidth:
+                                                                windowWidth,
+                                                            windowHeight:
+                                                                windowHeight,
+                                                            date: '18th',
+                                                            press: () {
+                                                              setState(() {
+                                                                selectedDate =
+                                                                    18;
+                                                              });
+                                                            },
+                                                          ),
+                                                          DateCard(
+                                                            windowWidth:
+                                                                windowWidth,
+                                                            windowHeight:
+                                                                windowHeight,
+                                                            date: '19th',
+                                                            press: () {
+                                                              setState(() {
+                                                                selectedDate =
+                                                                    19;
+                                                              });
+                                                            },
+                                                          ),
+                                                          DateCard(
+                                                            windowWidth:
+                                                                windowWidth,
+                                                            windowHeight:
+                                                                windowHeight,
+                                                            date: '20th',
+                                                            press: () {
+                                                              setState(() {
+                                                                selectedDate =
+                                                                    20;
+                                                              });
+                                                            },
+                                                          ),
+                                                          DateCard(
+                                                            windowWidth:
+                                                                windowWidth,
+                                                            windowHeight:
+                                                                windowHeight,
+                                                            date: '21st',
+                                                            press: () {
+                                                              setState(() {
+                                                                selectedDate =
+                                                                    21;
+                                                              });
+                                                            },
+                                                          ),
+                                                          DateCard(
+                                                            windowWidth:
+                                                                windowWidth,
+                                                            windowHeight:
+                                                                windowHeight,
+                                                            date: '22nd',
+                                                            press: () {
+                                                              setState(() {
+                                                                selectedDate =
+                                                                    22;
+                                                              });
+                                                            },
+                                                          ),
+                                                          DateCard(
+                                                            windowWidth:
+                                                                windowWidth,
+                                                            windowHeight:
+                                                                windowHeight,
+                                                            date: '23rd',
+                                                            press: () {
+                                                              setState(() {
+                                                                selectedDate =
+                                                                    23;
+                                                              });
+                                                            },
+                                                          ),
+                                                          DateCard(
+                                                            windowWidth:
+                                                                windowWidth,
+                                                            windowHeight:
+                                                                windowHeight,
+                                                            date: '24th',
+                                                            press: () {
+                                                              setState(() {
+                                                                selectedDate =
+                                                                    24;
+                                                              });
+                                                            },
+                                                          ),
+                                                          DateCard(
+                                                            windowWidth:
+                                                                windowWidth,
+                                                            windowHeight:
+                                                                windowHeight,
+                                                            date: '25th',
+                                                            press: () {
+                                                              setState(() {
+                                                                selectedDate =
+                                                                    25;
+                                                              });
+                                                            },
+                                                          ),
+                                                          DateCard(
+                                                            windowWidth:
+                                                                windowWidth,
+                                                            windowHeight:
+                                                                windowHeight,
+                                                            date: '26th',
+                                                            press: () {
+                                                              setState(() {
+                                                                selectedDate =
+                                                                    26;
+                                                              });
+                                                            },
+                                                          ),
+                                                          DateCard(
+                                                            windowWidth:
+                                                                windowWidth,
+                                                            windowHeight:
+                                                                windowHeight,
+                                                            date: '27th',
+                                                            press: () {
+                                                              setState(() {
+                                                                selectedDate =
+                                                                    27;
+                                                              });
+                                                            },
+                                                          ),
+                                                          DateCard(
+                                                            windowWidth:
+                                                                windowWidth,
+                                                            windowHeight:
+                                                                windowHeight,
+                                                            date: '28th',
+                                                            press: () {
+                                                              setState(() {
+                                                                selectedDate =
+                                                                    28;
+                                                              });
+                                                            },
+                                                          ),
+                                                          DateCard(
+                                                            windowWidth:
+                                                                windowWidth,
+                                                            windowHeight:
+                                                                windowHeight,
+                                                            date: '29th',
+                                                            press: () {
+                                                              setState(() {
+                                                                selectedDate =
+                                                                    29;
+                                                              });
+                                                            },
+                                                          ),
+                                                          DateCard(
+                                                            windowWidth:
+                                                                windowWidth,
+                                                            windowHeight:
+                                                                windowHeight,
+                                                            date: '30th',
+                                                            press: () {
+                                                              setState(() {
+                                                                selectedDate =
+                                                                    30;
+                                                              });
+                                                            },
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    ),
+                                                    SizedBox(
+                                                      height: 15,
+                                                    ),
+                                                    Padding(
+                                                      padding: const EdgeInsets
+                                                              .symmetric(
+                                                          horizontal: 18.0),
+                                                      child: Container(
+                                                        width: windowWidth,
+                                                        height:
+                                                            windowHeight * 0.06,
+                                                        decoration:
+                                                            BoxDecoration(
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(20),
+                                                          border: Border.all(
+                                                              color: Colors
+                                                                  .black45,
+                                                              width: 1.5),
+                                                        ),
+                                                        child: Center(
+                                                          child: selectedDate ==
+                                                                  null
+                                                              ? Text(
+                                                                  'Select A Date from above',
+                                                                  style:
+                                                                      TextStyle(
+                                                                    fontSize:
+                                                                        18,
+                                                                  ),
+                                                                )
+                                                              : Text(
+                                                                  'Day ' +
+                                                                      selectedDate
+                                                                          .toString() +
+                                                                      " of every month",
+                                                                  style:
+                                                                      TextStyle(
+                                                                    fontSize:
+                                                                        18,
+                                                                  ),
+                                                                ),
+                                                        ),
+                                                      ),
+                                                    ),
+                                                    SizedBox(
+                                                      height: 30,
+                                                    ),
+                                                    Padding(
+                                                      padding: const EdgeInsets
+                                                              .symmetric(
+                                                          horizontal: 10.0),
+                                                      child: GestureDetector(
+                                                        onTap: () async {
+                                                          SingleProductDetailsPage
+                                                                  .sipAmount =
+                                                              miniamt;
+                                                          SingleProductDetailsPage
+                                                                  .date =
+                                                              selectedDate;
+
+                                                          await addToCartRequest();
+                                                          _showSnackBar(
+                                                              SingleProductDetailsPage
+                                                                      .status
+                                                                      .toString()
+                                                                      .toUpperCase() +
+                                                                  ' : ' +
+                                                                  SingleProductDetailsPage
+                                                                      .message);
+                                                        },
+                                                        child: OutlineBtn(
+                                                            btnText:
+                                                                'Add To Cart'),
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
                                               ),
                                             ),
                                           ),
@@ -1274,17 +1316,22 @@ class DateCard extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: 3.0),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Text(
                   date + ' Of',
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
                   ),
+                  textAlign: TextAlign.center,
                 ),
-                Text(
-                  'Every Month',
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
+                Center(
+                  child: Text(
+                    'Every Month',
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                    ),
+                    textAlign: TextAlign.center,
                   ),
                 ),
               ],

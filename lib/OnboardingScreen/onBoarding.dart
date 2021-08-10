@@ -35,6 +35,8 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
 
   @override
   Widget build(BuildContext context) {
+    double windowHeight = MediaQuery.of(context).size.height;
+    double windowWidth = MediaQuery.of(context).size.width;
     return Scaffold(
       body: AnnotatedRegion<SystemUiOverlayStyle>(
         value: SystemUiOverlayStyle.light,
@@ -72,7 +74,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                   ),
                 ),
                 Container(
-                  height: 600.0,
+                  height: windowHeight * 0.7,
                   child: PageView(
                     physics: ClampingScrollPhysics(),
                     controller: _pageController,
@@ -92,7 +94,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                                 image: AssetImage(
                                   'assets/images/tax_vec.png',
                                 ),
-                                height: 300.0,
+                                height: windowHeight * 0.3,
                                 width: 300.0,
                               ),
                             ),
@@ -125,7 +127,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                                 image: AssetImage(
                                   'assets/images/investment.png',
                                 ),
-                                height: 300.0,
+                                height: windowHeight * 0.3,
                                 width: 300.0,
                               ),
                             ),
@@ -158,7 +160,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                                 image: AssetImage(
                                   'assets/images/will.png',
                                 ),
-                                height: 300.0,
+                                height: windowHeight * 0.3,
                                 width: 300.0,
                               ),
                             ),
@@ -229,7 +231,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
       ),
       bottomSheet: _currentPage == _numPages - 1
           ? Container(
-              height: 100.0,
+              height: windowHeight * 0.1,
               width: double.infinity,
               color: Colors.white,
               child: GestureDetector(

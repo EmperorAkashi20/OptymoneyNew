@@ -37,7 +37,7 @@ class _BodyState extends State<Body> {
         ),
         child: SafeArea(
           child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 8),
+            padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 8),
             child: GNav(
               rippleColor: Color(0xFF5B16D0).withOpacity(0.1),
               // tab button ripple color when pressed
