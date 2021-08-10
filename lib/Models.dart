@@ -3,7 +3,7 @@ import 'constants.dart';
 
 // ----------------------------------------------------------------------------------Global----------------------------------------------------------------------------------------------------------------------------------
 
-const urlWeb = 'https://test.optymoney.com/';
+const urlWeb = 'https://optymoney.com/';
 
 class FormFieldGlobal extends StatelessWidget {
   const FormFieldGlobal({

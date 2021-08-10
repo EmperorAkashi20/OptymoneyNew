@@ -9,6 +9,7 @@ import 'package:optymoney/Cart/Cart.dart';
 import 'package:optymoney/CompleteProfile/CompleteProfile.dart';
 import 'package:optymoney/Dashboard/Components/DetailsPage.dart';
 import 'package:optymoney/Dashboard/dashboard.dart';
+import 'package:optymoney/ExpertAssistance/ExpertAssistance.dart';
 import 'package:optymoney/Feedback/Feedback.dart';
 import 'package:optymoney/ITR/incometax.dart';
 import 'package:optymoney/Investments/Components/DetailsPage.dart';
@@ -19,6 +20,7 @@ import 'package:optymoney/Onboarding/Onboarding.dart';
 import 'package:optymoney/Orders/Orders.dart';
 import 'package:optymoney/PinSetupLogin/PinSetupLogin.dart';
 import 'package:optymoney/Settings/Components/PrivacyPolicy.dart';
+import 'package:optymoney/Settings/Components/TermsOfService.dart';
 import 'package:optymoney/Settings/Settings.dart';
 import 'package:optymoney/SupportTicket/SupportTicket.dart';
 import 'package:optymoney/ViewProfile/ViewProfile.dart';
@@ -51,4 +53,6 @@ final Map<String, WidgetBuilder> routes = {
   LifeGoalsSchemes.routeName: (context) => LifeGoalsSchemes(),
   SingleProductDetailsPage1.routeName: (context) => SingleProductDetailsPage1(),
   PrivacyPolicy.routeName: (context) => PrivacyPolicy(),
+  ExpertAssistance.routeName: (context) => ExpertAssistance(),
+  TermsOfService.routeName: (context) => TermsOfService(),
 };

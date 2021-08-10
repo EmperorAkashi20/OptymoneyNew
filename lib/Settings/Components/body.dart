@@ -3,10 +3,12 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:optymoney/BankDetails/BankDetails.dart';
 import 'package:optymoney/Cart/Cart.dart';
 import 'package:optymoney/CompleteProfile/CompleteProfile.dart';
+import 'package:optymoney/ExpertAssistance/ExpertAssistance.dart';
 import 'package:optymoney/Feedback/Feedback.dart';
 import 'package:optymoney/LoginNSignUp/Components/body.dart';
 import 'package:optymoney/Onboarding/Onboarding.dart';
 import 'package:optymoney/Orders/Orders.dart';
+import 'package:optymoney/Settings/Components/TermsOfService.dart';
 import 'package:optymoney/SupportTicket/SupportTicket.dart';
 import 'package:optymoney/ViewProfile/ViewProfile.dart';
 import 'package:optymoney/graphtest.dart';
@@ -369,7 +371,9 @@ class _BodyState extends State<Body> {
                 child: Align(
                   alignment: Alignment.centerLeft,
                   child: TextButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.pushNamed(context, ExpertAssistance.routeName);
+                    },
                     child: Text('Contact an Expert'),
                   ),
                 ),
@@ -379,8 +383,10 @@ class _BodyState extends State<Body> {
                 child: Align(
                   alignment: Alignment.centerLeft,
                   child: TextButton(
-                    onPressed: () {},
-                    child: Text('Help Center'),
+                    onPressed: () {
+                      Navigator.pushNamed(context, TermsOfService.routeName);
+                    },
+                    child: Text('Terms and Conditions'),
                   ),
                 ),
               ),

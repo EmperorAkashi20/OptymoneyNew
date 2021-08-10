@@ -2,7 +2,6 @@ import 'dart:convert';
 
 import 'package:crypto/crypto.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 import 'package:http/http.dart';
 import 'package:optymoney/Components/inputwithicon.dart';
 import 'package:optymoney/Components/outlinebtn.dart';
@@ -161,36 +160,11 @@ class _BodyState extends State<Body> {
   final _formKey = GlobalKey<FormState>();
   final _formKey1 = GlobalKey<FormState>();
   TextEditingController passwordController = new TextEditingController();
-  int _pageState = 0;
-
-  var _backgroundColor = Colors.white;
-  var _headingColor = Color(0xFFB40284A);
-
-  bool _keyboardVisible = false;
-  double _headingTop = 100;
-
-  double _loginWidth = 0;
-  double _loginHeight = 0;
-  double _loginOpacity = 1;
-  double _loginYOffset = 0;
-  double _loginXOffset = 0;
-
-  @override
-  void initState() {
-    super.initState();
-    var keyboardVisibilityController = KeyboardVisibilityController();
-    keyboardVisibilityController.onChange.listen((bool visible) {
-      setState(() {
-        _keyboardVisible = visible;
-      });
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
     double windowHeight = MediaQuery.of(context).size.height;
     // double windowWidth = MediaQuery.of(context).size.width;
-    _loginHeight = windowHeight - 270;
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
