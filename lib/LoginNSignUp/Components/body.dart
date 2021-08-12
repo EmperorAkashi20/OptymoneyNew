@@ -233,7 +233,7 @@ sendResetPasswordRequest() async {
       'https://optymoney.com/ajax-request/ajax_response.php?action=doResetPasswordApp&subaction=submit');
   final headers = {'Content-Type': 'application/x-www-form-urlencoded'};
   Map<String, dynamic> body = {
-    'reset_email': MyApp.email,
+    'reset_email': LoginSignUp.email,
   };
   //String jsonBody = json.encode(body);
   final encoding = Encoding.getByName('utf-8');
@@ -249,9 +249,11 @@ sendResetPasswordRequest() async {
   var jsonData = responseBody;
   var parsedJson = json.decode(jsonData);
 
-  LoginSignUp.resetPassStatus = parsedJson['status'];
+  LoginSignUp.resetPassStatus = parsedJson['status'].toString();
   LoginSignUp.resetPassMessage = parsedJson['message'];
   LoginSignUp.resetPassCode = parsedJson['resetcode'];
+
+  print(responseBody);
 }
 
 class LoginSignUp extends StatefulWidget {
@@ -625,10 +627,26 @@ class _LoginSignUpState extends State<LoginSignUp> {
                         alignment: Alignment.centerRight,
                         child: TextButton(
                           onPressed: () async {
-                            sendResetPasswordRequest();
-                            if (LoginSignUp.resetPassStatus.toString() == '1') {
+                            LoginSignUp.email =
+                                _emailControllerSignIn.text.toString();
+                            if (_emailControllerSignIn.text.isEmpty) {
                               _showSnackBar(
-                                  'Check your registered email for further instructions');
+                                  'Please enter your registered email address');
+                            }
+                            bool emailValid = RegExp(
+                                    r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
+                                .hasMatch(LoginSignUp.email!);
+                            if (emailValid == false) {
+                              _showSnackBar(
+                                  'Please enter a valid email address');
+                            } else if (_emailControllerSignIn.text.isNotEmpty &&
+                                emailValid == true) {
+                              sendResetPasswordRequest();
+                              if (LoginSignUp.resetPassStatus.toString() ==
+                                  '1') {
+                                _showSnackBar(
+                                    'Check your registered email for further instructions');
+                              }
                             }
                           },
                           child: Text('Forgot Password?'),
