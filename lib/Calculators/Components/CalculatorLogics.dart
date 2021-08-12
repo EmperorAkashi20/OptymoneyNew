@@ -2771,13 +2771,26 @@ class _TaxCalculatorState extends State<TaxCalculator> {
                         } else if (_currentItemSelected == '>=80') {
                           age = 'seniorCitizen';
                         }
-                        var elss1 = double.tryParse(elss.text)!;
-                        var lic1 = double.tryParse(lic.text)!;
-                        var ssy1 = double.tryParse(ssy.text)!;
-                        var fd1 = double.tryParse(fd.text)!;
-                        var ppf1 = double.tryParse(ppf.text)!;
-                        var insurance1 = double.tryParse(insurance.text)!;
-                        var otherAmt1 = double.tryParse(otherAmt.text)!;
+                        var elss1 = elss.text.isNotEmpty
+                            ? double.tryParse(elss.text)!
+                            : 0;
+                        var lic1 = lic.text.isNotEmpty
+                            ? double.tryParse(lic.text)!
+                            : 0;
+                        var ssy1 = ssy.text.isNotEmpty
+                            ? double.tryParse(ssy.text)!
+                            : 0;
+                        var fd1 =
+                            fd.text.isNotEmpty ? double.tryParse(fd.text)! : 0;
+                        var ppf1 = ppf.text.isNotEmpty
+                            ? double.tryParse(ppf.text)!
+                            : 0;
+                        var insurance1 = insurance.text.isNotEmpty
+                            ? double.tryParse(insurance.text)!
+                            : 0;
+                        var otherAmt1 = otherAmt.text.isNotEmpty
+                            ? double.tryParse(otherAmt.text)!
+                            : 0;
                         var salary1 = double.tryParse(salary.text)!;
                         var totalInvest = (elss1 +
                             lic1 +

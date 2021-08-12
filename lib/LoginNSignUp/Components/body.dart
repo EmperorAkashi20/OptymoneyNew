@@ -504,80 +504,76 @@ class _LoginSignUpState extends State<LoginSignUp> {
           curve: Curves.fastLinearToSlowEaseIn,
           duration: Duration(milliseconds: 1000),
           color: _backgroundColor,
-          child: SingleChildScrollView(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: <Widget>[
-                GestureDetector(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: <Widget>[
+              GestureDetector(
+                onTap: () {
+                  setState(() {
+                    _pageState = 0;
+                  });
+                },
+                child: Container(
+                  child: Column(
+                    children: <Widget>[
+                      AnimatedContainer(
+                        curve: Curves.fastLinearToSlowEaseIn,
+                        duration: Duration(milliseconds: 1000),
+                        margin: EdgeInsets.only(
+                          top: _headingTop,
+                        ),
+                        child: Text(
+                          "Invest Freely",
+                          style: TextStyle(color: _headingColor, fontSize: 28),
+                        ),
+                      ),
+                      Container(
+                        margin: EdgeInsets.all(20),
+                        padding: EdgeInsets.symmetric(horizontal: 32),
+                        child: Text(
+                          "We make investing and managing your portfolio easy for you.\nStart your savings today!!",
+                          textAlign: TextAlign.center,
+                          style: TextStyle(color: _headingColor, fontSize: 16),
+                        ),
+                      )
+                    ],
+                  ),
+                ),
+              ),
+              Container(
+                padding: EdgeInsets.symmetric(horizontal: 32),
+                child: Center(
+                  child: SvgPicture.asset('assets/icons/signup.svg'),
+                ),
+              ),
+              Container(
+                child: GestureDetector(
                   onTap: () {
                     setState(() {
-                      _pageState = 0;
+                      if (_pageState != 0) {
+                        _pageState = 0;
+                      } else {
+                        _pageState = 1;
+                      }
                     });
                   },
                   child: Container(
-                    child: Column(
-                      children: <Widget>[
-                        AnimatedContainer(
-                          curve: Curves.fastLinearToSlowEaseIn,
-                          duration: Duration(milliseconds: 1000),
-                          margin: EdgeInsets.only(
-                            top: _headingTop,
-                          ),
-                          child: Text(
-                            "Invest Freely",
-                            style:
-                                TextStyle(color: _headingColor, fontSize: 28),
-                          ),
-                        ),
-                        Container(
-                          margin: EdgeInsets.all(20),
-                          padding: EdgeInsets.symmetric(horizontal: 32),
-                          child: Text(
-                            "We make investing and managing your portfolio easy for you.\nStart your savings today!!",
-                            textAlign: TextAlign.center,
-                            style:
-                                TextStyle(color: _headingColor, fontSize: 16),
-                          ),
-                        )
-                      ],
-                    ),
-                  ),
-                ),
-                Container(
-                  padding: EdgeInsets.symmetric(horizontal: 32),
-                  child: Center(
-                    child: SvgPicture.asset('assets/icons/signup.svg'),
-                  ),
-                ),
-                Container(
-                  child: GestureDetector(
-                    onTap: () {
-                      setState(() {
-                        if (_pageState != 0) {
-                          _pageState = 0;
-                        } else {
-                          _pageState = 1;
-                        }
-                      });
-                    },
-                    child: Container(
-                      margin: EdgeInsets.all(32),
-                      padding: EdgeInsets.all(20),
-                      width: double.infinity,
-                      decoration: BoxDecoration(
-                          color: Color(0xFFFDB2D4B), //Color(0xFFB40284A),
-                          borderRadius: BorderRadius.circular(50)),
-                      child: Center(
-                        child: Text(
-                          "Get Started",
-                          style: TextStyle(color: Colors.white, fontSize: 16),
-                        ),
+                    margin: EdgeInsets.all(32),
+                    padding: EdgeInsets.all(20),
+                    width: double.infinity,
+                    decoration: BoxDecoration(
+                        color: Color(0xFFFDB2D4B), //Color(0xFFB40284A),
+                        borderRadius: BorderRadius.circular(50)),
+                    child: Center(
+                      child: Text(
+                        "Get Started",
+                        style: TextStyle(color: Colors.white, fontSize: 16),
                       ),
                     ),
                   ),
-                )
-              ],
-            ),
+                ),
+              )
+            ],
           ),
         ),
         AnimatedContainer(
@@ -594,156 +590,151 @@ class _LoginSignUpState extends State<LoginSignUp> {
               topRight: Radius.circular(25),
             ),
           ),
-          child: SingleChildScrollView(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Column(
-                  children: [
-                    Container(
-                      margin: EdgeInsets.only(bottom: 20),
-                      child: Text(
-                        'Enter your details to login',
-                        style: TextStyle(fontSize: 20),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Column(
+                children: [
+                  Container(
+                    margin: EdgeInsets.only(bottom: 20),
+                    child: Text(
+                      'Enter your details to login',
+                      style: TextStyle(fontSize: 20),
+                    ),
+                  ),
+                  Column(
+                    children: [
+                      InputWithIcon(
+                        icon: Icons.person,
+                        hint: 'Email',
+                        dataController: _emailControllerSignIn,
+                        obscureText: false,
+                        keyboardTypeGlobal: TextInputType.emailAddress,
                       ),
-                    ),
-                    Column(
-                      children: [
-                        InputWithIcon(
-                          icon: Icons.person,
-                          hint: 'Email',
-                          dataController: _emailControllerSignIn,
-                          obscureText: false,
-                          keyboardTypeGlobal: TextInputType.emailAddress,
+                      SizedBox(
+                        height: 20,
+                      ),
+                      InputWithIcon(
+                        icon: Icons.vpn_key,
+                        hint: 'Password',
+                        dataController: _passwordControllerSignIn,
+                        obscureText: true,
+                        keyboardTypeGlobal: TextInputType.text,
+                      ),
+                      Align(
+                        alignment: Alignment.centerRight,
+                        child: TextButton(
+                          onPressed: () async {
+                            sendResetPasswordRequest();
+                            if (LoginSignUp.resetPassStatus.toString() == '1') {
+                              _showSnackBar(
+                                  'Check your registered email for further instructions');
+                            }
+                          },
+                          child: Text('Forgot Password?'),
                         ),
-                        SizedBox(
-                          height: 20,
-                        ),
-                        InputWithIcon(
-                          icon: Icons.vpn_key,
-                          hint: 'Password',
-                          dataController: _passwordControllerSignIn,
-                          obscureText: true,
-                          keyboardTypeGlobal: TextInputType.text,
-                        ),
-                        Align(
-                          alignment: Alignment.centerRight,
-                          child: TextButton(
-                            onPressed: () async {
-                              sendResetPasswordRequest();
-                              if (LoginSignUp.resetPassStatus.toString() ==
-                                  '1') {
-                                _showSnackBar(
-                                    'Check your registered email for further instructions');
-                              }
-                            },
-                            child: Text('Forgot Password?'),
-                          ),
-                        ),
-                        SizedBox(
-                          height: 20,
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-                Column(
-                  children: [
-                    GestureDetector(
-                      onTap: () async {
-                        if (_emailControllerSignIn.text.isEmpty &&
-                            _passwordControllerSignIn.text.isEmpty) {
-                          _showSnackBar('Fields cannot be empty');
-                        } else if (_emailControllerSignIn.text.isEmpty) {
-                          _showSnackBar('Please enter a valid email address');
-                        } else if (_passwordControllerSignIn.text.isEmpty) {
-                          _showSnackBar('Password cannot be empty');
-                        } else {
-                          LoginSignUp.email =
-                              _emailControllerSignIn.text.toString();
-                          LoginSignUp.password =
-                              _passwordControllerSignIn.text.toString();
-                          bool emailValid = RegExp(
-                                  r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
-                              .hasMatch(LoginSignUp.email!);
-                          if (emailValid == true) {
-                            await makeLoginRequest();
-                            if (LoginSignUp.message == 'LOGIN_SUCCESS' &&
-                                LoginSignUp.globalUserId != null) {
-                              await MyApp.prefs.setString(
-                                  'userId', LoginSignUp.globalUserId);
-                              await MyApp.prefs.setString(
-                                  'emailId', LoginSignUp.globalEmail);
-                              await MyApp.prefs
-                                  .setString('name', LoginSignUp.globalName);
-                              await MyApp.prefs
-                                  .setString('pan', LoginSignUp.globalPan);
-                              var hashedPass =
-                                  utf8.encode(LoginSignUp.password.toString());
-                              LoginSignUp.digest =
-                                  sha512256.convert(hashedPass);
-                              await MyApp.prefs.setString(
-                                  'hash', LoginSignUp.digest.toString());
-                              await checkUserPinSet();
-                              if (LoginSignUp.mpinMessage == 'MPIN_SET' &&
-                                  LoginSignUp.mpinStatus == '1') {
-                                await makeKycRequest();
-                                if (LoginSignUp.kycStatusCode == 500) {
-                                  Navigator.of(context).pushReplacement(
-                                    MaterialPageRoute(
-                                      builder: (BuildContext context) =>
-                                          Dashboard(),
-                                    ),
-                                  );
-                                  _showSnackBar(
-                                      'The KYC servers are currently facing some issues, please be patient.');
-                                } else if (LoginSignUp.kycStatus.toString() ==
-                                    'success') {
-                                  Navigator.of(context).pushReplacement(
-                                    MaterialPageRoute(
-                                      builder: (BuildContext context) =>
-                                          Dashboard(),
-                                    ),
-                                  );
-                                }
-                                await MyApp.prefs.setString('pinSet', 'Yes');
+                      ),
+                      SizedBox(
+                        height: 20,
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+              Column(
+                children: [
+                  GestureDetector(
+                    onTap: () async {
+                      if (_emailControllerSignIn.text.isEmpty &&
+                          _passwordControllerSignIn.text.isEmpty) {
+                        _showSnackBar('Fields cannot be empty');
+                      } else if (_emailControllerSignIn.text.isEmpty) {
+                        _showSnackBar('Please enter a valid email address');
+                      } else if (_passwordControllerSignIn.text.isEmpty) {
+                        _showSnackBar('Password cannot be empty');
+                      } else {
+                        LoginSignUp.email =
+                            _emailControllerSignIn.text.toString();
+                        LoginSignUp.password =
+                            _passwordControllerSignIn.text.toString();
+                        bool emailValid = RegExp(
+                                r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
+                            .hasMatch(LoginSignUp.email!);
+                        if (emailValid == true) {
+                          await makeLoginRequest();
+                          if (LoginSignUp.message == 'LOGIN_SUCCESS' &&
+                              LoginSignUp.globalUserId != null) {
+                            await MyApp.prefs
+                                .setString('userId', LoginSignUp.globalUserId);
+                            await MyApp.prefs
+                                .setString('emailId', LoginSignUp.globalEmail);
+                            await MyApp.prefs
+                                .setString('name', LoginSignUp.globalName);
+                            await MyApp.prefs
+                                .setString('pan', LoginSignUp.globalPan);
+                            var hashedPass =
+                                utf8.encode(LoginSignUp.password.toString());
+                            LoginSignUp.digest = sha512256.convert(hashedPass);
+                            await MyApp.prefs.setString(
+                                'hash', LoginSignUp.digest.toString());
+                            await checkUserPinSet();
+                            if (LoginSignUp.mpinMessage == 'MPIN_SET' &&
+                                LoginSignUp.mpinStatus == '1') {
+                              await makeKycRequest();
+                              if (LoginSignUp.kycStatusCode == 500) {
                                 Navigator.of(context).pushReplacement(
                                   MaterialPageRoute(
                                     builder: (BuildContext context) =>
                                         Dashboard(),
                                   ),
                                 );
-                                await makeUserRequest();
-                              } else {
-                                Navigator.pushNamed(
-                                    context, PinSetupLogin.routeName);
+                                _showSnackBar(
+                                    'The KYC servers are currently facing some issues, please be patient.');
+                              } else if (LoginSignUp.kycStatus.toString() ==
+                                  'success') {
+                                Navigator.of(context).pushReplacement(
+                                  MaterialPageRoute(
+                                    builder: (BuildContext context) =>
+                                        Dashboard(),
+                                  ),
+                                );
                               }
+                              await MyApp.prefs.setString('pinSet', 'Yes');
+                              Navigator.of(context).pushReplacement(
+                                MaterialPageRoute(
+                                  builder: (BuildContext context) =>
+                                      Dashboard(),
+                                ),
+                              );
+                              await makeUserRequest();
                             } else {
-                              _showSnackBar(
-                                  'The entered email or password is incorrect');
+                              Navigator.pushNamed(
+                                  context, PinSetupLogin.routeName);
                             }
-                          } else
+                          } else {
                             _showSnackBar(
-                                'Please enter a correct email address');
-                        }
-                      },
-                      child: PrimaryButton(btnText: 'Login'),
-                    ),
-                    SizedBox(
-                      height: 20,
-                    ),
-                    GestureDetector(
-                      onTap: () {
-                        setState(() {
-                          _pageState = 2;
-                        });
-                      },
-                      child: OutlineBtn(btnText: "Register With Us"),
-                    ),
-                  ],
-                ),
-              ],
-            ),
+                                'The entered email or password is incorrect');
+                          }
+                        } else
+                          _showSnackBar('Please enter a correct email address');
+                      }
+                    },
+                    child: PrimaryButton(btnText: 'Login'),
+                  ),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  GestureDetector(
+                    onTap: () {
+                      setState(() {
+                        _pageState = 2;
+                      });
+                    },
+                    child: OutlineBtn(btnText: "Register With Us"),
+                  ),
+                ],
+              ),
+            ],
           ),
         ),
         AnimatedContainer(
@@ -761,133 +752,129 @@ class _LoginSignUpState extends State<LoginSignUp> {
               topRight: Radius.circular(25),
             ),
           ),
-          child: SingleChildScrollView(
-            child: Column(
-              //mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Container(
-                  margin: EdgeInsets.only(bottom: 20),
-                  child: Text(
-                    'Create a new account',
-                    style: TextStyle(fontSize: 20),
-                  ),
+          child: Column(
+            //mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Container(
+                margin: EdgeInsets.only(bottom: 20),
+                child: Text(
+                  'Create a new account',
+                  style: TextStyle(fontSize: 20),
                 ),
-                InputWithIcon(
-                  icon: Icons.person,
-                  hint: "Name",
-                  obscureText: false,
-                  dataController: _nameControllerSignUp,
-                  keyboardTypeGlobal: TextInputType.name,
-                ),
-                SizedBox(height: 5),
-                InputWithIcon(
-                  icon: Icons.person,
-                  hint: "Email Id",
-                  obscureText: false,
-                  dataController: _emailControllerSignUp,
-                  keyboardTypeGlobal: TextInputType.emailAddress,
-                ),
-                SizedBox(height: 5),
-                InputWithIcon(
-                  icon: Icons.phone,
-                  hint: "Mobile Number",
-                  obscureText: false,
-                  dataController: _phoneControllerSignUp,
-                  keyboardTypeGlobal: TextInputType.number,
-                ),
-                SizedBox(height: 5),
-                InputWithIcon(
-                  icon: Icons.vpn_key,
-                  hint: "Password",
-                  obscureText: true,
-                  dataController: _passControllerSignUp,
-                ),
-                SizedBox(height: 5),
-                InputWithIcon(
-                  icon: Icons.vpn_key,
-                  hint: "Password",
-                  obscureText: true,
-                  dataController: _rePassControllerSignUp,
-                ),
-                SizedBox(height: 20),
-                GestureDetector(
-                  onTap: () async {
-                    if (_nameControllerSignUp.text.isEmpty &&
-                        _emailControllerSignUp.text.isEmpty &&
-                        _phoneControllerSignUp.text.isEmpty &&
-                        _passControllerSignUp.text.isEmpty &&
-                        _passwordControllerSignIn.text.isEmpty) {
-                      _showSnackBar('Field Cannot be empty');
-                    } else if (_nameControllerSignUp.text.isEmpty) {
-                      _showSnackBar('Enter Your Name');
-                    } else if (_emailControllerSignUp.text.isEmpty) {
-                      _showSnackBar('Enter your Email');
-                    } else if (_phoneControllerSignUp.text.isEmpty) {
-                      _showSnackBar('Enter your phone number');
-                    } else if (_phoneControllerSignUp.text.length < 10 ||
-                        _phoneControllerSignUp.text.length > 10) {
-                      _showSnackBar(
-                          "Mobile number should be 10 digits long. Don't include country code");
-                    } else if (_passControllerSignUp.text.isEmpty) {
-                      _showSnackBar('Password cannot be empty');
-                    } else if (_rePassControllerSignUp.text.isEmpty) {
-                      _showSnackBar('Re-Enter your password');
-                    } else if (_passControllerSignUp.text.length < 8) {
-                      _showSnackBar(
-                          'Password length should be greater than 7 characters');
-                    } else if (_passControllerSignUp.text.toString() !=
-                        _rePassControllerSignUp.text.toString()) {
-                      _showSnackBar('Passwords do not match. Please check');
-                    } else {
-                      LoginSignUp.email =
-                          _emailControllerSignUp.text.toString();
-                      LoginSignUp.password =
-                          _passControllerSignUp.text.toString();
-                      LoginSignUp.rePass =
-                          _rePassControllerSignUp.text.toString();
-                      bool emailValid = RegExp(
-                              r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
-                          .hasMatch(LoginSignUp.email!);
-                      LoginSignUp.name = _nameControllerSignUp.text.toString();
-                      LoginSignUp.phoneNo =
-                          _phoneControllerSignUp.text.toString();
-                      if (emailValid == true) {
-                        await sendOtpRequest();
-                        print(LoginSignUp.otpStatus);
-                        if (LoginSignUp.otpStatus == '1') {
-                          LoginSignUp.globalName = LoginSignUp.name.toString();
-                          LoginSignUp.globalEmail =
-                              LoginSignUp.email.toString();
-                          LoginSignUp.globalLetter =
-                              LoginSignUp.name[0].toString().toUpperCase();
-                          _showSnackBar(LoginSignUp.otpMessage +
-                              "Valid for next 15 mins");
-                          setState(() {
-                            _pageState = 3;
-                          });
-                        } else {
-                          _showSnackBar(LoginSignUp.otpMessage);
-                        }
+              ),
+              InputWithIcon(
+                icon: Icons.person,
+                hint: "Name",
+                obscureText: false,
+                dataController: _nameControllerSignUp,
+                keyboardTypeGlobal: TextInputType.name,
+              ),
+              SizedBox(height: 5),
+              InputWithIcon(
+                icon: Icons.person,
+                hint: "Email Id",
+                obscureText: false,
+                dataController: _emailControllerSignUp,
+                keyboardTypeGlobal: TextInputType.emailAddress,
+              ),
+              SizedBox(height: 5),
+              InputWithIcon(
+                icon: Icons.phone,
+                hint: "Mobile Number",
+                obscureText: false,
+                dataController: _phoneControllerSignUp,
+                keyboardTypeGlobal: TextInputType.number,
+              ),
+              SizedBox(height: 5),
+              InputWithIcon(
+                icon: Icons.vpn_key,
+                hint: "Password",
+                obscureText: true,
+                dataController: _passControllerSignUp,
+              ),
+              SizedBox(height: 5),
+              InputWithIcon(
+                icon: Icons.vpn_key,
+                hint: "Password",
+                obscureText: true,
+                dataController: _rePassControllerSignUp,
+              ),
+              SizedBox(height: 20),
+              GestureDetector(
+                onTap: () async {
+                  if (_nameControllerSignUp.text.isEmpty &&
+                      _emailControllerSignUp.text.isEmpty &&
+                      _phoneControllerSignUp.text.isEmpty &&
+                      _passControllerSignUp.text.isEmpty &&
+                      _passwordControllerSignIn.text.isEmpty) {
+                    _showSnackBar('Field Cannot be empty');
+                  } else if (_nameControllerSignUp.text.isEmpty) {
+                    _showSnackBar('Enter Your Name');
+                  } else if (_emailControllerSignUp.text.isEmpty) {
+                    _showSnackBar('Enter your Email');
+                  } else if (_phoneControllerSignUp.text.isEmpty) {
+                    _showSnackBar('Enter your phone number');
+                  } else if (_phoneControllerSignUp.text.length < 10 ||
+                      _phoneControllerSignUp.text.length > 10) {
+                    _showSnackBar(
+                        "Mobile number should be 10 digits long. Don't include country code");
+                  } else if (_passControllerSignUp.text.isEmpty) {
+                    _showSnackBar('Password cannot be empty');
+                  } else if (_rePassControllerSignUp.text.isEmpty) {
+                    _showSnackBar('Re-Enter your password');
+                  } else if (_passControllerSignUp.text.length < 8) {
+                    _showSnackBar(
+                        'Password length should be greater than 7 characters');
+                  } else if (_passControllerSignUp.text.toString() !=
+                      _rePassControllerSignUp.text.toString()) {
+                    _showSnackBar('Passwords do not match. Please check');
+                  } else {
+                    LoginSignUp.email = _emailControllerSignUp.text.toString();
+                    LoginSignUp.password =
+                        _passControllerSignUp.text.toString();
+                    LoginSignUp.rePass =
+                        _rePassControllerSignUp.text.toString();
+                    bool emailValid = RegExp(
+                            r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
+                        .hasMatch(LoginSignUp.email!);
+                    LoginSignUp.name = _nameControllerSignUp.text.toString();
+                    LoginSignUp.phoneNo =
+                        _phoneControllerSignUp.text.toString();
+                    if (emailValid == true) {
+                      await sendOtpRequest();
+                      print(LoginSignUp.otpStatus);
+                      if (LoginSignUp.otpStatus == '1') {
+                        LoginSignUp.globalName = LoginSignUp.name.toString();
+                        LoginSignUp.globalEmail = LoginSignUp.email.toString();
+                        LoginSignUp.globalLetter =
+                            LoginSignUp.name[0].toString().toUpperCase();
+                        _showSnackBar(
+                            LoginSignUp.otpMessage + "Valid for next 15 mins");
+                        setState(() {
+                          _pageState = 3;
+                        });
                       } else {
-                        _showSnackBar('Please enter a valid email');
+                        _showSnackBar(LoginSignUp.otpMessage);
                       }
+                    } else {
+                      _showSnackBar('Please enter a valid email');
                     }
-                  },
-                  child: PrimaryButton(btnText: 'Continue'),
-                ),
-                SizedBox(
-                  height: 4,
-                ),
-                GestureDetector(
-                  onTap: () {
-                    setState(() {
-                      _pageState = 1;
-                    });
-                  },
-                  child: OutlineBtn(btnText: 'Back to Login'),
-                ),
-              ],
-            ),
+                  }
+                },
+                child: PrimaryButton(btnText: 'Continue'),
+              ),
+              SizedBox(
+                height: 4,
+              ),
+              GestureDetector(
+                onTap: () {
+                  setState(() {
+                    _pageState = 1;
+                  });
+                },
+                child: OutlineBtn(btnText: 'Back to Login'),
+              ),
+            ],
           ),
         ),
         AnimatedContainer(

@@ -381,30 +381,24 @@ class FinancialCalculatorsTiles extends StatelessWidget {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Expanded(
-                  flex: 1,
-                  child: Text(
-                    letter,
-                    style: TextStyle(
-                      fontSize: 35,
-                      fontWeight: FontWeight.bold,
-                      color: Color(0xFF5B16D0).withOpacity(0.8),
-                    ),
+                Text(
+                  letter,
+                  style: TextStyle(
+                    fontSize: windowHeight <= 667 ? 28 : 35,
+                    fontWeight: FontWeight.bold,
+                    color: Color(0xFF5B16D0).withOpacity(0.8),
                   ),
                 ),
                 SizedBox(
                   height: windowHeight * 0.001,
                 ),
-                Expanded(
-                  flex: 2,
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 5.0),
-                    child: Text(
-                      name,
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        fontSize: 18,
-                      ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 5.0),
+                  child: Text(
+                    name,
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      fontSize: windowHeight <= 667 ? 16 : 18,
                     ),
                   ),
                 ),
@@ -461,7 +455,7 @@ class LifeGoalsCard extends StatelessWidget {
                   child: Text(
                     title,
                     style: TextStyle(
-                      fontSize: 18,
+                      fontSize: windowHeight <= 667 ? 16 : 18,
                       fontWeight: FontWeight.bold,
                     ),
                     textAlign: TextAlign.center,

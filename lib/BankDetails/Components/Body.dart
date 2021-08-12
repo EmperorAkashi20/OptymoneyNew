@@ -199,98 +199,103 @@ class _BodyState extends State<Body> {
                     SafeArea(
                       child: Align(
                         alignment: Alignment.bottomRight,
-                        child: FloatingActionButton(
-                          backgroundColor: Color(0xFF5B16D0),
-                          child: Icon(
-                            Icons.add,
-                            size: 40,
-                          ),
-                          onPressed: () {
-                            showModalBottomSheet(
-                              context: context,
-                              builder: (context) => Scaffold(
-                                appBar: AppBar(
-                                  backgroundColor: Colors.white,
-                                  elevation: 0,
-                                  automaticallyImplyLeading: false,
-                                  title: Text(
-                                    'Add New Bank Account',
-                                    style: TextStyle(color: Colors.black),
+                        child: Padding(
+                          padding: const EdgeInsets.all(12.0),
+                          child: FloatingActionButton(
+                            backgroundColor: Color(0xFF5B16D0),
+                            child: Icon(
+                              Icons.add,
+                              size: 40,
+                            ),
+                            onPressed: () {
+                              showModalBottomSheet(
+                                context: context,
+                                builder: (context) => Scaffold(
+                                  appBar: AppBar(
+                                    backgroundColor: Colors.white,
+                                    elevation: 0,
+                                    automaticallyImplyLeading: false,
+                                    title: Text(
+                                      'Add New Bank Account',
+                                      style: TextStyle(color: Colors.black),
+                                    ),
+                                    actions: [
+                                      CloseButton(
+                                        color: Colors.black,
+                                      )
+                                    ],
                                   ),
-                                  actions: [
-                                    CloseButton(
-                                      color: Colors.black,
-                                    )
-                                  ],
-                                ),
-                                body: SingleChildScrollView(
-                                  child: Container(
-                                    child: Padding(
-                                      padding: const EdgeInsets.symmetric(
-                                          horizontal: 18.0),
-                                      child: Container(
-                                        child: Column(
-                                          children: [
-                                            SizedBox(
-                                              height: 20,
-                                            ),
-                                            InputWithIcon(
-                                              icon: Icons.text_fields,
-                                              hint: 'Bank Name',
-                                              obscureText: false,
-                                              dataController:
-                                                  addBankNameController,
-                                            ),
-                                            SizedBox(
-                                              height: 20,
-                                            ),
-                                            InputWithIcon(
-                                              icon: Icons.text_fields,
-                                              hint: 'Account Number',
-                                              obscureText: false,
-                                              dataController:
-                                                  addBankAccountNumberController,
-                                            ),
-                                            SizedBox(
-                                              height: 20,
-                                            ),
-                                            InputWithIcon(
-                                              icon: Icons.text_fields,
-                                              hint: 'IFSC',
-                                              obscureText: false,
-                                              dataController:
-                                                  addBankIfscController,
-                                            ),
-                                            SizedBox(
-                                              height: 40,
-                                            ),
-                                            GestureDetector(
-                                              onTap: () async {
-                                                Body.ifsc =
-                                                    addBankIfscController.text;
-                                                Body.bankName =
-                                                    addBankNameController.text;
-                                                Body.accountNumber =
-                                                    addBankAccountNumberController
-                                                        .text;
-                                                await addBankAccount();
-                                                Navigator.pop(context);
-                                                setState(() {
-                                                  _getBankDetail();
-                                                });
-                                              },
-                                              child: PrimaryButton(
-                                                  btnText: 'Add Account'),
-                                            ),
-                                          ],
+                                  body: SingleChildScrollView(
+                                    child: Container(
+                                      child: Padding(
+                                        padding: const EdgeInsets.symmetric(
+                                            horizontal: 18.0),
+                                        child: Container(
+                                          child: Column(
+                                            children: [
+                                              SizedBox(
+                                                height: 20,
+                                              ),
+                                              InputWithIcon(
+                                                icon: Icons.text_fields,
+                                                hint: 'Bank Name',
+                                                obscureText: false,
+                                                dataController:
+                                                    addBankNameController,
+                                              ),
+                                              SizedBox(
+                                                height: 20,
+                                              ),
+                                              InputWithIcon(
+                                                icon: Icons.text_fields,
+                                                hint: 'Account Number',
+                                                obscureText: false,
+                                                dataController:
+                                                    addBankAccountNumberController,
+                                              ),
+                                              SizedBox(
+                                                height: 20,
+                                              ),
+                                              InputWithIcon(
+                                                icon: Icons.text_fields,
+                                                hint: 'IFSC',
+                                                obscureText: false,
+                                                dataController:
+                                                    addBankIfscController,
+                                              ),
+                                              SizedBox(
+                                                height: 40,
+                                              ),
+                                              GestureDetector(
+                                                onTap: () async {
+                                                  Body.ifsc =
+                                                      addBankIfscController
+                                                          .text;
+                                                  Body.bankName =
+                                                      addBankNameController
+                                                          .text;
+                                                  Body.accountNumber =
+                                                      addBankAccountNumberController
+                                                          .text;
+                                                  await addBankAccount();
+                                                  Navigator.pop(context);
+                                                  setState(() {
+                                                    _getBankDetail();
+                                                  });
+                                                },
+                                                child: PrimaryButton(
+                                                    btnText: 'Add Account'),
+                                              ),
+                                            ],
+                                          ),
                                         ),
                                       ),
                                     ),
                                   ),
                                 ),
-                              ),
-                            );
-                          },
+                              );
+                            },
+                          ),
                         ),
                       ),
                     ),
@@ -662,94 +667,97 @@ class _BodyState extends State<Body> {
                     ),
                   ),
                   SafeArea(
-                    child: FloatingActionButton(
-                      backgroundColor: Color(0xFF5B16D0),
-                      child: Icon(
-                        Icons.add,
-                        size: 40,
-                      ),
-                      onPressed: () {
-                        showModalBottomSheet(
-                          context: context,
-                          builder: (context) => Scaffold(
-                            appBar: AppBar(
-                              backgroundColor: Colors.white,
-                              elevation: 0,
-                              automaticallyImplyLeading: false,
-                              title: Text(
-                                'Add New Bank Account',
-                                style: TextStyle(color: Colors.black),
+                    child: Padding(
+                      padding: const EdgeInsets.all(12.0),
+                      child: FloatingActionButton(
+                        backgroundColor: Color(0xFF5B16D0),
+                        child: Icon(
+                          Icons.add,
+                          size: 40,
+                        ),
+                        onPressed: () {
+                          showModalBottomSheet(
+                            context: context,
+                            builder: (context) => Scaffold(
+                              appBar: AppBar(
+                                backgroundColor: Colors.white,
+                                elevation: 0,
+                                automaticallyImplyLeading: false,
+                                title: Text(
+                                  'Add New Bank Account',
+                                  style: TextStyle(color: Colors.black),
+                                ),
+                                actions: [
+                                  CloseButton(
+                                    color: Colors.black,
+                                  )
+                                ],
                               ),
-                              actions: [
-                                CloseButton(
-                                  color: Colors.black,
-                                )
-                              ],
-                            ),
-                            body: SingleChildScrollView(
-                              child: Padding(
-                                padding: const EdgeInsets.symmetric(
-                                    horizontal: 18.0),
-                                child: Container(
-                                  child: Column(
-                                    children: [
-                                      SizedBox(
-                                        height: 20,
-                                      ),
-                                      InputWithIcon(
-                                        icon: Icons.text_fields,
-                                        hint: 'Bank Name',
-                                        obscureText: false,
-                                        dataController: addBankNameController,
-                                      ),
-                                      SizedBox(
-                                        height: 20,
-                                      ),
-                                      InputWithIcon(
-                                        icon: Icons.text_fields,
-                                        hint: 'Account Number',
-                                        obscureText: false,
-                                        dataController:
-                                            addBankAccountNumberController,
-                                      ),
-                                      SizedBox(
-                                        height: 20,
-                                      ),
-                                      InputWithIcon(
-                                        icon: Icons.text_fields,
-                                        hint: 'IFSC',
-                                        obscureText: false,
-                                        dataController: addBankIfscController,
-                                      ),
-                                      SizedBox(
-                                        height: 40,
-                                      ),
-                                      GestureDetector(
-                                        onTap: () async {
-                                          Body.ifsc =
-                                              addBankIfscController.text;
-                                          Body.bankName =
-                                              addBankNameController.text;
-                                          Body.accountNumber =
-                                              addBankAccountNumberController
-                                                  .text;
-                                          await addBankAccount();
-                                          Navigator.pop(context);
-                                          setState(() {
-                                            _getBankDetail();
-                                          });
-                                        },
-                                        child: PrimaryButton(
-                                            btnText: 'Add Account'),
-                                      ),
-                                    ],
+                              body: SingleChildScrollView(
+                                child: Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 18.0),
+                                  child: Container(
+                                    child: Column(
+                                      children: [
+                                        SizedBox(
+                                          height: 20,
+                                        ),
+                                        InputWithIcon(
+                                          icon: Icons.text_fields,
+                                          hint: 'Bank Name',
+                                          obscureText: false,
+                                          dataController: addBankNameController,
+                                        ),
+                                        SizedBox(
+                                          height: 20,
+                                        ),
+                                        InputWithIcon(
+                                          icon: Icons.text_fields,
+                                          hint: 'Account Number',
+                                          obscureText: false,
+                                          dataController:
+                                              addBankAccountNumberController,
+                                        ),
+                                        SizedBox(
+                                          height: 20,
+                                        ),
+                                        InputWithIcon(
+                                          icon: Icons.text_fields,
+                                          hint: 'IFSC',
+                                          obscureText: false,
+                                          dataController: addBankIfscController,
+                                        ),
+                                        SizedBox(
+                                          height: 40,
+                                        ),
+                                        GestureDetector(
+                                          onTap: () async {
+                                            Body.ifsc =
+                                                addBankIfscController.text;
+                                            Body.bankName =
+                                                addBankNameController.text;
+                                            Body.accountNumber =
+                                                addBankAccountNumberController
+                                                    .text;
+                                            await addBankAccount();
+                                            Navigator.pop(context);
+                                            setState(() {
+                                              _getBankDetail();
+                                            });
+                                          },
+                                          child: PrimaryButton(
+                                              btnText: 'Add Account'),
+                                        ),
+                                      ],
+                                    ),
                                   ),
                                 ),
                               ),
                             ),
-                          ),
-                        );
-                      },
+                          );
+                        },
+                      ),
                     ),
                   ),
                 ],

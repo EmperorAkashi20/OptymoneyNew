@@ -201,13 +201,10 @@ class _BodyState extends State<Body> {
                           itemCount: snaphot.data.length,
                           itemBuilder: (BuildContext context, int index) {
                             return Padding(
-                              padding: const EdgeInsets.symmetric(),
+                              padding: const EdgeInsets.symmetric(
+                                  vertical: 3, horizontal: 5),
                               child: Card(
-                                elevation: 0,
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(10),
-                                  side: BorderSide(color: Color(0xFF5B16D0)),
-                                ),
+                                elevation: 1,
                                 child: Column(
                                   children: [
                                     Column(
