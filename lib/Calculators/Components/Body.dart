@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:optymoney/Calculators/Components/CalculatorLogics.dart';
 import 'package:optymoney/Calculators/Components/LifeGoalsSchemes.dart';
+import 'package:optymoney/Cart/Cart.dart';
 
 class Body extends StatefulWidget {
   static var offerId;
@@ -31,9 +33,14 @@ class _BodyState extends State<Body> {
                 'assets/icons/2.png',
                 height: windowHeight * 0.06,
               ),
-              Text(
-                'Manage Your Finances',
-                style: TextStyle(color: Colors.black, fontSize: 20),
+              GestureDetector(
+                onTap: () {
+                  Navigator.pushNamed(context, Cart.routeName);
+                },
+                child: FaIcon(
+                  FontAwesomeIcons.shoppingCart,
+                  color: Colors.blueGrey.shade800,
+                ),
               ),
             ],
           ),

@@ -227,152 +227,168 @@ class _BodyState extends State<Body> {
                       TextButton(
                         onPressed: () {
                           showModalBottomSheet(
-                            backgroundColor: Colors.transparent,
-                            //barrierColor: Colors.transparent,
+                            isScrollControlled: true,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.only(
+                                  topLeft: Radius.circular(30.0),
+                                  topRight: Radius.circular(30.0)),
+                            ),
                             context: context,
-                            builder: (context) {
-                              return Container(
-                                height: windowHeight * 0.6,
-                                color: Colors.transparent,
-                                child: Container(
-                                  height: windowHeight,
-                                  decoration: BoxDecoration(
-                                    color: Colors.white,
-                                    borderRadius: BorderRadius.only(
-                                      topLeft: Radius.circular(30),
-                                      topRight: Radius.circular(30),
-                                    ),
-                                  ),
-                                  child: Column(
-                                    mainAxisAlignment: MainAxisAlignment.start,
-                                    children: [
-                                      SizedBox(
-                                        height: windowHeight * 0.01,
-                                      ),
-                                      Text(
-                                        'MPIN Reset',
-                                        style: TextStyle(
-                                          color: Colors.black,
-                                          fontSize: 20,
-                                          fontWeight: FontWeight.w600,
+                            builder: (context) => GestureDetector(
+                              onTap: () => FocusScope.of(context).unfocus(),
+                              child: Container(
+                                child: Padding(
+                                  padding: EdgeInsets.only(
+                                      bottom: MediaQuery.of(context)
+                                          .viewInsets
+                                          .bottom),
+                                  child: Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 22.0, vertical: 18),
+                                    child: Column(
+                                      mainAxisSize: MainAxisSize.min,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.start,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.center,
+                                      children: [
+                                        SizedBox(
+                                          height: windowHeight * 0.01,
                                         ),
-                                      ),
-                                      SizedBox(
-                                        height: windowHeight * 0.05,
-                                      ),
-                                      Align(
-                                        alignment: Alignment.centerLeft,
-                                        child: Padding(
-                                          padding: const EdgeInsets.symmetric(
-                                              horizontal: 18.0),
-                                          child: Text(
-                                            'New MPIN',
-                                            style: TextStyle(
-                                                fontSize: 18,
-                                                fontWeight: FontWeight.bold),
+                                        Text(
+                                          'MPIN Reset',
+                                          style: TextStyle(
+                                            color: Colors.black,
+                                            fontSize: 20,
+                                            fontWeight: FontWeight.w600,
                                           ),
                                         ),
-                                      ),
-                                      SizedBox(
-                                        height: windowHeight * 0.01,
-                                      ),
-                                      Padding(
-                                        padding: const EdgeInsets.symmetric(
-                                            horizontal: 18.0),
-                                        child: Form(
-                                          key: _formKey1,
-                                          child: animatingBordersForResetMpin(),
+                                        SizedBox(
+                                          height: windowHeight * 0.05,
                                         ),
-                                      ),
-                                      SizedBox(
-                                        height: windowHeight * 0.05,
-                                      ),
-                                      Align(
-                                        alignment: Alignment.centerLeft,
-                                        child: Padding(
-                                          padding: const EdgeInsets.symmetric(
-                                              horizontal: 18.0),
-                                          child: Text(
-                                            'Your Password',
-                                            style: TextStyle(
-                                                fontSize: 18,
-                                                fontWeight: FontWeight.bold),
+                                        Align(
+                                          alignment: Alignment.centerLeft,
+                                          child: Padding(
+                                            padding: const EdgeInsets.symmetric(
+                                                horizontal: 18.0),
+                                            child: Text(
+                                              'New MPIN',
+                                              style: TextStyle(
+                                                  fontSize: 18,
+                                                  fontWeight: FontWeight.bold),
+                                            ),
                                           ),
                                         ),
-                                      ),
-                                      SizedBox(
-                                        height: windowHeight * 0.01,
-                                      ),
-                                      Padding(
-                                        padding: const EdgeInsets.symmetric(
-                                            horizontal: 14.0),
-                                        child: InputWithIcon(
-                                          icon: Icons.vpn_key,
-                                          hint: 'Password',
-                                          obscureText: true,
-                                          dataController: passwordController,
+                                        SizedBox(
+                                          height: windowHeight * 0.01,
                                         ),
-                                      ),
-                                      SizedBox(
-                                        height: windowHeight * 0.14,
-                                      ),
-                                      Padding(
-                                        padding: const EdgeInsets.symmetric(
-                                            horizontal: 14.0),
-                                        child: GestureDetector(
-                                          onTap: () async {
-                                            Body.resetMpin =
-                                                _pinPutControllerReset.text
-                                                    .toString();
-                                            Body.password = passwordController
-                                                .text
-                                                .toString();
-                                            var hashedPass = utf8.encode(
-                                                Body.password.toString());
-                                            var digest =
-                                                sha512256.convert(hashedPass);
-                                            if (Body.resetMpin.isEmpty &&
-                                                Body.password.isEmpty) {
-                                              setState(() {
-                                                _showSnackBar(
-                                                    'Fields cannot be empty');
-                                              });
-                                            } else if (Body.resetMpin.isEmpty) {
-                                              _showSnackBar(
-                                                  'Please enter MPIN');
-                                            } else if (Body.password.isEmpty) {
-                                              _showSnackBar(
-                                                  'Please enter password to confirm');
-                                            } else if (digest.toString() !=
-                                                MyApp.hash.toString()) {
-                                              setState(() {
-                                                _showSnackBar(
-                                                    'Password incorrect');
-                                              });
-                                            } else {
-                                              await resetMpinRequest();
-                                              if (Body.status == 1) {
-                                                Navigator.pop(context);
+                                        Padding(
+                                          padding: const EdgeInsets.symmetric(
+                                              horizontal: 18.0),
+                                          child: Form(
+                                            key: _formKey1,
+                                            child:
+                                                animatingBordersForResetMpin(),
+                                          ),
+                                        ),
+                                        SizedBox(
+                                          height: windowHeight * 0.05,
+                                        ),
+                                        Align(
+                                          alignment: Alignment.centerLeft,
+                                          child: Padding(
+                                            padding: const EdgeInsets.symmetric(
+                                                horizontal: 18.0),
+                                            child: Text(
+                                              'Your Password',
+                                              style: TextStyle(
+                                                  fontSize: 18,
+                                                  fontWeight: FontWeight.bold),
+                                            ),
+                                          ),
+                                        ),
+                                        SizedBox(
+                                          height: windowHeight * 0.01,
+                                        ),
+                                        Padding(
+                                          padding: const EdgeInsets.symmetric(
+                                              horizontal: 14.0),
+                                          child: InputWithIcon(
+                                            icon: Icons.vpn_key,
+                                            hint: 'Password',
+                                            obscureText: true,
+                                            dataController: passwordController,
+                                          ),
+                                        ),
+                                        SizedBox(
+                                          height: windowHeight * 0.14,
+                                        ),
+                                        Padding(
+                                          padding: const EdgeInsets.symmetric(
+                                              horizontal: 14.0),
+                                          child: GestureDetector(
+                                            onTap: () async {
+                                              FocusScopeNode currentFocus =
+                                                  FocusScope.of(context);
+                                              if (!currentFocus
+                                                  .hasPrimaryFocus) {
+                                                currentFocus.unfocus();
+                                              }
+                                              Body.resetMpin =
+                                                  _pinPutControllerReset.text
+                                                      .toString();
+                                              Body.password = passwordController
+                                                  .text
+                                                  .toString();
+                                              var hashedPass = utf8.encode(
+                                                  Body.password.toString());
+                                              var digest =
+                                                  sha512256.convert(hashedPass);
+                                              if (Body.resetMpin.isEmpty &&
+                                                  Body.password.isEmpty) {
                                                 setState(() {
                                                   _showSnackBar(
-                                                      Body.resetMessage);
+                                                      'Fields cannot be empty');
+                                                });
+                                              } else if (Body
+                                                  .resetMpin.isEmpty) {
+                                                _showSnackBar(
+                                                    'Please enter MPIN');
+                                              } else if (Body
+                                                  .password.isEmpty) {
+                                                _showSnackBar(
+                                                    'Please enter password to confirm');
+                                              } else if (digest.toString() !=
+                                                  MyApp.hash.toString()) {
+                                                setState(() {
+                                                  _showSnackBar(
+                                                      'Password incorrect');
                                                 });
                                               } else {
-                                                Navigator.pop(context);
-                                                _showSnackBar(
-                                                    Body.resetMessage);
+                                                await resetMpinRequest();
+                                                if (Body.status == 1) {
+                                                  Navigator.pop(context);
+                                                  setState(() {
+                                                    _showSnackBar(
+                                                        Body.resetMessage);
+                                                  });
+                                                } else {
+                                                  Navigator.pop(context);
+                                                  _showSnackBar(
+                                                      Body.resetMessage);
+                                                }
                                               }
-                                            }
-                                          },
-                                          child:
-                                              PrimaryButton(btnText: 'Confirm'),
+                                            },
+                                            child: PrimaryButton(
+                                                btnText: 'Confirm'),
+                                          ),
                                         ),
-                                      ),
-                                    ],
+                                      ],
+                                    ),
                                   ),
                                 ),
-                              );
-                            },
+                              ),
+                            ),
                           );
                         },
                         child: Text('Forgot MPIN?'),

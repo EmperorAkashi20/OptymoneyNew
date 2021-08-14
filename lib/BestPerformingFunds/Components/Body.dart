@@ -6,6 +6,7 @@ import 'package:http/http.dart';
 import 'package:loading_animations/loading_animations.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:optymoney/BestPerformingFunds/Components/DetailsPage.dart';
+import 'package:optymoney/Cart/Cart.dart';
 import 'package:optymoney/Components/primarybtn.dart';
 import 'package:optymoney/Investments/Components/AmcFilters.dart';
 import 'package:optymoney/Investments/Components/CategoriesDisplay.dart';
@@ -55,7 +56,7 @@ class _BodyState extends State<Body> {
     'Top SIP Funds',
     'Best ELSS Funds',
     'Best Large Cap Funds',
-    'Explore Funds',
+    //  'Explore Funds',
     'Best Mid Cap Funds',
     'New To Mutual Funds'
   ];
@@ -174,80 +175,106 @@ class _BodyState extends State<Body> {
           backgroundColor: Colors.white,
           elevation: 0,
           automaticallyImplyLeading: false,
-          flexibleSpace: Padding(
-            padding: const EdgeInsets.only(left: 10.0, right: 10.0, top: 10.0),
-            child: Container(
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(20),
-                color: Colors.blue.shade900,
-              ),
-              width: windowWidth * 0.7,
-              child: DropdownButtonHideUnderline(
+          flexibleSpace: Row(
+            children: [
+              Expanded(
+                flex: 8,
                 child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                  child: DropdownButton<String>(
-                    icon: Icon(
-                      Icons.arrow_circle_down_rounded,
-                      color: Colors.white,
+                  padding:
+                      const EdgeInsets.only(left: 10.0, right: 10.0, top: 10.0),
+                  child: Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(20),
+                      color: Colors.blue.shade900,
                     ),
-                    dropdownColor: Colors.blue.shade900, //Color(0XFFF0092D6),
-                    isExpanded: true,
-                    iconSize: 35,
-                    //isDense: true,
-                    menuMaxHeight: windowHeight * 0.3,
-                    iconDisabledColor: Colors.white,
-                    items: _options.map((String dropDownStringItem) {
-                      return DropdownMenuItem<String>(
-                        value: dropDownStringItem,
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Padding(
-                              padding:
-                                  const EdgeInsets.only(left: 8.0, right: 8.0),
-                              child: Text(
-                                dropDownStringItem,
-                                style: TextStyle(
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.bold),
+                    width: windowWidth,
+                    child: DropdownButtonHideUnderline(
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                        child: DropdownButton<String>(
+                          icon: Icon(
+                            Icons.arrow_circle_down_rounded,
+                            color: Colors.white,
+                          ),
+                          dropdownColor:
+                              Colors.blue.shade900, //Color(0XFFF0092D6),
+                          isExpanded: true,
+                          iconSize: 35,
+                          //isDense: true,
+                          menuMaxHeight: windowHeight * 0.3,
+                          iconDisabledColor: Colors.white,
+                          items: _options.map((String dropDownStringItem) {
+                            return DropdownMenuItem<String>(
+                              value: dropDownStringItem,
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Padding(
+                                    padding: const EdgeInsets.only(
+                                        left: 8.0, right: 8.0),
+                                    child: Text(
+                                      dropDownStringItem,
+                                      style: TextStyle(
+                                          color: Colors.white,
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                  ),
+                                ],
                               ),
-                            ),
-                          ],
+                            );
+                          }).toList(),
+                          onChanged: (String? newValueSelected) {
+                            _dropDownItemSelected(newValueSelected);
+                            if (_currentItemSelected ==
+                                'Best Performing Mutual Funds') {
+                              Body.offerId = 32;
+                            } else if (_currentItemSelected ==
+                                'Best Equity Mutual Funds') {
+                              Body.offerId = 33;
+                            } else if (_currentItemSelected ==
+                                'Best Liquid Funds') {
+                              Body.offerId = 34;
+                            } else if (_currentItemSelected ==
+                                'Top SIP Funds') {
+                              Body.offerId = 35;
+                            } else if (_currentItemSelected ==
+                                'Best ELSS Funds') {
+                              Body.offerId = 36;
+                            } else if (_currentItemSelected ==
+                                'Best Large Cap Funds') {
+                              Body.offerId = 37;
+                            } else if (_currentItemSelected ==
+                                'Explore Funds') {
+                              Body.offerId = 38;
+                            } else if (_currentItemSelected ==
+                                'Best Mid Cap Funds') {
+                              Body.offerId = 39;
+                            } else if (_currentItemSelected ==
+                                'New To Mutual Funds') {
+                              Body.offerId = 40;
+                            }
+                          },
+                          value: _currentItemSelected,
                         ),
-                      );
-                    }).toList(),
-                    onChanged: (String? newValueSelected) {
-                      _dropDownItemSelected(newValueSelected);
-                      if (_currentItemSelected ==
-                          'Best Performing Mutual Funds') {
-                        Body.offerId = 32;
-                      } else if (_currentItemSelected ==
-                          'Best Equity Mutual Funds') {
-                        Body.offerId = 33;
-                      } else if (_currentItemSelected == 'Best Liquid Funds') {
-                        Body.offerId = 34;
-                      } else if (_currentItemSelected == 'Top SIP Funds') {
-                        Body.offerId = 35;
-                      } else if (_currentItemSelected == 'Best ELSS Funds') {
-                        Body.offerId = 36;
-                      } else if (_currentItemSelected ==
-                          'Best Large Cap Funds') {
-                        Body.offerId = 37;
-                      } else if (_currentItemSelected == 'Explore Funds') {
-                        Body.offerId = 38;
-                      } else if (_currentItemSelected == 'Best Mid Cap Funds') {
-                        Body.offerId = 39;
-                      } else if (_currentItemSelected ==
-                          'New To Mutual Funds') {
-                        Body.offerId = 40;
-                      }
-                    },
-                    value: _currentItemSelected,
+                      ),
+                    ),
                   ),
                 ),
               ),
-            ),
+              Expanded(
+                flex: 1,
+                child: GestureDetector(
+                  onTap: () {
+                    Navigator.pushNamed(context, Cart.routeName);
+                  },
+                  child: FaIcon(
+                    FontAwesomeIcons.shoppingCart,
+                    color: Colors.blueGrey.shade800,
+                  ),
+                ),
+              ),
+            ],
           ),
         ),
         body: Container(

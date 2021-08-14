@@ -4,6 +4,8 @@ import 'dart:async';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:optymoney/Cart/Cart.dart';
 import 'package:optymoney/Components/inputwithicon.dart';
 import 'package:optymoney/Components/outlinebtn.dart';
 import 'package:http/http.dart' as http;
@@ -159,9 +161,14 @@ class _BodyState extends State<Body> {
                 'assets/icons/2.png',
                 height: windowHeight * 0.06,
               ),
-              Text(
-                'File Your ITR Freely With',
-                style: TextStyle(color: Colors.black, fontSize: 20),
+              GestureDetector(
+                onTap: () {
+                  Navigator.pushNamed(context, Cart.routeName);
+                },
+                child: FaIcon(
+                  FontAwesomeIcons.shoppingCart,
+                  color: Colors.blueGrey.shade800,
+                ),
               ),
             ],
           ),

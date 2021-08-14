@@ -100,154 +100,157 @@ class _BodyState extends State<Body> {
           ),
         ),
       ),
-      body: SingleChildScrollView(
-        child: Container(
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 8.0),
-            child: Column(
-              children: [
-                SizedBox(
-                  height: windowHeight * 0.02,
-                ),
-                Text(
-                  'Need Assistance for:',
-                  style: TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.w600,
+      body: GestureDetector(
+        onTap: () => FocusScope.of(context).unfocus(),
+        child: SingleChildScrollView(
+          child: Container(
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 8.0),
+              child: Column(
+                children: [
+                  SizedBox(
+                    height: windowHeight * 0.02,
                   ),
-                ),
-                CheckboxListTile(
-                  title: Text("Tax"),
-                  value: checkedValueTax,
-                  onChanged: (newValue) {
-                    setState(() {
-                      checkedValueTax = !checkedValueTax;
-                    });
-                  },
-                  controlAffinity:
-                      ListTileControlAffinity.leading, //  <-- leading Checkbox
-                ),
-                if (checkedValueTax == true)
-                  Padding(
-                    padding: const EdgeInsets.only(left: 20.0),
-                    child: CheckboxListTile(
-                      title: Text("Tax File"),
-                      value: checkedValueTaxFile,
-                      onChanged: (newValue) {
-                        setState(() {
-                          checkedValueTaxFile = !checkedValueTaxFile;
-                        });
-                      },
-                      controlAffinity: ListTileControlAffinity
-                          .leading, //  <-- leading Checkbox
+                  Text(
+                    'Need Assistance for:',
+                    style: TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.w600,
                     ),
                   ),
-                if (checkedValueTax == true)
-                  Padding(
-                    padding: const EdgeInsets.only(left: 20.0),
-                    child: CheckboxListTile(
-                      title: Text("Tax Assessment"),
-                      value: checkedValueTaxAssessment,
-                      onChanged: (newValue) {
-                        setState(() {
-                          checkedValueTaxAssessment =
-                              !checkedValueTaxAssessment;
-                        });
-                      },
-                      controlAffinity: ListTileControlAffinity
-                          .leading, //  <-- leading Checkbox
-                    ),
-                  ),
-                CheckboxListTile(
-                  title: Text("Investments"),
-                  value: checkedValueInvestments,
-                  onChanged: (newValue) {
-                    setState(() {
-                      checkedValueInvestments = !checkedValueInvestments;
-                    });
-                  },
-                  controlAffinity:
-                      ListTileControlAffinity.leading, //  <-- leading Checkbox
-                ),
-                CheckboxListTile(
-                  title: Text("Will"),
-                  value: checkedValueWill,
-                  onChanged: (newValue) {
-                    setState(() {
-                      checkedValueWill = !checkedValueWill;
-                    });
-                  },
-                  controlAffinity:
-                      ListTileControlAffinity.leading, //  <-- leading Checkbox
-                ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                  child: InputWithIcon(
-                    icon: Icons.wrap_text,
-                    hint: 'Name',
-                    obscureText: false,
-                    dataController: nameController,
-                  ),
-                ),
-                SizedBox(
-                  height: windowHeight * 0.02,
-                ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                  child: InputWithIcon(
-                    icon: Icons.wrap_text,
-                    hint: 'Email Address',
-                    dataController: emailController,
-                    obscureText: false,
-                  ),
-                ),
-                SizedBox(
-                  height: windowHeight * 0.02,
-                ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                  child: InputWithIcon(
-                    icon: Icons.wrap_text,
-                    hint: 'Mobile Number',
-                    dataController: phoneController,
-                    obscureText: false,
-                  ),
-                ),
-                SizedBox(
-                  height: windowHeight * 0.2,
-                ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 15.0),
-                  child: GestureDetector(
-                    onTap: () async {
-                      checkedValueTax == true
-                          ? Body.tax = "tax"
-                          : Body.tax = "";
-                      checkedValueTaxFile == true
-                          ? Body.taxFile = "taxFile"
-                          : Body.taxFile = "";
-                      checkedValueTaxAssessment == true
-                          ? Body.taxAssessment = "taxFile"
-                          : Body.taxAssessment = "";
-                      checkedValueInvestments == true
-                          ? Body.investment = "investment"
-                          : Body.investment = "";
-                      checkedValueWill == true
-                          ? Body.will = "will"
-                          : Body.will = "";
-                      Body.name = nameController.text.toString();
-                      Body.email = emailController.text.toString();
-                      Body.mobile = phoneController.text.toString();
-                      await expertAssisstanceRequest();
-                      if (Body.status.toString() == '1') {
-                        _showSnackBar(Body.message.toString() +
-                            ' We will be in touch shortly');
-                      }
+                  CheckboxListTile(
+                    title: Text("Tax"),
+                    value: checkedValueTax,
+                    onChanged: (newValue) {
+                      setState(() {
+                        checkedValueTax = !checkedValueTax;
+                      });
                     },
-                    child: PrimaryButton(btnText: 'Hire An Expert'),
+                    controlAffinity: ListTileControlAffinity
+                        .leading, //  <-- leading Checkbox
                   ),
-                ),
-              ],
+                  if (checkedValueTax == true)
+                    Padding(
+                      padding: const EdgeInsets.only(left: 20.0),
+                      child: CheckboxListTile(
+                        title: Text("Tax File"),
+                        value: checkedValueTaxFile,
+                        onChanged: (newValue) {
+                          setState(() {
+                            checkedValueTaxFile = !checkedValueTaxFile;
+                          });
+                        },
+                        controlAffinity: ListTileControlAffinity
+                            .leading, //  <-- leading Checkbox
+                      ),
+                    ),
+                  if (checkedValueTax == true)
+                    Padding(
+                      padding: const EdgeInsets.only(left: 20.0),
+                      child: CheckboxListTile(
+                        title: Text("Tax Assessment"),
+                        value: checkedValueTaxAssessment,
+                        onChanged: (newValue) {
+                          setState(() {
+                            checkedValueTaxAssessment =
+                                !checkedValueTaxAssessment;
+                          });
+                        },
+                        controlAffinity: ListTileControlAffinity
+                            .leading, //  <-- leading Checkbox
+                      ),
+                    ),
+                  CheckboxListTile(
+                    title: Text("Investments"),
+                    value: checkedValueInvestments,
+                    onChanged: (newValue) {
+                      setState(() {
+                        checkedValueInvestments = !checkedValueInvestments;
+                      });
+                    },
+                    controlAffinity: ListTileControlAffinity
+                        .leading, //  <-- leading Checkbox
+                  ),
+                  CheckboxListTile(
+                    title: Text("Will"),
+                    value: checkedValueWill,
+                    onChanged: (newValue) {
+                      setState(() {
+                        checkedValueWill = !checkedValueWill;
+                      });
+                    },
+                    controlAffinity: ListTileControlAffinity
+                        .leading, //  <-- leading Checkbox
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                    child: InputWithIcon(
+                      icon: Icons.wrap_text,
+                      hint: 'Name',
+                      obscureText: false,
+                      dataController: nameController,
+                    ),
+                  ),
+                  SizedBox(
+                    height: windowHeight * 0.02,
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                    child: InputWithIcon(
+                      icon: Icons.wrap_text,
+                      hint: 'Email Address',
+                      dataController: emailController,
+                      obscureText: false,
+                    ),
+                  ),
+                  SizedBox(
+                    height: windowHeight * 0.02,
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                    child: InputWithIcon(
+                      icon: Icons.wrap_text,
+                      hint: 'Mobile Number',
+                      dataController: phoneController,
+                      obscureText: false,
+                    ),
+                  ),
+                  SizedBox(
+                    height: windowHeight * 0.2,
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 15.0),
+                    child: GestureDetector(
+                      onTap: () async {
+                        checkedValueTax == true
+                            ? Body.tax = "tax"
+                            : Body.tax = "";
+                        checkedValueTaxFile == true
+                            ? Body.taxFile = "taxFile"
+                            : Body.taxFile = "";
+                        checkedValueTaxAssessment == true
+                            ? Body.taxAssessment = "taxFile"
+                            : Body.taxAssessment = "";
+                        checkedValueInvestments == true
+                            ? Body.investment = "investment"
+                            : Body.investment = "";
+                        checkedValueWill == true
+                            ? Body.will = "will"
+                            : Body.will = "";
+                        Body.name = nameController.text.toString();
+                        Body.email = emailController.text.toString();
+                        Body.mobile = phoneController.text.toString();
+                        await expertAssisstanceRequest();
+                        if (Body.status.toString() == '1') {
+                          _showSnackBar(Body.message.toString() +
+                              ' We will be in touch shortly');
+                        }
+                      },
+                      child: PrimaryButton(btnText: 'Hire An Expert'),
+                    ),
+                  ),
+                ],
+              ),
             ),
           ),
         ),

@@ -61,9 +61,9 @@ class _BodyState extends State<Body> {
     var dataBody = response.body;
     var jsonData = json.decode(dataBody);
     //print(body);
-    print(url);
-    print(jsonData);
-    print(body);
+    //print(url);
+    //print(jsonData);
+    //print(body);
     List<AllSchemeWithFilters> allSchemeWithFilterss = [];
 
     for (var sch in jsonData) {

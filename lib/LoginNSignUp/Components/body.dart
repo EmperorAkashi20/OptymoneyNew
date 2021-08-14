@@ -319,7 +319,7 @@ class _LoginSignUpState extends State<LoginSignUp> {
   var _backgroundColor = Colors.white;
   var _headingColor = Color(0xFFB40284A);
 
-  double _headingTop = 100;
+  double _headingTop = 70;
 
   double _loginWidth = 0;
   double _loginHeight = 0;
@@ -404,8 +404,16 @@ class _LoginSignUpState extends State<LoginSignUp> {
         _headingTop = 90;
 
         _loginWidth = windowWidth;
-        _loginYOffset = _keyboardVisible ? 20 : 270;
-        _loginHeight = _keyboardVisible ? windowHeight : windowHeight - 270;
+        _loginYOffset = _keyboardVisible
+            ? 20
+            : windowHeight <= 667
+                ? 240
+                : 270;
+        _loginHeight = _keyboardVisible
+            ? windowHeight
+            : windowHeight <= 667
+                ? windowHeight - 240
+                : windowHeight - 270;
         _loginXOffset = 0;
         _loginOpacity = 1;
 
@@ -429,14 +437,27 @@ class _LoginSignUpState extends State<LoginSignUp> {
         _headingTop = 80;
 
         _loginWidth = windowWidth - 40;
-        _loginYOffset = _keyboardVisible ? 20 : 240;
+        _loginYOffset = _keyboardVisible
+            ? 20
+            : windowHeight <= 736
+                ? 90
+                : 240;
         _loginHeight = _keyboardVisible ? windowHeight : windowHeight - 270;
         _loginXOffset = 20;
         _loginOpacity = 0.7;
 
         _registerXOffset = 0;
         _registerWidth = windowWidth;
-        _registerYOffset = _keyboardVisible ? 20 : 270;
+        _registerHeight = _keyboardVisible
+            ? windowHeight
+            : windowHeight <= 736
+                ? windowHeight - 80
+                : windowHeight - 270;
+        _registerYOffset = _keyboardVisible
+            ? 20
+            : windowHeight <= 736
+                ? 120
+                : 270;
         _registerOpacity = 1;
 
         _otpWidth = windowWidth;
@@ -503,6 +524,7 @@ class _LoginSignUpState extends State<LoginSignUp> {
       key: globalKey,
       children: <Widget>[
         AnimatedContainer(
+          height: windowHeight,
           curve: Curves.fastLinearToSlowEaseIn,
           duration: Duration(milliseconds: 1000),
           color: _backgroundColor,
@@ -530,10 +552,12 @@ class _LoginSignUpState extends State<LoginSignUp> {
                         ),
                       ),
                       Container(
-                        margin: EdgeInsets.all(20),
+                        // width: windowWidth,
+                        // height: windowHeight * 0.1,
+                        //margin: EdgeInsets.all(20),
                         padding: EdgeInsets.symmetric(horizontal: 32),
                         child: Text(
-                          "We make investing and managing your portfolio easy for you.\nStart your savings today!!",
+                          "We make investing and managing your portfolio easy for you.Start your savings today!!",
                           textAlign: TextAlign.center,
                           style: TextStyle(color: _headingColor, fontSize: 16),
                         ),
@@ -543,6 +567,8 @@ class _LoginSignUpState extends State<LoginSignUp> {
                 ),
               ),
               Container(
+                width: windowWidth,
+                height: windowHeight * 0.4,
                 padding: EdgeInsets.symmetric(horizontal: 32),
                 child: Center(
                   child: SvgPicture.asset('assets/icons/signup.svg'),
@@ -559,19 +585,9 @@ class _LoginSignUpState extends State<LoginSignUp> {
                       }
                     });
                   },
-                  child: Container(
-                    margin: EdgeInsets.all(32),
-                    padding: EdgeInsets.all(20),
-                    width: double.infinity,
-                    decoration: BoxDecoration(
-                        color: Color(0xFFFDB2D4B), //Color(0xFFB40284A),
-                        borderRadius: BorderRadius.circular(50)),
-                    child: Center(
-                      child: Text(
-                        "Get Started",
-                        style: TextStyle(color: Colors.white, fontSize: 16),
-                      ),
-                    ),
+                  child: Padding(
+                    padding: const EdgeInsets.all(30.0),
+                    child: PrimaryButton(btnText: 'Get Started'),
                   ),
                 ),
               )
@@ -614,7 +630,7 @@ class _LoginSignUpState extends State<LoginSignUp> {
                         keyboardTypeGlobal: TextInputType.emailAddress,
                       ),
                       SizedBox(
-                        height: 20,
+                        height: windowHeight * 0.02,
                       ),
                       InputWithIcon(
                         icon: Icons.vpn_key,
@@ -653,7 +669,7 @@ class _LoginSignUpState extends State<LoginSignUp> {
                         ),
                       ),
                       SizedBox(
-                        height: 20,
+                        height: windowHeight * 0.02,
                       ),
                     ],
                   ),
@@ -663,6 +679,8 @@ class _LoginSignUpState extends State<LoginSignUp> {
                 children: [
                   GestureDetector(
                     onTap: () async {
+                      print(windowHeight);
+                      print(_loginHeight);
                       if (_emailControllerSignIn.text.isEmpty &&
                           _passwordControllerSignIn.text.isEmpty) {
                         _showSnackBar('Fields cannot be empty');
@@ -740,7 +758,7 @@ class _LoginSignUpState extends State<LoginSignUp> {
                     child: PrimaryButton(btnText: 'Login'),
                   ),
                   SizedBox(
-                    height: 20,
+                    height: windowHeight * 0.02,
                   ),
                   GestureDetector(
                     onTap: () {
@@ -787,7 +805,7 @@ class _LoginSignUpState extends State<LoginSignUp> {
                 dataController: _nameControllerSignUp,
                 keyboardTypeGlobal: TextInputType.name,
               ),
-              SizedBox(height: 5),
+              SizedBox(height: windowHeight * 0.01),
               InputWithIcon(
                 icon: Icons.person,
                 hint: "Email Id",
@@ -795,7 +813,7 @@ class _LoginSignUpState extends State<LoginSignUp> {
                 dataController: _emailControllerSignUp,
                 keyboardTypeGlobal: TextInputType.emailAddress,
               ),
-              SizedBox(height: 5),
+              SizedBox(height: windowHeight * 0.01),
               InputWithIcon(
                 icon: Icons.phone,
                 hint: "Mobile Number",
@@ -803,21 +821,21 @@ class _LoginSignUpState extends State<LoginSignUp> {
                 dataController: _phoneControllerSignUp,
                 keyboardTypeGlobal: TextInputType.number,
               ),
-              SizedBox(height: 5),
+              SizedBox(height: windowHeight * 0.01),
               InputWithIcon(
                 icon: Icons.vpn_key,
                 hint: "Password",
                 obscureText: true,
                 dataController: _passControllerSignUp,
               ),
-              SizedBox(height: 5),
+              SizedBox(height: windowHeight * 0.01),
               InputWithIcon(
                 icon: Icons.vpn_key,
                 hint: "Password",
                 obscureText: true,
                 dataController: _rePassControllerSignUp,
               ),
-              SizedBox(height: 20),
+              SizedBox(height: windowHeight * 0.03),
               GestureDetector(
                 onTap: () async {
                   if (_nameControllerSignUp.text.isEmpty &&
@@ -882,7 +900,7 @@ class _LoginSignUpState extends State<LoginSignUp> {
                 child: PrimaryButton(btnText: 'Continue'),
               ),
               SizedBox(
-                height: 4,
+                height: windowHeight * 0.01,
               ),
               GestureDetector(
                 onTap: () {
@@ -966,7 +984,7 @@ class _LoginSignUpState extends State<LoginSignUp> {
                     ),
                   ),
                   SizedBox(
-                    height: 20,
+                    height: windowHeight * 0.02,
                   ),
                   // GestureDetector(
                   //   onTap: () {

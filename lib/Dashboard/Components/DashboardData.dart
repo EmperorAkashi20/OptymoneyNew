@@ -6,6 +6,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:http/http.dart';
 import 'package:loading_animations/loading_animations.dart';
 import 'package:number_slide_animation/number_slide_animation.dart';
+import 'package:optymoney/Cart/Cart.dart';
 import 'package:optymoney/CompleteProfile/CompleteProfile.dart';
 import 'package:optymoney/Dashboard/Components/DetailsPage.dart';
 import 'package:optymoney/LoginNSignUp/Components/body.dart';
@@ -184,9 +185,14 @@ class _DashboardDataState extends State<DashboardData> {
                 'assets/icons/2.png',
                 height: windowHeight * 0.06,
               ),
-              Text(
-                'Dashboard',
-                style: TextStyle(color: Colors.black, fontSize: 20),
+              GestureDetector(
+                onTap: () {
+                  Navigator.pushNamed(context, Cart.routeName);
+                },
+                child: FaIcon(
+                  FontAwesomeIcons.shoppingCart,
+                  color: Colors.blueGrey.shade800,
+                ),
               ),
             ],
           ),

@@ -50,7 +50,7 @@ addToCartRequestOneTime() async {
     "sip_date": '0',
     "sch_d": Body.idIndex,
     "f_lum_amount": SingleProductDetailsPage.lumpSumAmount,
-    "uid": '2052',
+    "uid": LoginSignUp.globalUserId,
   });
   //String jsonBody = json.encode(body);
   final encoding = Encoding.getByName('utf-8');

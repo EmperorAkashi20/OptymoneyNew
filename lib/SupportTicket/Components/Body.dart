@@ -123,225 +123,246 @@ class _BodyState extends State<Body> {
           ),
         ),
       ),
-      body: Container(
-        child: FutureBuilder(
-          future: getTicketData(),
-          builder: (BuildContext context, AsyncSnapshot snapshot) {
-            if (snapshot.data == null) {
-              return Container(
-                child: Center(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      LoadingDoubleFlipping.circle(
-                        borderColor: Color(0xFF5B16D0),
-                        borderSize: 2.0,
-                        size: 40.0,
-                        backgroundColor: Color(0xFF5B16D0),
-                      ),
-                      Text(
-                        "We are fetching the data. \nPlease wait...",
-                        textAlign: TextAlign.center,
-                      ),
-                    ],
-                  ),
-                ),
-              );
-            } else if (snapshot.data.length == 0) {
-              return Column(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  SizedBox(),
-                  Text(
-                    'You do not have any active tickets',
-                    style: TextStyle(color: Colors.grey, fontSize: 20),
-                    textAlign: TextAlign.center,
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(18.0),
-                    child: Align(
-                      alignment: Alignment.bottomRight,
-                      child: FloatingActionButton(
-                        onPressed: () {
-                          {
-                            showModalBottomSheet(
-                              context: context,
-                              builder: (context) {
-                                return Scaffold(
-                                  appBar: AppBar(
-                                    actions: [
-                                      CloseButton(
-                                        color: Colors.black,
-                                      ),
-                                    ],
-                                    elevation: 0,
-                                    backgroundColor: Colors.white,
-                                    title: Text(
-                                      'Please tell us your concern',
-                                      style: TextStyle(
-                                        color: Colors.black,
-                                      ),
-                                    ),
-                                  ),
-                                  body: Container(
-                                    child: Padding(
-                                      padding: const EdgeInsets.symmetric(
-                                          horizontal: 18.0),
-                                      child: Column(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.start,
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.center,
-                                        children: [
-                                          Container(
-                                            margin: EdgeInsets.all(12),
-                                            height: windowHeight * 0.08,
-                                            child: TextField(
-                                              controller: subjectController,
-                                              maxLines: 12,
-                                              decoration: InputDecoration(
-                                                enabledBorder:
-                                                    OutlineInputBorder(
-                                                  borderRadius:
-                                                      BorderRadius.all(
-                                                          Radius.circular(
-                                                              12.0)),
-                                                  borderSide: BorderSide(
-                                                      color: Colors.black,
-                                                      width: 0.5),
-                                                ),
-                                                focusedBorder:
-                                                    OutlineInputBorder(
-                                                  borderRadius:
-                                                      BorderRadius.all(
-                                                          Radius.circular(
-                                                              10.0)),
-                                                  borderSide: BorderSide(
-                                                      color: Colors.red),
-                                                ),
-                                                hintText: 'Subject',
-                                                fillColor: Colors.white,
-                                                filled: true,
-                                              ),
-                                            ),
-                                          ),
-                                          Container(
-                                            margin: EdgeInsets.all(12),
-                                            height: windowHeight * 0.25,
-                                            child: TextField(
-                                              controller: contentController,
-                                              maxLines: 12,
-                                              decoration: InputDecoration(
-                                                enabledBorder:
-                                                    OutlineInputBorder(
-                                                  borderRadius:
-                                                      BorderRadius.all(
-                                                          Radius.circular(
-                                                              12.0)),
-                                                  borderSide: BorderSide(
-                                                      color: Colors.black,
-                                                      width: 0.5),
-                                                ),
-                                                focusedBorder:
-                                                    OutlineInputBorder(
-                                                  borderRadius:
-                                                      BorderRadius.all(
-                                                          Radius.circular(
-                                                              10.0)),
-                                                  borderSide: BorderSide(
-                                                      color: Colors.red),
-                                                ),
-                                                hintText:
-                                                    'How can we help you?',
-                                                fillColor: Colors.white,
-                                                filled: true,
-                                              ),
-                                            ),
-                                          ),
-                                          SizedBox(
-                                            height: windowHeight * 0.03,
-                                          ),
-                                          GestureDetector(
-                                            onTap: () async {
-                                              Body.subject = subjectController
-                                                  .text
-                                                  .toString();
-                                              Body.content = contentController
-                                                  .text
-                                                  .toString();
-                                              if (Body.subject.isEmpty &&
-                                                  Body.content.isEmpty) {
-                                                _showSnackBar(
-                                                    'Please enter details');
-                                              } else if (Body.subject.isEmpty ||
-                                                  Body.content.isEmpty) {
-                                                _showSnackBar(
-                                                    'Fileds cannot be empty');
-                                              } else {
-                                                await raiseTicket();
-                                                Navigator.pop(context);
-                                                if (Body.status == 'true') {
-                                                  _showSnackBar(Body.message);
-                                                  setState(() {
-                                                    getTicketData();
-                                                  });
-                                                } else {
-                                                  _showSnackBar(
-                                                      'Something went wrong, please try again later.');
-                                                }
-                                              }
-                                            },
-                                            child: PrimaryButton(
-                                              btnText: 'Submit',
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  ),
-                                );
-                              },
-                            );
-                          }
-                        },
-                        child: Icon(Icons.add),
-                      ),
+      body: GestureDetector(
+        onTap: () => FocusScope.of(context).unfocus(),
+        child: Container(
+          child: FutureBuilder(
+            future: getTicketData(),
+            builder: (BuildContext context, AsyncSnapshot snapshot) {
+              if (snapshot.data == null) {
+                return Container(
+                  child: Center(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        LoadingDoubleFlipping.circle(
+                          borderColor: Color(0xFF5B16D0),
+                          borderSize: 2.0,
+                          size: 40.0,
+                          backgroundColor: Color(0xFF5B16D0),
+                        ),
+                        Text(
+                          "We are fetching the data. \nPlease wait...",
+                          textAlign: TextAlign.center,
+                        ),
+                      ],
                     ),
                   ),
-                ],
-              );
-            } else {
-              return Stack(
-                children: [
-                  ListView.builder(
-                    itemCount: snapshot.data.length,
-                    itemBuilder: (context, index) {
-                      return Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 5),
-                        child: GestureDetector(
-                          onTap: () {
-                            showModalBottomSheet(
-                              context: context,
-                              builder: (context) {
-                                return Scaffold(
-                                  appBar: AppBar(
-                                    backgroundColor: Colors.white,
-                                    elevation: 0,
-                                    title: Text(
-                                      snapshot.data[index].ticket_subject,
-                                      style: TextStyle(
-                                        color: Colors.black,
-                                        fontWeight: FontWeight.bold,
+                );
+              } else if (snapshot.data.length == 0) {
+                return Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    SizedBox(),
+                    Text(
+                      'You do not have any active tickets',
+                      style: TextStyle(color: Colors.grey, fontSize: 20),
+                      textAlign: TextAlign.center,
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(18.0),
+                      child: Align(
+                        alignment: Alignment.bottomRight,
+                        child: FloatingActionButton(
+                          onPressed: () {
+                            {
+                              showModalBottomSheet(
+                                isScrollControlled: true,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.only(
+                                      topLeft: Radius.circular(30.0),
+                                      topRight: Radius.circular(30.0)),
+                                ),
+                                context: context,
+                                builder: (context) {
+                                  return Container(
+                                    child: Padding(
+                                      padding: EdgeInsets.only(
+                                          bottom: MediaQuery.of(context)
+                                              .viewInsets
+                                              .bottom),
+                                      child: Padding(
+                                        padding: const EdgeInsets.symmetric(
+                                            horizontal: 22.0, vertical: 25),
+                                        child: Column(
+                                          mainAxisSize: MainAxisSize.min,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.start,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.center,
+                                          children: [
+                                            Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment
+                                                      .spaceBetween,
+                                              children: [
+                                                Text(
+                                                  'We are here to help',
+                                                  style: TextStyle(
+                                                    color: Colors.black,
+                                                    fontSize: 22,
+                                                    fontWeight: FontWeight.w600,
+                                                  ),
+                                                ),
+                                                CloseButton(),
+                                              ],
+                                            ),
+                                            Container(
+                                              margin: EdgeInsets.all(12),
+                                              height: windowHeight * 0.08,
+                                              child: TextField(
+                                                maxLength: 100,
+                                                controller: subjectController,
+                                                maxLines: 12,
+                                                decoration: InputDecoration(
+                                                  enabledBorder:
+                                                      OutlineInputBorder(
+                                                    borderRadius:
+                                                        BorderRadius.all(
+                                                            Radius.circular(
+                                                                12.0)),
+                                                    borderSide: BorderSide(
+                                                        color: Colors.black,
+                                                        width: 0.5),
+                                                  ),
+                                                  focusedBorder:
+                                                      OutlineInputBorder(
+                                                    borderRadius:
+                                                        BorderRadius.all(
+                                                            Radius.circular(
+                                                                10.0)),
+                                                    borderSide: BorderSide(
+                                                        color: Colors.red),
+                                                  ),
+                                                  hintText: 'Subject',
+                                                  fillColor: Colors.white,
+                                                  filled: true,
+                                                ),
+                                              ),
+                                            ),
+                                            Container(
+                                              margin: EdgeInsets.all(12),
+                                              height: windowHeight * 0.25,
+                                              child: TextField(
+                                                maxLength: 500,
+                                                controller: contentController,
+                                                maxLines: 12,
+                                                decoration: InputDecoration(
+                                                  enabledBorder:
+                                                      OutlineInputBorder(
+                                                    borderRadius:
+                                                        BorderRadius.all(
+                                                            Radius.circular(
+                                                                12.0)),
+                                                    borderSide: BorderSide(
+                                                        color: Colors.black,
+                                                        width: 0.5),
+                                                  ),
+                                                  focusedBorder:
+                                                      OutlineInputBorder(
+                                                    borderRadius:
+                                                        BorderRadius.all(
+                                                            Radius.circular(
+                                                                10.0)),
+                                                    borderSide: BorderSide(
+                                                        color: Colors.red),
+                                                  ),
+                                                  hintText:
+                                                      'How can we help you?',
+                                                  fillColor: Colors.white,
+                                                  filled: true,
+                                                ),
+                                              ),
+                                            ),
+                                            SizedBox(
+                                              height: windowHeight * 0.03,
+                                            ),
+                                            GestureDetector(
+                                              onTap: () async {
+                                                Body.subject = subjectController
+                                                    .text
+                                                    .toString();
+                                                Body.content = contentController
+                                                    .text
+                                                    .toString();
+                                                if (Body.subject.isEmpty &&
+                                                    Body.content.isEmpty) {
+                                                  _showSnackBar(
+                                                      'Please enter details');
+                                                } else if (Body
+                                                        .subject.isEmpty ||
+                                                    Body.content.isEmpty) {
+                                                  _showSnackBar(
+                                                      'Fileds cannot be empty');
+                                                } else {
+                                                  await raiseTicket();
+                                                  Navigator.pop(context);
+                                                  if (Body.status == 'true') {
+                                                    _showSnackBar(Body.message);
+                                                    setState(() {
+                                                      getTicketData();
+                                                    });
+                                                  } else {
+                                                    _showSnackBar(
+                                                        'Something went wrong, please try again later.');
+                                                  }
+                                                }
+                                              },
+                                              child: PrimaryButton(
+                                                btnText: 'Submit',
+                                              ),
+                                            ),
+                                          ],
+                                        ),
                                       ),
                                     ),
-                                    actions: [
-                                      CloseButton(
-                                        color: Colors.black,
+                                  );
+                                },
+                              );
+                            }
+                          },
+                          child: Icon(Icons.add),
+                        ),
+                      ),
+                    ),
+                  ],
+                );
+              } else {
+                return Stack(
+                  children: [
+                    ListView.builder(
+                      itemCount: snapshot.data.length,
+                      itemBuilder: (context, index) {
+                        return Padding(
+                          padding: EdgeInsets.symmetric(horizontal: 5),
+                          child: GestureDetector(
+                            onTap: () {
+                              showModalBottomSheet(
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.only(
+                                      topLeft: Radius.circular(30.0),
+                                      topRight: Radius.circular(30.0)),
+                                ),
+                                context: context,
+                                builder: (context) {
+                                  return Scaffold(
+                                    appBar: AppBar(
+                                      backgroundColor: Colors.white,
+                                      elevation: 0,
+                                      title: Text(
+                                        snapshot.data[index].ticket_subject,
+                                        style: TextStyle(
+                                          color: Colors.black,
+                                          fontWeight: FontWeight.bold,
+                                        ),
                                       ),
-                                    ],
-                                  ),
-                                  body: SingleChildScrollView(
-                                    child: Container(
+                                      actions: [
+                                        CloseButton(
+                                          color: Colors.black,
+                                        ),
+                                      ],
+                                    ),
+                                    body: SingleChildScrollView(
                                       child: Padding(
                                         padding: const EdgeInsets.symmetric(
                                           horizontal: 10.0,
@@ -463,217 +484,230 @@ class _BodyState extends State<Body> {
                                         ),
                                       ),
                                     ),
-                                  ),
-                                );
-                              },
-                            );
-                          },
-                          child: Card(
-                            child: Padding(
-                              padding: const EdgeInsets.symmetric(
-                                  horizontal: 8.0, vertical: 10),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                children: [
-                                  Row(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Expanded(
-                                        flex: 6,
-                                        child: Text(
-                                          snapshot.data[index].ticket_subject,
-                                          style: TextStyle(
-                                            fontSize: 18,
-                                            fontWeight: FontWeight.bold,
+                                  );
+                                },
+                              );
+                            },
+                            child: Card(
+                              child: Padding(
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 8.0, vertical: 10),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  children: [
+                                    Row(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Expanded(
+                                          flex: 6,
+                                          child: Text(
+                                            snapshot.data[index].ticket_subject,
+                                            style: TextStyle(
+                                              fontSize: 18,
+                                              fontWeight: FontWeight.bold,
+                                            ),
+                                            textAlign: TextAlign.start,
                                           ),
-                                          textAlign: TextAlign.start,
                                         ),
-                                      ),
-                                      Expanded(
-                                        flex: 2,
-                                        child: Text(
-                                          snapshot.data[index].ticket_date,
-                                          style: TextStyle(
-                                              fontSize: 15,
-                                              fontWeight: FontWeight.bold),
+                                        Expanded(
+                                          flex: 2,
+                                          child: Text(
+                                            snapshot.data[index].ticket_date,
+                                            style: TextStyle(
+                                                fontSize: 15,
+                                                fontWeight: FontWeight.bold),
+                                          ),
                                         ),
-                                      ),
-                                    ],
-                                  ),
-                                  SizedBox(height: windowHeight * 0.01),
-                                  Text(
-                                    snapshot.data[index].ticket_content,
-                                    style: TextStyle(
-                                      fontSize: 15,
-                                      fontWeight: FontWeight.w600,
+                                      ],
                                     ),
-                                    textAlign: TextAlign.start,
-                                  ),
-                                ],
+                                    SizedBox(height: windowHeight * 0.01),
+                                    Text(
+                                      snapshot.data[index].ticket_content,
+                                      style: TextStyle(
+                                        fontSize: 15,
+                                        fontWeight: FontWeight.w600,
+                                      ),
+                                      textAlign: TextAlign.start,
+                                    ),
+                                  ],
+                                ),
                               ),
                             ),
                           ),
-                        ),
-                      );
-                    },
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(18.0),
-                    child: Align(
-                      alignment: Alignment.bottomRight,
-                      child: FloatingActionButton(
-                        onPressed: () {
-                          {
-                            showModalBottomSheet(
-                              context: context,
-                              builder: (context) {
-                                return Scaffold(
-                                  appBar: AppBar(
-                                    actions: [
-                                      CloseButton(
-                                        color: Colors.black,
-                                      ),
-                                    ],
-                                    elevation: 0,
-                                    backgroundColor: Colors.white,
-                                    title: Text(
-                                      'Please tell us your concern',
-                                      style: TextStyle(
-                                        color: Colors.black,
-                                      ),
-                                    ),
-                                  ),
-                                  body: Container(
+                        );
+                      },
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(18.0),
+                      child: Align(
+                        alignment: Alignment.bottomRight,
+                        child: FloatingActionButton(
+                          onPressed: () {
+                            {
+                              showModalBottomSheet(
+                                isScrollControlled: true,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.only(
+                                      topLeft: Radius.circular(30.0),
+                                      topRight: Radius.circular(30.0)),
+                                ),
+                                context: context,
+                                builder: (context) {
+                                  return Container(
                                     child: Padding(
-                                      padding: const EdgeInsets.symmetric(
-                                          horizontal: 18.0),
-                                      child: Column(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.start,
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.center,
-                                        children: [
-                                          Container(
-                                            margin: EdgeInsets.all(12),
-                                            height: windowHeight * 0.08,
-                                            child: TextField(
-                                              controller: subjectController,
-                                              maxLines: 12,
-                                              decoration: InputDecoration(
-                                                enabledBorder:
-                                                    OutlineInputBorder(
-                                                  borderRadius:
-                                                      BorderRadius.all(
-                                                          Radius.circular(
-                                                              12.0)),
-                                                  borderSide: BorderSide(
-                                                      color: Colors.black,
-                                                      width: 0.5),
+                                      padding: EdgeInsets.only(
+                                          bottom: MediaQuery.of(context)
+                                              .viewInsets
+                                              .bottom),
+                                      child: Padding(
+                                        padding: const EdgeInsets.symmetric(
+                                            horizontal: 22.0, vertical: 25),
+                                        child: Column(
+                                          mainAxisSize: MainAxisSize.min,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.center,
+                                          children: [
+                                            Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment
+                                                      .spaceBetween,
+                                              children: [
+                                                Text(
+                                                  'We are here to help',
+                                                  style: TextStyle(
+                                                    color: Colors.black,
+                                                    fontSize: 22,
+                                                    fontWeight: FontWeight.w600,
+                                                  ),
                                                 ),
-                                                focusedBorder:
-                                                    OutlineInputBorder(
-                                                  borderRadius:
-                                                      BorderRadius.all(
-                                                          Radius.circular(
-                                                              10.0)),
-                                                  borderSide: BorderSide(
-                                                      color: Colors.red),
+                                                CloseButton(),
+                                              ],
+                                            ),
+                                            Container(
+                                              margin: EdgeInsets.all(12),
+                                              height: windowHeight * 0.08,
+                                              child: TextField(
+                                                controller: subjectController,
+                                                maxLength: 100,
+                                                maxLines: 12,
+                                                decoration: InputDecoration(
+                                                  enabledBorder:
+                                                      OutlineInputBorder(
+                                                    borderRadius:
+                                                        BorderRadius.all(
+                                                            Radius.circular(
+                                                                12.0)),
+                                                    borderSide: BorderSide(
+                                                        color: Colors.black,
+                                                        width: 0.5),
+                                                  ),
+                                                  focusedBorder:
+                                                      OutlineInputBorder(
+                                                    borderRadius:
+                                                        BorderRadius.all(
+                                                            Radius.circular(
+                                                                10.0)),
+                                                    borderSide: BorderSide(
+                                                        color: Colors.red),
+                                                  ),
+                                                  hintText: 'Subject',
+                                                  fillColor: Colors.white,
+                                                  filled: true,
                                                 ),
-                                                hintText: 'Subject',
-                                                fillColor: Colors.white,
-                                                filled: true,
                                               ),
                                             ),
-                                          ),
-                                          Container(
-                                            margin: EdgeInsets.all(12),
-                                            height: windowHeight * 0.25,
-                                            child: TextField(
-                                              controller: contentController,
-                                              maxLines: 12,
-                                              decoration: InputDecoration(
-                                                enabledBorder:
-                                                    OutlineInputBorder(
-                                                  borderRadius:
-                                                      BorderRadius.all(
-                                                          Radius.circular(
-                                                              12.0)),
-                                                  borderSide: BorderSide(
-                                                      color: Colors.black,
-                                                      width: 0.5),
+                                            Container(
+                                              margin: EdgeInsets.all(12),
+                                              height: windowHeight * 0.25,
+                                              child: TextField(
+                                                controller: contentController,
+                                                maxLength: 500,
+                                                maxLines: 12,
+                                                decoration: InputDecoration(
+                                                  enabledBorder:
+                                                      OutlineInputBorder(
+                                                    borderRadius:
+                                                        BorderRadius.all(
+                                                            Radius.circular(
+                                                                12.0)),
+                                                    borderSide: BorderSide(
+                                                        color: Colors.black,
+                                                        width: 0.5),
+                                                  ),
+                                                  focusedBorder:
+                                                      OutlineInputBorder(
+                                                    borderRadius:
+                                                        BorderRadius.all(
+                                                            Radius.circular(
+                                                                10.0)),
+                                                    borderSide: BorderSide(
+                                                        color: Colors.red),
+                                                  ),
+                                                  hintText:
+                                                      'How can we help you?',
+                                                  fillColor: Colors.white,
+                                                  filled: true,
                                                 ),
-                                                focusedBorder:
-                                                    OutlineInputBorder(
-                                                  borderRadius:
-                                                      BorderRadius.all(
-                                                          Radius.circular(
-                                                              10.0)),
-                                                  borderSide: BorderSide(
-                                                      color: Colors.red),
-                                                ),
-                                                hintText:
-                                                    'How can we help you?',
-                                                fillColor: Colors.white,
-                                                filled: true,
                                               ),
                                             ),
-                                          ),
-                                          SizedBox(
-                                            height: windowHeight * 0.03,
-                                          ),
-                                          GestureDetector(
-                                            onTap: () async {
-                                              Body.subject = subjectController
-                                                  .text
-                                                  .toString();
-                                              Body.content = contentController
-                                                  .text
-                                                  .toString();
-                                              if (Body.subject.isEmpty &&
-                                                  Body.content.isEmpty) {
-                                                _showSnackBar(
-                                                    'Please enter details');
-                                              } else if (Body.subject.isEmpty ||
-                                                  Body.content.isEmpty) {
-                                                _showSnackBar(
-                                                    'Fileds cannot be empty');
-                                              } else {
-                                                await raiseTicket();
-                                                Navigator.pop(context);
-                                                if (Body.status == 'true') {
-                                                  _showSnackBar(Body.message);
-                                                  setState(() {
-                                                    getTicketData();
-                                                  });
-                                                } else {
+                                            SizedBox(
+                                              height: windowHeight * 0.03,
+                                            ),
+                                            GestureDetector(
+                                              onTap: () async {
+                                                Body.subject = subjectController
+                                                    .text
+                                                    .toString();
+                                                Body.content = contentController
+                                                    .text
+                                                    .toString();
+                                                if (Body.subject.isEmpty &&
+                                                    Body.content.isEmpty) {
                                                   _showSnackBar(
-                                                      'Something went wrong, please try again later.');
+                                                      'Please enter details');
+                                                } else if (Body
+                                                        .subject.isEmpty ||
+                                                    Body.content.isEmpty) {
+                                                  _showSnackBar(
+                                                      'Fileds cannot be empty');
+                                                } else {
+                                                  await raiseTicket();
+                                                  Navigator.pop(context);
+                                                  if (Body.status == 'true') {
+                                                    _showSnackBar(Body.message);
+                                                    setState(() {
+                                                      getTicketData();
+                                                    });
+                                                  } else {
+                                                    _showSnackBar(
+                                                        'Something went wrong, please try again later.');
+                                                  }
                                                 }
-                                              }
-                                            },
-                                            child: PrimaryButton(
-                                              btnText: 'Submit',
+                                              },
+                                              child: PrimaryButton(
+                                                btnText: 'Submit',
+                                              ),
                                             ),
-                                          ),
-                                        ],
+                                          ],
+                                        ),
                                       ),
                                     ),
-                                  ),
-                                );
-                              },
-                            );
-                          }
-                        },
-                        child: Icon(Icons.add),
+                                  );
+                                },
+                              );
+                            }
+                          },
+                          child: Icon(Icons.add),
+                        ),
                       ),
                     ),
-                  ),
-                ],
-              );
-            }
-          },
+                  ],
+                );
+              }
+            },
+          ),
         ),
       ),
     );
