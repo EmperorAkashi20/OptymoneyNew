@@ -15,6 +15,7 @@ class InputWithIcon extends StatefulWidget {
     this.onSaved,
     this.validator,
     this.onChanged,
+    // this.textCapitalization,
   });
   final TextInputType? keyboardTypeGlobal;
   final TextEditingController? dataController;
@@ -23,6 +24,7 @@ class InputWithIcon extends StatefulWidget {
   final Function? onSaved;
   final Function? validator;
   final Function? onChanged;
+  // final TextCapitalization? textCapitalization;
 
   @override
   _InputWithIconState createState() => _InputWithIconState();
@@ -46,6 +48,7 @@ class _InputWithIconState extends State<InputWithIcon> {
               )),
           Expanded(
             child: TextFormField(
+              // textCapitalization: widget.textCapitalization!,
               obscureText: widget.obscureText!,
               controller: widget.dataController,
               enabled: widget.enabledOrNot,
