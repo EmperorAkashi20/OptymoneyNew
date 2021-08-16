@@ -293,218 +293,210 @@ class _BodyState extends State<Body> {
                   ],
                 );
               } else {
-                return Stack(
-                  children: [
-                    ListView.builder(
-                      itemCount: snapshot.data.length,
-                      itemBuilder: (context, index) {
-                        return Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 5),
-                          child: GestureDetector(
-                            onTap: () {
-                              showModalBottomSheet(
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.only(
-                                      topLeft: Radius.circular(30.0),
-                                      topRight: Radius.circular(30.0)),
-                                ),
-                                context: context,
-                                builder: (context) {
-                                  return Scaffold(
-                                    appBar: AppBar(
-                                      backgroundColor: Colors.white,
-                                      elevation: 0,
-                                      title: Text(
-                                        snapshot.data[index].ticket_subject,
-                                        style: TextStyle(
-                                          color: Colors.black,
-                                          fontWeight: FontWeight.bold,
-                                        ),
-                                      ),
-                                      actions: [
-                                        CloseButton(
-                                          color: Colors.black,
-                                        ),
-                                      ],
+                return ListView.builder(
+                  itemCount: snapshot.data.length,
+                  itemBuilder: (context, index) {
+                    return Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 5),
+                      child: GestureDetector(
+                        onTap: () {
+                          showModalBottomSheet(
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.only(
+                                  topLeft: Radius.circular(30.0),
+                                  topRight: Radius.circular(30.0)),
+                            ),
+                            context: context,
+                            builder: (context) {
+                              return Scaffold(
+                                appBar: AppBar(
+                                  backgroundColor: Colors.white,
+                                  elevation: 0,
+                                  title: Text(
+                                    snapshot.data[index].ticket_subject,
+                                    style: TextStyle(
+                                      color: Colors.black,
+                                      fontWeight: FontWeight.bold,
                                     ),
-                                    body: SingleChildScrollView(
-                                      child: Padding(
-                                        padding: const EdgeInsets.symmetric(
-                                          horizontal: 10.0,
-                                        ),
-                                        child: Column(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.start,
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children: [
-                                            SizedBox(
-                                              height: windowHeight * 0.02,
-                                            ),
-                                            Text(
-                                              'Problem faced by you:',
-                                              style: TextStyle(
-                                                fontSize: 18,
-                                                fontWeight: FontWeight.w600,
-                                              ),
-                                            ),
-                                            SizedBox(
-                                              height: windowHeight * 0.01,
-                                            ),
-                                            Text(
-                                              snapshot
-                                                  .data[index].ticket_content,
-                                              style: TextStyle(
-                                                fontSize: 15,
-                                                fontWeight: FontWeight.w600,
-                                              ),
-                                            ),
-                                            SizedBox(
-                                              height: windowHeight * 0.04,
-                                            ),
-                                            Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment
-                                                      .spaceBetween,
-                                              children: [
-                                                Text(
-                                                  'Issue Attended By:',
-                                                  style: TextStyle(
-                                                    fontSize: 18,
-                                                    fontWeight: FontWeight.w600,
-                                                  ),
-                                                ),
-                                                Text(
-                                                  snapshot.data[index]
-                                                              .ticket_attender ==
-                                                          'null'
-                                                      ? 'Pending'
-                                                      : snapshot.data[index]
-                                                          .ticket_attender,
-                                                  style: TextStyle(
-                                                    fontSize: 18,
-                                                    fontWeight: FontWeight.w600,
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
-                                            SizedBox(
-                                              height: windowHeight * 0.01,
-                                            ),
-                                            Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment
-                                                      .spaceBetween,
-                                              children: [
-                                                Text(
-                                                  'Issue resolution date:',
-                                                  style: TextStyle(
-                                                    fontSize: 18,
-                                                    fontWeight: FontWeight.w600,
-                                                  ),
-                                                ),
-                                                Text(
-                                                  snapshot.data[index]
-                                                              .ticket_res_date ==
-                                                          'null'
-                                                      ? 'Pending'
-                                                      : snapshot.data[index]
-                                                          .ticket_res_date,
-                                                  style: TextStyle(
-                                                    fontSize: 18,
-                                                    fontWeight: FontWeight.w600,
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
-                                            SizedBox(
-                                              height: windowHeight * 0.04,
-                                            ),
-                                            Text(
-                                              'Resolution:',
-                                              style: TextStyle(
-                                                fontSize: 18,
-                                                fontWeight: FontWeight.w600,
-                                              ),
-                                            ),
-                                            SizedBox(
-                                              height: windowHeight * 0.01,
-                                            ),
-                                            Text(
-                                              snapshot.data[index]
-                                                          .ticket_solution ==
-                                                      'null'
-                                                  ? 'Your issue will soon be resolved. Please be patient.'
-                                                  : snapshot.data[index]
-                                                      .ticket_solution,
-                                              style: TextStyle(
-                                                fontSize: 15,
-                                                fontWeight: FontWeight.w600,
-                                              ),
-                                            ),
-                                            SizedBox(
-                                              height: windowHeight * 0.02,
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                    ),
-                                  );
-                                },
-                              );
-                            },
-                            child: Card(
-                              child: Padding(
-                                padding: const EdgeInsets.symmetric(
-                                    horizontal: 8.0, vertical: 10),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  children: [
-                                    Row(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Expanded(
-                                          flex: 6,
-                                          child: Text(
-                                            snapshot.data[index].ticket_subject,
-                                            style: TextStyle(
-                                              fontSize: 18,
-                                              fontWeight: FontWeight.bold,
-                                            ),
-                                            textAlign: TextAlign.start,
-                                          ),
-                                        ),
-                                        Expanded(
-                                          flex: 2,
-                                          child: Text(
-                                            snapshot.data[index].ticket_date,
-                                            style: TextStyle(
-                                                fontSize: 15,
-                                                fontWeight: FontWeight.bold),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                    SizedBox(height: windowHeight * 0.01),
-                                    Text(
-                                      snapshot.data[index].ticket_content,
-                                      style: TextStyle(
-                                        fontSize: 15,
-                                        fontWeight: FontWeight.w600,
-                                      ),
-                                      textAlign: TextAlign.start,
+                                  ),
+                                  actions: [
+                                    CloseButton(
+                                      color: Colors.black,
                                     ),
                                   ],
                                 ),
-                              ),
+                                body: SingleChildScrollView(
+                                  child: Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                      horizontal: 10.0,
+                                    ),
+                                    child: Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.start,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        SizedBox(
+                                          height: windowHeight * 0.02,
+                                        ),
+                                        Text(
+                                          'Problem faced by you:',
+                                          style: TextStyle(
+                                            fontSize: 18,
+                                            fontWeight: FontWeight.w600,
+                                          ),
+                                        ),
+                                        SizedBox(
+                                          height: windowHeight * 0.01,
+                                        ),
+                                        Text(
+                                          snapshot.data[index].ticket_content,
+                                          style: TextStyle(
+                                            fontSize: 15,
+                                            fontWeight: FontWeight.w600,
+                                          ),
+                                        ),
+                                        SizedBox(
+                                          height: windowHeight * 0.04,
+                                        ),
+                                        Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            Text(
+                                              'Issue Attended By:',
+                                              style: TextStyle(
+                                                fontSize: 18,
+                                                fontWeight: FontWeight.w600,
+                                              ),
+                                            ),
+                                            Text(
+                                              snapshot.data[index]
+                                                          .ticket_attender ==
+                                                      'null'
+                                                  ? 'Pending'
+                                                  : snapshot.data[index]
+                                                      .ticket_attender,
+                                              style: TextStyle(
+                                                fontSize: 18,
+                                                fontWeight: FontWeight.w600,
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                        SizedBox(
+                                          height: windowHeight * 0.01,
+                                        ),
+                                        Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            Text(
+                                              'Issue resolution date:',
+                                              style: TextStyle(
+                                                fontSize: 18,
+                                                fontWeight: FontWeight.w600,
+                                              ),
+                                            ),
+                                            Text(
+                                              snapshot.data[index]
+                                                          .ticket_res_date ==
+                                                      'null'
+                                                  ? 'Pending'
+                                                  : snapshot.data[index]
+                                                      .ticket_res_date,
+                                              style: TextStyle(
+                                                fontSize: 18,
+                                                fontWeight: FontWeight.w600,
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                        SizedBox(
+                                          height: windowHeight * 0.04,
+                                        ),
+                                        Text(
+                                          'Resolution:',
+                                          style: TextStyle(
+                                            fontSize: 18,
+                                            fontWeight: FontWeight.w600,
+                                          ),
+                                        ),
+                                        SizedBox(
+                                          height: windowHeight * 0.01,
+                                        ),
+                                        Text(
+                                          snapshot.data[index]
+                                                      .ticket_solution ==
+                                                  'null'
+                                              ? 'Your issue will soon be resolved. Please be patient.'
+                                              : snapshot
+                                                  .data[index].ticket_solution,
+                                          style: TextStyle(
+                                            fontSize: 15,
+                                            fontWeight: FontWeight.w600,
+                                          ),
+                                        ),
+                                        SizedBox(
+                                          height: windowHeight * 0.02,
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              );
+                            },
+                          );
+                        },
+                        child: Card(
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 8.0, vertical: 10),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                Row(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Expanded(
+                                      flex: 6,
+                                      child: Text(
+                                        snapshot.data[index].ticket_subject,
+                                        style: TextStyle(
+                                          fontSize: 18,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                        textAlign: TextAlign.start,
+                                      ),
+                                    ),
+                                    Expanded(
+                                      flex: 2,
+                                      child: Text(
+                                        snapshot.data[index].ticket_date,
+                                        style: TextStyle(
+                                            fontSize: 15,
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                SizedBox(height: windowHeight * 0.01),
+                                Text(
+                                  snapshot.data[index].ticket_content,
+                                  style: TextStyle(
+                                    fontSize: 15,
+                                    fontWeight: FontWeight.w600,
+                                  ),
+                                  textAlign: TextAlign.start,
+                                ),
+                              ],
                             ),
                           ),
-                        );
-                      },
-                    ),
-                  ],
+                        ),
+                      ),
+                    );
+                  },
                 );
               }
             },

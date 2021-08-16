@@ -1,7 +1,9 @@
 import 'dart:convert';
 
+import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
+import 'package:intl/intl.dart';
 import 'package:loading_animations/loading_animations.dart';
 import 'package:optymoney/BestPerformingFunds/Components/Body.dart';
 import 'package:optymoney/Components/outlinebtn.dart';
@@ -70,7 +72,12 @@ addToCartRequestOneTime() async {
 }
 
 class SingleProductDetailsPage extends StatefulWidget {
+  static List<Color> gradientColors = [
+    const Color(0xff23b6e6),
+    const Color(0xff02d39a),
+  ];
   static var ignoreButton = false;
+  static var a;
   static var date;
   static var sipAmount;
   static bool isSelected = false;
@@ -86,6 +93,19 @@ class SingleProductDetailsPage extends StatefulWidget {
 }
 
 class _SingleProductDetailsPageState extends State<SingleProductDetailsPage> {
+  DateTime now = DateTime.now();
+  final sinPoints = <FlSpot>[];
+  final cosPoints = <FlSpot>[];
+  var b;
+  var d;
+  var e;
+  var c;
+  double xValueInit = 0;
+  double xValueLast = 0;
+  double yValueInit = 0;
+  double yValueLast = 0;
+
+  int i = 0;
   double miniamt = Body.minAmt;
   var selectedDate;
   Future<List<ChartData>> _getChartData() async {
@@ -109,7 +129,20 @@ class _SingleProductDetailsPageState extends State<SingleProductDetailsPage> {
         sch['net_asset_value'],
       );
       chartsData.add(chartData);
+      // print(sch['price_date']);
+      b = double.tryParse(sch['net_asset_value']);
+      d = (DateTime.parse(sch['price_date']).month);
+      e = d.toDouble();
+      print(e);
+      sinPoints.add(FlSpot(e, b));
     }
+    print(sinPoints);
+    c = chartsData.length - 1;
+    yValueInit = sinPoints[0].y;
+    yValueLast = sinPoints[c].y;
+    xValueInit = sinPoints[0].x;
+    xValueLast = sinPoints[c].x;
+
     return chartsData;
   }
 
@@ -183,14 +216,39 @@ class _SingleProductDetailsPageState extends State<SingleProductDetailsPage> {
                   padding: EdgeInsets.all(8.0),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           // Container(
-                          //   width: double.infinity,
+                          //   width: windowWidth,
                           //   height: windowHeight * 0.3,
-                          //   child: Placeholder(),
+                          //   child: LineChart(
+                          //     LineChartData(
+                          //       titlesData: FlTitlesData(
+                          //         show: true,
+                          //       ),
+                          //       minX: xValueInit,
+                          //       minY: yValueInit,
+                          //       maxX: xValueLast,
+                          //       maxY: yValueLast,
+                          //       borderData: FlBorderData(
+                          //         show: true,
+                          //         border: Border.all(
+                          //           color: Colors.red.shade600,
+                          //           width: 1,
+                          //         ),
+                          //       ),
+                          //       gridData: FlGridData(
+                          //         show: false,
+                          //       ),
+                          //       lineBarsData: [
+                          //         sinLine(sinPoints),
+                          //         // cosLine(cosPoints),
+                          //       ],
+                          //     ),
+                          //   ),
                           // ),
                           SizedBox(
                             height: 10,
@@ -1280,6 +1338,46 @@ class _SingleProductDetailsPageState extends State<SingleProductDetailsPage> {
     ScaffoldMessenger.of(context)
       ..hideCurrentSnackBar()
       ..showSnackBar(snackBar);
+  }
+
+  LineChartBarData sinLine(List<FlSpot> points) {
+    return LineChartBarData(
+      spots: points,
+      dotData: FlDotData(
+        show: true,
+      ),
+      isCurved: true,
+      colors: SingleProductDetailsPage.gradientColors,
+      barWidth: 3,
+      belowBarData: BarAreaData(
+        show: true,
+        colors: SingleProductDetailsPage.gradientColors
+            .map(
+              (color) => color.withOpacity(0.2),
+            )
+            .toList(),
+      ),
+    );
+  }
+
+  LineChartBarData cosLine(List<FlSpot> points) {
+    return LineChartBarData(
+      spots: points,
+      dotData: FlDotData(
+        show: true,
+      ),
+      isCurved: true,
+      colors: SingleProductDetailsPage.gradientColors,
+      barWidth: 3,
+      belowBarData: BarAreaData(
+        show: true,
+        colors: SingleProductDetailsPage.gradientColors
+            .map(
+              (color) => color.withOpacity(0.2),
+            )
+            .toList(),
+      ),
+    );
   }
 }
 
