@@ -3,7 +3,6 @@ import 'dart:convert';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
-import 'package:intl/intl.dart';
 import 'package:loading_animations/loading_animations.dart';
 import 'package:optymoney/BestPerformingFunds/Components/Body.dart';
 import 'package:optymoney/Components/outlinebtn.dart';
